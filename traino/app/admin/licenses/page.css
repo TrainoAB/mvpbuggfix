@@ -1,0 +1,278 @@
+.license-file-wrap {
+    display: flex;
+    gap: .5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+    max-width: 568px;
+}
+
+.license-file {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    border: 2px solid lightgrey;
+    border-radius: var(--radius);
+    background-color: #fff;
+    color: #000;
+}
+
+.license-file-name {
+  margin-top: 2rem;
+}
+
+.license-file span {
+    display: block;
+    width: 20px;
+    height: 1.5rem;
+}
+
+.bugreportpage .pdf-viewer {
+  border-radius: var(--radius);
+}
+
+/* Carry-over css from bug reports */
+.bugreportpage {
+    background-color: var(--bgcolor);
+  }
+  
+  .bugreportpage .scrollcontainer {
+    height: calc(100vh - 6.5rem) !important;
+  }
+  .bugreportpage .title-container {
+    text-align: center;
+    margin-bottom: 1.25rem;
+  }
+  
+  .bugreportpage .bug-report-card {
+    width: 95%;
+    max-width: 600px;
+    background-color: var(--bgcolor);
+    box-shadow: 0 0.1875rem 0.375rem rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    border-radius: var(--radius);
+  
+    p {
+      padding-top: 0.5rem;
+    }
+  }
+  
+  .bugreportpage .filter-label {
+    display: flex;
+    align-items: center;
+    margin: 15px;
+  }
+  
+  .bugreportpage .filter-checkbox {
+    border-radius: var(--radius);
+    cursor: pointer;
+  }
+  
+  .bugreportpage .filter-checkbox:checked {
+    accent-color: var(--maincolor);
+  }
+  
+  .bugreportpage .bug-report-date {
+    margin-bottom: 5px;
+  }
+  
+  .bugreportpage .bug-report-date p {
+    font-size: 0.8rem;
+    color: #8a8a8a;
+    padding-top: 0;
+  }
+  
+  .bugreportpage .bug-report-card-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .bugreportpage .complete-button-wrap {
+    margin-bottom: .5rem;
+  }
+  
+  .bugreportpage .modal-buttons {
+    margin-top: 1rem;
+  }
+  
+  .bugreportpage .complete-button-wrap button {
+    background: none;
+    border: solid 2px #000;
+    color: #000;
+  }
+  
+  .bugreportpage .complete-button-wrap button.complete {
+    background: #2BB673;
+    border: solid 2px #fff;
+    color: #fff;
+  }
+  
+  .bugreportpage .complete-button-wrap button:hover {
+    background: #dadada;
+  }
+  
+  .bugreportpage .complete-button-wrap button.complete:hover {
+    background: #1d8151;
+  }
+  
+  .bugreportpage .bug-report-complete-wrap {
+    display: flex;
+    max-width: 120px;
+    width: 100%;
+    height: 2rem;
+    background-color: #2BB673;
+    border-radius: var(--radius);
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #fff;
+    font-size: 0.95rem;
+  }
+  
+  .bugreportpage .bug-report-complete-wrap span {
+    width: 20px;
+    height: 2rem;
+  }
+  
+  .bugreportpage .content {
+    padding-top: 2rem;
+  }
+  
+  .bugreportpage .bug-report-card:hover {
+    background-color: var(--maincolor);
+    color: white;
+  }
+  
+  .bugreportpage .bug-report-card:hover .bug-report-complete-wrap {
+    background-color: var(--maincolor);
+    border: solid white 1px;
+  }
+  
+  .bugreportpage .bug-report-card-content {
+    height: 100%;
+  }
+  
+  .bugreportpage .bug-report-card-header h3 {
+    margin: 0;
+  }
+  
+  .bugreportpage .bug-report-image {
+    width: 100%;
+    max-width: 800px;
+    max-height: 600px;
+    border: 2px solid lightgrey;
+    border-radius: var(--radius);
+    object-fit: contain;
+  }
+  
+  .bugreportpage .bug-report-card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .bugreportpage .bug-report-card-body > div {
+    width: 100%;
+  }
+  
+  .bugreportpage .pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.25rem;
+    padding-bottom: 2rem;
+    gap: 1rem;
+  }
+  
+  .bugreportpage .current-page {
+    font-weight: bold;
+  }
+  
+  /* Modal styling */
+  .bugreportpage .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99999;
+  }
+  
+  .bugreportpage .modal.show {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  
+  .bugreportpage .modal-content {
+    background-color: #fff;
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    width: 90vw;
+    max-width: 850px;
+    min-width: 50vw;
+    max-height: 90vh;
+    box-shadow: 0 0.375rem 1rem rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow-y: scroll;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bugreportpage .modal-content > div {
+    text-align: center;
+  }
+  
+  .bugreportpage .close-button {
+    position: absolute;
+    top: 0.625rem;
+    right: 0.625rem;
+    font-size: 2.5rem;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    color: black;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    transition: color 0.3s ease;
+  }
+  
+  .bugreportpage .close-button:hover {
+    color: #333;
+  }
+  
+  .bugreportpage .modal-content p {
+    margin-bottom: 0.5rem;
+  }
+  .bugreportpage .modal-content h3 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .bugreportpage .confirm-delete-wrap {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .bugreportpage #delete-btn {
+    display: block;
+  }
+  
+  .bugreportpage #confirm-btn {
+    background-color: rgb(204, 0, 0);
+  }
+  
+  .bugreportpage .hidden {
+    display: none !important;
+  }

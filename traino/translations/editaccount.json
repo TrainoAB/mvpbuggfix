@@ -1,0 +1,756 @@
+{
+  "edit_accountdetails": {
+    "en": "Account Details",
+    "sv": "Kontouppgifter",
+    "fi": "Tilin tiedot",
+    "no": "Kontodetaljer",
+    "da": "Kontodetaljer",
+    "de": "Kontodetails",
+    "fr": "Détails du compte",
+    "es": "Detalles de la cuenta",
+    "it": "Dettagli dell'account",
+    "hr": "Detalji računa",
+    "el": "Λεπτομέρειες λογαριασμού",
+    "pt": "Detalhes da conta",
+    "nl": "Accountgegevens",
+    "pl": "Szczegóły konta",
+    "ru": "Детали учетной записи",
+    "tr": "Hesap Detayları",
+    "ar": "تفاصيل الحساب",
+    "ja": "アカウントの詳細",
+    "zh": "帐户详情",
+    "ko": "계정 세부 정보",
+    "hi": "खाता विवरण",
+    "th": "รายละเอียดบัญชี",
+    "id": "Detail Akun",
+    "ms": "Butiran Akaun",
+    "vi": "Chi tiết tài khoản",
+    "tl": "Mga Detalye ng Account",
+    "bg": "Детайли за профила",
+    "uk": "Деталі облікового запису",
+    "sr": "Детаљи налога",
+    "sk": "Detaily účtu",
+    "sl": "Podrobnosti računa"
+  },
+  "edit_accounttype": {
+    "en": "Account Type",
+    "sv": "Kontotyp",
+    "fi": "Tilin tyyppi",
+    "no": "Kontotype",
+    "da": "Kontotype",
+    "de": "Kontotyp",
+    "fr": "Type de compte",
+    "es": "Tipo de cuenta",
+    "it": "Tipo di account",
+    "hr": "Vrsta računa",
+    "el": "Τύπος λογαριασμού",
+    "pt": "Tipo de conta",
+    "nl": "Accounttype",
+    "pl": "Typ konta",
+    "ru": "Тип учетной записи",
+    "tr": "Hesap Türü",
+    "ar": "نوع الحساب",
+    "ja": "アカウントタイプ",
+    "zh": "帐户类型",
+    "ko": "계정 유형",
+    "hi": "खाता प्रकार",
+    "th": "ประเภทบัญชี",
+    "id": "Jenis Akun",
+    "ms": "Jenis Akaun",
+    "vi": "Loại tài khoản",
+    "tl": "Uri ng Account",
+    "bg": "Тип на профила",
+    "uk": "Тип облікового запису",
+    "sr": "Тип налога",
+    "sk": "Typ účtu",
+    "sl": "Vrsta računa"
+  },
+  "edit_changename": {
+    "en": "Change Name",
+    "sv": "Ändra Namn",
+    "fi": "Vaihda nimi",
+    "no": "Endre navn",
+    "da": "Skift navn",
+    "de": "Namen ändern",
+    "fr": "Changer de nom",
+    "es": "Cambiar nombre",
+    "it": "Cambia nome",
+    "hr": "Promijeni ime",
+    "el": "Αλλαγή ονόματος",
+    "pt": "Mudar nome",
+    "nl": "Naam wijzigen",
+    "pl": "Zmień nazwę",
+    "ru": "Изменить имя",
+    "tr": "İsmi Değiştir",
+    "ar": "تغيير الاسم",
+    "ja": "名前を変更",
+    "zh": "更改名称",
+    "ko": "이름 변경",
+    "hi": "नाम बदलें",
+    "th": "เปลี่ยนชื่อ",
+    "id": "Ubah Nama",
+    "ms": "Tukar Nama",
+    "vi": "Thay đổi tên",
+    "tl": "Baguhin ang Pangalan",
+    "bg": "Промяна на името",
+    "uk": "Змінити ім'я",
+    "sr": "Промени име",
+    "sk": "Zmeniť meno",
+    "sl": "Spremeni ime"
+  },
+  "edit_changemobilephone": {
+    "en": "Change Mobile Phone",
+    "sv": "Ändra Mobiltelefon",
+    "fi": "Vaihda matkapuhelin",
+    "no": "Endre mobiltelefon",
+    "da": "Skift mobiltelefon",
+    "de": "Handynummer ändern",
+    "fr": "Changer de téléphone portable",
+    "es": "Cambiar teléfono móvil",
+    "it": "Cambia telefono cellulare",
+    "hr": "Promijeni mobilni telefon",
+    "el": "Αλλαγή κινητού τηλεφώνου",
+    "pt": "Mudar telemóvel",
+    "nl": "Mobiele telefoon wijzigen",
+    "pl": "Zmień telefon komórkowy",
+    "ru": "Изменить мобильный телефон",
+    "tr": "Mobil Telefon Değiştir",
+    "ar": "تغيير الهاتف المحمول",
+    "ja": "携帯電話を変更",
+    "zh": "更改移动电话",
+    "ko": "휴대 전화 변경",
+    "hi": "मोबाइल फोन बदलें",
+    "th": "เปลี่ยนโทรศัพท์มือถือ",
+    "id": "Ubah Ponsel",
+    "ms": "Tukar Telefon Bimbit",
+    "vi": "Thay đổi Điện thoại Di động",
+    "tl": "Baguhin ang Mobile Phone",
+    "bg": "Промяна на мобилния телефон",
+    "uk": "Змінити мобільний телефон",
+    "sr": "Промени мобилни телефон",
+    "sk": "Zmeniť mobilný telefón",
+    "sl": "Spremeni mobilni telefon"
+  },
+  "edit_deleteaccount": {
+    "en": "Delete Account",
+    "sv": "Radera Konto",
+    "fi": "Poista tili",
+    "no": "Slett konto",
+    "da": "Slet konto",
+    "de": "Konto löschen",
+    "fr": "Supprimer le compte",
+    "es": "Eliminar cuenta",
+    "it": "Elimina account",
+    "hr": "Izbriši račun",
+    "el": "Διαγραφή λογαριασμού",
+    "pt": "Apagar conta",
+    "nl": "Account verwijderen",
+    "pl": "Usuń konto",
+    "ru": "Удалить учетную запись",
+    "tr": "Hesabı Sil",
+    "ar": "حذف الحساب",
+    "ja": "アカウントを削除",
+    "zh": "删除帐户",
+    "ko": "계정 삭제",
+    "hi": "खाता हटाएं",
+    "th": "ลบบัญชี",
+    "id": "Hapus Akun",
+    "ms": "Padam Akaun",
+    "vi": "Xóa tài khoản",
+    "tl": "Tanggalin ang Account",
+    "bg": "Изтрий профила",
+    "uk": "Видалити обліковий запис",
+    "sr": "Избриши налог",
+    "sk": "Zmazať účet",
+    "sl": "Izbriši račun"
+  },
+
+  "education": {
+    "en": "Education",
+    "sv": "Utbildning",
+    "da": "Uddannelse",
+    "no": "Utdanning",
+    "fi": "Koulutus"
+  },
+  "add_education": {
+    "en": "Add education",
+    "sv": "Lägg till utbildning",
+    "da": "Tilføj uddannelse",
+    "no": "Legg til utdanning",
+    "fi": "Lisää koulutus"
+  },
+  "educations": {
+    "en": "Educations",
+    "sv": "Utbildningar",
+    "da": "Uddannelser",
+    "no": "Utdanninger",
+    "fi": "Koulutukset"
+  },
+  "loading_educations": {
+    "en": "Loading...",
+    "sv": "Läser in...",
+    "da": "Indlæser...",
+    "no": "Laster inn...",
+    "fi": "Ladataan..."
+  },
+  "no_educations": {
+    "en": "No educations",
+    "sv": "Inga utbildningar",
+    "da": "Ingen uddannelse",
+    "no": "Ingen utdanning",
+    "fi": "Ei koulutuksia"
+  },
+  "upload_licenses": {
+    "en": "Upload licenses",
+    "sv": "Ladda upp licenser",
+    "da": "Upload licenser",
+    "no": "Last opp lisenser",
+    "fi": "Lataa lisenssit"
+  },
+  "licensed_dietitian": {
+    "en": "I am a licensed dietitian",
+    "sv": "Jag är legitimerad dietist",
+    "da": "Jeg er autoriseret diætist",
+    "no": "Jeg er autorisert ernæringsfysiolog",
+    "fi": "Olen laillistettu ravitsemusterapeutti"
+  },
+  "select_files": {
+    "en": "Select files",
+    "sv": "Välj filer",
+    "da": "Vælg filer",
+    "no": "Velg filer",
+    "fi": "Valitse tiedostot"
+  },
+  "already_verified": {
+    "en": "You are already verified.",
+    "sv": "Du är redan verifierad.",
+    "da": "Du er allerede verificeret.",
+    "no": "Du er allerede verifisert.",
+    "fi": "Olet jo varmennettu."
+  },
+  "uploaded_sent_for_review": {
+    "en": "Once uploaded, your licenses will be sent to TRAINO for review.",
+    "sv": "När du har laddat upp licenser skickas de till oss på TRAINO för granskning.",
+    "da": "Når du har uploadet licenser, bliver de sendt til TRAINO til gennemgang.",
+    "no": "Når du har lastet opp lisenser, blir de sendt til TRAINO for gjennomgang.",
+    "fi": "Kun lisenssit on ladattu, ne lähetetään TRAINOlle tarkastettavaksi."
+  },
+  "uploaded_licenses": {
+    "en": "Uploaded licenses",
+    "sv": "Uppladdade licenser",
+    "da": "Uploadede licenser",
+    "no": "Opplastede lisenser",
+    "fi": "Ladatut lisenssit"
+  },
+  "cancel": {
+    "en": "Cancel",
+    "sv": "Avbryt",
+    "da": "Annuller",
+    "no": "Avbryt",
+    "fi": "Peruuta"
+  },
+  "profile_info": {
+    "en": "Profile information",
+    "sv": "Profiluppgifter",
+    "da": "Profiloplysninger",
+    "no": "Profilinformasjon",
+    "fi": "Profiilitiedot"
+  },
+  "alias": {
+    "en": "Alias",
+    "sv": "Alias",
+    "da": "Alias",
+    "no": "Alias",
+    "fi": "Alias"
+  },
+  "workplace": {
+    "en": "Workplace",
+    "sv": "Verksamhetsplats",
+    "da": "Arbejdssted",
+    "no": "Arbeidssted",
+    "fi": "Toimipaikka"
+  },
+  "account_settings": {
+    "en": "Account settings",
+    "sv": "Kontohantering",
+    "da": "Kontohåndtering",
+    "no": "Kontoadministrasjon",
+    "fi": "Tilin hallinta"
+  },
+  "add_sport_title": {
+    "en": "Add sport",
+    "sv": "Lägg till sport",
+    "da": "Tilføj sport",
+    "no": "Legg til sport",
+    "fi": "Lisää laji"
+  },
+  "add_sport_text": {
+    "en": "Add the sports and activities you offer as a personal trainer",
+    "sv": "Lägg till de sporter och aktiviteter du som personlig tränare erbjuder",
+    "da": "Tilføj de sportsgrene og aktiviteter, du tilbyder som personlig træner",
+    "no": "Legg til sport og aktiviteter du tilbyr som personlig trener",
+    "fi": "Lisää lajit ja aktiviteetit, joita tarjoat henkilökohtaisena valmentajana"
+  },
+  "choose_sport": {
+    "en": "Choose sport",
+    "sv": "Välj sport",
+    "da": "Vælg sport",
+    "no": "Velg sport",
+    "fi": "Valitse laji"
+  },
+  "confirm_account_delete": {
+    "en": "Are you sure?",
+    "sv": "Är du säker?",
+    "da": "Er du sikker?",
+    "no": "Er du sikker?",
+    "fi": "Oletko varma?"
+  },
+  "delete_account": {
+    "en": "Delete account",
+    "sv": "Ta bort konto",
+    "da": "Slet konto",
+    "no": "Slett konto",
+    "fi": "Poista tili"
+  },
+  "save_changes": {
+    "en": "Save changes",
+    "sv": "Spara ändringar",
+    "da": "Gem ændringer",
+    "no": "Lagre endringer",
+    "fi": "Tallenna muutokset"
+  },
+  "add_education_info": {
+    "en": "Add relevant education in training and health to legitimize yourself as a personal trainer",
+    "sv": "Lägg till relevanta utbildningar inom träning och hälsa för att legitimera dig som personlig tränare",
+    "da": "Tilføj relevant uddannelse inden for træning og sundhed for at legitimere dig som personlig træner",
+    "no": "Legg til relevant utdanning innen trening og helse for å legitimere deg som personlig trener",
+    "fi": "Lisää koulutus liikunnan ja terveyden alalta osoittaaksesi pätevyytesi henkilökohtaisena valmentajana"
+  },
+  "add_workplace_title": {
+    "en": "Add workplace",
+    "sv": "Lägg till verksamhetsplats",
+    "da": "Tilføj arbejdssted",
+    "no": "Legg til arbeidssted",
+    "fi": "Lisää toimipaikka"
+  },
+  "add_workplace_text": {
+    "en": "Add a location where you work as a personal trainer. For example, gym, training facility or club.",
+    "sv": "Lägg till en plats där du som personlig tränare är verksam. Till exempel gym, träningsanläggning eller föreningslokal.",
+    "da": "Tilføj et sted, hvor du arbejder som personlig træner. For eksempel fitnesscenter, træningsfacilitet eller klub.",
+    "no": "Legg til et sted der du jobber som personlig trener. For eksempel treningssenter, anlegg eller klubb.",
+    "fi": "Lisää paikka, jossa toimit henkilökohtaisena valmentajana. Esimerkiksi kuntosali, liikuntakeskus tai yhdistystila."
+  },
+  "licenses": {
+    "en": "Licenses",
+    "sv": "Licenser",
+    "da": "Licenser",
+    "no": "Lisenser",
+    "fi": "Lisenssit"
+  },
+  "verified": {
+    "en": "Verified!",
+    "sv": "Verifierad!",
+    "da": "Verificeret!",
+    "no": "Verifisert!",
+    "fi": "Vahvistettu!"
+  },
+  "no_licenses": {
+    "en": "No licenses",
+    "sv": "Inga licenser",
+    "da": "Ingen licenser",
+    "no": "Ingen lisenser",
+    "fi": "Ei lisenssejä"
+  },
+  "sports": {
+    "en": "Sports",
+    "sv": "Sporter",
+    "da": "Sportsgrene",
+    "no": "Idretter",
+    "fi": "Lajit"
+  },
+  "change_workplace": {
+    "en": "Change workplace",
+    "sv": "Ändra verksamhetsplats",
+    "da": "Skift arbejdssted",
+    "no": "Endre arbeidssted",
+    "fi": "Muuta toimipaikkaa"
+  },
+  "change_password": {
+    "en": "Change password",
+    "sv": "Ändra lösenord",
+    "da": "Skift adgangskode",
+    "no": "Endre passord",
+    "fi": "Vaihda salasana"
+  },
+  "password": {
+    "en": "Password",
+    "sv": "Lösenord",
+    "da": "Adgangskode",
+    "no": "Passord",
+    "fi": "Salasana"
+  },
+  "change_alias": {
+    "en": "Change alias",
+    "sv": "Ändra alias",
+    "da": "Skift alias",
+    "no": "Endre alias",
+    "fi": "Vaihda nimimerkki"
+  },
+  "change_aboutme": {
+    "en": "Change About Me",
+    "sv": "Ändra Om mig",
+    "da": "Skift Om mig",
+    "no": "Endre Om meg",
+    "fi": "Muokkaa Tietoja minusta"
+  },
+  "aboutme": {
+    "en": "About Me",
+    "sv": "Om mig",
+    "da": "Om mig",
+    "no": "Om meg",
+    "fi": "Tietoja minusta"
+  },
+  "change_email": {
+    "en": "Change email address",
+    "sv": "Ändra e-postadress",
+    "da": "Skift e-mailadresse",
+    "no": "Endre e-postadresse",
+    "fi": "Vaihda sähköpostiosoite"
+  },
+  "email": {
+    "en": "Email address",
+    "sv": "E-postadress",
+    "da": "E-mailadresse",
+    "no": "E-postadresse",
+    "fi": "Sähköpostiosoite"
+  },
+  "current_password_wrong": {
+    "en": "Current password is incorrect",
+    "sv": "Nuvarande lösenordet är felaktigt",
+    "da": "Nuværende adgangskode er forkert",
+    "no": "Nåværende passord er feil",
+    "fi": "Nykyinen salasana on virheellinen"
+  },
+  "password_wrong": {
+    "en": "Password is incorrect",
+    "sv": "Lösenordet är felaktigt",
+    "da": "Adgangskoden er forkert",
+    "no": "Passordet er feil",
+    "fi": "Salasana on virheellinen"
+  },
+  "change_sports": {
+    "en": "Change sports",
+    "sv": "Ändra sporter",
+    "da": "Skift sportsgrene",
+    "no": "Endre idretter",
+    "fi": "Vaihda urheilulajeja"
+  },
+  "no_uploaded_licenses": {
+    "en": "No licenses uploaded",
+    "sv": "Inga licenser uppladdade",
+    "da": "Ingen licenser uploadet",
+    "no": "Ingen lisenser lastet opp",
+    "fi": "Ei lisenssejä ladattu"
+  },
+  "workplace_required": {
+    "en": "You must choose a business address.",
+    "sv": "Du måste välja en verksamhetsadress.",
+    "da": "Du skal vælge en arbejdsadresse.",
+    "no": "Du må velge en arbeidsadresse.",
+    "fi": "Sinun on valittava toimipaikan osoite."
+  },
+  "all_fields_required": {
+    "en": "All fields are required.",
+    "sv": "Alla fält är obligatoriska.",
+    "da": "Alle felter er obligatoriske.",
+    "no": "Alle felt er obligatoriske.",
+    "fi": "Kaikki kentät ovat pakollisia."
+  },
+  "password_min_length": {
+    "en": "Your password must be at least 8 characters long.",
+    "sv": "Du måste ha ett lösenord på minst 8 tecken.",
+    "da": "Din adgangskode skal være mindst 8 tegn lang.",
+    "no": "Passordet ditt må være minst 8 tegn langt.",
+    "fi": "Salasanan on oltava vähintään 8 merkkiä pitkä."
+  },
+  "password_mismatch": {
+    "en": "The new password does not match the confirmation.",
+    "sv": "Det nya lösenordet matchar inte bekräftelsen.",
+    "da": "Den nye adgangskode matcher ikke bekræftelsen.",
+    "no": "Det nye passordet samsvarer ikke med bekreftelsen.",
+    "fi": "Uusi salasana ei täsmää vahvistuksen kanssa."
+  },
+  "password_same_as_old": {
+    "en": "The new password is the same as the old one.",
+    "sv": "Det nya lösenordet är samma som det gamla.",
+    "da": "Den nye adgangskode er den samme som den gamle.",
+    "no": "Det nye passordet er det samme som det gamle.",
+    "fi": "Uusi salasana on sama kuin vanha."
+  },
+  "current_password": {
+    "en": "Current password",
+    "sv": "Nuvarande lösenord",
+    "da": "Nuværende adgangskode",
+    "no": "Nåværende passord",
+    "fi": "Nykyinen salasana"
+  },
+  "confirm_password": {
+    "en": "Confirm password",
+    "sv": "Bekräfta lösenord",
+    "da": "Bekræft adgangskode",
+    "no": "Bekreft passord",
+    "fi": "Vahvista salasana"
+  },
+  "new_password": {
+    "en": "New password",
+    "sv": "Nytt lösenord",
+    "da": "Nyt kodeord",
+    "no": "Nytt passord",
+    "fi": "Uusi salasana"
+  },
+  "fullname_required": {
+    "en": "You must enter both first and last name.",
+    "sv": "Du måste fylla i både Förnamn och Efternamn.",
+    "da": "Du skal udfylde både fornavn og efternavn.",
+    "no": "Du må fylle ut både fornavn og etternavn.",
+    "fi": "Sinun on täytettävä sekä etu- että sukunimi."
+  },
+  "name_too_long": {
+    "en": "Name must be no more than 50 characters long.",
+    "sv": "Namnet får inte vara längre än 50 tecken.",
+    "da": "Navnet må ikke være længere end 50 tegn.",
+    "no": "Navnet kan ikke være lenger enn 50 tegn.",
+    "fi": "Nimi ei saa olla pidempi kuin 50 merkkiä."
+  },
+  "firstname_too_long": {
+    "en": "First name must be no more than 50 characters long.",
+    "sv": "Förnamnet får inte vara längre än 50 tecken.",
+    "da": "Fornavnet må ikke være længere end 50 tegn.",
+    "no": "Fornavnet kan ikke være lenger enn 50 tegn.",
+    "fi": "Etunimi ei saa olla pidempi kuin 50 merkkiä."
+  },
+  "lastname_too_long": {
+    "en": "Last name must be no more than 50 characters long.",
+    "sv": "Efternamnet får inte vara längre än 50 tecken.",
+    "da": "Efternavnet må ikke være længere end 50 tegn.",
+    "no": "Etternavnet kan ikke være lenger enn 50 tegn.",
+    "fi": "Sukunimi ei saa olla pidempi kuin 50 merkkiä."
+  },
+  "education_fetch_error": {
+    "en": "An error occurred while fetching educations.",
+    "sv": "Det hände ett fel medans vi hämtade utbildningar.",
+    "da": "Der opstod en fejl under hentning af uddannelser.",
+    "no": "Det oppstod en feil under henting av utdanninger.",
+    "fi": "Tapahtui virhe haettaessa koulutuksia."
+  },
+  "education_empty": {
+    "en": "Education cannot be empty.",
+    "sv": "Utbildning kan inte vara tom.",
+    "da": "Uddannelse må ikke være tom.",
+    "no": "Utdanning kan ikke være tom.",
+    "fi": "Koulutus ei voi olla tyhjä."
+  },
+  "file_with_name": {
+    "en": "File with name",
+    "sv": "Fil med namnet",
+    "da": "Fil med navnet",
+    "no": "Fil med navnet",
+    "fi": "Tiedosto nimellä"
+  },
+  "already_exists": {
+    "en": "already exists.",
+    "sv": "finns redan.",
+    "da": "findes allerede.",
+    "no": "finnes allerede.",
+    "fi": "on jo olemassa."
+  },
+  "delete_account_warning": {
+    "en": "If you delete your account, everything related to your profile will disappear, excluding products you have sold and transaction history for your customers. This cannot be undone.",
+    "sv": "Om du tar bort ditt konto försvinner allting relaterat till din profil, exklusive produkter du har sålt och transaktionshistoriken för dina kunder. Detta kan inte ångras.",
+    "da": "Hvis du sletter din konto, forsvinder alt relateret til din profil, undtagen produkter du har solgt og transaktionshistorik for dine kunder. Dette kan ikke fortrydes.",
+    "no": "Hvis du sletter kontoen din, forsvinner alt knyttet til profilen din, med unntak av produkter du har solgt og transaksjonshistorikk for kundene dine. Dette kan ikke angres.",
+    "fi": "Jos poistat tilisi, kaikki profiiliisi liittyvä katoaa, lukuun ottamatta myymiäsi tuotteita ja asiakkaidesi tapahtumahistoriaa. Tätä ei voi perua."
+  },
+  "enter_password": {
+    "en": "Enter your password",
+    "sv": "Skriv in ditt lösenord",
+    "da": "Indtast din adgangskode",
+    "no": "Skriv inn passordet ditt",
+    "fi": "Syötä salasanasi"
+  },
+  "field_required": {
+    "en": "Field cannot be empty",
+    "sv": "Fältet kan inte vara tomt",
+    "da": "Feltet må ikke være tomt",
+    "no": "Feltet kan ikke være tomt",
+    "fi": "Kenttä ei voi olla tyhjä"
+  },
+  "invalid_email": {
+    "en": "Please enter a valid email address",
+    "sv": "Vänligen ange en giltig e-postadress",
+    "da": "Angiv en gyldig e-mailadresse",
+    "no": "Vennligst oppgi en gyldig e-postadresse",
+    "fi": "Anna kelvollinen sähköpostiosoite"
+  },
+  "email_exists": {
+    "en": "Email already exists, please choose another",
+    "sv": "E-postadress finns redan, välj en annan",
+    "da": "E-mail findes allerede, vælg en anden",
+    "no": "E-postadressen finnes allerede, velg en annen",
+    "fi": "Sähköpostiosoite on jo käytössä, valitse toinen"
+  },
+  "invalid_phone_format": {
+    "en": "You must follow E.164 format for phone numbers. E.g. +46702562564",
+    "sv": "Du måste följa E.164 format på mobiltelefon nummer. Ex. +46702562564",
+    "da": "Du skal følge E.164-formatet for telefonnumre. F.eks. +4520304050",
+    "no": "Du må følge E.164-formatet for telefonnumre. F.eks. +4798765432",
+    "fi": "Sinun on noudatettava E.164-muotoa puhelinnumeroissa. Esim. +358401234567"
+  },
+  "alias_exists": {
+    "en": "Alias already exists, please choose another",
+    "sv": "Alias finns redan, välj ett annat",
+    "da": "Alias findes allerede, vælg et andet",
+    "no": "Aliaset finnes allerede, velg et annet",
+    "fi": "Alias on jo käytössä, valitse toinen"
+  },
+  "alias_validation_error": {
+    "en": "An error occurred while validating alias",
+    "sv": "Ett fel uppstod vid validering av alias",
+    "da": "Der opstod en fejl under validering af alias",
+    "no": "En feil oppstod ved validering av alias",
+    "fi": "Aliasin vahvistamisessa tapahtui virhe"
+  },
+  "enter_phone": {
+    "en": "Enter phone number",
+    "sv": "Ange telefonnummer",
+    "da": "Indtast telefonnummer",
+    "no": "Skriv inn telefonnummer",
+    "fi": "Syötä puhelinnumero"
+  },
+  "checking_bookings": {
+    "en": "Checking active bookings...",
+    "sv": "Kontrollerar aktiva bokningar...",
+    "da": "Tjekker aktive bookinger...",
+    "no": "Sjekker aktive bookinger...",
+    "fi": "Tarkistetaan aktiivisia varauksia..."
+  },
+  "checking": {
+    "en": "Checking...",
+    "sv": "Kontrollerar...",
+    "da": "Tjekker...",
+    "no": "Sjekker...",
+    "fi": "Tarkistetaan..."
+  },
+  "refundable_bookings": {
+    "en": "Refundable Bookings",
+    "sv": "Återbetalningsbara bokningar",
+    "da": "Refunderbare bookinger",
+    "no": "Refunderbare bestillinger",
+    "fi": "Palautettavat varaukset"
+  },
+  "refundable_bookings_desc": {
+    "en": "The following training sessions/online trainings will be automatically refunded (more than 24h remaining):",
+    "sv": "Följande träningspass/onlineträningar kommer att återbetalas automatiskt (mer än 24h kvar):",
+    "da": "Følgende træningspas/online træninger vil automatisk blive refunderet (mere end 24 timer tilbage):",
+    "no": "Følgende treningsøkter/online trening vil automatisk bli refundert (mer enn 24 timer igjen):",
+    "fi": "Seuraavat harjoitukset/online-harjoitukset palautetaan automaattisesti (yli 24 tuntia jäljellä):"
+  },
+  "non_refundable_bookings": {
+    "en": "Non-Refundable Bookings",
+    "sv": "Ej återbetalningsbara bokningar",
+    "da": "Ikke-refunderbare bookinger",
+    "no": "Ikke-refunderbare bestillinger",
+    "fi": "Ei-palautettavat varaukset"
+  },
+  "non_refundable_bookings_desc": {
+    "en": "The following bookings are within 24 hours and will NOT be refunded:",
+    "sv": "Följande bokningar är inom 24 timmar och kommer INTE att återbetalas:",
+    "da": "Følgende bookinger er inden for 24 timer og vil IKKE blive refunderet:",
+    "no": "Følgende bestillinger er innen 24 timer og vil IKKE bli refundert:",
+    "fi": "Seuraavat varaukset ovat 24 tunnin sisällä eivätkä palautetaan:"
+  },
+  "purchased_programs": {
+    "en": "Purchased Programs",
+    "sv": "Köpta program",
+    "da": "Købte programmer",
+    "no": "Kjøpte programmer",
+    "fi": "Ostetut ohjelmat"
+  },
+  "purchased_programs_desc": {
+    "en": "You have purchased the following programs that will NOT be refunded:",
+    "sv": "Du har köpt följande program som INTE återbetalas:",
+    "da": "Du har købt følgende programmer, som IKKE vil blive refunderet:",
+    "no": "Du har kjøpt følgende programmer som IKKE vil bli refundert:",
+    "fi": "Olet ostanut seuraavat ohjelmat, joita EI palauteta:"
+  },
+  "training_pass": {
+    "en": "Training Pass",
+    "sv": "Träningspass",
+    "da": "Træningspas",
+    "no": "Treningsøkt",
+    "fi": "Harjoitus"
+  },
+  "online_training": {
+    "en": "Online Training",
+    "sv": "Onlineträning",
+    "da": "Online træning",
+    "no": "Online trening",
+    "fi": "Online-harjoitus"
+  },
+  "training_program": {
+    "en": "Training Program",
+    "sv": "Träningsprogram",
+    "da": "Træningsprogram",
+    "no": "Treningsprogram",
+    "fi": "Harjoitusohjelma"
+  },
+  "diet_program": {
+    "en": "Diet Program",
+    "sv": "Kostprogram",
+    "da": "Kostprogram",
+    "no": "Kostprogram",
+    "fi": "Ruokavalio-ohjelma"
+  },
+  "total_refund": {
+    "en": "Total refund",
+    "sv": "Total återbetalning",
+    "da": "Samlet refundering",
+    "no": "Total refundering",
+    "fi": "Yhteensä palautetaan"
+  },
+  "no_active_bookings": {
+    "en": "You have no active bookings or purchased programs.",
+    "sv": "Du har inga aktiva bokningar eller köpta program.",
+    "da": "Du har ingen aktive bookinger eller købte programmer.",
+    "no": "Du har ingen aktive bestillinger eller kjøpte programmer.",
+    "fi": "Sinulla ei ole aktiivisia varauksia tai ostettuja ohjelmia."
+  },
+  "account_deleted_success": {
+    "en": "Account successfully deleted. Redirecting to login...",
+    "sv": "Kontot har raderats framgångsrikt. Omdirigerar till inloggning...",
+    "da": "Kontoen er blevet slettet. Omdirigerer til login...",
+    "no": "Kontoen er slettet. Omdirigerer til innlogging...",
+    "fi": "Tili poistettu onnistuneesti. Ohjataan kirjautumissivulle..."
+  },
+  "account_deleted_redirect": {
+    "en": "You will be redirected to the login page when you close this message.",
+    "sv": "Du kommer att omdirigeras till inloggningssidan när du stänger detta meddelande.",
+    "da": "Du vil blive omdirigeret til login-siden, når du lukker denne besked.",
+    "no": "Du vil bli omdirigert til innloggingssiden når du lukker denne meldingen.",
+    "fi": "Sinut ohjataan kirjautumissivulle, kun suljet tämän viestin."
+  },
+  "processing_refunds": {
+    "en": "Processing Refunds",
+    "sv": "Bearbetar återbetalningar",
+    "da": "Behandler refunderinger",
+    "no": "Behandler refunderinger",
+    "fi": "Käsitellään palautuksia"
+  },
+  "processing_refunds_desc": {
+    "en": "Please wait while we process refunds for your eligible bookings. This may take a few moments.",
+    "sv": "Vänta medan vi bearbetar återbetalningar för dina berättigade bokningar. Detta kan ta en stund.",
+    "da": "Vent mens vi behandler refunderinger for dine berettigede bookinger. Dette kan tage et øjeblik.",
+    "no": "Vennligst vent mens vi behandler refunderinger for dine kvalifiserte bestillinger. Dette kan ta litt tid.",
+    "fi": "Odota hetki, kun käsittelemme palautuksia oikeutetuille varauksillesi. Tämä voi kestää hetken."
+  }
+}

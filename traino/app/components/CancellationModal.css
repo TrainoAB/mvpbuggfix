@@ -1,0 +1,42 @@
+#cancelation-modal .modal-container {
+  position: fixed; /* Ensures the modal stays in view */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* High z-index to appear above other content */
+}
+
+#cancelation-modal .modal {
+  overflow: hidden;
+  position: relative;
+  background: var(--bgcolor); /* Background color for the modal */
+  color: var(--fgcolor);
+
+  width: calc(100% - 2rem);
+  max-width: 40rem;
+  border-radius: var(--bigradius);
+  box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.5);
+  z-index: 1001; /* Higher than modal-container to ensure it stays on top */
+}
+
+#cancelation-modal .modal .categorytop {
+  position: relative;
+}
+
+#cancelation-modal .modal .modal-content {
+  padding: 2rem;
+}
+
+#cancelation-modal .modal textarea {
+  margin-top: 1rem;
+}
+
+#cancelation-modal .modal .modal-buttons {
+  display: flex;
+  margin-top: 1rem;
+  gap: 1rem;
+}

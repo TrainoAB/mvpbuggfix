@@ -1,0 +1,231 @@
+#bugreport .form-container {
+  padding: 2rem;
+  max-width: 40rem;
+  width: calc(100% - 2rem);
+  margin: 0 auto;
+  /* border: 1px solid var(--secondary-light-grey); - This is for modal */
+  border-radius: var(--radius);
+  /* background-color: #f9f9f9; - This is for modal */
+}
+
+#bugreport .highlight {
+  background-color: yellow;
+  padding: 0 0.3125rem;
+}
+
+#bugreport .bug-icon {
+  width: 1.875rem;
+  height: 1.875rem;
+  vertical-align: middle;
+  margin-right: 0.625rem;
+}
+
+#bugreport form fieldset {
+  border: none;
+  margin-bottom: 1.25rem;
+}
+
+#bugreport form legend {
+  font-size: 1.2em;
+  margin-bottom: 0.625rem;
+  font-weight: 600;
+}
+
+#bugreport .radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+}
+
+#bugreport .radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.3125rem;
+  cursor: pointer;
+}
+
+#bugreport .radio-group input[type='radio'] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 0.125rem solid var(--secondary-light-grey);
+  border-radius: 50%;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+#bugreport .radio-group input[type='radio']:checked {
+  border-color: var(--secondary);
+  background-color: var(--maincolor);
+}
+
+#bugreport .radio-group input[type='radio']:hover {
+  border-color: var(--maincolor);
+  color: white;
+}
+
+#bugreport .textarea {
+  width: 100%;
+  height: 7.75rem;
+  padding: 0.625rem;
+  border: 0.0625rem solid var(--secondary-light-grey);
+  border-radius: var(--radius);
+  font-family: inherit;
+}
+
+#bugreport .file-input {
+  display: none;
+}
+
+#bugreport .file-input + label {
+  display: inline-block;
+  padding: 0.625rem 1.25rem;
+  color: white;
+  background-color: var(--maincolor);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+#bugreport .file-input + label:hover {
+  background-color: var(--mainpurple);
+}
+
+#bugreport .file-input + label:active {
+  background-color: #e1e1e1;
+}
+
+#bugreport .screenshot-preview {
+  margin-top: 0.625rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15rem;
+  border: 0.0625rem solid var(--secondary-light-grey);
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+}
+
+#bugreport .screenshot-preview img {
+  object-fit: cover;
+}
+
+#bugreport .form-actions {
+  gap: 1rem;
+  margin-top: 1.25rem;
+  margin-bottom: 4rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+#bugreport .report-btn,
+#bugreport .reset-btn {
+  padding: 0.625rem 1.25rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+#bugreport .reset-btn:hover {
+  background-color: var(--maincolor);
+  color: white;
+}
+
+#bugreport .error {
+  color: red;
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 83, 83, 0.1);
+  padding: 0.5rem;
+  width: fit-content;
+  border-radius: var(--radius);
+}
+
+#bugreport .error::before {
+  display: inline-block;
+  content: '';
+  margin-right: 0.4rem;
+  width: 1rem;
+  height: 1rem;
+  mask-image: url('.._/../../assets/icon-alert.svg');
+  mask-size: cover;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  background-color: red;
+}
+
+#bugreport hr {
+  border: 0;
+  height: 0.0625rem;
+  background-color: var(--secondary-light-grey-alternative);
+  margin: 1.25rem 0;
+}
+
+@media (max-width: 600px) {
+  #bugreport .form-container {
+    padding: 0.9375rem;
+  }
+
+  #bugreport .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #bugreport .report-btn,
+  #bugreport .reset-btn {
+    width: 100%;
+    margin-bottom: 0.625rem;
+  }
+
+  #bugreport .reset-btn {
+    margin-bottom: 0;
+  }
+
+  #bugreport .textarea {
+    height: 7.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #bugreport .form-container {
+    padding: 0.625rem;
+  }
+
+  #bugreport form legend {
+    font-size: 1rem;
+  }
+
+  #bugreport .bug-icon {
+    width: 1.5625rem;
+    height: 1.5625rem;
+  }
+
+  #bugreport .report-btn,
+  #bugreport .reset-btn {
+    padding: 0.625rem;
+  }
+
+  #bugreport .textarea {
+    height: 7.75rem;
+  }
+}
+
+@media (min-width: 601px) {
+  #bugreport .form-container {
+    padding: 1.25rem;
+  }
+
+  #bugreport .report-btn,
+  #bugreport .reset-btn {
+    padding: 0.9375rem 1.875rem;
+  }
+
+  #bugreport .textarea {
+    height: 9.375rem;
+  }
+}

@@ -1,0 +1,135 @@
+/* NAVIGATION */
+
+#navigation {
+  touch-action: none;
+  min-width: 20rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--bgcolor);
+  z-index: 100;
+  justify-content: center;
+  display: flex;
+}
+
+#navigation ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  list-style: none;
+  max-width: 40rem;
+  width: 100%;
+}
+
+#navigation ul li {
+  text-align: center;
+  width: 100%;
+  list-style: none;
+}
+
+#navigation .menubutton {
+  position: relative;
+  border-top: 0.25rem solid transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: var(--contrasttext);
+  font-weight: 600;
+  font-size: 0.65rem;
+  padding-bottom: 0.45rem;
+  padding-top: 0.4rem;
+  text-align: center;
+}
+
+#navigation.menubutton:hover {
+  color: var(--fgcolor);
+}
+
+#navigation .menubutton span {
+  height: 1.5rem;
+  margin-bottom: 0.1rem;
+  width: 100%;
+  margin-right: 0 !important;
+}
+#navigation .menubutton [class^='icon-'] {
+  filter: invert(var(--inverted));
+}
+
+#navigation .menubutton .icon-train {
+  background-size: 2rem;
+}
+
+#navigation .menubutton .icon-payment {
+  background-size: 1.7rem;
+}
+
+#navigation .menubutton .icon-stats {
+  background-size: 1.625rem;
+}
+
+#navigation .menubutton .icon-booking {
+  background-size: 1.42rem;
+}
+
+#navigation .menubutton .icon-chat {
+  background-size: 1.8rem;
+}
+
+#navigation .menubutton .icon-profile {
+  background-size: 1.8rem;
+}
+
+#navigation .menubutton .icon-threedots {
+  background-size: 1.8rem;
+}
+
+#navigation .menubutton .icon-hamburger {
+  background-size: 2rem;
+}
+
+#navigation .menubutton .icon-threedots {
+  background-size: 2rem;
+}
+
+#navigation .menubutton:hover {
+  cursor: pointer;
+  color: var(--fgcolor);
+}
+
+#navigation .amount {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.25rem;
+  padding: 0;
+  aspect-ratio: 1/1;
+  top: 0;
+  right: 0;
+  border-radius: 100rem;
+  background-image: radial-gradient(circle at 38% 33%, #fc5e5e, #940303);
+  color: white;
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+#navigation .menubutton .amount {
+  width: 1.25rem;
+  height: 1.25rem;
+  right: calc(50% - 1.5rem);
+}
+
+#navigation .menubutton.active span {
+  opacity: 0.3;
+}
+
+#navigation .menubutton.active .amount {
+  display: none;
+}
+
+#navigation .menubutton.active {
+  color: #b5b4b8;
+  border-top: 0.25rem solid var(--maincolor);
+}

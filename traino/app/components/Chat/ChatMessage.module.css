@@ -1,0 +1,78 @@
+.message {
+  border-radius: var(--bigradius);
+  padding: 0.5rem;
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+
+.message pre {
+  font-family: inherit;
+  max-width: 100%;
+  white-space: pre-wrap;
+}
+
+.message * {
+  pointer-events: none;
+}
+
+.message:hover {
+  cursor: pointer;
+}
+
+.message:active {
+  filter: brightness(0.9);
+}
+
+.message img {
+  max-width: 100%;
+  max-height: 60vh;
+  border-radius: var(--radius);
+}
+
+.messageSent {
+  margin-left: 1rem;
+  margin-right: 2rem;
+  background-color: var(--tabOn);
+}
+
+.messageContent {
+  padding: 0.5rem;
+}
+
+.messageTimestamp {
+  font-size: 0.625rem;
+  opacity: 0.5;
+  padding: 0 0.5rem;
+}
+
+.messageSent .messageTimestamp {
+  text-align: right;
+}
+
+.messageReceived {
+  margin-right: 1rem;
+  margin-left: 2rem;
+  background-color: var(--light-grey-alternative);
+}
+
+.iconBubble {
+  position: absolute;
+  right: -20px;
+  top: 0;
+  z-index: -1;
+}
+
+.iconBubbleColor {
+  fill: var(--tabOn);
+}
+
+.messageReceived .iconBubbleColor {
+  fill: var(--light-grey-alternative);
+}
+
+.messageReceived .iconBubble {
+  transform: skewX(100%) scaleX(-1);
+  right: auto;
+  left: -20px;
+  top: 0;
+}

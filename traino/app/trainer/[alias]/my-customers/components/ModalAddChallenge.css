@@ -1,0 +1,98 @@
+/* ModalAddchallenge.css */
+:root{
+    --modal-height: 600px;
+    --modal-content-width: 457px;
+    --modal-action-width: 407px;
+    --modal-action-height: 125px;
+}
+
+#modal-challenge .darkBG {
+    position: fixed;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100vw;
+    height: 100vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid red;
+}
+
+#modal-challenge .centered {
+    position: fixed;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+#modal-challenge .modal {
+    width: var(--modal-content-width);
+    height: var(--modal-height);
+    padding: 15px 25px;
+    background-color: hsl(0, 0%, 97%);
+    border-radius: 16px;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+    /* text-align: left; */
+}
+
+#modal-challenge .modalHeader {
+    /* display: flex; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
+    /* border: 1px solid greenyellow; */
+}
+
+#modal-challenge .heading {
+    margin: 0;
+}
+
+#modal-challenge .closeWindowIcon {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#modal-challenge .modalTextContent {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    font-size: 14px;
+    color: #2c3e50;
+    background-color: hsl(0, 0%, 100%);
+    height: 398px;
+    border-radius: 16px;
+}
+
+#modal-challenge .inputField,
+.textareaField {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#modal-challenge .textareaField {
+    width: 100%;
+    height: 100%;
+    flex: 1; /* Gör att textarean tar upp all tillgänglig plats */
+    resize: none; /* Förhindrar att användaren ändrar storlek på textarean */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid hsl(0, 0%, 80%);
+    font-size: 16px; /* Justera textstorleken */
+    font-family: Arial, sans-serif; /* Justera fontfamiljen */
+    /* Inkluderar padding och border i elementets totala storlek */
+    box-sizing: border-box; 
+}
+
+#modal-challenge .modalActions {
+    height: var(--modal-action-height);
+    width: var(--modal-action-width);
+    display: flex;
+    justify-content: center; /* Centrera elementen */
+    align-items: center;
+    gap: 20px; /* Skapa jämnt avstånd mellan elementen */
+}

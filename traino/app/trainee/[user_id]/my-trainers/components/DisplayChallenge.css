@@ -1,0 +1,274 @@
+:root {
+    --completed-color: rgb(0, 175, 0);
+    --almost-color: hsl(203, 100%, 50%);    
+    --started-color: hsl(36, 100%, 50%);
+    --incomplete-color: hsl(0, 100%, 50%);
+    --ongoing-color: hsla(253, 76%, 61%, 1);
+    --modal-backdrop-color: rgba(0, 0, 0, 0.5);
+    --ended-challenges-bg-color: hsl(0, 0%, 90%);
+    --gold: hsl(51, 100%, 60%);
+}
+
+#challenge-item {
+    width: 100%;
+    padding: 15px 15px 35px 15px;
+    border-radius: 15px;
+    background-color: white;
+    position: relative;
+    z-index: 0;
+    overflow: hidden; 
+    box-shadow: 2px 2px 10px 0px hsla(0, 0%, 0%, 0.15);
+}
+/* ********************************************************************************************** */
+/* ****************************************CHALLANGE ITEM**************************************** */
+/* ********************************************************************************************** */
+
+#challenge-item .header-challenges {
+    display: flex;
+    align-items: center; 
+    justify-content: space-between; 
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+#challenge-item .header--left {
+    font-size: 14px;
+    color: hsl(0, 0%, 38%);
+    font-weight: 600;
+    width: 100%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    margin-left: 35px;
+}
+
+#challenge-item .header--right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; 
+}
+
+#challenge-item .end-date {
+    font-size: 12px;
+    color: hsl(0, 0%, 60%);
+}
+
+#challenge-item .icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    box-shadow: -2px 4px 8px 1px hsla(0, 0%, 0%, 0.2);
+    font-size: 14px;
+}
+
+#challenge-item .icon.icon__delete-challenge {
+    background: none;
+    border: none;
+    color: hsl(0, 0%, 68%);
+    margin-left: 10px;
+}
+
+#challenge-item .icon__delete-challenge:hover {
+    background-color: hsl(0, 100%, 50%);
+    color: white;
+    transition: background-color 0.15s ease-in, color 0.3s ease-in;
+    cursor: pointer;
+}
+
+#challenges-wrapper .text-container {
+    text-align: center;
+    color: hsl(0, 0%, 20%)
+}
+
+/* ************************************** SELECT CHALLENGE STATUS ************************************* */
+
+#challenge-item.ended::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); 
+    z-index: 2; 
+}
+
+#challenge-item .selectChallengeStatus-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3; 
+    display: flex;
+    gap: 0px;
+}
+
+#challenge-item .selectChallengeStatus__item{
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    height: 100px;
+    width: 100px;
+    color: white;
+}
+
+#challenge-item .selectChallengeStatus__item--icon{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 1000;
+    font-size: 25px;
+    transition: transform 0.2s ease-in-out;
+    will-change: transform;
+}
+
+.icon {
+    transition: transform 0.2s ease;
+    transform-origin: center;
+    will-change: transform;
+  }
+  
+  .icon:hover {
+    transform: scale(1.1);
+  }
+  
+
+#challenge-item .selectChallengeStatus__item--text{
+    font-size: 12px;
+    color:white;
+    font-weight: 1000;
+    text-align: center;
+}
+
+#challenge-item .selectChallengeStatus__item--icon.completed{
+    background-color: var(--completed-color);
+    font-size: 26px;
+}
+
+#challenge-item .selectChallengeStatus__item--icon.started{
+    background-color: var(--started-color);
+    font-size: 18px;
+}
+
+#challenge-item .selectChallengeStatus__item--icon.almost{
+    background-color: var(--almost-color);
+    font-size: 18px;
+}
+
+#challenge-item .selectChallengeStatus__item--icon.incomplete{
+    background-color: var(--incomplete-color);
+    font-size: 18px;
+}
+
+#challenge-item .selectChallengeStatus__item--icon:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+#challenge-item .selectChallengeStatus__item--icon .content {
+    transition: transform 0.2s ease-in-out; 
+}
+
+#challenge-item .selectChallengeStatus__item--icon:hover .content {
+    transform: scale(1.2); 
+}
+
+
+/* **************************************EDIT ASSIGNED STATUS************************************* */
+#challenge-item .invisible {
+    display: none;
+}
+
+#challenge-item .icon.icon__delete-challenge.visible {
+    display: inline-block; 
+    margin-left: -30px;
+    font-size: 18px;
+    transform: scaleX(-1); 
+    padding-bottom: 4px;
+}
+#challenge-item .icon.icon__delete-challenge.visible:hover {
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.15s ease-in, color 0.3s ease-in;
+    cursor: pointer;
+}
+
+/* *********************************CHALLANGE STATUS-LABEL******************************** */
+#challenge-item.started,
+#challenge-item.almost,
+#challenge-item.completed,
+#challenge-item.incomplete{
+    background-color: var(--ended-challenges-bg-color);
+}
+
+#challenge-item.ongoing::before,
+#challenge-item.started::before,
+#challenge-item.almost::before,
+#challenge-item.completed::before,
+#challenge-item.incomplete::before {
+    content: attr(data-status);
+    position: absolute;
+    top: 110px;
+    left: -65px;
+    width: 250px;
+    height: 25px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 25px;
+    transform: rotate(-45deg);
+    transform-origin: 0 0;
+    z-index: 1;
+}
+
+#challenge-item[data-status="started"]::before {
+    background-color: var(--started-color);
+}
+
+#challenge-item[data-status="almost"]::before {
+    background-color: var(--almost-color);
+}
+
+#challenge-item[data-status="incomplete"]::before {
+    background-color: var(--incomplete-color);
+}
+
+#challenge-item[data-status="ongoing"]::before {
+    background-color: var(--ongoing-color);
+}
+
+/* **************************************CHALLANGE COMPLETED************************************* */
+
+#challenge-item.completed {
+    border: 1px solid var(--gold);
+    animation: pulse-shadow 1s infinite ease-in-out;
+    background-color: var(--ended-challenges-bg-color);
+}
+
+/* Definiera animationen (guld glimmer) */
+@keyframes pulse-shadow {
+    0% {
+        box-shadow: 0px 0px 15px 10px hsl(51, 100%, 90%);
+    }
+    50% {
+        box-shadow: 0px 0px 15px 5px hsl(51, 100%, 90%); /* Minskar värdena för pulserande effekt */
+    }
+    100% {
+        box-shadow: 0px 0px 15px 10px hsl(51, 100%, 90%);
+    }
+}
+
+#challenge-item[data-status="completed"]::before {
+    border: 2px solid var(--gold);
+    animation: pulse-shadow 1.5s infinite ease-in-out;
+    background-color: var(--completed-color);
+}

@@ -1,0 +1,694 @@
+#profile {
+  height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-light-grey) transparent;
+}
+
+#profile .loader-container {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#profile .fourofour {
+  display: flex;
+  flex-direction: column;
+  max-width: 30rem;
+}
+
+#profile .profiletop {
+  width: 100%;
+  position: relative;
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#profile .profiletop h1 {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  text-align: center;
+  font-size: clamp(1rem, 10vw, 2rem);
+}
+
+#profile .profiletop .rating {
+  top: 1rem;
+  right: 1rem;
+  z-index: 20;
+  font-size: 0.875rem;
+  font-weight: bolder;
+  position: absolute;
+  background: var(--maincolor);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 0.7rem;
+  border-radius: 10rem;
+}
+
+#profile .profiletop .rating span {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0.4rem;
+  display: inline-block;
+  background-size: 1.5rem;
+}
+
+#profile .profiletop .rating * {
+  pointer-events: none;
+}
+
+#profile .profiletop .rating:hover {
+  background: var(--secondary);
+  cursor: pointer;
+}
+#profile .profiletop .thumb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 8rem;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  z-index: 10;
+  margin-bottom: 1rem;
+}
+
+#profile .profiletop .coverimage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  height: 10rem;
+  overflow: hidden;
+  background: var(--secondary-light-grey-alternative);
+  background-image: url('../../assets/traino-cover.png');
+  background-position: center;
+  background-size: cover;
+}
+
+#profile .profiletop .fullscreen {
+  height: 100vh;
+  width: 100vw;
+  z-index: 9999;
+  background: black;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#profile .profiletop .thumb .image {
+  outline: 0.25rem solid var(--bgcolor);
+  background: var(--secondary-light-grey);
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: 1000rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../../assets/icon-profile.svg');
+  z-index: 0;
+}
+
+#profile .image-background {
+  content: '';
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  border-radius: inherit;
+}
+
+#profile .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#profile.profiletop .thumb img,
+#profile .profiletop .coverimage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#profile .profiletop .membersince {
+  font-size: var(--font-small);
+  color: gray;
+}
+
+#profile .profileabout {
+  margin: 1rem 0;
+  padding-top: 1rem;
+  padding-bottom: 3.75rem;
+  text-align: left;
+  border-top: 0.0625rem solid var(--secondary-light-grey-alternative);
+}
+
+#profile .profileabout p {
+  margin-top: 0.5rem;
+}
+
+#profile .profiledetails {
+  padding: 1rem 0;
+  border-bottom: 0.0625rem solid var(--secondary-light-grey-alternative);
+  margin-top: 0;
+}
+
+#profile .griddetails {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+#profile .profiledetails .gender {
+  padding-left: 2rem;
+  position: relative;
+  border: 0 transparent;
+  overflow: hidden;
+  font-size: 0.875rem;
+  font-weight: bold;
+}
+
+#profile .profiledetails .gender:before {
+  background-image: url('../../assets/icon-profile.svg');
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 1.3rem;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: '';
+  width: 2rem;
+  height: 1.2rem;
+  filter: invert(var(--inverted));
+}
+
+#profile .profiledetails .address {
+  padding-left: 2rem;
+  font-size: 0.875rem;
+  position: relative;
+}
+
+#profile .profiledetails .address:before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2rem;
+  height: 1.2rem;
+  background-image: url('../../assets/icon-positionpoint.svg');
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 1rem;
+  filter: invert(var(--inverted));
+}
+
+#profile .products-container {
+  padding: 1rem;
+  width: 100%;
+}
+#profile .products-container ul,
+#profile .training-container ul {
+  text-align: left;
+  list-style: none;
+  width: 100%;
+}
+
+#profile .products-container ul li {
+  width: 100%;
+}
+
+.profile_trainer .training-container {
+  width: auto;
+  padding: 0;
+  border-top: none;
+  margin: 1rem 0;
+}
+
+.profile_trainer .training {
+  padding: 0;
+  background-image: none;
+  display: block;
+}
+
+.profile_trainer .trainitem .amount-products {
+  position: absolute;
+  right: 0.5rem;
+}
+
+.profile_trainer .trainitem div {
+  border-right: 0.0625rem solid var(--secondary-light-grey);
+  color: var(--fgcolor);
+  width: auto;
+  display: flex;
+  align-items: center;
+  background: none;
+  font-size: 0.875rem;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.profile_trainer .trainitem div:last-child {
+  border-right: none;
+}
+
+#profile .product-info div {
+  background: none;
+  font-size: 1.4rem;
+  padding-left: 0;
+}
+
+.profile_trainer .trainitem .btn-addproduct {
+  pointer-events: all;
+  border: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: var(--maincolor);
+  color: white;
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 0;
+  justify-content: center;
+  border-radius: var(--radius);
+  position: absolute;
+  z-index: 10;
+  top: 0.3125rem;
+  right: 0.3125rem;
+}
+
+.profile_trainer .trainitem .btn-addproduct:hover {
+  background: var(--mainpurple);
+}
+
+#profile .products-container li {
+  padding: 1rem;
+  background-color: var(--secondary-light-grey-alternative);
+  border-radius: var(--radius);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#profile .products-container li span {
+  position: absolute;
+  right: 1rem;
+}
+
+#profile.profile_trainer .amount-products .icon-train {
+  height: 2rem;
+  background-size: 1.2rem;
+  margin-right: 0.5rem;
+}
+
+#profile.profile_trainer .amount-products .icon-clipcard {
+  height: 2rem;
+  background-size: 1.2rem;
+  margin-right: 0.5rem;
+}
+
+#profile.profile_trainer .amount-products .icon-dietprogram {
+  height: 2rem;
+  background-size: 1.2rem;
+  margin-right: 0.5rem;
+}
+
+#profile .btn-closemenu {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  width: 3rem;
+  height: 3rem;
+  background-image: url('../../assets/icon-x.svg');
+  background-size: 1.6rem;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+#btn-profilemenu {
+  z-index: 10;
+  filter: drop-shadow(0 0.0625rem 0.125rem white) invert(1);
+}
+
+#profile .education-container {
+  margin: 1rem 0;
+  padding-top: 1rem;
+  border-top: 0.0625rem solid var(--secondary-light-grey-alternative);
+}
+
+#profile .education {
+  display: flex;
+  flex-direction: row;
+  margin-top: 0.5rem;
+  list-style: none;
+}
+
+#profile .education-items {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+#profile .education-item {
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  border-radius: var(--radius);
+  background: var(--secondary-light-grey-alternative);
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4rem;
+  padding-right: 1rem;
+}
+
+#profile .education-item::marker {
+  display: none;
+}
+
+#profile .education-item .delete-item {
+  color: white;
+  font-weight: bold;
+  font-size: var(--font-small);
+  background: black;
+  padding: 0.1rem;
+  line-height: 1.2rem;
+  width: 1.5rem;
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0.8rem;
+  border-radius: var(--radius);
+  opacity: 0.2;
+  filter: grayscale(1);
+}
+
+#profile .education-item .delete-item:hover {
+  cursor: pointer;
+  filter: grayscale(0);
+  opacity: 1;
+}
+#profile .btn-changephoto {
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+
+  bottom: 0;
+  right: 0;
+  border-radius: 100%;
+  background-color: var(--maincolor);
+  box-shadow: 0 0.0625rem 0.3125rem 0.0625rem rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  cursor: pointer;
+}
+
+#profile .btn-changephoto:after {
+  display: block;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: invert(1);
+  background-image: url('../../assets/icon-photo.svg');
+  background-position: center center;
+  background-size: 1.5rem;
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
+#profile .btn-changephoto:hover,
+#profile .btn-changecover:hover {
+  background-color: var(--mainpurple);
+}
+
+#profile .btn-changecover {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  bottom: 1rem;
+  right: 1rem;
+  border-radius: 100%;
+  background-color: var(--maincolor);
+  z-index: 999;
+  box-shadow: 0 0.0625rem 0.3125rem 0.0625rem rgba(0, 0, 0, 0.3);
+}
+
+#profile .fullscreen-off {
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  top: 0rem;
+  right: 0rem;
+  z-index: 10;
+  background-size: 0rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: var(--maincolor);
+  opacity: 0;
+}
+
+#profile .fullscreen-on {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  background-image: url('../../assets/icon-fullscreen.svg');
+  background-size: 2rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 2rem;
+  height: 2rem;
+  opacity: 1;
+  filter: invert(1);
+}
+#profile .fullscreen-on:hover {
+  width: 2.3rem;
+  height: 2.3rem;
+  background-size: 2.3rem;
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  opacity: 1;
+  cursor: pointer;
+}
+
+#profile .btn-changecover:after {
+  display: block;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: invert(1);
+  background-image: url('../../assets/icon-pen.svg');
+  background-position: center center;
+  background-size: 1rem;
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
+#profile .btn-changephoto:hover,
+#profile .btn-changecover:hover {
+  cursor: pointer;
+  scale: 1.1;
+}
+
+#profile .btn-changephoto:active,
+#profile .btn-changecover:active {
+  cursor: pointer;
+  scale: 0.9;
+}
+
+.gallery-item {
+  aspect-ratio: 16/10;
+  overflow: hidden;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.2s ease-in-out;
+}
+
+.gallery-item:hover,
+#profile .trainitem .btn-addproduct:hover {
+  cursor: pointer;
+}
+
+#profile .trainitem .btn-addproduct:active {
+  scale: 0.9;
+}
+
+.gallery-item:hover img {
+  scale: 1.1;
+  animation: 0.2s flash ease-in-out;
+}
+
+/* .gallery-add {
+  background-color: var(--secondary-light-grey-alternative);
+  background-image: url('../../assets/icon-photo.svg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 20%;
+} */
+
+#profile .myproducts {
+  /* display: flex;
+  flex-direction: column; */
+  max-width: 40rem;
+  width: calc(100% - 2rem);
+}
+
+#profile .trainer-name-wrap {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+#profile .trainer-name-wrap span {
+  width: 30px;
+  height: 2rem;
+  margin-bottom: 2px;
+}
+
+@media screen and (max-width: 23.125rem), screen and (max-height: 41.875rem) {
+  #profile .profiletop .thumb .image {
+    outline: 0 transparent;
+  }
+}
+
+.profile_trainer .trainitem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  line-height: 2.8rem;
+  font-weight: 600;
+  background: var(--secondary-light-grey-alternative) !important;
+  box-shadow: 0 0.1875rem 0.375rem 0 rgba(0, 0, 0, 0.3);
+  border-bottom: none;
+  border-radius: var(--bigradius);
+  margin-top: 1rem;
+  color: var(--fgcolor);
+  overflow: hidden;
+  /* max-height: 3.4375rem; */
+}
+
+.profile_trainer .trainitem * {
+  pointer-events: none;
+}
+
+.profile_trainer .trainitem:hover {
+  outline: 0.25rem solid var(--maincolor);
+}
+
+.profile_trainer .trainitem .image {
+  padding: 0.4rem 0.4rem;
+  position: relative;
+  width: 100%;
+  height: 6rem;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.2rem;
+  margin-left: 0;
+  overflow: hidden;
+  border: none;
+}
+
+.profile_trainer .trainitem .image h3 {
+  font-size: clamp(1.25rem, 2vw, 1.7rem);
+  z-index: 10;
+  filter: drop-shadow(0 0.3rem 0.3rem rgba(0, 0, 0, 0.5));
+}
+
+.profile_trainer .trainitem .image img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  object-fit: cover;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+#profile .trainitem:hover {
+  cursor: pointer;
+  color: black;
+}
+
+#profile .product-text {
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: auto;
+  height: 4rem;
+}
+
+#profile h3 {
+  font-size: 1.25rem;
+  color: var(--titlecolor);
+}
+#profile .trainitem h3 {
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+  color: white;
+  font-weight: 600;
+}
+#profile .product-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 0;
+  margin: 0;
+}
+
+#profile .product-info {
+  width: 100%;
+}
+
+#profile .product-info span {
+  font-size: var(--font-small);
+  height: 1.3rem;
+  display: block;
+  color: var(--secondary-grey);
+}
+#profile .product-icon {
+  display: inline-block;
+}
+
+#profile .fourofour {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

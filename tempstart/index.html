@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" id="index">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="app/favicon.ico" type="image/x-icon" sizes="16x16" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>TRAINO - Kommer senare i år</title>
+  </head>
+  <style></style>
+  <body>
+    <main id="coming-soon">
+      <div class="content">
+        <h1 class="logo">TRAINO</h1>
+        <h2>
+          Hitta din personliga tränare
+        </h2>
+        <p>
+          Bli en del av TRAINO – Vi står redo att förbättra din träning med professionella personliga tränare. Registrera din e-postadress idag och bli en av de första att få tillgång till vår PT-app vid lanseringen. Missa inte chansen att ta din träning till nästa nivå.
+        </p>
+        <div class="signup-info">
+          <h3>
+            Anmäl dig för chansen att vinna 5 gratis PT-pass!
+          </h3>
+          <p class="sub-text">
+            * fem vinnare kommer lottas ut i samband med lanseringen av plattformen.
+          </p>
+        </div>
+        <div class="input-group">
+          <form
+            id="emailForm"
+            action="https://traino.nu/php/save_email.php"
+            method="post"
+          >
+            <input
+              type="text"
+              id="email"
+              name="email"
+              placeholder="E-postadress"
+              required
+            />
+            <button type="submit">Spara</button>
+          </form>
+        </div>
+        <a href="about.html" class="button">Läs mer</a>
+        <br>
+        <a href="jobb.html" class="link">Se lediga LIA platser</a>
+        <div class="social-icons">
+          <a
+            class="icon-instagram"
+            href="https://www.instagram.com/trainoofficial"
+            target="_blank"
+          ></a>
+          <a
+            class="icon-tiktok"
+            href="https://www.tiktok.com/@trainoofficial?_t=8nFINogV9zF&_r=1"
+            target="_blank"
+          ></a>
+          <a
+            class="icon-youtube"
+            href="https://youtube.com/@trainoofficial?feature=shared"
+            target="_blank"
+          ></a>
+        </div>
+      </div>
+      <div class="bottom">Copyright © 2024 Traino AB</div>
+      <div class="video">
+        <video width="100%" height="100%" autoplay muted loop playsInline>
+          <source src="https://traino.nu/app/assets/bg800.mp4" type="video/mp4" />
+          <source src="https://traino.nu/app/assets/bg800.webp" type="video/webp" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      </div>
+    </main>
+  </body>
+  <script src="index.js"></script>
+</html>

@@ -1,0 +1,26 @@
+.day-checkbox-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  padding-inline: 2.25rem;
+}
+.day-checkboxes {
+   display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.day-checkbox-wrapper .dayHeading {
+    display: flex;
+    font-size: 1.05rem;
+    justify-content: flex-start;
+}
+.select {
+  margin-top: -1.05rem;
+}
+@media screen and (min-width: 1300px){
+    .day-checkbox-wrapper {
+        padding-inline: 9rem;
+    }
+}

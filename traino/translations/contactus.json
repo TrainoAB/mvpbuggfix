@@ -1,0 +1,30 @@
+{
+"contact_us": {
+  "en": "Contact Us",
+  "sv": "Kontakta oss",
+  "da": "Kontakt os",
+  "no": "Kontakt oss",
+  "fi": "Ota yhteyttä"
+},
+"contact_us_description": {
+  "en": "Do you have questions? Don't hesitate to contact us!",
+  "sv": "Har du frågor? Tveka inte att kontakta oss!",
+  "da": "Har du spørgsmål? Tøv ikke med at kontakte os!",
+  "no": "Har du spørsmål? Ikke nøl med å kontakte oss!",
+  "fi": "Onko sinulla kysymyksiä? Älä epäröi ottaa yhteyttä!"
+},
+"email_us": {
+  "en": "Email us",
+  "sv": "Mejla oss",
+  "da": "Send os en e-mail",
+  "no": "Send oss en e-post",
+  "fi": "Lähetä meille sähköpostia"
+},
+"social_media": {
+  "en": "Social media",
+  "sv": "Sociala medier",
+  "da": "Sociale medier",
+  "no": "Sosiale medier",
+  "fi": "Sosiaalinen media"
+}
+}

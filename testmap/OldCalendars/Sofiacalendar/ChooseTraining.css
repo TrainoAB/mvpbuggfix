@@ -1,0 +1,51 @@
+.cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+}
+.training-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 10rem;
+    height: 5rem;
+    border-radius: 0.6rem;
+    box-shadow: 0 0.25rem 0.25rem 0 var(--black) 040;
+    background-color: var(--white);
+    border-color: transparent;
+}
+.date {
+    display: flex;
+    font-size: 1.05rem;
+    justify-content: flex-start;
+}
+.outlined {
+    border: 0.25rem solid var(--secondary);
+}
+.card-content {
+    display: flex;
+    width: 90%;
+    gap: 0.6rem;
+}
+.small-heading {
+    font-size: var(--font-small);
+    align-self: center;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.training-icon {
+    display: flex;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0.75rem;
+    align-self: center;
+    border-radius: 6.25rem;
+    background: var(--secondary-light-grey-alternative);
+    background-image: url("../assets/athletics.png");
+    background-size: 60%;
+    background-position: 50%;
+    background-repeat: no-repeat;
+}

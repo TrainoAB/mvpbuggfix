@@ -1,0 +1,20 @@
+:root{
+    --purple-button: hsla(253, 76%, 61%, 1);
+    --purple-button-hover: hsla(253, 76%, 51%, 1);
+  }
+
+#set-status-button{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background-color: var(--purple-button);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+#set-status-button:hover {
+    background-color: var(--purple-button-hover);
+  }

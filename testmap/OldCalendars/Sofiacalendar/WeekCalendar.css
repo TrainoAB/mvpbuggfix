@@ -1,0 +1,171 @@
+.nav-button {
+    font-family: var(--font);
+    font-size: var(--font-small);
+    font-weight: 500;
+    line-height: 18.75px;
+    text-align: right;
+    color: var(--maincolor);
+    border-color: transparent;
+    background-color: transparent;
+    font-weight: var(--weight);
+}
+.header-wrapper {
+    display: flex;
+    margin-top: 11rem;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.day {
+    align-self: flex-start;
+    margin-top: -175px;
+    width: 2.5rem;
+}
+.hide {
+    display: none;
+}
+.date-heading {
+    display: flex;
+    flex-direction: column;
+}
+.hideTimes {
+    display: none;
+}
+
+.showTimes {
+    display: block;
+}
+
+.online {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("../assets/online-training.png");
+}
+.trainingProgram {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("../assets/exercise.svg");
+}
+.foodProgram {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("../assets/restaurant_menu.svg");
+}
+.current-week {
+    font-family: var(--font);
+    font-size: var(--font-small);
+
+    font-weight: 500;
+    line-height: 18.75px;
+    text-align: center;
+    color: var(--black) 099;
+}
+.day-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    gap: 0.6rem;
+    background: #eed6ff;
+}
+.clock-image {
+    background-image: url("../assets/time.png");
+    width: 1.5rem;
+    height: 1.5rem;
+    background-size: contain;
+    z-index: 997;
+}
+.timesAndDates {
+    display: flex;
+}
+.times {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    width: 2.5rem;
+    gap: 30px;
+    padding: 16px;
+}
+.training-icons-container {
+    display: flex;
+    overflow-x: hidden;
+    flex-wrap: wrap;
+}
+
+.training-icons-container .editedDays {
+    display: none;
+}
+.time-slot {
+    display: flex;
+    font-size: 0.6rem;
+    gap: 1rem;
+    align-items: center;
+    z-index: 997;
+    font-weight: 500;
+}
+.day-header-val {
+    margin-top: 1rem;
+}
+.day-header-val,
+.dayNumber {
+    font-size: var(--font-small);
+    font-weight: 500;
+    color: var(--black) 098;
+}
+.dayNumber {
+    font-size: 0.4rem;
+    width: 2.5rem;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 1rem;
+}
+
+.day-content {
+    background-color: #fff;
+    width: 100%;
+    height: 22rem;
+}
+
+.day-content .add {
+    color: #000;
+}
+.day-content .booked {
+    color: transparent;
+}
+.day {
+    background-color: transparent;
+}
+.inRange {
+    background-color: var(--secondary-light-grey-alternative);
+}
+.inRange .booked {
+    color: #fff;
+    font-size: 0.6rem;
+}
+.bookHeading {
+    transform: rotate(20deg);
+}
+.inRange .add {
+    color: transparent;
+}
+.current-date {
+    font-family: var(--font);
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+}
+.date-display {
+    display: flex;
+    justify-content: space-between;
+}
+.week-days {
+    background-color: transparent;
+}

@@ -1,0 +1,205 @@
+.wrapper {
+    width: 22rem;
+    height: 21.9rem;
+    background: var(--white);
+    border-radius: 0.6rem;
+    box-shadow: var(--secondary-light-grey) 0px 8px 24px;
+}
+
+.calendar {
+    padding: 1.25rem;
+    padding-inline: 0.2rem 1.25rem;
+    padding-top: 0.2rem;
+}
+.calendar ul {
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    text-align: center;
+}
+.calendar ul li {
+    position: relative;
+    width: calc(100% / 7);
+}
+.icons {
+    gap: 0.01rem;
+    margin-inline: 0;
+}
+.arrow:nth-of-type(1) {
+    transform: rotate(180deg);
+    opacity: 0.4;
+    margin-inline: 0.75rem;
+}
+.calendar ul .item::before {
+    position: absolute;
+    content: "";
+    height: 2rem;
+    width: 2rem;
+    top: 50%;
+    left: 50%;
+    /* change to margin-inline? */
+    border-radius: 0.6rem;
+    box-shadow: 0px 4px 4px 0px var(--secondary-grey);
+    color: var(--secondary-grey);
+    background: #fff;
+    z-index: -1;
+    /* behövs z-index? */
+    transform: translate(-50%, -50%);
+}
+
+.calendar ul .in-range::before {
+    position: absolute;
+    content: "";
+    height: 2rem;
+    width: 2rem;
+    top: 50%;
+    left: 50%;
+    /* change to margin-inline? */
+    border-radius: 0.6rem;
+    box-shadow: 0 0.25rem 0.25rem 0px var(--black) 040;
+    z-index: -1;
+    /* behövs z-index? */
+    transform: translate(-50%, -50%);
+    background: var(--maincolor);
+}
+.calendar ul .edited-date::before {
+    position: absolute;
+    content: "";
+    height: 2rem;
+    width: 2rem;
+    top: 50%;
+    left: 50%;
+    /* change to margin-inline? */
+    border-radius: 0.6rem;
+    box-shadow: 0 0.25rem 0.25rem 0px var(--black) 040;
+    z-index: -1;
+    /* behövs z-index? */
+    transform: translate(-50%, -50%);
+    background: var(--secondary);
+}
+.calendar ul .today::before {
+    position: absolute;
+    content: "";
+    height: 2rem;
+    width: 2rem;
+    top: 50%;
+    left: 50%;
+    /* change to margin-inline? */
+    border-radius: 0.6rem;
+    box-shadow: 0 0.25rem 0.25rem 0px var(--black) 040;
+    z-index: -1;
+    /* behövs z-index? */
+    transform: translate(-50%, -50%);
+    background: var(--mainpurple);
+}
+.in-range,
+.edited-date,
+.today {
+    color: #fff;
+}
+.days .item:hover::before {
+    background: #f2f2f2;
+}
+.days .in-range:hover {
+    color: var(--white);
+}
+.wrapper header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.6rem 0;
+
+    background: var(--maincolor);
+    border-radius: 0.6rem 0.6rem 0 0;
+}
+.days-and-weeks {
+    display: flex;
+    flex-direction: column;
+}
+.weekName {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+.calendar-row {
+    display: flex;
+}
+.weeks li {
+    font-size: var(--font-small);
+    font-weight: 500;
+}
+.weekName .week {
+    font-weight: 400;
+    color: var(--black) 071;
+    font-size: 0.6rem;
+}
+
+.week {
+    margin-top: 0.25rem;
+    margin-inline: 0.75rem;
+}
+
+.days {
+    margin-bottom: 1.25rem;
+}
+.days .item {
+    z-index: 1;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+.date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    justify-content: center;
+}
+.date .current-date {
+    font-size: 0.55rem;
+    font-weight: 500;
+    opacity: 0.6;
+    margin-inline: 6rem 0.6rem;
+}
+.date .month {
+    opacity: 1;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--white);
+}
+.year {
+    color: var(--white);
+}
+
+/* icons */
+.icons {
+    display: flex;
+    gap: 0;
+    margin-inline: 0 1rem;
+}
+.year {
+    margin-top: -0.25rem;
+}
+#prev {
+    margin-inline: 1rem 0;
+}
+.arrow {
+    background-image: url("../assets/arrow-white.svg");
+    width: 1.5rem;
+    height: 1.5rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    cursor: pointer;
+    align-self: center;
+}
+
+.arrow:hover {
+    background: #f2f2f2;
+}
+@media screen and (min-width: 1300px) {
+    .date .current-date {
+        margin-inline: 1rem 3rem;
+    }
+}

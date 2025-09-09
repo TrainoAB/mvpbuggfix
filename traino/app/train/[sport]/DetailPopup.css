@@ -1,0 +1,680 @@
+.showinfo .user-header .btn-showmore {
+  position: absolute;
+  width: 2.5rem;
+  height: 2.5rem;
+  top: 0.5rem;
+  left: 0.5rem;
+  filter: invert(1) drop-shadow(0rem 0.125rem 0.1875rem black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  z-index: 50;
+  background-image: url('../../assets/icon-chevron.svg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 2rem;
+  transition: rotate 0.2s ease-in-out;
+}
+
+.showinfo .thumbnail {
+  width: 5rem;
+  height: 5rem;
+  overflow: hidden;
+  display: block;
+  border-radius: 1000rem;
+  position: relative;
+  outline: 0.1875rem solid white;
+  margin: 0.1875rem;
+  margin-bottom: 1rem;
+  background: var(--secondary-light-grey-alternative);
+  background-image: url('../../assets/icon-profile.svg');
+}
+
+.showinfo.minimize .thumbnail {
+  display: none;
+}
+
+.showinfo .user-header .rating,
+.showinfo .group-header .rating {
+  z-index: 2;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: white;
+  font-weight: bolder;
+  background: var(--maincolor);
+  border-radius: 10rem;
+  filter: none;
+}
+
+.showinfo .user-header .productinfo {
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+  background-image: url('../../assets/icon-clock.svg');
+  background-position: left center;
+  background-size: 1rem;
+  background-repeat: no-repeat;
+  filter: invert(1);
+  color: black;
+  font-size: 0.875rem;
+  padding-left: 1.5rem;
+}
+.showinfo.minimize {
+  overflow-y: hidden;
+  max-height: 35rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.showinfo.minimize .thumb {
+  max-height: 6.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.showinfo .user-header {
+  height: 16rem;
+  transition: all 0.3s ease-in-out;
+}
+.showinfo .largerHead {
+  height: 21.125rem;
+}
+.showinfo .largerThumb {
+  min-height: 21.125rem;
+}
+
+.showinfo.minimize .largerThumb {
+  min-height: 0rem;
+}
+
+.showinfo.minimize .user-header {
+  height: 9rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.showinfo .information {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  padding: 1rem;
+  width: 100%;
+  flex-direction: column;
+  color: white;
+  z-index: 10;
+  text-align: left;
+}
+
+.showinfo .prodinfo {
+  padding: 1rem;
+  font-size: 1rem;
+  line-height: 160%;
+  border-bottom: 0.0625rem solid var(--secondary-light-grey-alternative);
+}
+
+.showinfo .information .column2 {
+  display: grid;
+  grid-template-columns: 1fr 8rem;
+  align-items: flex-end;
+}
+
+.showinfo .description {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  opacity: 0.75;
+}
+
+.moreinfo {
+  height: 0rem;
+  padding: 0 1em;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  text-align: left;
+  background-color: var(--bgcolor);
+  font-size: 0.875rem;
+}
+
+.showinfo.minimize .moreinfo {
+  height: 17rem;
+  max-height: 17rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-light-grey) transparent;
+  padding: 0 1em;
+  transition: all 0.2s ease-in-out;
+}
+
+.showinfo .gender {
+  display: flex;
+  align-items: center;
+  padding: 0rem 0rem 0rem 2rem;
+  line-height: 2.5rem;
+  position: relative;
+  border-bottom: 0.0625rem solid var(--secondary-light-grey-alternative);
+}
+
+.showinfo .gender:after {
+  display: block;
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3rem;
+  height: 2.5rem;
+  filter: invert(var(--inverted));
+  background-image: url('../../assets/icon-profile.svg');
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 1.5rem;
+}
+
+.showinfo .address {
+  display: flex;
+  align-items: center;
+  padding: 0rem 0rem 0rem 2rem;
+  line-height: 2.5rem;
+  position: relative;
+  border-bottom: 0.0625rem solid var(--secondary-light-grey-alternative);
+}
+
+.showinfo .address:after {
+  display: block;
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3rem;
+  height: 2.5rem;
+  filter: invert(var(--inverted));
+  background-image: url('../../assets/icon-map.svg');
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 1.5rem;
+}
+
+.showinfo .distance {
+  display: flex;
+  align-items: center;
+  padding: 0rem 0rem 0rem 2rem;
+  line-height: 2.5rem;
+  position: relative;
+  border-bottom: 0.0625rem solid var(--secondary-light-grey-alternative);
+}
+
+.showinfo .distance:after {
+  display: block;
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3rem;
+  height: 2.5rem;
+  filter: invert(var(--inverted));
+  background-image: url('../../assets/icon-distance.svg');
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 1.5rem;
+}
+
+.showinfo .distance span {
+  color: var(--secondary-grey);
+  font-size: 0.9375rem;
+}
+
+.distance-from-center {
+  display: flex;
+  align-items: center;
+  padding: 0rem 0rem 0rem 2rem;
+  line-height: 2.5rem;
+  position: relative;
+  border-bottom: 0.0625rem solid var(--secondary-light-grey-alternative);
+}
+
+.distance-from-center:after {
+  display: block;
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3rem;
+  height: 2.5rem;
+  filter: invert(var(--inverted));
+  background-image: url('../../assets/icon-position.svg');
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 1.5rem;
+}
+
+.distance-from-center span {
+  color: var(--secondary-grey);
+  font-size: 0.9375rem;
+}
+
+.directions-btn {
+  background: var(--maincolor, #007bff);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 8px;
+  margin-left: auto;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  min-width: 32px;
+  height: 32px;
+}
+
+.directions-btn:hover {
+  background: var(--maincolor-dark, #0056b3);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.directions-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile responsiveness for directions button */
+@media (max-width: 768px) {
+  .directions-btn {
+    min-width: 36px;
+    height: 36px;
+    padding: 8px;
+  }
+
+  .distance-from-center {
+    padding-right: 0.5rem;
+  }
+}
+.showinfo .training {
+  list-style: none;
+  padding: 0.5rem 0rem 1rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  position: relative;
+  border-bottom: 0.0625rem solid var(--secondary-light-grey-alternative);
+}
+
+.showinfo .training:after {
+  display: block;
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3rem;
+  height: 2.5rem;
+  filter: invert(var(--inverted));
+  background-image: url('../../assets/icon-train.svg');
+  background-position: left 1.15rem;
+  background-repeat: no-repeat;
+  background-size: 1.5rem;
+}
+
+.showinfo .trainitem {
+  padding: 0.4rem 0.8rem;
+  position: relative;
+  background: var(--secondary-light-grey-alternative);
+  border-radius: var(--radius);
+  margin-right: 0.4rem;
+  margin-top: 0.4rem;
+}
+.showinfo .moreinfo h3 {
+  margin-top: 1rem;
+  text-align: center;
+}
+.showinfo .moreinfo p {
+  padding: 1rem;
+  line-height: 1.2rem;
+}
+
+.showinfo {
+  touch-action: auto;
+  display: block;
+  left: 50%;
+  width: calc(100% - 2rem);
+  min-width: 18rem;
+  max-width: 40rem;
+  transform: translateX(-50%) translateY(130%);
+  border-radius: calc(var(--bigradius) * 1.5);
+  background: var(--bgcolor);
+  box-shadow: 0 0.5rem 0.6rem rgba(0, 0, 0, 0.3), 0 0.2rem 0.6rem rgba(0, 0, 0, 0.1);
+  position: fixed;
+  bottom: 6rem;
+  z-index: 11;
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: all 0.2s ease-in-out;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-light-grey) transparent;
+}
+
+@keyframes animatein {
+  0% {
+    transform: translateX(-50%) translateY(20rem);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.showinfo .content {
+  width: 100%;
+}
+.showinfo .user-header,
+.showinfo .group-header {
+  position: relative;
+}
+.showinfo .user-header .thumb,
+.showinfo .group-header .thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  height: 100%;
+  max-height: 40vh;
+  transition: all 0.3s ease-in-out;
+  background-color: var(--secondary);
+  overflow: hidden;
+}
+.showinfo .user-header .thumb:after,
+.showinfo .group-header .thumb:after {
+  display: block;
+  position: absolute;
+  content: '';
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 12rem;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 0) 70%);
+  z-index: 1;
+}
+
+.showinfo .group-header .thumb:after {
+  height: 10rem;
+}
+
+.showinfo.minimize .btn-showmore,
+.rowopen .openrow {
+  rotate: 90deg;
+}
+
+.showinfo.minimize .description {
+  display: none;
+}
+
+.showinfo .user-header .userinfo,
+.showinfo .group-header .userinfo {
+  color: white;
+  font-weight: 700;
+  text-align: left;
+}
+
+.showinfo .user-header .price,
+.showinfo .group-header .price {
+  color: yellow;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+.showinfo .user-header .price span {
+  color: black;
+  font-weight: normal;
+  padding-left: 1.3rem;
+  margin-left: 0.2rem;
+  background-image: url('../../assets/icon-clock.svg');
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 1rem;
+  filter: invert(1);
+}
+
+.showinfo .group-header .address {
+  margin-top: 0.5rem;
+}
+.showinfo .group-header .address,
+.showinfo .group-header .distance {
+  border: none;
+  filter: invert(1);
+  color: black;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  padding-left: 0;
+  background-image: none;
+}
+.showinfo .group-header .distance span {
+  line-height: 1rem;
+  color: #777777;
+  font-size: 0.875rem;
+}
+
+.showinfo .row-group {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+
+.showinfo .row-group .row-user .userinfo {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.showinfo .row-group .row-user {
+  border-bottom: 0.0625rem solid var(--secondary-light-grey-alternative);
+}
+
+.showinfo .row-group .row-user .roww {
+  display: grid;
+  grid-template-columns: 4rem calc(100% - 13rem) 3rem 3rem 2.5rem;
+  padding: 0.5rem 0rem 0.5rem 1rem;
+  align-items: center;
+}
+
+.showinfo .user-header .userinfo:hover .name,
+.showinfo .group-header .name.hover,
+.showinfo .row-group .row-user .userinfo:hover .name {
+  text-decoration: underline;
+}
+
+.showinfo .row-group .row-user .rating {
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+}
+
+.rowopen .moreinfo {
+  height: auto;
+  overflow-y: auto;
+  padding: 0 1em;
+  transition: all 0.2s ease-in-out;
+}
+.showinfo .row-group .row-user .book-button:after {
+  display: block;
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-image: url('../../assets/icon-booking.svg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 1.3rem;
+  filter: invert(1);
+}
+
+.showinfo .row-group .row-user .book-button {
+  text-indent: -62.5rem;
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+
+  width: 3rem;
+}
+
+.showinfo .column2 {
+  display: grid;
+  grid-template-columns: 1fr 6rem;
+  align-items: flex-end;
+}
+.showinfo .user-header .book-button {
+  width: auto;
+  white-space: nowrap;
+  position: relative;
+  z-index: 1;
+}
+
+.showinfo .user-header .book-button::before {
+  display: block;
+  content: '';
+  width: 4rem;
+  height: 4rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 100rem;
+  border: 0.125rem solid var(--maincolor);
+  animation: bookbtnanim 1s infinite ease-in-out;
+  z-index: -1;
+  transform-origin: top left;
+}
+
+.showinfo .user-header .book-button * {
+  pointer-events: none;
+}
+
+@keyframes bookbtnanim {
+  0% {
+    scale: 1;
+    opacity: 1;
+  }
+  100% {
+    scale: 4;
+    opacity: 0;
+  }
+}
+
+.showinfo.minimize .book-button {
+  bottom: 1rem;
+}
+.showinfo .button {
+  padding: 0 1rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--maincolor);
+  border-radius: var(--radius);
+  z-index: 2;
+  color: white;
+  font-weight: 700;
+  font-size: var(--font-small);
+  text-transform: uppercase;
+}
+.showinfo .user-header .thumb img,
+.showinfo .group-header .thumb img,
+.showinfo .row-group .row-user .thumb img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.showinfo .row-group .row-user .thumb {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 6rem;
+  overflow: hidden;
+}
+
+.showinfo .row-group .row-user .pricee {
+  font-size: var(--font-small);
+}
+
+.showinfo .row-group .row-user .name {
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.showinfo .row-group .row-user .alias {
+  color: var(--maincolor);
+}
+
+.showinfo .information .alias {
+  font-weight: bold;
+  font-size: 0.875rem;
+}
+
+.show {
+  transform: translateX(-50%) translateY(0);
+  transition: all 0.2s ease-in-out;
+  bottom: 4.5rem;
+  z-index: 100;
+
+  animation: animatein 0.3s 1 forwards ease-in-out;
+}
+
+.showfilter {
+  transform: translateX(-50%) translateY(0);
+  z-index: 100;
+}
+
+.pagnation {
+  margin-left: auto;
+  margin-right: auto;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-weight: bold;
+  font-size: 0.875rem;
+}
+
+.pagnation .prevnext {
+  margin-top: 0;
+  padding: 0;
+  height: 1.75rem;
+  width: 2.75rem;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--maincolor);
+  color: white;
+  font-weight: bolder;
+  font-size: 1rem;
+  overflow: hidden;
+  text-indent: -1000rem;
+  position: relative;
+}
+
+.pagnation .prevnext:hover {
+  cursor: pointer;
+}
+
+.pagnation .prevnext:active {
+  scale: 0.9;
+}
+
+.pagnation .prevnext:after {
+  display: block;
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url('../../assets/icon-chevron.svg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 1.4rem;
+  filter: invert(1);
+}
+
+.pagnation .prevnext:first-child:after {
+  rotate: 180deg;
+}

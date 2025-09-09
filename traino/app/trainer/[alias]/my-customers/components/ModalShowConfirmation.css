@@ -1,0 +1,60 @@
+:root {
+    --modal-widht: 300px;
+    --modal-heigth: 200px;
+    --purple-button: hsla(253, 76%, 61%, 1);
+    --purple-button-hover: rgb(98, 70, 196);
+}
+
+
+
+#show-confirmation-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* Se till att modalen ligger ovanför andra element */
+    /* border: 1px solid red; */
+}
+  
+  #show-confirmation-modal .modal {
+    width: var(--modal-widht);
+    height: var(--modal-heigth);
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  #show-confirmation-modal .modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #show-confirmation-modal h4 {
+    margin: 20PX 0 10px 0;
+    font-size: 22px;
+    color: #333;
+  }
+  
+  #show-confirmation-modal p {
+    margin: 0 0 20px 0;
+    font-size: 16px;
+    color: #666;
+  }
+  
+  #show-confirmation-modal button {
+    padding: 10px 20px;
+    border: 1px solid var(--purple-button);
+    border-radius: 25px;
+    background-color: var(--purple-button);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  #show-confirmation-modal button:hover {
+    background-color: var(--purple-button-hover);
+  }

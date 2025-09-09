@@ -1,0 +1,24 @@
+.adminfaq .scrollcontainer {
+  height: calc(100vh - 6.5rem) !important;
+}
+
+.adminfaq .content {
+  padding-top: 1rem;
+}
+
+.adminfaq .create h2,
+.adminfaq .create form,
+.adminfaq .create .input-group {
+  margin-bottom: 1rem;
+}
+
+.adminfaq .create label {
+  display: block;
+  font-weight: bold;
+  padding-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.adminfaq .create textarea {
+  height: 10rem;
+}

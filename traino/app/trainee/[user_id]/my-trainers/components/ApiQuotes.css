@@ -1,0 +1,22 @@
+#api-quotes {
+    margin: 20px auto;
+    font-family: 'Georgia', serif; /* Elegant font */
+    font-style: italic; /* Kursiv stil */
+    color: #555; /* Diskret textfärg */
+}
+
+
+
+#api-quotes p {
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+#api-quotes em {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #888;
+    text-align: center;
+}

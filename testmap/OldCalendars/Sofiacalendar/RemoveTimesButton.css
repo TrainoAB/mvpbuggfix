@@ -1,0 +1,11 @@
+.remove-times-button {
+  display: flex;
+  align-self: flex-start;
+  justify-self: flex-start;
+  background-color: var(--maincolor);
+  border-radius: var(--radius);
+  font-size: 0.6rem;
+  color: var(--white);
+  padding: 0.3rem 0.6rem;
+  margin-inline: 4rem;
+}

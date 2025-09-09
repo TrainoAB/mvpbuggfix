@@ -1,0 +1,54 @@
+.admin-button-container {
+  display: flex;
+}
+
+.admin-button-container .email-button,
+.admin-button-container .delete-button {
+  overflow: hidden;
+  text-indent: -1000rem;
+  width: 2.5rem;
+  position: relative;
+}
+
+.admin-button-container .delete-button {
+  background: var(--secondary-light-grey-alternative);
+}
+
+.admin-button-container .email-button:after,
+.admin-button-container .delete-button:after {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: '';
+
+  background-size: 1.3rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.admin-button-container .email-button:after {
+  filter: invert(1);
+  background-image: url('../../assets/icon-emailcheck.svg');
+}
+
+.admin-button-container .delete-button:after {
+  background-image: url('../../assets/icon-trash.svg');
+}
+
+.admin-button-container .delete-button:hover {
+  background: var(--mainpurple);
+}
+
+.admin-button-container .delete-button:hover:after {
+  filter: invert(1);
+}
+
+.admin-button-container .button {
+  height: 2.5rem;
+  font-size: var(--font-small);
+  margin-left: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

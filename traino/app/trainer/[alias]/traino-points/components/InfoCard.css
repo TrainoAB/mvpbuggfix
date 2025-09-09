@@ -1,0 +1,45 @@
+
+#info-card {
+    background-color: rgb(255, 255, 255);
+    padding: 25px 30px;
+    border-radius: 15px;
+    width: 371px;
+    height:auto;
+    margin: 20px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    
+    position: absolute; /* Placera kortet absolut */
+    z-index: 1000; /* Se till att kortet visas ovanpå andra element */
+    top: 50px; /* Justera positionen efter behov */
+    right: 5px; /* Justera positionen efter behov */
+  }
+  
+  #info-card .info-card-header {
+    font-size: 24px;
+    font-weight: 800;
+  }
+  
+  #info-card .info-card-sub-header {
+    margin-bottom: 25px;
+    font-weight: 500;;
+  }
+  
+  #info-card .info-card-hr {
+    border: 0;
+    width: 18%;
+    height: 1px;
+    background-color: hsl(0, 0%, 80%);
+    margin: 10px 0;
+  }
+  
+  #info-card .info-card-paragraph {
+    font-size: 14px;
+    line-height: 1.5;
+    color: hsl(0, 0%, 0%);
+    margin-top: 15px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    line-height: 16.94px;
+  }
+
+

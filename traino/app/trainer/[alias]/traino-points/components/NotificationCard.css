@@ -1,0 +1,36 @@
+#notification-card{
+    width: 353px;
+    height: 350px;  
+    border: 1px solid hsl(0, 0%, 80%);
+    box-shadow: 5px 5px 5px hsla(0, 0%, 0%, 0.1);
+    /*hvbc*/
+    border-radius: 15px;;
+    text-align: center;
+    padding: 40px 60px;
+    background-color: white;
+}
+
+#notification-card .notification-card-image{
+    margin-bottom: 20px;
+    height: 93.53px;
+    width: 93.53px;
+}
+#notification-card .notification-card-title{
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#notification-card .notification-card-text{
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+#notification-card .notification-card-link{
+    font-size: 1.3rem;
+    color: hsl(0, 0%, 50%);
+    text-decoration: underline;
+}
+
+
+
+ 

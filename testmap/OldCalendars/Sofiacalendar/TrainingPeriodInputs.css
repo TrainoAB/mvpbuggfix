@@ -1,0 +1,41 @@
+.training-input-row {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    justify-content: space-between;
+    margin-inline: 1.25rem;
+}
+.date {
+    align-self: flex-start;
+    margin-inline: 2.25rem;
+}
+.training-period-input {
+    width: 144px;
+    height: 48px;
+    top: 48px;
+    padding: 10px 12px 10px 12px;
+    gap: 10px;
+    border-radius: 5px;
+    border: 1px;
+    color: var(--black) 052;
+    outline: none;
+}
+.training-period-input::placeholder {
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 18.75px;
+    text-align: left;
+    color: var(--black) 041;
+}
+.form-heading {
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--secondary);
+}
+@media screen and (min-width: 1300px) {
+    .date {
+        margin-inline: 9.25rem 0;
+    }
+}

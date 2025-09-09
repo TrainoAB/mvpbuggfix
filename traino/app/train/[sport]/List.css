@@ -1,0 +1,97 @@
+.listview {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - 7rem);
+  background: var(--bgcolor);
+  color: var(--fgcolor);
+}
+
+.listview .scrollinside {
+  width: 100%;
+  height: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-light-grey) transparent;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.liston {
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.2);
+  outline: 0.25rem solid var(--maincolor);
+}
+
+.listitem {
+  padding: 1rem;
+  border-bottom: 0.0625rem solid var(--secondary-light-grey);
+  display: grid;
+  grid-template-columns: 1fr 7fr 2fr;
+}
+
+.listitem * {
+  pointer-events: none;
+}
+
+.listitem:hover {
+  cursor: pointer;
+}
+
+.listitem .thumbnail {
+  border-radius: 100rem;
+  width: 3rem;
+  height: 3rem;
+  overflow: hidden;
+}
+
+.listitem .thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.listfilter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 1rem;
+  background: var(--secondary-light-grey-alternative);
+  border-radius: 100rem;
+  padding: 0.4rem;
+  width: calc(100% - 2rem);
+}
+
+.listfilter button {
+  width: 100%;
+  border: none;
+  border-radius: 100rem;
+  background: transparent;
+  padding: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: var(--contrasttext);
+}
+
+.listfilter .active {
+  color: var(--fgcolor);
+  background: var(--bgcolor);
+}
+
+.listfilter button:hover {
+  cursor: pointer;
+  color: var(--fgcolor);
+}
+
+.listitem .listprice {
+  text-align: right;
+  font-weight: bold;
+}
+
+.listitem .listinfo {
+  margin-left: 1rem;
+}
+.listitem .listalias {
+  font-size: 0.875rem;
+  color: var(--contrasttext);
+  font-weight: bold;
+}

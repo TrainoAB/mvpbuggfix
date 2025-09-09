@@ -1,0 +1,128 @@
+.chatInput {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  padding: 0.8rem 0.3rem 0.8rem 0.8rem;
+  width: 100%;
+  background-color: var(--bgcolor);
+  box-shadow: 0 -0.5rem 2rem 0 rgba(0, 0, 0, 0.15);
+  border-top-left-radius: var(--biggerradius);
+  border-top-right-radius: var(--biggerradius);
+  z-index: 2;
+  animation: slideUp 0.3s forwards ease-out;
+}
+
+.chatInputContainer {
+  position: relative;
+  width: 100%;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.chatInput .chatInputContent {
+  max-width: 40rem;
+  width: 100%;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 3rem;
+  gap: 1rem;
+}
+
+.iconRounded {
+  width: 2.625rem;
+  height: 2.625rem;
+  background: var(--fgcolor);
+  border-radius: 10rem;
+}
+
+.iconRounded span {
+  filter: invert(var(--altinverted));
+}
+
+.iconSend {
+  width: 60%;
+  height: 60%;
+  margin-left: 0.2rem;
+}
+
+.iconSendButton {
+  background: var(--maincolor);
+}
+
+.iconRecordSound {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.iconRecordSound svg {
+  width: 51%;
+  height: 51%;
+}
+
+.iconSmiley {
+  width: 50%;
+  height: 50%;
+}
+
+.iconBrowse,
+.iconTakePhoto {
+  width: 65%;
+  height: 65%;
+}
+
+.iconSendButton span {
+  filter: invert(1);
+}
+
+.iconSmileyButton {
+  filter: invert(var(--inverted));
+  position: absolute;
+  left: 0.2rem;
+  top: 0.1rem;
+  transform-origin: center center;
+}
+
+.iconBrowseButton {
+  filter: invert(var(--inverted));
+  position: absolute;
+  right: 3.2rem;
+  top: 0;
+}
+
+.iconTakePhotoButton {
+  filter: invert(var(--inverted));
+  position: absolute;
+  right: 0.2rem;
+  top: 0;
+}
+
+.textArea {
+  scrollbar-width: none;
+  scrollbar-color: transparent transparent;
+  height: 2.9rem;
+  padding-left: 3rem;
+  padding-right: 6rem;
+}
+
+@media screen and (min-width: 768px) {
+  .chatInput {
+    box-shadow: none;
+    background: var(--mainbg);
+    border-radius: 0;
+    animation: none;
+  }
+
+  .chatInputContainer,
+  .chatInput .chatInputContent {
+    max-width: 100%;
+  }
+}

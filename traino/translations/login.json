@@ -1,0 +1,42 @@
+{"keep_me_logged_in": {
+  "en": "Keep me logged in",
+  "sv": "Håll mig inloggad",
+  "da": "Hold mig logget ind",
+  "no": "Hold meg innlogget",
+  "fi": "Pidä minut kirjautuneena"
+},
+"loading": {
+  "en": "Loading",
+  "sv": "Laddar",
+  "da": "Indlæser",
+  "no": "Laster",
+  "fi": "Ladataan"
+},
+"log_in": {
+  "en": "Log in",
+  "sv": "Logga in",
+  "da": "Log ind",
+  "no": "Logg inn",
+  "fi": "Kirjaudu sisään"
+},
+"forgot_password": {
+  "en": "Forgot password?",
+  "sv": "Glömt lösenord?",
+  "da": "Glemt adgangskode?",
+  "no": "Glemt passord?",
+  "fi": "Unohtuiko salasana?"
+},
+"no_account": {
+  "en": "Don't have an account?",
+  "sv": "Har du inget konto?",
+  "da": "Har du ikke en konto?",
+  "no": "Har du ikke en konto?",
+  "fi": "Eikö sinulla ole tiliä?"
+},
+"create_account": {
+  "en": "Create account",
+  "sv": "Skapa konto",
+  "da": "Opret konto",
+  "no": "Opprett konto",
+  "fi": "Luo tili"
+}}

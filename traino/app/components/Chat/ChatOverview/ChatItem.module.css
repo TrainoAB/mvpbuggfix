@@ -1,0 +1,72 @@
+.chatItem {
+  display: grid;
+  grid-template-columns: 5.125rem 1fr 1rem;
+  padding: 0.5rem 1rem;
+  align-items: center;
+}
+
+.chatItem h3 {
+  font-size: 1rem;
+}
+
+.chatItem p {
+  font-size: 1rem;
+}
+
+.chatItem span {
+  color: var(--light-grey);
+  font-size: 0.75rem;
+}
+
+.chatItemRead,
+.chatItemRead h3,
+.chatItemRead p {
+  color: var(--light-grey);
+}
+
+.chatDetails {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden; /* Hides the overflow */
+  margin-right: 0.625rem;
+}
+
+.chatItem h3,
+.chatItem p {
+  overflow: hidden; /* Hides the overflow */
+  white-space: nowrap; /* Prevents text from wrapping */
+  text-overflow: ellipsis; /* Adds the "..." */
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
+
+.chatItem * {
+  user-select: none;
+  pointer-events: none;
+}
+
+.chatItem:hover {
+  cursor: pointer;
+}
+
+.chatItem:active {
+  background-color: var(--secondary-light-grey);
+}
+
+.chatItem:hover h3 {
+  color: var(--maincolor);
+}
+
+.unreadMessages {
+  font-weight: 500;
+  background-color: var(--red);
+  min-width: 1.125rem;
+  height: 1.125rem;
+  line-height: 1.125rem;
+  text-align: center;
+  padding: 0 0.3rem;
+  color: white !important;
+  border-radius: 10rem;
+}

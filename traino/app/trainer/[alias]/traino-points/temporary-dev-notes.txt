@@ -1,0 +1,2 @@
+https://localhost:3000/trainer/[alias]/traino-points
+https://localhost:3000/trainer/[alias]/traino-points/order-confirmation

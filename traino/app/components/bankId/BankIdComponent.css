@@ -1,0 +1,78 @@
+#bankidcomponent {
+  margin-top: 3.25rem;
+  display: flex;
+  gap: 0.8rem;
+  flex-direction: column;
+  align-items: flex-start;
+  /* justify-content: center; */
+  /* margin: 1rem 0 1rem 0; */
+  /* text-align: center; */
+}
+
+/* #bankidcomponent .button {
+  height: 4rem;
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+} */
+
+/* #bankidcomponent .button-start:disabled {
+  background-color: #0042c6;
+
+  cursor: not-allowed;
+} */
+
+#bankidcomponent .success-button {
+  background-color: rgb(90, 179, 0);
+ }
+
+#bankidcomponent .bankid-logo {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 1rem;
+  vertical-align: middle;
+  background: transparent;
+  filter: invert(1);
+}
+
+#bankidcomponent .qr-code {
+  text-align: center;
+  width: 8rem;
+  height: 8rem;
+  margin: 1rem 0 0 0;
+}
+
+#bankidcomponent .autostart-link {
+  margin: 3rem 0 2rem 0;
+  text-decoration: underline;
+  font-weight: 900;
+  font-size: large;
+  font-style: italic;
+}
+
+#bankidcomponent .hint-message {
+  margin-top: .5rem;
+  font-size:medium;
+}
+
+#bankidcomponent .autostart-container {
+  margin: 1rem 0 1rem 0;
+}
+#bankidcomponent .button .spinner {
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #000;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

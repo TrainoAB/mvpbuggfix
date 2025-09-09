@@ -1,0 +1,437 @@
+#profilemenu {
+  position: fixed;
+  z-index: 200000;
+  background: var(--bgcolor);
+  color: var(--fgcolor);
+  width: 100dvw;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: -6px 0 16px rgba(0, 0, 0, 0.5);
+  right: 0;
+}
+
+#profilemenu .menuscrollcontainer {
+  margin-top: 4rem;
+  height: calc(100% - 4rem);
+  width: 100%;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+}
+
+#profilemenu .content {
+  min-height: 100%;
+  width: 100%;
+}
+
+#profilemenu * {
+  user-select: none;
+}
+
+#profilemenu.showing {
+  top: 0;
+  right: 0;
+}
+
+@keyframes showmenu {
+  0% {
+    transform: translateX(40rem);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+#profilemenu .checkboxes,
+#profilemenu .input-group {
+  padding-left: 0;
+}
+
+#profilemenu .rememberme {
+  display: flex;
+  align-items: center;
+}
+
+#profilemenu label:hover {
+  cursor: pointer;
+}
+
+#btn-profilemenu {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  width: 3rem;
+  height: 3rem;
+}
+
+#btn-profilemenu:after {
+  display: block;
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-image: url('../../assets/icon-hamburger.svg');
+  background-size: 2rem;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+#profilemenu .logo {
+  margin-top: 1rem;
+  max-width: 8rem !important;
+  height: 2.5rem !important;
+  background-image: url('../../assets/logo.svg');
+  background-size: contain;
+  background-position: left center;
+  background-repeat: no-repeat;
+  margin-left: 1rem;
+}
+
+#profilemenu .menucontainer {
+  max-width: 40rem;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 100%;
+}
+
+#profilemenu #profile-menu-notification-icon {
+  position: absolute;
+  margin-left: 0.5rem;
+}
+#profilemenu #profile-menu-notification-icon .profile-page-amount {
+  right: 0;
+
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 12px;
+  top: 0.6rem;
+}
+
+#profilemenu .btn-closemenu {
+  filter: invert(var(--inverted));
+  position: absolute;
+  right: 1rem !important;
+  top: 1rem !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  background-image: url('../../assets/icon-x.svg') !important;
+  background-size: 1.6rem !important;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+#profilemenu .btn-closemenu:hover {
+  scale: 1.2;
+}
+
+#profilemenu ul {
+  padding: 1rem;
+  list-style: none !important;
+  max-width: 40rem;
+  width: fit-content;
+  margin-bottom: 1rem;
+}
+
+#profilemenu ul li {
+  font-size: 1.5rem;
+
+  font-weight: 600;
+  color: var(--fgcolor);
+}
+
+#profilemenu ul li a,
+#profilemenu ul li div {
+  line-height: 3rem;
+  padding-left: 3rem;
+  display: inline-block;
+}
+
+#profilemenu ul li a:hover,
+#profilemenu ul li div:hover {
+  cursor: pointer;
+  color: var(--maincolor);
+}
+
+#btn-profilemenu:hover,
+#profilemenu .btn-closemenu:hover {
+  cursor: pointer;
+}
+#btn-profilemenu:active,
+#profilemenu .btn-closemenu:active {
+  scale: 0.9;
+}
+
+#profilemenu .secondarymenu {
+  width: 100%;
+}
+
+#profilemenu .secondarymenu li {
+  font-size: 1.2rem;
+  line-height: 150%;
+}
+
+#profilemenu .secondarymenu li div {
+  line-height: 2rem;
+}
+
+#profilemenu .secondarymenu li .checkboxes {
+  margin: 0;
+}
+#profilemenu .secondarymenu li a {
+  font-size: 1.2rem;
+  padding-left: 0 !important;
+  line-height: 2rem;
+}
+
+#profilemenu .top {
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#profilemenu .top h1 {
+  font-size: 1.2rem;
+}
+#profilemenu .minithumb {
+  width: 3rem;
+  height: 3rem;
+  overflow: hidden;
+  border-radius: 100%;
+  margin-right: 1rem;
+  background: var(--secondary-light-grey-alternative);
+}
+#profilemenu .minithumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#profilemenu .icon-transactions,
+#profilemenu .icon-payment,
+#profilemenu .icon-settings,
+#profilemenu .icon-logout,
+#profilemenu .icon-bug {
+  background-image: none;
+  position: relative;
+}
+
+#profilemenu .icon-transactions:before,
+#profilemenu .icon-payment:before,
+#profilemenu .icon-settings:before,
+#profilemenu .icon-logout:before,
+#profilemenu .icon-bug:before {
+  content: '';
+  display: inline-block;
+  width: 2.5rem;
+  height: 2.85rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: 2rem;
+  filter: invert(var(--inverted));
+  background-repeat: no-repeat;
+}
+
+#profilemenu .icon-transactions:before {
+  background-image: url('../../assets/icon-transactions.svg');
+  background-size: 2rem;
+  background-position: left center;
+}
+
+#profilemenu .icon-profile:before {
+  background-image: url('../../assets/icon-profile.svg');
+  background-position: left center;
+}
+
+#profilemenu .icon-bug:before {
+  background-image: url('../../assets/icon-bug.svg');
+  background-size: 2rem;
+  background-position: 0.2rem center;
+}
+
+#profilemenu .icon-logout:before {
+  background-image: url('../../assets/icon-logout.svg');
+  background-position: left center;
+}
+#profilemenu .icon-notification:before {
+  background-image: url('../../assets/icon-notification.svg');
+  background-position: 0.2rem center;
+}
+
+#profilemenu .icon-booking:before {
+  background-image: url('../../assets/icon-booking.svg');
+  background-size: 1.75rem;
+  background-position: left center;
+}
+
+#profilemenu .icon-payment:before {
+  background-image: url('../../assets/icon-payment.svg');
+  background-size: 2.4rem;
+  background-position: left center;
+}
+
+#profilemenu .icon-settings:before {
+  background-size: 2.5rem;
+  background-image: url('../../assets/icon-settings.svg');
+  background-position: left center;
+}
+
+#profilemenu .menutop {
+  border-top-left-radius: var(--bigradius);
+  border-top-right-radius: var(--bigradius);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4rem;
+  background: var(--bgcolor);
+  z-index: 10;
+}
+
+#profilemenu .menubottom {
+  margin-bottom: 1rem;
+  color: gray;
+  font-size: var(--font-small);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 2rem;
+}
+
+#profilemenu .socialmedias {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+#profilemenu .icon-instagram,
+#profilemenu .icon-tiktok,
+#profilemenu .icon-youtube {
+  text-indent: -1000px;
+  overflow: hidden;
+  width: 2rem;
+  height: 2rem;
+  display: block;
+  background-size: contain;
+}
+
+#profilemenu .icon-tiktok {
+  filter: invert(var(--inverted));
+}
+#profilemenu .links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+#profilemenu .links a {
+  text-decoration: underline;
+}
+
+#profilemenu .links a:hover {
+  color: var(--fgcolor);
+  text-decoration: underline;
+}
+
+#profilemenu .darkoverlay {
+  z-index: 10000;
+}
+
+.darkoverlay:hover {
+  cursor: pointer;
+}
+
+.isloading {
+  width: 100vw !important;
+}
+
+.icon-language {
+  margin: 0;
+  margin-top: 1rem;
+  font-size: 1rem;
+  width: 100%;
+  background: var(--secondary-light-grey-alternative);
+  padding: 0.5rem 1rem !important;
+  border-radius: var(--radius);
+  text-transform: capitalize;
+}
+
+.flag-icon {
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  border: 0.5px solid rgba(141, 138, 138, 0.171);
+  height: 100%;
+  width: 2rem;
+  object-fit: contain;
+  background: none;
+}
+
+@media screen and (min-width: 640px) {
+  #profilemenu {
+    animation: showmenu 0.2s forwards ease-in-out;
+  }
+
+  #profilemenu .menuscrollcontainer {
+    padding: 1rem;
+    margin-top: 4rem;
+  }
+
+  #profilemenu .logo {
+    margin-left: 2rem;
+  }
+
+  #profilemenu.showing {
+    height: 100vh;
+    right: 0rem !important;
+    top: 0rem;
+    width: 30rem;
+    border-radius: var(--bigradius);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #profilemenu {
+    animation: showmenu 0.2s forwards ease-in-out;
+    padding: 0;
+  }
+
+  #profilemenu ul {
+    margin-bottom: 0;
+  }
+  #profilemenu ul li {
+    font-size: 1.2rem;
+  }
+  #profilemenu ul li a,
+  #profilemenu ul li div {
+    line-height: 2rem;
+    padding-left: 2.5rem;
+  }
+  #profilemenu .secondarymenu li a {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  #profilemenu .secondarymenu {
+    padding-top: 1rem;
+  }
+
+  #profilemenu [class^='icon-']:before {
+    background-size: 1.8rem !important;
+    margin-top: -8px;
+  }
+
+  #profilemenu ul li a {
+    line-height: 170%;
+  }
+
+  #profilemenu .icon-bug {
+    background-size: 1.5rem;
+  }
+
+  #profilemenu label {
+    font-size: 1rem;
+  }
+}

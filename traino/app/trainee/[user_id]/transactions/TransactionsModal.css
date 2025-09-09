@@ -1,0 +1,73 @@
+#transactions-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bgcolor);
+  z-index: 20;
+}
+
+#transactions-modal .scrollcontent {
+  padding-top: 3.5rem;
+  width: 100%;
+  max-height: calc(100vh - 3.5rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-light-grey) transparent;
+  display: flex;
+  justify-content: center;
+}
+
+#transactions-modal .content {
+  max-width: 40rem;
+  width: calc(100% - 2rem);
+}
+
+#transactions-modal .transaction-item {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--maincolor);
+  display: grid;
+  grid-template-columns: 3.5rem 1fr 5rem;
+  font-weight: bold;
+  align-items: center;
+}
+
+#transactions-modal .transaction-item .date {
+  text-align: right;
+}
+
+#transactions-modal .icon-train,
+#transactions-modal .icon-onlinetraining,
+#transactions-modal .icon-dietprogram,
+#transactions-modal .icon-trainprogram,
+#transactions-modal .icon-clipcard {
+  background-color: white;
+  border-radius: 100rem;
+  background-size: 1.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+#transactions-modal .list {
+  display: grid;
+  grid-template-columns: 3fr 7fr;
+  font-size: 0.8125rem;
+  color: gray;
+}
+
+#transactions-modal .list div {
+  border-bottom: 1px dotted var(--secondary-light-grey-alternative);
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+}
+
+#transactions-modal .list div:nth-child(2n) {
+  text-align: right;
+}
+#transactions-modal .list div:nth-child(2n) {
+  font-weight: bold;
+  text-align: right;
+  color: var(--fgcolor);
+}

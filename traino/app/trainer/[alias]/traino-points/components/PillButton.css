@@ -1,0 +1,21 @@
+.pill-button {
+    display: block;
+    background-color: #7252E7;
+    color: white;
+    padding: 17px 35px;
+    box-shadow: -3px 5px 15px  hsla(0, 0%, 0%, 0.3);
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: Helvetica;
+    text-align: center;
+    margin: 10px auto 0 auto;
+   
+  }
+  
+  .pill-button:hover {
+    background-color: #603BE4;
+    cursor: pointer;
+  }
+  

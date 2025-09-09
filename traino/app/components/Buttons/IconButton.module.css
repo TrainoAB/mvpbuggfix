@@ -1,0 +1,32 @@
+.iconButton {
+  background: transparent;
+  width: 2.8rem;
+  height: 2.8rem;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-origin: center center;
+}
+
+.iconButton:hover {
+  cursor: pointer;
+  scale: 1.1;
+}
+
+.iconButton:active {
+  cursor: pointer;
+  scale: 1;
+}
+
+.iconButton * {
+  pointer-events: none;
+}
+
+.iconButton span {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

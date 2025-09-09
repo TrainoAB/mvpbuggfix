@@ -1,0 +1,100 @@
+#reward-product-card-mini{
+    position: relative;
+    text-align: center;
+}
+
+#reward-product-card-mini .container-text-and-image{
+    cursor: pointer;
+    width: 162px;
+    height: 128px;
+    border: 1px solid hsl(0, 0%, 80%);
+    box-shadow: 5px 5px 5px hsla(0, 0%, 0%, 0.1);
+    /*hvbc*/
+    border-radius: 15px;;
+    text-align: center;
+    background-color: #fff;   
+}
+
+#reward-product-card-mini .header-card-mini{
+    margin-top: -6px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+#reward-product-card-mini .subheader-card-mini{
+    margin-top: -3px;
+    font-size: 14px;
+    font-weight: 600;
+    color: hsl(0, 0%, 50%);
+}
+
+#reward-product-card-mini .container-text-and-image.orderable {
+    border: 3px solid hsl(51, 100%, 60%); /* Initial guldnyans */
+    box-shadow: 0px 0px 10px hsla(0, 0%, 100%);
+}
+
+#reward-product-card-mini .container-text-and-image.already-ordered{
+    filter: brightness(0.42);
+}
+
+#reward-product-card-mini .checkmark{
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 60px;
+    height: 60px;  
+    border-radius: 50%;
+    padding-top: 6px;
+    /* border: 4px solid hsl(127, 100%, 70%); */
+    background-color: hsla(73, 52%, 57%, 0.8);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color:#fff;
+    /* color: hsl(127, 100%, 70%); */
+    font-size: 2rem;
+}
+
+
+
+/* *********************************** NOT AFFORDABLE PRODUCTS ********************************* */
+
+#reward-product-card-mini .container-text-and-image.not-affordable {
+    filter: brightness(0.42);
+
+}
+
+#reward-product-card-mini .header-not-affordable{
+    position: absolute;
+    top: 50%; /* Justerar detta värde för att kontrollera vertikal placering */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centrerar texten både horisontellt och vertikalt */
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    z-index: 2; /* Se till att texten ligger ovanpå bilden */
+    width: 100%;
+}
+
+#reward-product-card-mini .subheader{
+    color: hsl(0, 0%, 50%);
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+#reward-product-card-mini .subheader-not-affordable{
+    font-weight: 400;
+}
+
+#reward-product-card-mini img {
+    width: 100px;
+    height:100px;
+    margin-bottom: -15px;
+}
+
+#reward-product-card-mini .header-not-affordable{
+    font-size: 16px;
+}
+

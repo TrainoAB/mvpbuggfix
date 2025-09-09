@@ -1,0 +1,47 @@
+/* Terms box */
+#terms-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  background: var(--bgcolor);
+  color: var(--fgcolor);
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.terms-content {
+  max-width: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 3.2875rem;
+  text-align: left;
+  height: calc(100vh - 3.6rem);
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-light-grey) transparent;
+}
+
+.terms-body {
+  padding: 2rem;
+  max-width: 30rem;
+}
+
+.terms-content p {
+  margin-bottom: 1rem;
+}
+
+#terms-container .secondarytop {
+  background: var(--bgcolor);
+  color: var(--fgcolor);
+  border-bottom: 0.0625rem solid var(--secondary-light-grey);
+}
+
+#terms-container .secondarytop .btn-back:after {
+  filter: invert(var(--inverted));
+}

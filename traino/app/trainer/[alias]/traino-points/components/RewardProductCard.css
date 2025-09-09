@@ -1,0 +1,48 @@
+#reward-product-card{
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    background-color: white; /* Bakgrundsfärg för kortet */
+    padding: 20px; /* Padding för innehållet */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Skugga för att ge kortet en lyft effekt */
+    border-radius: 8px; /* Rundade hörn */
+    width: 300px; /* Bredd på kortet */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 70px;
+    padding-top: 0;
+    color: black;
+}
+
+#reward-product-card .reward-header{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#reward-product-card .reward-subheader{
+    color: hsl(0, 0%, 50%);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+#reward-product-card .container-describing-text{
+    /* border: 1px solid black; */
+    width: 100%;
+    margin: 0px;
+    text-align: left;
+}
+
+
+#reward-product-card p{
+    font-weight: 400;
+    font-size: 14px;
+}
+
+
+
+ 

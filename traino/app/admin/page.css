@@ -1,0 +1,216 @@
+#admin-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font);
+}
+#admin-page .scrollcontainer {
+  width: 100%;
+  height: calc(100vh - 11.3rem);
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-light-grey) transparent;
+  display: flex;
+  justify-content: center;
+  overflow-y: auto;
+}
+#admin-page .content {
+  padding-bottom: 2rem;
+}
+
+#admin-page h2 {
+  color: var(--titlecolor);
+}
+
+#admin-page .header-buttons {
+  margin-top: 3.2rem;
+  height: 3rem;
+  line-height: 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  border-bottom: 1px solid var(--secondary-light-grey);
+}
+
+#admin-page .header-buttons a {
+  font-weight: bold;
+  color: var(--contrasttext);
+  border-bottom: 0.1875rem solid transparent;
+}
+
+#admin-page .header-buttons a:hover {
+  color: var(--fgcolor);
+}
+
+#admin-page .header-buttons a.active {
+  color: var(--fgcolor);
+  border-bottom: 0.1875rem solid var(--maincolor);
+}
+
+#admin-page .searchbar {
+  position: relative;
+  display: flex;
+  width: calc(100% - 2rem);
+  max-width: 40rem;
+  margin-top: 1.5rem;
+  flex-direction: column;
+}
+
+#admin-page .content {
+  width: calc(100% - 2rem);
+  max-width: 40rem;
+}
+
+#admin-page .row {
+  display: grid;
+  grid-template-columns: 3rem 1fr 6rem;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--secondary-light-grey-alternative);
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+}
+#admin-page .user-name {
+  overflow: hidden;
+  font-weight: 600;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#admin-page .fname,
+#admin-page .lname,
+#admin-page .alias {
+  font-size: 0.875rem;
+}
+
+#admin-page .alias {
+  color: var(--maincolor);
+}
+
+#admin-page .button-container {
+  display: flex;
+  gap: 2px;
+}
+
+#admin-page .thumb {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+#admin-page .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#admin-page .br-link-container {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+#admin-page .br-link {
+  text-decoration: none;
+  color: #333;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+#admin-page .rating {
+  font-size: 0.875rem;
+}
+
+#admin-page .br-link:hover {
+  color: #007bff;
+}
+
+#admin-page .pagination {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 2rem;
+}
+
+#admin-page .pagination button {
+  font-weight: bold;
+  padding: 0.875rem 1rem;
+  background: var(--maincolor);
+  border: none;
+  border-radius: var(--radius);
+  color: white;
+  font-size: 1rem;
+  font-family: var(--font);
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+  border: 1px solid transparent;
+}
+
+#admin-page .pagination button:hover {
+  cursor: pointer;
+  background: var(--mainpurple);
+  color: white;
+}
+
+#admin-page .pagination .active {
+  background: white;
+  color: black;
+  border: 1px solid var(--secondary-light-grey);
+}
+
+.adminstats .scrollcontainer {
+  height: calc(100vh - 6.5rem) !important;
+}
+.adminstats .content {
+  padding-top: 1rem;
+}
+
+.adminstats .statsgrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  padding-bottom: 2rem;
+}
+
+.adminstats .statsgrid .block {
+  padding: 1rem;
+  text-align: center;
+  border-radius: var(--radius);
+  box-shadow: 0 0.3rem 0.6rem 0 rgba(0, 0, 0, 0.2);
+  background: var(--secondary-light-grey-alternative);
+}
+
+.adminstats .statsgrid .block .th {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: gray;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.adminstats .statsgrid .block .stats {
+  font-weight: bold;
+}
+
+.adminstats .statsgrid .block .block {
+  box-shadow: none;
+  border-top: 1px dotted var(--secondary-light-grey);
+  margin-top: 0.5rem;
+  padding-bottom: 0;
+}
+
+#admin-page .presentationcontainer {
+  width: 100%;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}

@@ -1,0 +1,49 @@
+.cancelmodal-container {
+    position: fixed;
+    z-index: 100000000;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cancelmodal-container .cancelmodal {
+    width: auto;
+    height: auto;
+    position: relative;
+    box-shadow: 0 0.3rem 1rem 0 rgba(0, 0, 0, 0.5);
+    border-radius: var(--bigradius);
+    width: 30rem;
+    max-width: calc(100% - 2rem);
+    display: block;
+    overflow: hidden;
+    z-index: 100000001;
+    background-color: var(--bgcolor);
+}
+
+.cancelmodal-container .cancelmodal .categorytop {
+    position: relative;
+}
+
+.cancelmodal-container .cancelmodal .cancelmodal-content {
+    padding: 1rem;
+    width: 100%;
+}
+
+.cancelmodal-container .cancelmodal .cancelmodal-buttons {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.cancelmodal-container .cancelmodal textarea {
+    margin-top: 1rem;
+}
+
+.cancelmodal-container .darkoverlay {
+    z-index: 1;
+}

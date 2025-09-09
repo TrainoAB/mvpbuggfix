@@ -1,0 +1,96 @@
+body {
+  overflow: hidden;
+}
+#chat {
+  text-align: center;
+  background: white;
+  color: black;
+  display: flex;
+  height: calc(100vh - 6rem);
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#chat .scrollcontent {
+  padding-top: 4.5rem;
+  display: flex;
+  flex-direction: column;
+  z-index: 0;
+  position: relative;
+  width: 100%;
+  max-height: calc(100vh - 6rem);
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#chat .categorytop {
+  z-index: 10 !important;
+}
+
+#chat .amount {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.8rem;
+  padding: 0;
+  aspect-ratio: 1 / 1;
+  top: 0.8rem;
+  right: 1rem;
+  border-radius: 100rem;
+  background-image: radial-gradient(circle at 38% 33%, #fc5e5e, #940303);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+#chat .chats-container {
+  width: calc(100% - 2rem);
+  max-width: 40rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#chat .chathead {
+  display: grid;
+  grid-template-columns: 5rem calc(100% - 5rem);
+}
+
+#chat .chathead:hover {
+  cursor: pointer;
+}
+
+#chat .chathead .thumbnail {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 10rem;
+  overflow: hidden;
+}
+
+#chat .chathead .thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#chat .chathead .info {
+  text-align: left;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#chat .chathead .name {
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: black;
+  margin-bottom: 0.3rem;
+}
+
+#chat .chathead .date {
+  font-size: 0.875rem;
+  color: lightgray;
+}

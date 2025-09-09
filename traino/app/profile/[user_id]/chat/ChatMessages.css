@@ -1,0 +1,142 @@
+#chatmessages {
+  text-align: center;
+  background: white;
+  color: black;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 20;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 8.5rem);
+  overflow: hidden;
+}
+
+#chatmessages .chatcontent {
+  display: flex;
+  flex-direction: column;
+  z-index: 0;
+  width: 100%;
+  height: calc(100vh - 7.5rem);
+  padding-top: 4.5rem;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  overflow-y: auto;
+}
+
+.chatinput {
+  position: fixed;
+  bottom: 3.5rem;
+  background: #f2f2f2;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+}
+.chatinput button {
+  background: var(--maincolor);
+  border: none;
+  border-radius: var(--radius);
+  color: white;
+  padding: 0 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: inherit;
+  margin-left: 0.5rem;
+}
+.chatinput button:hover {
+  background: var(--mainpurple);
+  cursor: pointer;
+}
+.chatinput input {
+  max-width: 40rem;
+}
+#chatmessages .chatting-container {
+  width: calc(100% - 2rem);
+  max-width: 40rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#chatmessages .categorytop {
+  z-index: 30 !important;
+}
+
+#chatmessages .categorytop h1 {
+  font-size: 1.3rem;
+}
+
+#chatmessages .chatitem {
+  display: grid;
+  grid-template-columns: 4rem 9fr;
+  margin-bottom: 1rem;
+}
+
+#chatmessages .chatitem.reverse {
+  display: grid;
+  grid-template-columns: 9fr 4rem;
+}
+
+#chatmessages .chatitem .thumbnail {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 10rem;
+  overflow: hidden;
+}
+
+#chatmessages .chatitem.reverse .thumbnail {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 10rem;
+  overflow: hidden;
+  margin-left: 1rem;
+}
+
+#chatmessages .chatitem .thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#chatmessages .chatitem .message,
+#chatmessages .chatitem .name {
+  text-align: left;
+}
+
+#chatmessages .chatitem .message {
+  position: relative;
+  padding-bottom: 1rem;
+  width: 100%;
+  text-align: left;
+}
+
+#chatmessages .chatitem .info {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius);
+  overflow: hidden;
+  padding: 1rem;
+  position: relative;
+}
+
+#chatmessages .chatitem.reverse .info {
+  background: var(--secondary);
+  color: white;
+}
+
+#chatmessages .chatitem .name {
+  font-size: var(--font-small);
+  font-weight: 700;
+}
+
+#chatmessages .chatitem .date {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: 0.6875rem;
+  opacity: 0.5;
+}

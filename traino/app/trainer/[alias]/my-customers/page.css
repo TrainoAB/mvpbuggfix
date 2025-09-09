@@ -1,0 +1,81 @@
+html, body {
+    background-color: hsla(0, 0%, 97%, 1);
+}
+
+#my-customers {
+    width: 100vw;
+}
+
+#my-customers .page-wrapper {
+    margin: 0 7%;
+    /* border: 1px solid blue; */
+}
+
+
+#my-customers .customer-title{
+    font-size: 18px;
+}
+
+#my-customers p {
+    font-size: 14px;
+    color: hsl(0, 0%, 55%);
+    font-weight: 300;
+}
+
+#my-customers  hr {
+    border: 1px solid hsl(0, 0%, 90%);
+    margin: 20px 0;
+}
+
+#my-customers .trainee {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#my-customers .trainee__left{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+#my-customers .trainee__left--photo-container {
+    height: 57px;
+    width: 57px;
+}
+
+#my-customers .trainee__left--photo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Gör att bilden fyller behållaren och beskär överflödiga delar */
+    object-position: center 20%; /* Centrerar bilden horisontellt inom behållaren och flyttar den den 20% i höjd*/
+    border-radius: 50%; 
+}
+
+#my-customers .trainee__right {
+    display: flex;
+    align-items: center;
+    color: hsla(0, 0%, 20%, 1);
+    font-size: 18px;
+    font-weight: 200;
+    transform: scaleY(1.9) translateY(-3%); /* Skalar tecknet vertikalt */
+}
+
+@media (min-width: 768px) {
+    #my-customers { 
+        display: flex;
+        justify-content: center;       
+        /* background-color: rgb(80, 147, 255); */
+    }
+    
+    #my-customers .page-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* border: 1px solid red; */
+    }
+    #my-customers .customer-header{
+        width: 400px;
+    }
+}

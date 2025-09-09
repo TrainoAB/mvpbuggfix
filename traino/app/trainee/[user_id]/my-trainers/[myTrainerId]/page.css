@@ -1,0 +1,41 @@
+html, body {
+    background-color: hsla(0, 0%, 97%, 1);
+}
+
+#my-trainer {
+    width: 100vw;
+    position: relative;
+    z-index: 0;
+}
+
+#my-trainer .page-wrapper {
+    margin: 0 7%;
+}
+
+#my-trainer .nav-tab-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    #my-trainer {
+    }
+    
+    #my-trainer .page-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #my-trainer .customer-header {
+        width: 400px;
+    }
+
+
+}
+
+@media (min-width: 768px) {
+    #my-trainer .trainee-info {
+        width: 458.44px;
+    }
+}

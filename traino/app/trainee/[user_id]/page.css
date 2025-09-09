@@ -1,0 +1,443 @@
+#profile {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+#profile.profile_trainee #productlist {
+  width: calc(100% - 2rem);
+  max-width: 40rem;
+}
+
+#profile.profile_trainee .mycontent {
+  max-width: 40rem;
+  width: 100%;
+}
+
+#profile .loader-container {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#profile .profile_trainee.fourofour {
+  display: flex;
+
+  flex-direction: column;
+}
+
+#profile.profile_trainee .profiletop {
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: calc(100% - 2rem);
+}
+
+#profile .profiletop .membersince {
+  font-size: var(--font-small);
+  color: gray;
+}
+
+#profile .profiletop .thumb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 8rem;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  z-index: 10;
+  margin-bottom: 1rem;
+}
+
+#profile .profiletop .thumb .image {
+  outline: 0.25rem solid white;
+  background: var(--secondary-light-grey-alternative);
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: 1000rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../../assets/icon-profile.svg');
+  z-index: 0;
+}
+
+#profile .image-background {
+  content: '';
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  border-radius: inherit;
+}
+
+#profile .fourofour {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40vh;
+  max-width: 30rem;
+}
+
+#profile .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#profile .profiletop .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#profile .profiletop > h1 {
+  font-size: clamp(1rem, 10vw, 2rem);
+  margin-bottom: 1rem;
+}
+
+#profile .profileabout p {
+  margin-top: 0.5rem;
+}
+
+#profile .profileabout {
+  text-align: left;
+  border-top: 0.0625rem solid var(--secondary-light-grey-alternative);
+
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+  border-bottom: 0 transparent;
+}
+
+#profile h3 {
+  color: var(--titlecolor);
+  font-size: 1.25rem;
+}
+
+#profile .profiledetails {
+  padding-top: 1rem;
+  border-top: 0.0625rem solid var(--secondary-light-grey-alternative);
+  border-bottom: 0 transparent;
+  margin-top: 0;
+}
+
+#profile .profiledetails .gender {
+  padding-left: 2rem;
+  position: relative;
+  border: 0 transparent;
+  overflow: hidden;
+
+  font-size: 0.875rem;
+  font-weight: bold;
+}
+
+#profile .profiledetails .gender:before {
+  background-image: url('../../assets/icon-profile.svg');
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 1.3rem;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: '';
+  width: 2rem;
+  height: 1.2rem;
+  filter: invert(var(--inverted));
+}
+
+#profile .products-container {
+  padding: 1rem;
+  width: 100%;
+}
+
+#profile.profile_trainee .training-container {
+  margin: 1rem 0;
+}
+
+#profile .products-container ul,
+#profile .training-container ul {
+  text-align: left;
+  list-style: none;
+  width: 100%;
+}
+
+#profile .products-container ul li {
+  color: var(--maincolor);
+  width: 100%;
+  padding: 0.65rem 1rem;
+}
+
+#profile .products-container ul li:hover {
+  cursor: pointer;
+  filter: invert(1);
+  color: black;
+  background: white;
+}
+
+#profile .trainitem {
+  background: var(--secondary-light-grey-alternative);
+  border-radius: var(--radius);
+  margin-top: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+#profile.profile_trainee .trainitem {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  margin-right: 0.5rem;
+}
+#profile.profile_trainee .trainitem:hover {
+  cursor: default;
+}
+
+#profile .products-container li {
+  padding: 1rem;
+  background-color: var(--secondary-light-grey-alternative);
+  border-radius: var(--radius);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#profile .products-container li span {
+  position: absolute;
+  right: 1rem;
+  color: black;
+}
+
+#profile .products-container .icon-train,
+#profile .products-container .icon-clipcard,
+#profile .products-container .icon-dietprogram {
+  background-color: white;
+  border-radius: 10rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+#profile .btn-closemenu {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  width: 3rem;
+  height: 3rem;
+  background-image: url('../../assets/icon-x.svg');
+  background-size: 1.6rem;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+#modal {
+  position: fixed;
+  z-index: 20;
+  width: 100%;
+  height: 100%;
+  background: white;
+  padding-top: 3.51rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-light-grey) transparent;
+}
+
+#profile .btn-changephoto {
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+
+  bottom: 0;
+  right: 0;
+  border-radius: 100%;
+  background-color: var(--maincolor);
+  box-shadow: 0 0.0625rem 0.3125rem 0.0625rem rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  cursor: pointer;
+}
+
+#profile .btn-changephoto:after {
+  display: block;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: invert(1);
+  background-image: url('../../assets/icon-photo.svg');
+  background-position: center center;
+  background-size: 1.5rem;
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
+#profile .btn-changephoto:hover {
+  background-color: var(--mainpurple);
+}
+
+#profile .gallery-item {
+  aspect-ratio: 16/10;
+  overflow: hidden;
+}
+
+#profile .gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.2s ease-in-out;
+}
+
+#profile .gallery-item:hover {
+  cursor: pointer;
+}
+
+#profile .gallery-item:hover img {
+  scale: 1.1;
+  animation: 0.2s flash ease-in-out;
+}
+
+#profile .gallery-add {
+  background-color: var(--secondary-light-grey-alternative);
+  background-image: url('../../assets/icon-photo.svg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 20%;
+}
+
+@media screen and (max-width: 100rem) {
+  #gallery {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 60rem) {
+  #gallery {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 40rem) {
+  #gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #profile.profile_trainee .mycontent {
+    padding-inline: 1rem;
+  }
+}
+
+/* Product Cards styles */
+/* #profile .boughtproducts h3 {
+  margin-left: 5vw;
+}
+#profile .flex-wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+#profile .productbox {
+  background-color: #f7f7f7;
+  border: 0.0625rem solid #ddd;
+  padding: 1.25rem;
+  margin: 1rem 1.25rem ;
+  width: 90vw;
+  height: 100%;
+  background-color: #f3f3f3;
+  border: 0rem solid #ddd;
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: 0 0.3rem 0.8rem 0 rgba(0,0,0,0.2);
+}
+#profile .flexcontainer {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+#profile .productbox button {
+  margin-top: 1.25rem;
+}
+#profile .productbox p {
+  margin-bottom: 0.625rem;
+}
+#profile .icon-train {
+  display: block;
+  background-size: 1.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-left: 1rem;
+}
+#profile .icon-stats {
+  display: block;
+  background-size: 1.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-left: 1rem;
+}
+.alignicon {
+  display: flex;
+} */
+
+#profile.profile_trainee .listed-products {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  border: 0.0625rem solid var(--secondary-light-grey);
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  background-color: var(--secondary-light-grey-alternative);
+  border: 0rem solid var(--secondary-light-grey);
+  background: var(--bgcolor);
+  border-radius: var(--radius);
+  box-shadow: 0 0.3rem 0.8rem 0 rgba(0, 0, 0, 0.2);
+}
+
+#profile.profile_trainee .listed-products * {
+  pointer-events: none;
+}
+
+#profile.profile_trainee .listed-products h3 {
+  color: var(--maincolor);
+}
+
+#profile.profile_trainee .listed-products:hover {
+  cursor: pointer;
+
+  outline: 4px solid var(--maincolor);
+}
+
+#profile.profile_trainee .listed-products:hover h3 {
+  color: var(--fgcolor);
+}
+
+#profile.profile_trainee .listed-products p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25%;
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  justify-self: center;
+  align-self: center;
+  background-color: var(--maincolor);
+  color: white;
+}

@@ -1,0 +1,725 @@
+html,
+body {
+  overflow: hidden;
+}
+
+#signup {
+  margin-top: 5rem;
+  text-align: center;
+  background: var(--bgcolor);
+  color: var(--fgcolor);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 79vh;
+  overflow-y: auto;
+}
+
+/* #signup:after {
+  display: block;
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-image: url('https://traino.nu/assets/pexels-victorfreitas-841130-big.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+} */
+
+#signup .content {
+  display: flex;
+  flex-direction: row;
+  z-index: 10;
+  position: relative;
+  min-height: 50vh;
+  gap: 2rem;
+}
+
+.signup-type {
+  border-radius: var(--bigradius);
+  padding: 3rem 2rem;
+  text-align: center;
+  width: 90vw;
+  max-width: 30rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.signup-type h2 {
+  text-align: center;
+}
+
+.type-trainee,
+.type-user,
+.type-group {
+  position: relative;
+}
+
+.type-trainee:after,
+.type-trainer:after,
+.type-user:after,
+.type-group:after {
+  display: block;
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: brightness(0.8);
+  z-index: -1;
+  transition: all 0.2s ease-in-out;
+}
+.type-trainee:after {
+  background-image: url('https://traino.nu/assets/ai-generated-8703047_1280.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.type-trainer:after {
+  background-image: url('https://traino.nu/assets/woman-2260736_1280.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.type-user:after {
+  background-image: url('https://traino.nu/assets/woman-2260736_1280.jpg');
+  background-position: center 10%;
+  background-repeat: no-repeat;
+}
+
+.type-group:after {
+  background-image: url('https://traino.nu/assets/athletes-7508975_1280.jpg');
+  background-position: center 20%;
+  background-size: 110%;
+  background-repeat: no-repeat;
+}
+
+.signup-type h2 {
+  filter: drop-shadow(0 0.1625rem 0.225rem rgba(0, 0, 0, 0.8));
+  margin-bottom: 0.2rem;
+  font-size: clamp(1.3rem, 3vw, 3rem);
+}
+
+.signup-type span {
+  filter: drop-shadow(0 0.1625rem 0.225rem rgba(0, 0, 0, 0.8));
+  color: white;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+}
+
+.signup-type:hover {
+  outline: 0.375rem solid var(--maincolor);
+  animation: flash 0.3s 1 forwards;
+}
+
+.signup-type * {
+  pointer-events: none;
+}
+
+.signup-type:hover:after {
+  scale: 1.1;
+}
+
+.signup-type:active {
+  outline: 0.375rem solid var(--maincolor);
+  scale: 0.95;
+}
+
+.btn-back {
+  width: 2rem;
+  height: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+/* Signup Trainer & Trainee Styles */
+
+#signup-user {
+  text-align: center;
+  background: var(--bgcolor);
+  color: var(--fgcolor);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  /* padding-bottom: 1.5rem; /* Improves styling on Edge browser for mobile phones */
+}
+
+#signup-user .input-group-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1.8rem;
+}
+
+#signup-user p.small {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+#signup-user form h3,
+#signup-user form p {
+  text-align: left;
+}
+
+input.error,
+select.error,
+textarea.error {
+  outline: 2px solid var(--red);
+  border-color: var(--red);
+}
+.error-message {
+  color: var(--red); /* Keeps the error message text red */
+  font-size: 12px;
+}
+
+.phone-input-container.error {
+  outline: 0.2rem solid var(--red);
+  border-radius: var(--radius);
+}
+
+#signup-user .terms-container {
+  margin: 0;
+  padding: 0.2rem;
+}
+
+.terms-container.error {
+  outline: 0.2rem solid var(--red);
+  outline-offset: 0.25rem;
+  border-radius: var(--radius);
+}
+
+/*
+#signup-user:after {
+    display: block;
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-image: url("https://traino.nu/assets/woman-2260736_1280.jpg");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.4;
+}
+*/
+#signup-user form,
+#signup-user .scrollcontent {
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  justify-content: flex-start;
+  gap: 0.8rem;
+}
+
+#signup-user .scrollcontent {
+  padding: 1rem;
+  padding-bottom: 2rem;
+  max-width: clamp(20rem, 30rem, calc(100vw - 1rem));
+}
+
+#signup-user .content {
+  padding-top: 1rem;
+
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: calc(100vh - 4rem);
+  margin-top: 1.2875rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: white transparent;
+}
+
+#signup-user .icon-profile {
+  background-size: 1.8rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  content: '';
+  display: block;
+  margin-left: 1rem;
+  filter: invert(1);
+  float: left;
+}
+
+#signup-user .input-group {
+  margin: 0;
+  /* display: flex; */
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+#signup-user label {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+#signup-user label:hover {
+  cursor: pointer;
+}
+
+.showterms {
+  margin-left: 0.5rem;
+
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 0.875rem;
+}
+
+.showterms:hover {
+  cursor: pointer;
+}
+
+#register-step2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.showkeyboard {
+  justify-content: flex-start !important;
+}
+
+.showkeyboard .content {
+  overflow-y: scroll !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: white transparent !important;
+  margin-top: 0 !important;
+}
+
+.showkeyboard form {
+  justify-content: flex-start;
+}
+
+#signup-user.showkeyboard .categorytop {
+  display: none;
+}
+
+#signup-user.showkeyboard form,
+#signup-user.showkeyboard .scrollcontent {
+  justify-content: flex-start !important;
+}
+
+.education-items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.education-item {
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  border-radius: var(--radius);
+  background: var(--secondary-light-grey-alternative);
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4rem;
+}
+
+.education-item .delete-item {
+  color: white;
+  font-weight: bold;
+  font-size: var(--font-small);
+  background: black;
+  padding: 0.1rem;
+  line-height: 1.2rem;
+  width: 1.5rem;
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0.8rem;
+  border-radius: var(--radius);
+  opacity: 0.2;
+  filter: grayscale(1);
+}
+
+.education-item .delete-item:hover {
+  cursor: pointer;
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+.addeducation {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-weight: bold;
+  font-size: 1.125rem;
+  background: var(--maincolor);
+  border-radius: var(--radius);
+  position: absolute;
+  bottom: 0.3rem;
+  right: 0.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 10;
+}
+
+.addeducation:hover {
+  cursor: pointer;
+  background: var(--mainpurple);
+}
+
+.addeducation:active {
+  scale: 0.9;
+}
+
+.sports-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+  width: 100%;
+}
+
+.sports-items select {
+  border-radius: var(--radius);
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  display: block;
+  width: 100%;
+  height: 3.125rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  border: 0.0625rem solid var(--secondary-light-grey);
+}
+
+#upload-files {
+  display: none;
+}
+
+#signup-user .small {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--secondary-grey);
+  margin-bottom: 0.5rem;
+}
+
+.column2 {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+#signup-user .column2 label input[type='radio'] {
+  display: none;
+}
+
+.gender-selection {
+  display: flex;
+  gap: 1px;
+}
+
+#signup-user .gender-label {
+  position: relative;
+  display: inline-block;
+  background-color: var(--maincolor);
+  margin-bottom: 0;
+  padding: 1.03125rem 0.8rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  color: white;
+  font-weight: 500;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+#signup-user .gender-label:nth-child(2) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#signup-user .gender-label:nth-child(4) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+#signup-user .gender-label:hover {
+  background-color: var(--mainpurple);
+
+  color: white;
+}
+
+#signup-user .gender-label.active {
+  background-color: black;
+  color: white;
+}
+
+#signup-user .gender-label.active:hover {
+  cursor: default;
+}
+
+#signup-user .password-user {
+  button {
+    top: auto;
+    bottom: -0.5rem;
+  }
+}
+
+/*-----Set error for password and eye in password-input fixed----*/
+
+#signup-user .input-group.password-trainee {
+  position: relative;
+}
+
+#signup-user .password-container {
+  position: relative;
+  width: 100%;
+}
+
+#signup-user .password-input {
+  width: 100%;
+  padding-right: 2.5rem; /* Add some padding to make space for the icon */
+  box-sizing: border-box;
+}
+
+#signup-user .password-toggle-icon {
+  position: absolute;
+  right: 0.625rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+#signup-user .error-message {
+  color: red;
+  margin-top: 0.3125rem;
+}
+
+#signup-user .password-input.error {
+  border-color: red;
+}
+
+/*-----CSS for phone input------*/
+
+#signup-user .PhoneInput {
+  min-height: 3.125rem;
+  border: 0.0625rem solid var(--secondary-light-grey);
+  border-radius: var(--radius);
+  padding-left: 1rem;
+  padding-right: 0.5rem;
+}
+
+#signup-user .PhoneInput input {
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 2rem;
+  width: 100%;
+  border-radius: 0;
+  border: none;
+  padding: 0;
+  padding-left: 0.5rem;
+}
+
+#signup-user .PhoneInput input:focus {
+  outline: none;
+}
+
+/*search function modal sport */
+#signup-user .options-list {
+  max-height: 12.5rem; /* Justera höjden efter behov */
+  overflow-y: auto;
+  border: 0.0625rem solid var(--secondary-light-grey);
+  border-radius: var(--radius);
+  padding: 0.25rem 0;
+  position: absolute;
+  background-color: #fff;
+  z-index: 1000; /* Säkerställ att listan visas över andra element */
+  width: calc(100% - 2.5rem); /* Justera bredden efter behov */
+  margin-top: 4.6rem; /* Avstånd från sökrutan */
+  text-align: left;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-light-grey) transparent;
+  width: calc(100% - 0.125rem);
+  box-shadow: 0 0.3rem 0.6rem 0 rgba(0, 0, 0, 0.2);
+}
+
+#signup-user .option {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+#signup-user .option:hover {
+  background-color: #f0f0f0;
+}
+
+#signup-user .search-input {
+  width: calc(100% - 0.125rem); /* Justera bredden efter behov */
+  padding: 0.5rem 1rem;
+  border: 0.0625rem solid var(--secondary-light-grey);
+  border-radius: var(--radius);
+}
+
+#signup-user .data-list {
+  margin-top: 1rem;
+}
+
+#signup-user .modal-buttons {
+  margin-top: 1rem;
+}
+
+#signup-user .no-results {
+  padding: 0.5rem 1rem;
+  color: #999;
+}
+
+#signup-user button:disabled {
+  filter: grayscale(1);
+  opacity: 0.2;
+}
+
+#signup-user button:disabled:active {
+  scale: 1;
+}
+
+#personalnumber {
+  padding-right: 30px;
+  border-radius: var(--radius);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#personalnumber.valid {
+  border-color: green;
+}
+
+#personalnumber.invalid {
+  border-color: red;
+  outline: 0.125rem solid var(--red);
+}
+
+#personalnumber-container {
+  position: relative;
+  width: 100%;
+}
+
+#input-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* Hindrar ikonen från att blockera inmatningen */
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon input {
+  padding-right: 30px; /* Adjust padding to make space for the icon */
+}
+
+.input-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2em;
+  color: inherit; /* Ensure the color is inherited */
+}
+
+.input-icon.valid {
+  color: green;
+}
+
+.input-icon.invalid {
+  color: red;
+}
+
+.input-email-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2em;
+  color: inherit; /* Ensure the color is inherited */
+}
+
+.input-email-icon.invalid {
+  color: red;
+}
+
+.input-email-icon-user {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2em;
+  color: inherit; /* Ensure the color is inherited */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+#email-container {
+  position: relative;
+}
+
+input.valid {
+  border-color: green;
+}
+
+input.invalid {
+  border-color: red;
+}
+
+/* Neutral background for initial state */
+input {
+  background-color: white;
+  border-color: #ccc;
+}
+
+#alias-container {
+  position: relative;
+}
+
+.input-group.valid {
+  background-color: #d4edda; /* Ljusgrön bakgrund */
+}
+
+.input-group.invalid {
+  background-color: #f8d7da; /* Ljusröd bakgrund */
+}
+
+.input-icon.valid {
+  color: green;
+}
+
+.input-icon.invalid {
+  color: red;
+}
+
+@media screen and (max-width: 1200px) {
+  #signup .content {
+    flex-direction: column;
+  }
+}

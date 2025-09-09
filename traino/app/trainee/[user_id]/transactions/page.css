@@ -1,0 +1,128 @@
+#transactions {
+  width: 100%;
+  height: 100%;
+}
+#transactions .scrollcontent {
+  padding-top: 3.5rem;
+  width: 100%;
+  max-height: calc(100vh - 3.5rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-light-grey) transparent;
+  display: flex;
+  justify-content: center;
+}
+
+#transactions .categorytop {
+  z-index: 10;
+}
+
+#transactions .content {
+  max-width: 40rem;
+  width: calc(100% - 2rem);
+}
+
+#transactions .transaction-item {
+  display: grid;
+  grid-template-columns: 3rem 1fr 6rem;
+  padding-top: 1em;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--secondary-light-grey-alternative);
+}
+
+#transactions .reserved .transaction-item {
+  display: grid;
+  grid-template-columns: 3rem 1fr 6rem;
+  padding-top: 1em;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--secondary-light-grey-alternative);
+}
+
+#transactions .transaction-item .date {
+  text-align: right;
+}
+
+#transactions .transaction-item .name,
+#transactions .transaction-item .price {
+  font-weight: 600;
+}
+
+#transactions .transaction-item .info span,
+#transactions .transaction-item .date span {
+  font-size: var(--font-small);
+  color: gray;
+  font-weight: 500;
+}
+
+#transactions .icon-train,
+#transactions .icon-onlinetraining,
+#transactions .icon-dietprogram,
+#transactions .icon-trainprogram,
+#transactions .icon-clipcard {
+  background-color: lightgreen;
+  border-radius: 100rem;
+  background-size: 1.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+#transactions .icon-clipcard {
+  background-size: 1.7rem;
+}
+
+#transactions .reserved .icon-train {
+  background-color: #d2d2d2;
+  border-radius: 100rem;
+}
+#transactions .reserved .transaction-item {
+  opacity: 0.5;
+}
+#transactions h4 {
+  font-weight: 600;
+
+  margin-top: 1rem;
+}
+
+#transactions .showmore {
+  display: block;
+  content: '';
+  width: 1.5rem;
+  height: 2.5rem;
+  opacity: 0.3;
+  background-image: url('../../../assets/icon-chevron.svg');
+  background-repeat: no-repeat;
+  background-position: 0.5rem center !important;
+  background-position: 1rem;
+  filter: invert(var(--inverted));
+}
+
+#transactions .transaction-item * {
+  pointer-events: none;
+}
+
+#transactions .reserved .transaction-item:hover {
+  cursor: default;
+}
+#transactions .transaction-item:hover .showmore {
+  opacity: 1;
+}
+
+#transactions .pagination {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+}
+
+#transactions .pagination button {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding: 0.5rem;
+  background: var(--secondary-light-grey);
+  color: var(--fgcolor);
+  border: none;
+  font-weight: bold;
+  border-radius: var(--radius);
+}
+
+#transactions .pagination button:hover {
+  cursor: pointer;
+}

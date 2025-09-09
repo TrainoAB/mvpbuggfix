@@ -1,0 +1,26 @@
+.range-wrapper {
+  display: flex;
+  align-items: center;
+  width: 80%;
+  justify-content: space-between;
+  margin-inline: 1.25rem;
+}
+
+.range-slider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.25rem;
+}
+
+.form-heading {
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--secondary)
+}
+
+input[type='range'] {
+  accent-color: var(--maincolor);
+}

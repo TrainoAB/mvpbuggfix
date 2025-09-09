@@ -1,0 +1,24 @@
+#faq .categorytop {
+  position: relative;
+  z-index: 0;
+}
+
+#faq .scrollcontainer {
+  width: 100%;
+  height: calc(100vh - 7rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-light-grey) transparent;
+  display: flex;
+  justify-content: center;
+}
+
+#faq .content {
+  padding-top: 1rem;
+  width: calc(100% - 2rem);
+  max-width: 40rem;
+  height: 100%;
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+}

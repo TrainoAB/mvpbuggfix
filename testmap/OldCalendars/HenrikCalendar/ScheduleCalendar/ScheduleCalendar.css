@@ -1,0 +1,406 @@
+.btn-edit {
+  border: none;
+  text-indent: -1000rem;
+  overflow: hidden;
+  background-color: transparent;
+  background-image: url('../../assets/edit-pen.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 1rem;
+  height: 1.5rem;
+  width: 2rem;
+}
+
+.btn-add {
+  border: none;
+  text-indent: -1000rem;
+  overflow: hidden;
+  background-color: transparent;
+  background-image: url('../../assets/icon-ios-add.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 1rem;
+  height: 1.5rem;
+  width: 2rem;
+}
+
+.btn-delete {
+  border: none;
+  text-indent: -1000rem;
+  overflow: hidden;
+  background-color: transparent;
+  background-image: url('../../assets/icon-trash.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 1.2rem;
+  height: 1.5rem;
+  width: 2rem;
+}
+
+.btn-remove {
+  border: none;
+  text-indent: -1000rem;
+  overflow: hidden;
+  background-color: transparent;
+  background-image: url('../../assets/icon-x.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 1rem;
+  height: 1.5rem;
+  width: 2rem;
+}
+
+.btn-expand {
+  border: none;
+  text-indent: -1000rem;
+  overflow: hidden;
+  background-color: transparent;
+  background-image: url('../../assets/icon-chevron.svg');
+  transform: rotate(90deg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 1.2rem;
+  height: 1.5rem;
+  width: 2rem;
+}
+
+.btn-edit:hover,
+.btn-remove:hover,
+.btn-delete:hover {
+  transition: all 0.25s ease-in-out;
+  background-color: #b0cb3a;
+  border-radius: var(--radius);
+  filter: invert(1);
+  cursor: pointer;
+}
+
+.edit-intervals {
+  list-style: none;
+}
+
+.edit-intervals li {
+  display: grid;
+  grid-template-columns: 2rem 6rem 1fr 2rem;
+  align-items: center;
+  grid-gap: 0.3rem;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  border: 2px dashed #ccc;
+  margin: 0.5rem 0 0.5rem 0;
+  background: linear-gradient(42deg, rgba(255, 255, 255, 0) 0%, rgb(241 241 241) 100%);
+}
+
+.edit-intervals li:hover {
+  transition: all 0.5s ease-in-out;
+  border-color: var(--maincolor);
+}
+
+.event-modal {
+  border: '1px solid #ccc';
+  border-radius: '6px';
+  background-color: '#f9f9f9';
+  box-shadow: '0 2px 4px rgba(0, 0, 0, 0.1)';
+}
+
+.event-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--maincolor);
+  padding: 0.75rem;
+}
+
+.event-modal-container {
+  padding: 1rem;
+  min-height: 11rem;
+  max-height: calc(80vh - 3.5rem);
+}
+
+.event-modal-container label {
+  font-weight: bold;
+}
+
+.event-modal-container select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+}
+
+.event-modal-container select:focus-visible {
+  outline: 0.125rem solid var(--maincolor);
+}
+
+.event-modal-container input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+}
+
+.event-modal-button {
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+  border: none;
+  background-color: var(--maincolor);
+  color: white;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+#schedulecalendar-container {
+  width: 100%;
+  height: 90vh;
+  margin: 1rem;
+  background: var(--bgcolor);
+  z-index: 0;
+  padding-bottom: 0.75rem;
+  border-radius: 6px;
+  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+  border-left: 1px solid #e8e8e8;
+  border-right: 1px solid #e8e8e8;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+#schedulecalendar-container .content {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: auto;
+}
+
+#schedulecalendar-container p {
+  text-align: left;
+}
+
+#schedulecalendar-container .content .content {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  max-width: 40rem;
+}
+
+#schedulecalendar-container .rbc-calendar {
+  width: 100%;
+  font-family: 'Inter', 'system-ui';
+  padding-top: 0.75rem;
+  max-height: 100%;
+}
+
+#schedulecalendar-container .rbc-month-view {
+  min-height: 70vh;
+}
+
+#schedulecalendar-container .rbc-agenda-empty {
+  text-align: center;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#schedulecalendar-container .rbc-header,
+#schedulecalendar-container .rbc-header:hover {
+  background: white;
+  color: black;
+  border-top: 1px solid #e8e8e8;
+  font-family: "Inter", sans-serif;
+}
+
+#schedulecalendar-container .rbc-off-range-bg {
+  background: #f2f2f2;
+}
+
+#darkoverlay {
+  z-index: 1000;
+}
+
+#darkoverlay:hover {
+  cursor: pointer;
+}
+
+#schedulecalendar-container .categorytop h1 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+#schedulecalendar-container .rbc-toolbar {
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  padding-top: 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+#schedulecalendar-container .rbc-day-slot .rbc-events-container {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  margin-right: 0px;
+  top: 0;
+}
+
+#calender-container .rbc-time-header .rbc-overflowing {
+  margin-right: 0px;
+}
+
+#schedulecalendar-container .rbc-toolbar button {
+  border: none;
+  background: #e8e8e8;
+  color: var(--maincolor);
+  height: 2.5rem;
+  font-weight: bold;
+  margin: 0.0625rem;
+}
+
+#schedulecalendar-container .rbc-toolbar button.rbc-active {
+  border: none;
+  background: var(--secondary);
+
+  color: white;
+  height: 2.5rem;
+}
+
+#schedulecalendar-container .rbc-toolbar button:hover {
+  background: var(--mainpurple);
+  color: white;
+  cursor: pointer;
+}
+
+#schedulecalendar-container .rbc-toolbar-label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  text-transform: capitalize;
+  position: absolute;
+  bottom: 2.5rem;
+}
+
+#schedulecalendar-container .rbc-header span,
+#schedulecalendar-container .rbc-agenda-date-cell {
+  text-transform: capitalize;
+}
+
+#schedulecalendar-container .rbc-agenda-table tr,
+#schedulecalendar-container .rbc-label {
+  font-size: 0.625rem;
+  font-weight: bold;
+}
+
+#schedulecalendar-container .rbc-agenda-table tr {
+  border-bottom: 1px solid white !important;
+}
+
+#schedulecalendar-container .rbc-agenda-time-cell span {
+  text-wrap: wrap;
+  width: 4rem;
+  display: block;
+}
+
+#schedulecalendar-container .rbc-agenda-view table.rbc-agenda-table .rbc-agenda-time-cell {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+#schedulecalendar-container .rbc-agenda-table tr:hover {
+  filter: brightness(1.5);
+  cursor: pointer;
+  outline: 0.1875rem solid var(--maincolor);
+  z-index: 10;
+}
+
+#schedulecalendar-container .rbc-event {
+  background: var(--maincolor);
+  font-size: 0.75rem;
+}
+
+#schedulecalendar-container .rbc-event:hover {
+  background: var(--mainpurple);
+}
+
+#schedulecalendar-container .rbc-button-link {
+  font-family: 'Inter', 'sans-serif';
+  font-size: 0.6875rem;
+}
+
+#schedulecalendar-container .rbc-month-view,
+#schedulecalendar-container .rbc-time-view,
+#schedulecalendar-container .rbc-agenda-view {
+  border: none;
+  overflow: hidden;
+}
+
+#schedulecalendar-container .rbc-time-content {
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+}
+
+#schedulecalendar-container .rbc-agenda-event-cell {
+  font-weight: normal;
+  font-size: 0.75rem;
+}
+
+#schedulecalendar-container .rbc-event:hover {
+  border-radius: var(--maincolor);
+  filter: brightness(1.05);
+  outline: 0.16rem solid var(--maincolor);
+}
+
+#schedulecalendar-container p {
+  text-align: left !important;
+}
+
+#schedulecalendar-container .rbc-row-segment {
+  margin-top: -1rem;
+}
+#schedulecalendar-container .booked-event {
+  height: 2rem;
+}
+
+#schedulecalendar-container .rbc-event-label {
+  position: absolute;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+#schedulecalendar-container .rbc-time-content .rbc-event-label {
+  position: relative;
+}
+
+@media (max-inline-size: 120px) {
+  #schedulecalendar-container .rbc-event-label {
+    position: relative;
+  }
+}
+
+#schedulecalendar-container .booked-event .icon-booked {
+  filter: invert(1);
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-size: 2rem;
+  background-position: center center;
+}
+
+@media (max-width: 700px) {
+  #schedulecalendar-container .rbc-agenda-view {
+    height: 100%;
+    min-height: calc(100vh - 17rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+  }
+}

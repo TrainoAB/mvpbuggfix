@@ -1,0 +1,17 @@
+
+#hover-select-pill-button {
+    width: 145.5px;
+    height: 55px;
+    border: 2px solid hsla(253, 76%, 61%, 1);
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    color: hsla(253, 76%, 61%, 1);
+}
+
+#hover-select-pill-button:hover {
+    background-color: hsla(253, 76%, 61%, 1);
+    color: white;
+    transition: background-color 0.1s ease-in, color 0.1s ease-in;
+}

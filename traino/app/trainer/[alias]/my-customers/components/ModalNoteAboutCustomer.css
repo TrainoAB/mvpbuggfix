@@ -1,0 +1,105 @@
+.darkBG {
+    z-index: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100vw;
+    height: 100vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal {
+    width: 357px;
+    height: 435px;
+    padding: 10px 25px;
+    background-color: hsl(0, 0%, 97%);
+    z-index: 10;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+    text-align: left;
+}
+
+.modalHeader {
+    /* border: 1px solid red; */
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    /* overflow: hidden; */
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.heading {
+    margin: 0;
+    padding: 10px;
+    color: hsl(0, 0%, 0%);
+    font-weight: 700;
+}
+
+.closeWindowIcon {
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 200;
+    width: 30px;
+    height: 30px;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: hsl(0, 0%, 70%);
+    padding-bottom: 3px;
+    margin-right: 3px;
+    border-radius: 50%;
+}
+
+.closeWindowIcon:hover {
+    background-color: hsl(0, 86%, 58%);
+    color:  hsl(0, 0%, 95%);
+    transition: 
+        background-color 0.2s ease-in,
+        color 0.2s ease-in;
+}
+
+.modalTextContent {
+    padding: 10px;
+    font-size: 14px;
+    color: #2c3e50;
+    background-color: hsl(0, 0%, 100%);
+    height: 298px;
+    border-radius: 16px;
+}
+
+.modalTextContent textarea {
+    width: 100%;
+    height: 100%;
+    flex: 1; /* Gör att textarean tar upp all tillgänglig plats */
+    resize: none; /* Förhindrar att användaren ändrar storlek på textarean */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px; /* Justera textstorleken */
+    font-family: Arial, sans-serif; /* Justera fontfamiljen */
+    box-sizing: border-box; /* Inkluderar padding och border i elementets totala storlek */
+}
+
+.modalActions {
+    position: absolute;
+    bottom: 2px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.actionsContainer {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+}

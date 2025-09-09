@@ -1,0 +1,37 @@
+.hdb-wrap {
+  display: flex;
+  flex-direction: row;
+  background: var(--secondary-light-grey-alternative);
+  justify-content: space-around;
+  color: var(--fgcolor);
+  width: calc(100% - 2rem);
+  max-width: 40rem;
+  padding: 0.25rem;
+  border-radius: 100rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.hdb-button {
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  color: var(--contrasttext);
+}
+
+.hdb-button:hover {
+  color: var(--fgcolor);
+}
+
+.hdb-active {
+  color: var(--fgcolor);
+  background: var(--bgcolor);
+  border-radius: 100rem;
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem 0;
+}

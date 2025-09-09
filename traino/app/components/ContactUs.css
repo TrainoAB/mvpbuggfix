@@ -1,0 +1,19 @@
+#contact-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.31rem;
+    width: 100%;
+    max-width: 786px;
+}
+  
+#contact-wrap h4 {
+    margin-bottom: 1rem;
+}
+  
+#contact-wrap > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}

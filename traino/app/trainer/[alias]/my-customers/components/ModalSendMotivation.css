@@ -1,0 +1,96 @@
+/* ModalSendMotivation.css */
+
+/* Grundläggande styling för modal */
+.modal {
+    width: 600px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .closeWindowIcon {
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .modalTextContent {
+    position: relative;
+    margin-bottom: 50px; /* Ge utrymme för modalActions */
+  }
+  
+  textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    resize: none;
+  }
+  
+  /* Styling för förskrivna fraser */
+  .suggestions {
+    margin: 0 12px;
+    position: absolute;
+    top: 20px; /* Placera högre upp */
+    left: 0;
+    right: 0;
+    background-color: white;
+    /* border: 1px solid #ccc; */
+    /* border-radius: 5px; */
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+    z-index: 10;
+    /* padding: 10px; */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .suggestion {
+    padding: 10px 20px;
+    margin: 0px 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-radius: 5px; /* Gör knapparna rundade */
+    background-color: #f0f0f0;
+    border: 1px solid #f0f0f0;
+    text-align: center;
+  }
+  
+  .suggestion:hover {
+    /* background-color: #e0e0e0; */
+    border: 1px solid hsla(253, 76%, 61%, 1);
+  }
+  
+  .no-suggestion {
+    background-color: #d0d0d0; /* Annan färg för att indikera att detta är ett speciellt alternativ */
+    font-weight: bold;
+  }
+  
+  .modalActions {
+      /* position: absolute; */
+      bottom: 10px;
+      /* width: 100%; */
+      /* display: flex; */
+      /* justify-content: flex-start; */
+      /* border: 1px solid greenyellow; */
+  }
+  
+  .actionsContainer {
+    /* justify-content: center; */
+    margin-left: 80px;
+    /* border: 1px solid red; */
+  }

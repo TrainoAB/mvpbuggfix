@@ -1,0 +1,75 @@
+#händelser-content .container-upcoming{
+  background-color: white;
+  border-radius: 10px;
+  padding: 12px 10px;
+  box-shadow: 2px 2px 10px 0px hsla(0, 0%, 0%, 0.1);
+}
+
+#händelser-content .container-previous{
+  /* background-color: hsl(0, 0%, 90%); */
+  border-radius: 10px; 
+  padding: 12px 10px;
+  box-shadow: 2px 2px 10px 0px hsla(0, 0%, 0%, 0.1);
+}
+
+#händelser-content .content-header {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: hsl(0, 0%, 55%);
+  font-weight: 400;
+}
+
+#händelser-content .content-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom:20px;
+}
+
+#händelser-content .title-upcoming{
+  color: white;
+}
+
+#händelser-content .content-item__details-wrapper.details-wrapper-upcomning{
+  color: white;
+}
+
+#händelser-content .content-item__title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 3px;   
+}
+
+#händelser-content .content-item__details-wrapper {
+    color: hsl(0, 0%, 55%);
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+#händelser-content .content-item__details--left{
+  display: flex;
+  flex-wrap: wrap; /* Tillåter radbrytning av innehåll */
+  justify-content: space-between; /* Jämnt mellanrum mellan element */
+  align-items: center; /* Centrerar element vertikalt */
+  gap: 10px; /* Gap mellan elementen */
+}
+
+#händelser-content .content-item__details--right{
+}
+
+#händelser-content .total-sum{
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#händelser-content .total-sum__left{
+}
+
+@media (min-width: 768px) { 
+    #händelser-content {
+    width: 458.44px;
+    }
+}

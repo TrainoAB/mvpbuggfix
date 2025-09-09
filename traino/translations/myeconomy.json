@@ -1,0 +1,162 @@
+{
+  "myeconomy_createstripeaccount": {
+    "sv": "Skapa ett Stripe konto för att börja ta emot betalningar",
+    "en": "Create a Stripe account to start receiving payments"
+  },
+  "myeconomy_createstripeaccount_button": {
+    "sv": "Skapa Stripe konto",
+    "en": "Create  Stripe Account"
+  },
+  "myeconomy_alreadyhavestripe": {
+    "sv": "Jag har redan/Vill byta STRIPE-konto",
+    "en": "I already have/Want to change STRIPE account"
+  },
+  "myeconomy_stripeemail": {
+    "sv": "Stripe konto email",
+    "en": "Stripe account email"
+  },
+  "myeconomy_getstripeaccount": {
+    "sv": "Länka/Byt stripe konto",
+    "en": "Link/Switch Stripe account"
+  },
+  "myeconomy_nostripesetup": {
+    "sv": "Inga Stripe-konton hittades för denna email",
+    "en": "No Stripe account found for this email"
+  },
+  "myeconomy_enteremail": {
+    "sv": "Ange en email",
+    "en": "Enter an email"
+  },
+  "myeconomy_entervalidemail": {
+    "sv": "Ange en valid email",
+    "en": "Enter a valid email"
+  },
+  "myeconomy_stripeaccountlinked": {
+    "en": "Stripe ID saved successfully. The page will now refresh.",
+    "sv": "Stripe ID sparades framgångsrikt. Sidan kommer nu att uppdateras."
+  },
+  "myeconomy_stripeaccountnotfound": {
+    "en": "Stripe account not found",
+    "sv": "Stripe-konto hittades inte"
+  },
+  "myeconomy_switchstripeaccount": {
+    "en": "Want to use a different Stripe account? You can connect with a different email address below.",
+    "sv": "Vill du använda ett annat Stripe-konto? Du kan ansluta med en annan e-postadress nedan."
+  },
+  "myeconomy_switchstripeaccount_button": {
+    "en": "Connect Different Account",
+    "sv": "Anslut annat konto"
+  },
+  "myeconomy_switchstripeaccount_info": {
+    "en": "This opens a fresh Stripe setup where you can sign in with any email address. Your current account will be replaced when you complete the process.",
+    "sv": "Detta öppnar en ny Stripe-installation där du kan logga in med vilken e-postadress som helst. Ditt nuvarande konto kommer att ersättas när du slutför processen."
+  },
+  "myeconomy_title": {
+    "sv": "Min ekonomi",
+    "en": "My Economy"
+  },
+  "myeconomy_welcome_title": {
+    "sv": "🎉 Välkommen till Traino!",
+    "en": "🎉 Welcome to Traino!"
+  },
+  "myeconomy_welcome_message": {
+    "sv": "För att kunna ta emot betalningar och visa dina tjänster på kartan behöver du först koppla ett Stripe-konto.",
+    "en": "To receive payments and show your services on the map, you first need to connect a Stripe account."
+  },
+  "myeconomy_welcome_info": {
+    "sv": "Det tar bara några minuter och är helt gratis att komma igång!",
+    "en": "It only takes a few minutes and is completely free to get started!"
+  },
+  "myeconomy_current_balance": {
+    "sv": "Aktuellt saldo",
+    "en": "Current Balance"
+  },
+  "myeconomy_pending_balance": {
+    "sv": "Bearbetas av Stripe",
+    "en": "Processing by Stripe"
+  },
+  "myeconomy_total_earnings": {
+    "sv": "Totalt intjänat med Traino",
+    "en": "Total Earned with Traino"
+  },
+  "myeconomy_achievement_reached": {
+    "sv": "Du har uppnått",
+    "en": "You have reached"
+  },
+  "myeconomy_remaining_to_milestone": {
+    "sv": "kr kvar till",
+    "en": "kr remaining to"
+  },
+  "myeconomy_milestones": {
+    "sv": "Milstolpar",
+    "en": "Milestones"
+  },
+  "myeconomy_stripe_dashboard": {
+    "sv": "Stripe Dashboard",
+    "en": "Stripe Dashboard"
+  },
+  "myeconomy_onboarding_required": {
+    "sv": "Slutför din Stripe-kontokonfiguration för att komma åt instrumentpanelen och börja ta emot betalningar.",
+    "en": "Complete your Stripe account setup to access the dashboard and start receiving payments."
+  },
+  "myeconomy_stripe_connected": {
+    "sv": "Stripe-konto anslutet framgångsrikt!",
+    "en": "Stripe account connected successfully!"
+  },
+  "myeconomy_disconnect_info": {
+    "sv": "Om du vill koppla bort ditt Stripe-konto kan du logga ut nedan.",
+    "en": "If you want to disconnect your Stripe account, you can sign out below."
+  },
+  "myeconomy_signout_stripe": {
+    "sv": "Logga ut från Stripe",
+    "en": "Sign Out from Stripe"
+  },
+  "myeconomy_signout_info": {
+    "sv": "Detta kommer att koppla bort ditt Stripe-konto från din profil. Du kan alltid skapa eller koppla ett nytt konto senare.",
+    "en": "This will disconnect your Stripe account from your profile. You can always create or connect a new account later."
+  },
+  "myeconomy_stripe_process_info": {
+    "sv": "Detta öppnar Stripes säkra registreringsprocess i en ny flik. Du kommer att omdirigeras tillbaka hit när du är klar.",
+    "en": "This opens Stripe's secure registration process in a new tab. You will be redirected back here when you're done."
+  },
+  "myeconomy_checking_stripe": {
+    "sv": "Kontrollerar Stripe-konto...",
+    "en": "Checking Stripe account..."
+  },
+  "myeconomy_stripe_found_redirecting": {
+    "sv": "Stripe-konto hittat! Omdirigerar...",
+    "en": "Stripe account found! Redirecting..."
+  },
+  "myeconomy_searching_stripe": {
+    "sv": "Söker efter Stripe-konto...",
+    "en": "Searching for Stripe account..."
+  },
+  "myeconomy_stripe_found_saving": {
+    "sv": "Stripe-konto hittat! Sparar...",
+    "en": "Stripe account found! Saving..."
+  },
+  "myeconomy_done_redirecting": {
+    "sv": "Klart! Omdirigerar...",
+    "en": "Done! Redirecting..."
+  },
+  "myeconomy_timeout_redirecting": {
+    "sv": "Timeout nådd, omdirigerar...",
+    "en": "Timeout reached, redirecting..."
+  },
+  "myeconomy_error_redirecting": {
+    "sv": "Fel uppstod, omdirigerar...",
+    "en": "Error occurred, redirecting..."
+  },
+  "myeconomy_linking_wait_message": {
+    "sv": "Detta kan ta några sekunder medan vi säkerställer att ditt Stripe-konto är korrekt länkat.",
+    "en": "This may take a few seconds while we ensure your Stripe account is properly linked."
+  },
+  "myeconomy_waiting_confirmation": {
+    "sv": "⏳ Väntar på Stripe-bekräftelse... Detta kan ta lite längre tid.",
+    "en": "⏳ Waiting for Stripe confirmation... This may take a bit longer."
+  },
+  "myeconomy_stripe_setup_now": {
+    "sv": "🔗 Slutför Stripe-inställning nu",
+    "en": "🔗 Complete Stripe Setup Now"
+  }
+}

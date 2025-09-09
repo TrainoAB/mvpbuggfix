@@ -1,0 +1,22 @@
+#admin-page .search {
+  margin-top: -0.75rem;
+}
+#admin-page .search {
+  width: 100%;
+  height: 3rem;
+  padding: 0 0.75rem;
+  font-size: 1rem;
+  gap: 0.75rem;
+  border-radius: var(--radius);
+  box-shadow: 0 0.3rem 0.6rem 0 rgba(0, 0, 0, 0.2);
+  outline: none;
+  border: 0.0625rem solid var(--secondary-light-grey);
+  margin-bottom: 1rem;
+  font-family: var(--font);
+}
+
+.input-error {
+  color: #ff3737;
+  font-family: var(--font);
+  font-size: var(--font-small);
+}

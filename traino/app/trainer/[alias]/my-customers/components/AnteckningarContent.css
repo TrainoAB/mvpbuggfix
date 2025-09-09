@@ -1,0 +1,80 @@
+:root{
+    --content-width: 458.44px;
+ }
+
+#notes-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+#notes-wrapper .modal-icon{
+    width: 48px;
+    height: 48px;
+    font-size: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    padding-bottom: 5px;
+    font-weight: 250;
+    color: hsl(0, 0%,20%);
+    background: hsla(73, 76%, 66%, 1);
+    box-shadow: -2px 4px 8px 1px hsla(0, 0%, 0%, 0.2);
+
+}
+
+#notes-wrapper .modal-icon:hover{
+    background-color: hsla(73, 76%, 50%, 1);
+    transition: background-color 0.15s ease-in;
+    cursor: pointer;
+}
+#notes-wrapper .note-item{
+    width: 100%;
+    padding: 15px 15px 35px 15px;
+    /* margin-bottom: 20px; */
+    border-radius: 15px;
+    background-color: white;
+}
+
+#notes-wrapper .note-item__header{
+    display:flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+#notes-wrapper .note-item__header--left{
+    font-size: 14px;
+    color: hsl(0, 0%, 38%);
+    font-weight: 600;
+}
+
+#notes-wrapper .note-item__header--right{
+    font-size: 12px;
+    color: hsl(0, 0%, 60%);
+    margin-right: 5px;
+}
+
+#notes-wrapper .note-item__text{
+    font-size: 16px;
+    color: hsl(0, 0%, 24%);
+}
+
+/* AnteckningarContent.css */
+#notes-wrapper .delete-button {
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 10px;
+  }
+
+  
+@media (min-width: 768px) { 
+    #notes-wrapper {
+    width: var(--content-width);
+    /* background-color: yellow; */
+    }
+}

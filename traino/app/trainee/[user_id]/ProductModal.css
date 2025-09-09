@@ -1,0 +1,216 @@
+#modal-container {
+  width: 100%;
+  height: 100%;
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.darkoverlay {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.darkoverlay:hover {
+  cursor: pointer;
+}
+
+#modal-container #modal {
+  background: var(--bgcolor);
+  width: calc(100% - 2rem);
+  z-index: 100000;
+  max-width: 38rem;
+  height: auto;
+  min-height: 10rem;
+  max-height: 80vh;
+  border-radius: var(--bigradius);
+  overflow: hidden;
+  padding-top: 0;
+  box-shadow: 0 1rem 2rem 0 rgba(0, 0, 0, 0.5);
+}
+#modal .categorytop {
+  position: relative;
+}
+
+#modal .product-item {
+  margin: 1rem;
+  padding: 1rem 1rem 1rem 0.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--secondary-light-grey);
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-gap: 0.5rem;
+}
+
+#modal .product-item .head {
+  display: grid;
+  grid-template-columns: 1.5rem 2.5rem 6.5fr 2fr;
+  grid-gap: 0.5rem;
+}
+
+#modal .product-item .button {
+  font-size: var(--font-small);
+}
+#modal .product-item .extra {
+  display: none;
+  border-top: 1px solid var(--secondary-light-grey);
+  margin-left: 0.5rem;
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+  grid-template-columns: 7rem 7fr;
+}
+
+#modal .product-item.extraon .extra {
+  display: grid;
+}
+
+#modal .product-item.extraon .icon-chevron {
+  rotate: 90deg;
+  transition: all 0.2s ease-in-out;
+}
+
+#modal .product-item .icon-train {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-size: 1.5rem;
+  background-color: white;
+  border-radius: 100rem;
+  margin-right: 0;
+}
+
+#modal .product-item .button.icon-download {
+  width: 2.5rem;
+  height: 2.5rem;
+  content: '';
+  display: block;
+  position: relative;
+}
+
+#modal .info .icons {
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+  margin-top: 0.4rem;
+}
+
+#modal .icons .amount {
+  font-size: 0.875rem;
+  font-weight: bold;
+  background-image: url('../../assets/icon-clock.svg');
+  background-repeat: no-repeat;
+  background-size: 1rem;
+  background-position: left center;
+  padding-left: 1.3rem;
+}
+#modal .icons .clock {
+  font-size: 0.875rem;
+  font-weight: bold;
+  background-image: url('../../assets/icon-clock.svg');
+  background-repeat: no-repeat;
+  background-size: 1rem;
+  background-position: left center;
+  padding-left: 1.3rem;
+}
+#modal .product-item .button.icon-download {
+  position: absolute;
+  right: 2rem;
+}
+
+#modal .product-item .button.icon-download:after {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url('../../assets/icon-download.svg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  filter: invert(1);
+  content: '';
+  display: block;
+}
+
+#modal .content {
+  overflow-y: auto;
+  max-height: calc(80vh - 3.5rem);
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-light-grey) transparent;
+}
+
+#modal .product-item .icon-dietprogram {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-size: 1.5rem;
+  background-color: white;
+  border-radius: 100rem;
+  margin-right: 0;
+}
+
+#modal .product-item .icon-chevron {
+  width: 1.5rem;
+  height: 2.5rem;
+  background-size: 1.5rem;
+  transition: all 0.2s ease-in-out;
+  margin-right: 0;
+}
+
+#modal .product_type {
+  font-size: var(--font-small);
+}
+
+#modal .price {
+  background-image: url('../../assets/icon-card.svg');
+  background-size: 1.5rem;
+  background-position: left center;
+  background-repeat: no-repeat;
+  padding-left: 1.8rem;
+  font-weight: bold;
+  margin-top: 0.2rem;
+}
+
+#modal .product-item.product_dietprogram {
+  background: rgb(227, 255, 227);
+}
+
+#modal .product-item.product_trainprogram {
+  background: rgb(238, 243, 255);
+}
+
+#modal .product-item.product_trainpass {
+  background: rgb(222, 215, 249);
+}
+
+#modal .product-item.product_clipcard {
+  background: rgb(222, 215, 249);
+}
+
+#modal .product-item:hover {
+  outline: 4px solid var(--maincolor);
+  cursor: pointer;
+}
+
+#modal .button:hover {
+  background: black;
+}
+
+#modal .product-item span {
+  font-size: var(--font-small);
+  font-weight: bold;
+}
+
+#modal .extra div {
+  line-height: 1.5rem;
+  font-size: var(--font-small);
+  border-bottom: 1px dotted var(--secondary-light-grey);
+}

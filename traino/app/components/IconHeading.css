@@ -1,0 +1,19 @@
+.icon-heading-container {
+  display: flex;
+  gap: 0.6rem;
+
+  align-items: center;
+  width: 100%;
+}
+
+.icon-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--heading-size);
+  font-weight: var(--weight);
+}
+.icon {
+  background-position: center;
+  height: 1.5rem;
+}

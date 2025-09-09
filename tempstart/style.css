@@ -1,0 +1,1248 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+html,
+body {
+    width: 100vw;
+    overflow-x: hidden;
+    height: 100%;
+    background-color: rgb(25, 25, 25);
+    color: white;
+    font-family: "Inter", sans-serif;
+    font-variation-settings: "slnt" 0;
+    line-height: 1.6rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    overflow-y: scroll;
+}
+
+#index,
+#index body {
+    overflow-y: hidden;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#coming-soon h2 {
+    font-size: clamp(2rem, 3rem, 4vw);
+    max-width: clamp(20rem, 40rem, 70vw);
+    text-align: center;
+    margin-bottom: 2rem;
+    line-height: 133%;
+    filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.2)) drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.5));
+}
+
+#coming-soon h3 {
+    font-size: clamp(1.25rem, 1rem, 2vw);
+    max-width: clamp(20rem, 40rem, 70vw);
+    text-align: center;
+    margin-bottom: 2rem;
+    line-height: 133%;
+}
+
+#coming-soon p {
+    max-width: clamp(20rem, 35rem, 70vw);
+    text-align: center;
+    margin-bottom: 3rem;
+    filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.2)) drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.5));
+}
+
+#coming-soon .content {
+    display: block;
+    margin: 0 1rem;
+    padding: 2rem 0;
+    margin: 1rem;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+#coming-soon .content > * {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#coming-soon .button {
+    display: block;
+    width: fit-content;
+    margin: auto;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    z-index: 10;
+}
+
+.logo {
+    margin: auto;
+    display: block;
+    width: 100%;
+    max-width: 70vw;
+    min-height: 100px;
+    background-image: url("https://traino.nu/app/assets/logo.svg");
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    filter: grayscale(1) brightness(4) contrast(4);
+    margin-bottom: 5vh;
+    overflow: hidden;
+    text-indent: 0;
+    white-space: nowrap;
+    font-size: 0;
+}
+
+.bottom {
+    position: fixed;
+    bottom: 0;
+    font-size: 0.75rem;
+    z-index: 2;
+    color: lightgray;
+}
+
+#aboutpage .bottom {
+    color: darkgray;
+}
+label {
+    margin-right: 0.5rem;
+    opacity: 0.5;
+}
+
+.input-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*
+            border-radius: 0.8rem;
+            border: 3px dashed rgba(255, 255, 255, 0.2);
+           
+            padding: 2rem 1rem;
+             */
+    max-width: 25rem;
+    width: 100%;
+}
+
+.input-group button:hover {
+    background: #4f34c5;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 2rem;
+}
+input {
+    width: 42vw;
+    max-width: 15rem;
+    color: black;
+    background: white;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.4rem;
+    outline: none;
+    font-family: inherit;
+}
+
+#aboutpage input {
+    border: 1px solid #ccc;
+}
+
+input:focus-visible {
+    outline: 2px solid #8468ea;
+}
+
+#aboutpage .image {
+    height: 20rem;
+    max-width: 60rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+#aboutpage .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+button,
+.button {
+    border: none;
+    padding: 0.6rem 2rem;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    background: #8468ea;
+    color: white;
+    font-weight: bold;
+    font-family: inherit;
+    text-decoration: none;
+}
+.input-group button {
+    margin-left: 0.5rem;
+    padding: 0.8rem 2rem;
+}
+
+button:hover,
+.button:hover {
+    cursor: pointer;
+    background: #4f34c5;
+}
+button:active,
+.button:active {
+    scale: 0.95;
+}
+
+.onlyborderbutton {
+    padding: 0.6rem 2rem;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+    margin-top: 0.5rem;
+    text-decoration: none;
+    border-radius: 0.4rem;
+}
+
+.onlyborderbutton:hover {
+    border-color: #8468ea;
+    background: #8468ea;
+}
+
+#aboutpage .logo {
+    height: 5rem;
+    content: "";
+    display: block;
+    width: 100%;
+    margin-top: 3rem;
+    line-height: 8rem;
+    overflow: visible;
+    background-image: url("https://traino.nu/app/assets/logo.svg");
+}
+
+#registeredbody {
+    background: white !important;
+}
+#aboutpage {
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    background: white;
+    color: black;
+    height: auto;
+    width: 100%;
+}
+#aboutpage:after {
+    position: absolute;
+    top: 0;
+}
+
+#aboutpage .bottom {
+    position: relative;
+}
+
+#aboutpage .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+#aboutpage .content {
+    justify-content: flex-start;
+    height: 100%;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    gap: 1rem;
+}
+
+.social-icons a {
+    display: block;
+}
+
+.icon-check {
+    width: 100%;
+    height: 17vh;
+    margin-bottom: 2rem;
+    aspect-ratio: 1/1;
+    background-image: url("icon-check.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.icon-instagram,
+.icon-youtube,
+.icon-tiktok {
+    position: relative;
+}
+
+.icon-instagram {
+    /* position: fixed;
+    bottom: 1rem;
+    right: 1rem; */
+    width: 2.4rem;
+    height: 2.5rem;
+    background-image: url("https://traino.nu/app/assets/icon-instagram.svg");
+    background-size: 2.5rem;
+    background-repeat: no-repeat;
+    content: "";
+    z-index: 100;
+}
+
+.icon-tiktok {
+    /* position: fixed;
+    bottom: 4rem;
+    right: 1rem; */
+    width: 2.3rem;
+    height: 2.5rem;
+    background-image: url("https://traino.nu/app/assets/icon-tiktok.svg");
+    background-size: 2.3rem;
+    background-repeat: no-repeat;
+    content: "";
+    filter: invert(1);
+    z-index: 100;
+}
+
+#aboutpage .icon-tiktok {
+    filter: invert(0);
+}
+
+.icon-youtube {
+    /* position: fixed;
+    bottom: 7rem;
+    right: 1rem; */
+    width: 2.5rem;
+    height: 2.5rem;
+    background-image: url("https://traino.nu/app/assets/icon-youtube.svg");
+    background-size: 2.5rem;
+    background-repeat: no-repeat;
+    content: "";
+    z-index: 100;
+}
+
+.icon-instagram:hover,
+.icon-youtube:hover,
+.icon-tiktok:hover {
+    scale: 1.2;
+    cursor: pointer;
+}
+
+.icon-instagram:active,
+.icon-youtube:active,
+.icon-tiktok:active {
+    scale: 0.9;
+    cursor: pointer;
+}
+
+.signup-info {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1rem;
+    width: fit-content;
+}
+
+#coming-soon .signup-info h3,
+#coming-soon .signup-info p {
+    margin: 0;
+}
+
+.sub-text {
+    font-size: 0.8rem;
+}
+
+.video {
+    filter: brightness(1.2);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: fixed;
+}
+
+.video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* About styles */
+
+.about-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--white);
+    gap: 1.25rem;
+    width: 100vw;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 6.25rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary-light-grey) transparent;
+}
+
+#aboutpage h2 {
+    text-align: center;
+    font-size: clamp(2.5rem, 3rem, 4vw);
+}
+
+#aboutpage h3 {
+    text-align: center;
+    font-size: 2rem;
+    line-height: normal;
+}
+
+#aboutpage h4 {
+    text-align: center;
+    font-size: 2.3rem;
+    margin-bottom: 4rem;
+}
+
+#aboutpage h5 {
+    font-size: 1.25rem;
+    color: var(--titlecolor);
+}
+
+.about-container p {
+    line-height: 1.44rem;
+    font-size: 0.875rem;
+}
+
+.content.header {
+    text-align: center;
+    margin-bottom: -2.5rem;
+}
+
+.content.header h2 {
+    margin-bottom: 1.5rem;
+}
+
+.description-text {
+    color: gray;
+}
+
+.content-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 7rem;
+    padding: 90px 20px;
+}
+
+.content {
+    width: 100%;
+    max-width: 786px;
+}
+
+#aboutpage .content.flex {
+    display: flex;
+    flex-direction: column;
+    gap: 3.75rem;
+}
+
+#aboutpage .content.flex h4 {
+    margin-bottom: -1rem;
+}
+
+#aboutpage .content.story h3 {
+    margin-bottom: 3rem;
+}
+
+#registeredbody #aboutpage {
+    text-align: center;
+    padding: 1rem;
+}
+
+#registeredbody #aboutpage h2 {
+    line-height: normal;
+    margin-bottom: 1.5rem;
+}
+
+#registeredbody #aboutpage p {
+    margin-bottom: 2rem;
+}
+
+#registeredbody #aboutpage .button {
+    padding: 0.6rem 2rem;
+}
+
+.heading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+}
+
+.logo-about {
+    background-image: url(../assets/logo.svg);
+    width: 10rem;
+    height: 4rem;
+    background-repeat: no-repeat;
+}
+
+.about-image {
+    margin-top: 3.5rem;
+    display: flex;
+    align-self: center;
+    justify-self: center;
+    background-position: 50% 100%;
+    background-image: url("../assets/trainingpixabay.jpg");
+    width: 28rem;
+    height: 18rem;
+    max-height: 26rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: translateY(-0.6rem);
+}
+
+.smallheading {
+    font-size: 1.25rem;
+    font-weight: var(--weight);
+    color: var(--maincolor);
+    transform: translateY(0.19rem);
+}
+
+.headings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 999;
+    gap: 0.6rem;
+    position: relative;
+}
+
+.trainer {
+    font-weight: var(--weight);
+    font-size: 1.13rem;
+    align-self: flex-start;
+    margin-inline: 1.25rem;
+    color: var(--maincolor);
+}
+
+.sm {
+    margin-inline: 1.25rem;
+}
+
+.contactdots {
+    display: flex;
+    flex-direction: column;
+    margin-inline: 1.25rem;
+    white-space: nowrap;
+    line-height: 1.7;
+    align-self: flex-start;
+    font-size: 1rem;
+}
+
+hr {
+    display: flex;
+    width: 19rem;
+    height: 1.25rem;
+    border-color: transparent;
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
+    border-bottom: 0.13rem solid var(--secondary-light-grey);
+}
+
+.socialmedia {
+    justify-content: center;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.team-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-between;
+}
+
+.team-member {
+    flex: 1 1 230px;
+    text-align: center;
+}
+
+.team-member img {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    object-fit: cover;
+    background: none;
+}
+
+.team-member div {
+    margin-top: 0.5rem;
+}
+
+.team-scroll {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.team-scroll span {
+    display: block;
+    flex: 1 0 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.swiper-slide-custom {
+    flex: 1 0 calc(33% - 13.3333px);
+    max-width: calc(33% - 13.3333px);
+    width: auto;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-chevron.prev {
+    transform: rotate(-180deg);
+}
+
+.team-scroll-page {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+.team-scroll-indicator {
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    width: fit-content;
+    height: 11px;
+    overflow: visible;
+}
+
+.team-scroll-indicator circle {
+    flex: 0 0 auto;
+}
+
+.content.scroll h4 {
+    margin-bottom: 0;
+}
+
+.content.scroll {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.read-more {
+    margin: 1rem 0;
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.read-more:hover {
+    text-decoration: underline;
+}
+
+.read-more span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-size: 1rem;
+    transform: rotate(90deg);
+}
+
+.icon-chevron.up {
+    transform: rotate(-90deg);
+}
+
+.timeline-wrap {
+    display: flex;
+    gap: 2.5rem;
+    flex-direction: column;
+    position: relative;
+}
+
+.timeline-wrap::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 1.3rem;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--maincolor) 80%, rgba(255, 255, 255, 0) 100%);
+    z-index: 0;
+}
+
+.timeline-content-wrap {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.timeline-item {
+    display: flex;
+    align-items: flex-start;
+}
+
+.timeline-content {
+    width: 100%;
+    flex: 1 1 250px;
+}
+
+.timeline-image {
+    display: block;
+    width: 100%;
+    flex: 1 0 290px;
+}
+
+.timeline-image img {
+    /* border: 2px grey solid; */
+    border-radius: var(--radius);
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+}
+
+.timeline-header {
+    margin-bottom: 0.5rem;
+}
+
+.timeline-marker {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 2.9rem;
+    z-index: 2;
+}
+
+.timeline-marker svg {
+    height: 1.5rem;
+    width: 1.5rem;
+    fill: var(--maincolor);
+    margin-left: 0.6rem;
+}
+
+.timeline-marker.start {
+    margin-right: 2rem;
+}
+
+.timeline-marker.start svg {
+    height: 3rem;
+    width: 3rem;
+    margin-left: 0;
+}
+
+.smallheadingcontainer {
+    display: flex;
+    gap: 0.6rem;
+    align-self: flex-start;
+    justify-self: flex-start;
+}
+
+.about-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    align-self: flex-start;
+}
+
+.left {
+    display: flex;
+    align-self: flex-start;
+    margin-inline: 0 64rem;
+    white-space: nowrap;
+}
+
+.text-background {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    background-color: #fff;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+}
+
+/* icon images */
+.heading-icon-about {
+    width: 1.9rem;
+    height: 1.9rem;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.about-page-text {
+    line-height: 1.7;
+    margin-inline: 1.2rem;
+    font-size: 1rem;
+}
+.vision {
+    background-image: url(../assets/darts.png);
+}
+.mission {
+    background-image: url(../assets/values.png);
+}
+.gives {
+    background-image: url(../assets/gift.png);
+}
+.functions {
+    background-image: url(../assets/settings.png);
+}
+.history {
+    background-image: url(../assets/book.png);
+}
+.trainoApp {
+    background-image: url(../assets/mobile-phone.png);
+}
+.partners {
+    background-image: url(../assets/profit.png);
+}
+.contact {
+    background-image: url(../assets/icon-emailcheck.svg);
+}
+.social {
+    background-image: url(../assets/social.png);
+}
+.back-btn {
+    background-image: url("icon-chevron.svg"); /* Ta bort bakgrundsbilden */
+    filter: invert(1);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0;
+    position: absolute;
+    top: 0.7rem;
+    left: 0;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    z-index: 1000;
+    rotate: 180deg; /* Roterar ikonen */
+}
+.intro-quote {
+    padding-top: 0.25rem;
+}
+.main-header {
+    color: var(--maincolor);
+    font-size: 1.5rem;
+    text-align: center;
+    border-bottom: 0.19rem solid var(--maincolor);
+    width: 100vw;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    margin: 0 auto;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+}
+.traino-quote {
+    transform: translateY(6.25rem);
+}
+
+.slideshow {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+}
+
+.slideshow-images {
+    width: 100%;
+    height: 100%;
+}
+
+.slideshow-images img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    filter: brightness(50%);
+    transition: opacity 2s ease;
+}
+
+.slideshow-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    position: absolute;
+    width: 80%;
+    max-width: 500px;
+    color: white;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.slideshow-text h3 {
+    font-weight: 600;
+}
+
+.slideshow-text p {
+    text-align: center;
+    font-size: 1rem;
+}
+
+.slideshow-text .logo {
+    height: 61px;
+    width: 220px;
+    margin-bottom: 3.5rem;
+    filter: brightness(0) invert(1);
+}
+
+.slideshow-hint {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    color: #fff;
+    gap: 0.5rem;
+    align-items: center;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    margin-bottom: 5rem;
+}
+
+#aboutpage .quote {
+    font-size: 1.25rem;
+    line-height: 1.56rem;
+    color: #000;
+    text-align: center;
+    margin-bottom: 2.3rem;
+}
+
+.quote-mark {
+    font-size: 1.5rem;
+    color: var(--maincolor);
+}
+
+.two-column {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.two-column p {
+    flex: 1 1 365px;
+}
+
+.highlight-wrap {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.highlight-wrap span {
+    display: block;
+    height: 70px;
+    width: 70px;
+}
+
+.slideshow-hint span {
+    display: block;
+    height: 20px;
+    width: 20px;
+    filter: invert(1);
+    transform: rotate(90deg);
+}
+
+#aboutpage .button {
+    display: flex;
+    width: fit-content;
+    gap: 0.8rem;
+    padding: 1rem 2rem;
+}
+
+.button span {
+    display: block;
+    height: 19px;
+    width: 25px;
+}
+
+.highlight {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1 1 230px;
+    text-align: center;
+}
+
+.sub-content {
+    width: 100%;
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.mockup-wrap {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    flex: 1 1 305px;
+    min-width: 200px;
+}
+
+.mockup-wrap img {
+    width: 100%;
+    height: 100%;
+    background: none;
+    object-fit: cover;
+    object-position: 100% 0;
+}
+
+.gradient-overlay {
+    content: "";
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 10%, rgba(0, 0, 0, 0) 60%);
+}
+
+.sub-content-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    height: fit-content;
+    flex: 1 1 366px;
+}
+
+#contact-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.31rem;
+    width: 100%;
+    max-width: 786px;
+}
+
+#contact-wrap h4 {
+    margin-bottom: 1rem;
+}
+
+#contact-wrap > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.merch {
+    padding-bottom: 5rem;
+}
+
+.merch-images {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.merch-images img {
+    border-radius: var(--radius);
+    width: 100%;
+    height: auto;
+}
+
+.moreinfo {
+    margin-top: 3rem;
+}
+
+.moreinfo h3 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.moreinfo ul {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+.moreinfo ul li {
+    font-size: 0.875rem;
+    line-height: 140%;
+    margin-bottom: 0.5rem;
+}
+.link {
+    text-align: center;
+    color: white;
+    width: fit-content;
+    display: flex;
+}
+
+#aboutpage .worklist {
+    border-radius: 1rem;
+
+    padding: 2rem;
+    text-align: left;
+    justify-content: left;
+    align-items: flex-end;
+    gap: 1rem;
+    display: flex;
+    box-shadow: 0 0.5rem 1.3rem 0 rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+}
+
+.worklist h5 {
+    text-align: left;
+}
+
+#aboutpage .worklist .button {
+    padding: 0.5rem 1rem;
+}
+
+@media screen and (max-width: 400px) {
+    .quote {
+        font-size: 1rem;
+    }
+
+    .quote-mark {
+        font-size: 1.25rem;
+    }
+}
+
+@media screen and (max-width: 535px) {
+    #aboutpage .worklist {
+        flex-wrap: wrap;
+    }
+
+    .swiper-slide-custom {
+        flex: 1 0 100%;
+        max-width: 100%;
+    }
+
+    .swiper-wrapper {
+        width: calc(100vw - 3rem);
+    }
+
+    .icon-chevron.prev,
+    .icon-chevron.next {
+        display: none !important;
+    }
+
+    .merch-images {
+        flex-direction: column;
+        padding: 0 1.5rem;
+    }
+}
+
+@media screen and (min-width: 536px) and (max-width: 735px) {
+    .swiper-slide-custom {
+        flex: 1 0 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+    }
+}
+
+@media screen and (min-width: 750px) {
+    .content.even .sub-content:nth-child(even) {
+        flex-direction: row-reverse;
+    }
+
+    .content.odd .sub-content:nth-child(odd) {
+        flex-direction: row-reverse;
+    }
+
+    .swiper-slide:last-child {
+        margin-right: 0 !important;
+    }
+
+    .sub-content-text {
+        min-width: 360px;
+    }
+}
+
+@media screen and (max-height: 800px) {
+    .slideshow {
+        height: 80vh;
+    }
+}
+
+/* desktop */
+@media screen and (min-height: 800px) {
+    #coming-soon .content {
+        margin-top: 25vh;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .main-header {
+        color: var(--maincolor);
+        font-size: 2rem;
+    }
+    .back-btn {
+        top: 0.85rem;
+    }
+    .about-page-text {
+        font-size: 1.13rem;
+        margin-inline: 6.25rem;
+    }
+    .headings {
+        margin-inline: 6.25rem;
+        font-size: 1.5rem;
+    }
+    .smallheading {
+        font-size: 1.5rem;
+        transform: translateY(0);
+    }
+    .left {
+        display: flex;
+        align-self: flex-start;
+        white-space: "nowrap";
+        font-size: 1.13rem;
+    }
+    .about-page-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        align-self: flex-start;
+    }
+
+    .about-image {
+        display: block;
+        width: 94rem;
+        height: 53rem;
+        background-position: 50%;
+        transform: scaleY(0.9);
+        z-index: 1;
+        transform: translateY(0);
+    }
+    hr {
+        width: 50%;
+    }
+    .trainer {
+        margin-inline: 6.25rem;
+        font-size: 1.25rem;
+    }
+}

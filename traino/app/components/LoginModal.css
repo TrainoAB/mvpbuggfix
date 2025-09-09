@@ -1,0 +1,12 @@
+#loginmodal .darkoverlay {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  content: '';
+  display: block;
+  z-index: 100;
+  backdrop-filter: blur(var(--backdrop-blur));
+  background-color: var(--darkoverlay);
+}

@@ -1,0 +1,115 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  font-size: 1rem;
+  background-color: var(--mainbg);
+  position: relative;
+}
+
+.extraGrayBg {
+  width: 100%;
+  height: 100%;
+  background-color: var(--mainbg);
+  position: fixed;
+  z-index: -1;
+}
+
+.topColor {
+  width: 20rem;
+  height: 40rem;
+  background-color: var(--topcolor);
+  position: fixed;
+  content: '';
+  display: block;
+  filter: blur(4rem);
+  top: -50%;
+  left: -50%;
+  rotate: 45deg;
+  pointer-events: none;
+  z-index: 0;
+  touch-action: none;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4rem;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-gray) transparent;
+  padding-bottom: 4rem;
+}
+
+.mainContent {
+  width: 100%;
+  max-width: 40rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.mainContent h2 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--titlecolor);
+  margin-bottom: 0.5rem;
+}
+
+.mainContent span.smallGrey {
+  font-weight: 400;
+  color: var(--light-grey);
+  font-size: 0.875rem;
+}
+.whiteBg {
+  background-color: var(--bgcolor);
+}
+
+.verticalCenter {
+  justify-content: center;
+}
+
+.fixedPosition {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 4.625rem 1fr 4.625rem;
+  align-items: center;
+  width: 100%;
+  max-width: 40rem;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  z-index: 99;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  color: var(--titlecolor);
+  font-weight: 600;
+}
+
+.headerSmallLeft {
+  grid-template-columns: 2rem 1fr 9rem;
+}
+
+.headerSmallLeft h1 {
+  text-align: left;
+}
+
+.iconFill {
+  fill: var(--bgcolor);
+}

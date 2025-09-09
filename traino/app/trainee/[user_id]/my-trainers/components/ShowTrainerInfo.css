@@ -1,0 +1,64 @@
+:root{
+    --content-width: 458.44px;
+ }
+
+ #trainer-info {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     gap: 23px;
+     padding: 12px 23px;
+     background-color: white;
+     border-radius: 10px;
+     position: relative;
+     z-index: 2;
+ }
+
+ #trainer-info .trainer-info__photo-container {
+     flex-shrink: 0; /* Förhindra krympning */
+     height: 57px;
+     width: 57px;
+ }
+
+ #trainer-info .trainer-info__photo-container--profile-photo {
+    box-shadow: -2px 4px 10px 2px hsla(0, 0%, 0%, 0.3);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%; /* Centrerar bilden horisontellt inom behållaren och flyttar den den 20% i höjd*/
+    border-radius: 50%;
+}
+
+
+#trainer-info .trainer-info__container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 15px 0px;
+}
+
+#trainer-info .trainer-info__name {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+#trainer-info .trainer-info__table {
+    width: 100%;
+}
+
+#trainer-info .trainer-info__table--header {
+    color: hsla(0, 0%, 0%, 0.5);
+    font-weight: 500;
+}
+
+#trainer-info .trainer-info__table--column {
+    font-weight: 700;
+}
+
+@media (min-width: 768px){
+   #trainer-info{
+       width: var(--content-width);
+       /* background-color: aqua; */
+   }
+}

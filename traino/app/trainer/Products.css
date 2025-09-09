@@ -1,0 +1,143 @@
+/* HERO IMAGE */
+#trainer-products {
+  height: auto;
+  max-height: none;
+}
+
+#trainer-products .categorytop {
+  position: absolute;
+}
+#trainer-products .hero {
+  overflow: hidden;
+  margin-top: 3.5rem;
+  position: relative;
+  width: 100%;
+  height: 8rem;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+#trainer-products .hero * {
+  pointer-events: none;
+}
+#trainer-products .hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale 0.2s ease-in-out;
+}
+#trainer-products .hero:hover img {
+  animation: flash 0.3s 1 forwards;
+  z-index: 0;
+  scale: 1.1;
+}
+#trainer-products .hero-overlay {
+  padding: 1rem;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#trainer-products .hero-overlay h1 {
+  font-size: 3rem;
+  margin-bottom: 1.25rem;
+}
+#trainer-products .hero-overlay h2 {
+  z-index: 2;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+#trainer-products .hero-overlay h3 {
+  z-index: 2;
+}
+#trainer-products .hero-overlay p {
+  font-size: 1.125rem;
+  margin-bottom: 2.5rem;
+}
+
+/* PRODUCT LISTINGS */
+#trainer-products .product-list {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 3.75rem; /* To compensate for Navigation bar */
+}
+
+#trainer-products .product {
+  max-width: 40rem;
+  width: calc(100% - 2rem);
+  margin: 0.625rem;
+  padding: 1.25rem;
+  background: var(--secondary-light-grey-alternative);
+  border-left: 0.6rem solid var(--maincolor);
+  border-radius: 0.625rem;
+  box-shadow: 0 0.3rem 0.825rem rgba(0, 0, 0, 0.2);
+}
+
+#trainer-products .product * {
+  pointer-events: none;
+}
+
+#trainer-products .product:hover {
+  outline: 0.25rem solid var(--maincolor);
+  border-color: var(--mainpurple);
+}
+
+#trainer-products .product:hover .button {
+  background-color: var(--mainpurple);
+}
+
+#trainer-products .category-name {
+  margin-bottom: 0.625rem;
+  border-bottom: 0.0625rem solid var(--secondary-light-grey-alternative);
+  padding-bottom: 0.625rem;
+  padding-left: 2.3rem;
+  background-position: left top;
+  background-size: 1.6rem;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+}
+
+#trainer-products .icon-card {
+  padding-left: 2.3rem;
+  background-size: 1.6rem;
+  background-position: left center;
+}
+
+#trainer-products .icon-positionpoint {
+  padding-left: 2.3rem;
+  background-size: 1.2rem;
+  background-position: 0.33rem center;
+  color: var(--secondary-grey);
+}
+
+#trainer-products .product-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-direction: column;
+}
+
+#trainer-products .product-detail {
+  margin-bottom: 0.625rem;
+  display: block;
+}
+
+#trainer-products .detail-key {
+  font-weight: bold;
+  margin-right: 0.625rem;
+}

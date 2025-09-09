@@ -1,0 +1,38 @@
+#profile-menu-notification-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  #profile-menu-notification-icon .notification-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  #profile-menu-notification-icon .notification-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  #profile-menu-notification-icon .amount {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    padding: 0;
+    aspect-ratio: 1/1;
+    top: 0;
+    right: 3rem;
+    border-radius: 100rem;
+    background-image: radial-gradient(circle at 38% 33%, #fc5e5e, #940303);
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  

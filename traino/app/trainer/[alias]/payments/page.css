@@ -1,0 +1,395 @@
+#payments .transaction-month {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+#payments .scrollcontent {
+  padding-top: 4rem;
+  width: 100%;
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-light-grey) transparent;
+  display: flex;
+  justify-content: center;
+}
+
+#payments .economycontent {
+  width: calc(100% - 2rem);
+  max-width: 40rem;
+  height: 100%;
+  margin-bottom: 5rem;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#payments .hdb-wrap {
+  margin-top: 4.5rem;
+}
+
+#payments .payment-history .userlink {
+  color: var(--maincolor);
+  font-weight: 600;
+  font-size: var(--font-small);
+}
+
+#payments .icon {
+  border-radius: 10rem;
+  background-color: lightgreen;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-size: 1.5rem;
+}
+
+#payments .payment-wrap {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  gap: 1rem;
+  position: relative;
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    aspect-ratio: 1;
+    border-radius: 3rem;
+    position: relative;
+    background-color: lightgreen;
+
+    p {
+      position: absolute;
+      bottom: -0.5rem;
+      right: -0.5rem;
+      transform: rotate(-35deg);
+      padding: 0.15rem 0.43rem;
+      color: white;
+      border: 3px solid white;
+    }
+
+    svg {
+      margin: 0.25rem;
+      overflow: visible;
+    }
+  }
+
+  .payoutbutton {
+    position: absolute;
+    right: 0px;
+    padding: 1rem 1rem;
+    background-color: var(--maincolor);
+    color: white;
+    border-radius: var(--radius);
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 0.8rem;
+  }
+
+  .payoutbutton:hover {
+    cursor: pointer;
+    background-color: var(--secondary);
+  }
+
+  .payment-container {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+#payments .icon-title {
+  color: var(--titlecolor);
+  font-size: 0.875rem;
+  font-weight: bold;
+}
+
+#payments .icon-amount {
+  font-weight: bold;
+}
+
+#payments .paymentHighlights {
+  border-top: 1px solid var(--secondary-light-grey-alternative);
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  b {
+    font-size: 1.5rem;
+  }
+
+  p {
+    color: var(--maincolor);
+    font-weight: 600;
+  }
+
+  h2 {
+    color: var(--titlecolor);
+  }
+}
+
+#payments .highlightsContainer {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  margin-top: 1rem;
+
+  .highlightsBar {
+    width: 4rem;
+    display: grid;
+    margin-right: 1.3rem;
+
+    .wrapBar {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .highlightGlobe {
+      background-color: var(--maincolor);
+      width: 3rem;
+      height: 3rem;
+      border-radius: 3rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    p {
+      color: white;
+      text-align: center;
+      z-index: 2;
+      position: absolute;
+      top: 1.5rem;
+      transform: translateY(-50%);
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .highlightGlobeBar {
+      background-color: var(--maincolor);
+      height: 100%;
+      width: 1rem;
+      position: absolute;
+      top: 5px;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .highlightGlobeInactive {
+      background-color: rgb(204, 204, 204);
+      width: 3rem;
+      height: 3rem;
+      border-radius: 3rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .highlightGlobeBarInactive {
+      background-color: rgb(204, 204, 204);
+      height: 100%;
+      width: 1rem;
+      position: absolute;
+      top: 0.5rem;
+
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .highlights {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+}
+
+#payments .highlights .payment-wrap {
+  padding-top: 0;
+}
+
+#payments .payment-history {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 0;
+  padding-right: 0;
+  border-bottom: 1px solid var(--secondary-light-grey-alternative);
+
+  .prod-cust {
+    p:nth-of-type(1) {
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+
+    p:nth-of-type(2) {
+      color: var(--maincolor);
+      font-size: 0.8rem;
+    }
+  }
+
+  .pay-date {
+    p:nth-of-type(1) {
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    p:nth-of-type(2) {
+      color: grey;
+      font-size: var(--font-small);
+    }
+  }
+}
+
+#payments .pagination {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+
+#payments .pagination-button {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--maincolor);
+  color: var(--maincolor);
+  font-weight: bold;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#payments .pagination-button:hover {
+  background-color: var(--maincolor);
+  color: white;
+  cursor: pointer;
+}
+
+#payments .stripecontent {
+  width: 100%;
+  max-width: 40rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--secondary-light-grey);
+  padding: 2rem;
+  border-radius: var(--radius);
+}
+
+#payments .stripebutton {
+  width: auto;
+  margin: 2rem;
+}
+
+#payments .timeline-wrap {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  position: relative;
+}
+
+#payments .timeline-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1.3rem;
+  height: 97%;
+  width: 4px;
+  background: linear-gradient(
+    to bottom,
+    var(--maincolor) var(--gradient-percent),
+    var(--maincolor) var(--gradient-percent),
+    var(--secondary-light-grey) 0%
+  );
+  z-index: 0;
+}
+
+#payments .timeline-content-wrap {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+#payments .timeline-item {
+  display: flex;
+  align-items: flex-start;
+}
+
+#payments .timeline-content {
+  width: 100%;
+  flex: 1 1 250px;
+}
+
+#payments .timeline-image {
+  display: block;
+  width: 100%;
+  flex: 1 0 290px;
+}
+
+#payments .timeline-image img {
+  /* border: 2px grey solid; */
+  border-radius: var(--radius);
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+
+#payments .timeline-header {
+  margin-bottom: 0.25rem;
+}
+
+#payments .timeline-marker {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 2rem;
+  z-index: 2;
+}
+
+#payments .timeline-marker svg {
+  height: 1.5rem;
+  width: 1.5rem;
+  fill: var(--maincolor);
+  margin-left: 0.6rem;
+}
+
+#payments .timeline-active {
+  transform: scale(1.35);
+}

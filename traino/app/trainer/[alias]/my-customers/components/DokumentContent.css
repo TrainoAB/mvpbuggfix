@@ -1,0 +1,150 @@
+:root{
+    --content-width: 458.44px;
+ }
+
+
+#trainer-documents {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+#trainer-documents .file-upload-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 34px;
+    border-radius: 50%;
+    padding-bottom: 5px;
+    font-weight: 250;
+    color: hsl(0, 0%, 20%);
+    box-shadow: -2px 4px 8px 1px hsla(0, 0%, 0%, 0.2);
+    background: hsla(73, 76%, 66%, 1);
+    background-image: url("../assets/upload-icon.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#trainer-documents .file-upload-icon:hover {
+    background-color: hsla(73, 76%, 50%, 1);
+    transition: background-color 0.15s ease-in;
+    cursor: pointer;
+}
+
+#trainer-documents .document-item {
+    width: 100%;
+    background-color: hsla(0, 0%, 94%, 1);
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 10px 0px hsla(0, 0%, 0%, 0.1);
+    display: grid;
+    grid-template-columns: 1fr 10fr 1fr;
+    align-items: center;
+    position: relative; /* För att placera labeln korrekt */
+}
+
+#trainer-documents .document-item.ongoing {
+    border: 2px solid red; /* Röd ram för pågående dokument */
+}
+
+#trainer-documents .document-item__left {
+    background-image: url("../assets/folder.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 23px;
+    width: 23px;
+}
+
+#trainer-documents .document-item__middle--title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#trainer-documents .document-item__middle--date {
+    font-size: 14px;
+    font-weight: 600;
+    color: hsla(0, 0%, 21%, 0.5);
+}
+
+#trainer-documents .document-item__right {
+    cursor: pointer;
+    background-image: url("../assets/ellipsis-horizontal.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 22px;
+    width: 22px;
+    position: relative;
+    border-radius: 50%;
+}
+
+#trainer-documents .document-menu-container {
+    width: 200px;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 10px;
+}
+
+#trainer-documents .document-menu__item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#trainer-documents .document-menu__item:hover {
+    background: #f0f0f0;
+}
+
+#trainer-documents .document-menu__item--icon {
+    width: 48px;
+    height: 48px;
+    font-size: 34px;
+    padding-bottom: 5px;
+    font-weight: 250;
+    color: hsl(0, 0%, 20%);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#trainer-documents .icon-edit {
+    background-image: url("../assets/icon-pen.png");
+}
+
+#trainer-documents .icon-ladda-ner {
+    background-image: url("../assets/icon-ladda-ner.png");
+}
+
+#trainer-documents .icon-delete {
+    background-image: url("../assets/icon-trash.png");
+}
+
+#trainer-documents .document-label {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+}
+
+#trainer-documents .ongoing-label {
+    background-color: red; /* Röd bakgrund för pågående dokument */
+}
+
+#trainer-documents .completed-label {
+    background-color: green; /* Grön bakgrund för avslutade dokument */
+}
+
+@media (min-width: 768px) {
+    #trainer-documents {
+        width: var(--content-width);
+    }
+}

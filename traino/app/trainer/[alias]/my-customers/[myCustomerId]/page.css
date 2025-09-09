@@ -1,0 +1,34 @@
+html, body {
+    background-color: hsla(0, 0%, 97%, 1);
+}
+
+#my-trainee {
+    width: 100vw;
+    position: relative;
+    z-index: 0;
+}
+
+#my-trainee .page-wrapper {
+    margin: 0 7%;
+}
+
+@media (min-width: 768px) {
+    #my-trainee {
+    }
+    
+    #my-trainee .page-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* border: 1px solid red; */
+    }
+    #my-trainee .customer-header {
+        width: 400px;
+    }
+}
+
+@media (min-width: 768px) {
+    #my-trainee .trainee-info {
+        width: 458.44px;
+    }
+}

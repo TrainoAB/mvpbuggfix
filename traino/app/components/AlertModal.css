@@ -1,0 +1,61 @@
+#alert-modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(var(--darkoverlaybackdrop));
+  background-color: var(--darkoverlay);
+  /* semi-transparent black background */
+  z-index: 1000000000000000;
+  /* Ensure the modal overlay appears above other content */
+}
+
+.alert-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.alert-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--fgcolor);
+  background-color: var(--bgcolor);
+  padding: 1rem;
+  border-radius: var(--bigradius);
+  width: calc(100% - 2rem);
+  max-width: 20rem;
+  text-align: center;
+  box-shadow: 0 0.3rem 1rem 0 var(--darkoverlay);
+
+  strong {
+    margin-bottom: 1rem;
+  }
+}
+
+.alert-modal:before {
+  display: block;
+  content: '';
+  width: 100%;
+  height: 6rem;
+  background-image: url('.._/../../assets/icon-alert.svg');
+  background-repeat: no-repeat;
+  background-position: center 1rem;
+  background-size: 4rem;
+  filter: invert(var(--inverted));
+}
+
+#alert-modal-container .button {
+  margin-top: 1rem;
+}

@@ -1,0 +1,21 @@
+
+.reactangle-button {
+    display: block;
+    background-color: hsl(256, 67%, 58%);
+    color: white;
+    padding: 20px 25px;
+    box-shadow: -3px 5px 15px  hsla(0, 0%, 0%, 0.3);
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 600;
+    font-family: Helvetica;
+    text-align: center;
+    margin: 20px auto 0 auto;
+    width: 60%;
+  }
+  
+ .reactangle-button:hover {
+    background-color: #5a30c8;
+    cursor: pointer;
+  }

@@ -1,0 +1,80 @@
+html, body {
+    background-color: hsla(0, 0%, 97%, 1);
+}
+
+#my-trainers {
+    width: 100vw;
+}
+
+#my-trainers .page-wrapper {
+    margin: 0 7%;
+    /* border: 1px solid blue; */
+}
+
+#my-trainers .trainer-title {
+    font-size: 18px;
+}
+
+#my-trainers p {
+    font-size: 14px;
+    color: hsl(0, 0%, 55%);
+    font-weight: 300;
+}
+
+#my-trainers hr {
+    border: 1px solid hsl(0, 0%, 90%);
+    margin: 20px 0;
+}
+
+#my-trainers .trainer {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#my-trainers .trainer__left {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+#my-trainers .trainer__left--photo-container {
+    height: 57px;
+    width: 57px;
+}
+
+#my-trainers .trainer__left--photo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Gör att bilden fyller behållaren och beskär överflödiga delar */
+    object-position: center 20%; /* Centrerar bilden horisontellt inom behållaren och flyttar den den 20% i höjd */
+    border-radius: 50%; 
+}
+
+#my-trainers .trainer__right {
+    display: flex;
+    align-items: center;
+    color: hsla(0, 0%, 20%, 1);
+    font-size: 18px;
+    font-weight: 200;
+    transform: scaleY(1.9) translateY(-3%); /* Skalar tecknet vertikalt */
+}
+
+@media (min-width: 768px) {
+    #my-trainers { 
+        display: flex;
+        justify-content: center;       
+        /* background-color: rgb(80, 147, 255); */
+    }
+    
+    #my-trainers .page-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* border: 1px solid red; */
+    }
+    #my-trainers .trainer-header {
+        width: 400px;
+    }
+}

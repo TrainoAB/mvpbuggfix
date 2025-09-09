@@ -1,0 +1,217 @@
+/* Default för mobiler (0px - 767px) */
+#order-confirmation {
+  color: #303030;
+}
+
+#order-confirmation.visible {
+  display: block;
+  position: absolute;
+  z-index: 1100;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+}
+
+#order-confirmation.hidden {
+  display: none;
+}
+
+#order-confirmation p {
+  font-size: 14px;
+}
+
+#order-confirmation .container-main {
+  text-align: center;
+}
+
+#order-confirmation .main-header {
+  font-size: 20px;
+  margin: 100px 25px 15px;
+}
+
+#order-confirmation .main-subheader {
+  font-size: 16px;
+  margin: 0px 50px 30px;
+}
+
+#order-confirmation hr {
+  border: 0;
+  height: 1px;
+  background-color: hsl(0, 0%, 80%);
+  width: calc(100% - 60px);
+  /* Justerar bredden för att lämna 30px på varje sida */
+  margin: 0px auto 10px;
+}
+
+#order-confirmation .container-main .container-reward-all-products {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 100%;
+}
+
+#order-confirmation .container-main .container-reward-all-products .subheader-category {
+  color: #7A7A7A;
+  margin-left: 30px;
+}
+
+#order-confirmation .container-main .container-reward-single-product {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+#order-confirmation .container-main .container-reward-single-product .subcontainer-left {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+#order-confirmation .container-main .container-reward-single-product .subcontainer-left .product-text {
+  margin-left: -20px;
+}
+
+
+
+#order-confirmation .container-main .container-reward-single-product .subcontainer-right {
+  flex-grow: 1;
+  text-align: right;
+  color: #8F8F8F;
+  margin-right: 25px;
+}
+
+#order-confirmation .container-main .container-adress-and-delivery {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  row-gap: 20px;
+  margin-left: 57px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+#order-confirmation .container-main .container-adress-and-delivery .customer-adress {
+  text-align: left;
+}
+
+#order-confirmation .container-main .container-adress-and-delivery .subheader-adress-and-delivery {
+  color: #7A7A7A;
+  margin-bottom: 3px;
+}
+
+
+
+#order-confirmation .container-notification-card-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Halvtransparent bakgrund */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  /* Hög z-index för att säkerställa att den visas ovanpå allt annat */
+}
+
+
+/* ************************************************************************************************** */
+/* *********************************  TABLET & DESKTOP > 743px  ************************************* */
+/* ************************************************************************************************** */
+@media (min-width: 743px) {
+
+
+  #order-confirmation .container-main .container-reward-all-products {
+    /* border: 5px solid rgb(255, 0, 0); */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: -10px;
+    ;
+  }
+
+
+  #order-confirmation .container-main .container-reward-all-products .subheader-category {
+    color: #7A7A7A;
+    margin-left: 5px;
+  }
+
+  #order-confirmation .container-main .container-reward-single-product {
+    /* border: 5px solid rgb(255, 140, 0); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+
+
+  #order-confirmation .container-main .container-reward-single-product .subcontainer-left {
+    width: 56%;
+    /* border : 5px solid rgb(255, 255, 0); */
+    display: flex;
+    justify-content: flex-end;
+    white-space: nowrap;
+    font-size: 14px;
+  }
+
+  #order-confirmation .container-main .container-reward-single-product .subcontainer-left .product-text {
+    /* border : 5px solid rgb(0, 255, 0); */
+    margin-left: -20px;
+  }
+
+
+  #order-confirmation .container-main .container-reward-single-product .subcontainer-right {
+    /* border : 5px solid rgb(0, 0, 255); */
+    /* flex-grow: 1; */
+    text-align: left;
+    color: #8F8F8F;
+    margin-right: 25px;
+  }
+
+  #order-confirmation .container-main .container-reward-single-product .subcontainer-right .product-quantity {
+    margin-left: -15px;
+  }
+
+
+
+  #order-confirmation .container-main .container-adress-and-delivery {
+    /* border: 5px solid rgb(0, 85, 255); */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    row-gap: 20px;
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+
+  #order-confirmation .container-main .container-adress-and-delivery .customer-adress {
+    text-align: center;
+    /* border: 5px solid rgb(0, 225, 255); */
+  }
+
+  #order-confirmation .container-main .container-adress-and-delivery .subheader-adress-and-delivery {
+    /* border: 5px solid red; */
+    color: #7A7A7A;
+    margin-bottom: 3px;
+  }
+
+  #order-confirmation .container-main .container-adress-and-delivery .estimated-delivery-date {
+    /* border: 5px solid rgb(255, 150, 0); */
+    text-align: center;
+  }
+
+}

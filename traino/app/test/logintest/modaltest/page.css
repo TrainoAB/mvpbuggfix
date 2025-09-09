@@ -1,0 +1,15 @@
+#loginmodaltestpage {
+  display: flex;
+justify-content: center;
+height: 100vh;
+
+}
+
+#loginmodaltestpage .modalcontainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+
+width: 40vh;
+margin-bottom: 10rem;
+}

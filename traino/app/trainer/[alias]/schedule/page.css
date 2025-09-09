@@ -1,0 +1,329 @@
+#schedulepage {
+  font-family: 'Inter', sans-serif;
+}
+
+#schedulepage .darkoverlay {
+  z-index: 999;
+}
+
+#schedulepage .hdb-wrap {
+  margin-top: 4.5rem;
+}
+
+#schedulepage .scrollcontainer {
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
+  height: calc(100vh - 11.75rem);
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-light-grey) transparent;
+  z-index: 0;
+}
+
+#schedulepage .scrollcontainer .container {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#schedulepage .nobooking {
+  text-align: center;
+  padding-top: 3rem;
+}
+
+#schedulepage .bookedcontent {
+  width: calc(100% - 2rem);
+  max-width: 40rem;
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#schedulepage .bookedcontent h2 {
+  padding-top: 1rem;
+}
+
+#schedulepage #schedule-product {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  z-index: 999;
+  min-height: auto;
+}
+
+#schedulepage #schedule-product .scrollcontainer {
+  overflow: visible;
+}
+
+#schedulepage #calendar-container .rbc-calendar {
+  max-height: 100%;
+  min-height: calc(72vh - 7rem);
+  font-family: 'Inter', sans-serif;
+}
+
+#schedulepage .bookingitem {
+  border-radius: var(--bigradius);
+  box-shadow: 0 0.1875rem 0.375rem 0 rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+#schedulepage .bookedcontent .rememberme {
+  align-items: center;
+  font-weight: 600;
+  display: flex;
+}
+
+#schedulepage .bookedcontent .checkboxes *,
+#schedulepage .bookingitem .header,
+#schedulepage .bookingitem .categoryimage * {
+  user-select: none;
+}
+
+#schedulepage .bookedcontent .rememberme .hiddencheckbox {
+  display: none !important;
+}
+
+#schedulepage .bookedcontent .rememberme:hover {
+  cursor: pointer;
+}
+
+#schedulepage .bookedcontent .rememberme * {
+  align-items: center;
+  display: flex;
+  pointer-events: none;
+}
+
+#schedulepage .bookingitem .categoryimage {
+  height: 10rem;
+  overflow: hidden;
+  position: relative;
+}
+
+#schedulepage .bookingitem.expanded .categoryimage {
+  height: 5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+#schedulepage h3 {
+  font-size: 1.25rem;
+  color: var(--title);
+}
+
+#schedulepage .info h2 {
+  color: white;
+}
+
+#schedulepage .bookingitem.canceld {
+  filter: grayscale(1);
+  opacity: 0.3;
+}
+
+#schedulepage .bookingitem.canceld .icon-canceld {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 3.4rem;
+  height: 3.4rem;
+}
+
+#schedulepage .bookingitem.canceld .header:hover,
+#schedulepage .bookingitem.canceld .categoryimage:hover {
+  cursor: default;
+}
+
+#schedulepage .bookingitem .categoryimage:hover {
+  cursor: pointer;
+}
+
+#schedulepage .bookingitem .categoryimage .info {
+  width: calc(100% - 2rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+  color: white;
+  filter: drop-shadow(0 0 0.5rem black) drop-shadow(0 0 0.2rem black);
+}
+
+#schedulepage .bookingitem .categoryimage h2 {
+  width: 100%;
+}
+
+#schedulepage .bookingitem .categoryimage img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#schedulepage .bookingitem .header:hover {
+  cursor: pointer;
+}
+
+#schedulepage .bookingitem .name {
+  font-weight: bold;
+  font-size: 1rem;
+  color: var(--maincolor);
+}
+
+#schedulepage .bookingitem .name:hover {
+  color: var(--fgcolor);
+}
+
+#schedulepage .bookingitem .address {
+  color: var(--secondary-grey);
+}
+
+#schedulepage .bookingitem p {
+  border-top: 1px dashed var(--secondary-light-grey);
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+}
+
+#schedulepage .emailbutton {
+  text-indent: -1000rem;
+  height: 2.3rem;
+  position: relative;
+}
+
+#schedulepage .emailbutton:after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  filter: invert(1);
+  background-image: url('../../../assets/icon-emailcheck.svg');
+  background-size: 1.35rem;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+#schedulepage .bookingitem .column2 {
+  display: grid;
+  grid-template-columns: 1fr 2.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+#schedulepage .bookingitem .column2details {
+  gap: 0.375rem;
+  display: flex;
+  flex-direction: column;
+}
+
+#schedulepage .bookingitem .header {
+  color: white;
+  font-weight: 500;
+  background: var(--maincolor);
+  padding: 1rem;
+  position: relative;
+}
+
+#schedulepage .bookingitem .header .accordionicon {
+  width: 2.5rem;
+  height: 2.5rem;
+  content: '';
+  filter: invert(1);
+  background-image: url('../../../assets/icon-chevron.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 2rem;
+  content: '';
+  display: block;
+  position: absolute;
+  right: 0.2rem;
+  top: 0.4rem;
+}
+
+#schedulepage .bookingitem.expanded .header .accordionicon {
+  rotate: 90deg;
+}
+
+#schedulepage .bookingitem .expandinfo,
+#schedulepage .bookingitem .userinfo {
+  padding: 1rem;
+  font-size: 0.875rem;
+}
+
+#schedulepage .bookingitem .expandinfo {
+  padding-top: 0;
+}
+
+#schedulepage .moremenu-container {
+  position: relative;
+}
+
+#schedulepage .moremenu {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  width: 2.5rem;
+  height: 2.5rem;
+  background-image: url('../../../assets/icon-threedots.svg');
+  background-size: 1.5rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+#schedulepage .moremenu:hover,
+#schedulepage .moremenu.openmenu {
+  cursor: pointer;
+}
+
+#schedulepage .moremenuopen {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  background: white;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius);
+  white-space: nowrap;
+  list-style: none;
+  overflow: hidden;
+}
+
+#schedulepage .moremenuopen button {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--secondary-light-grey);
+  font-size: 1rem;
+  font-family: var(--font);
+  font-weight: 600;
+  color: var(--maincolor);
+}
+
+#schedulepage .moremenuopen button:hover {
+  color: var(--fgcolor);
+  cursor: pointer;
+}
+
+#schedulepage .expandinfo label {
+  color: var(--maincolor);
+  font-weight: 600;
+}
+
+#schedulepage .expandinfo label:hover {
+  color: var(--fgcolor);
+  cursor: pointer;
+}
+
+#schedulepage .loader-container {
+  height: calc(100dvh - 9.75rem);
+}
+
+#schedulepage .darkoverlay:hover {
+  cursor: pointer;
+}

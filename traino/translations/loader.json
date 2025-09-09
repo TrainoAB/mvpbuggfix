@@ -1,0 +1,21 @@
+{"loading_long": {
+  "en": "Loading is taking longer than usual...",
+  "sv": "Laddningen tar längre tid än vanligt...",
+  "da": "Indlæsningen tager længere tid end normalt...",
+  "no": "Lastingen tar lengre tid enn vanlig...",
+  "fi": "Lataus kestää tavallista kauemmin..."
+},
+"loading_support": {
+  "en": "If the problem persists after refreshing, contact support.",
+  "sv": "Om problemet kvarstår efter en refresh, kontakta support.",
+  "da": "Hvis problemet fortsætter efter opdatering, kontakt support.",
+  "no": "Hvis problemet vedvarer etter en oppdatering, kontakt support.",
+  "fi": "Jos ongelma jatkuu päivityksen jälkeen, ota yhteyttä tukeen."
+},
+"refresh": {
+  "en": "Refresh",
+  "sv": "Uppdatera",
+  "da": "Opdater",
+  "no": "Oppdater",
+  "fi": "Päivitä"
+}}

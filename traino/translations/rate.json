@@ -1,0 +1,67 @@
+{
+  "rate_mustchoosebetween1and5": {
+    "en": "You must choose a rating between 1 and 5",
+    "sv": "Du måste välja ett betyg mellan 1 och 5",
+    "fi": "Sinun on valittava arvosana 1 ja 5 välillä",
+    "no": "Du må velge en vurdering mellom 1 og 5",
+    "da": "Du skal vælge en vurdering mellem 1 og 5",
+    "de": "Sie müssen eine Bewertung zwischen 1 und 5 wählen",
+    "fr": "Vous devez choisir une note entre 1 et 5",
+    "es": "Debe elegir una calificación entre 1 y 5",
+    "it": "Devi scegliere un voto tra 1 e 5",
+    "nl": "U moet een beoordeling tussen 1 en 5 kiezen",
+    "pt": "Você deve escolher uma classificação entre 1 e 5"
+  },
+  "rate_youmustwritemorethan10letters": {
+    "en": "You must write more than 10 letters",
+    "sv": "Du måste skriva mer än 10 bokstäver",
+    "fi": "Sinun on kirjoitettava yli 10 kirjainta",
+    "no": "Du må skrive mer enn 10 bokstaver",
+    "da": "Du skal skrive mere end 10 bogstaver",
+    "de": "Sie müssen mehr als 10 Buchstaben schreiben",
+    "fr": "Vous devez écrire plus de 10 lettres",
+    "es": "Debe escribir más de 10 letras",
+    "it": "Devi scrivere più di 10 lettere",
+    "nl": "U moet meer dan 10 letters schrijven",
+    "pt": "Você deve escrever mais de 10 letras"
+  },
+  "rate_ratetrainer": {
+    "en": "Rate Trainer",
+    "sv": "Betygsätt tränare",
+    "fi": "Arvioi valmentaja",
+    "no": "Vurder trener",
+    "da": "Bedøm træner",
+    "de": "Trainer bewerten",
+    "fr": "Évaluer l'entraîneur",
+    "es": "Calificar al entrenador",
+    "it": "Valuta l'allenatore",
+    "nl": "Beoordeel trainer",
+    "pt": "Avaliar treinador"
+  },
+  "rate_rate": {
+    "en": "Rate",
+    "sv": "Betygsätt",
+    "fi": "Arvio",
+    "no": "Vurder",
+    "da": "Bedøm",
+    "de": "Bewerten",
+    "fr": "Évaluer",
+    "es": "Calificar",
+    "it": "Valutare",
+    "nl": "Beoordelen",
+    "pt": "Avaliar"
+  },
+  "rate_explainrating": {
+    "en": "Explain your rating",
+    "sv": "Förklara din betygssättning",
+    "fi": "Selitä arvosanasi",
+    "no": "Forklar vurderingen din",
+    "da": "Forklar din vurdering",
+    "de": "Erklären Sie Ihre Bewertung",
+    "fr": "Expliquez votre note",
+    "es": "Explica tu calificación",
+    "it": "Spiega il tuo voto",
+    "nl": "Leg je beoordeling uit",
+    "pt": "Explique sua classificação"
+  }
+}

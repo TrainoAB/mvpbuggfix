@@ -1,0 +1,43 @@
+.popup {
+  opacity: 0;
+}
+.popupcheck {
+  display: flex;
+  height: 1.25rem;
+  background-image: url('../assets/icon-check.svg');
+  background-repeat: no-repeat;
+  align-self: center;
+  transform: translateY(50%) translateX(30%);
+}
+
+.displayPopup {
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  opacity: 1;
+  margin-inline: 1.25rem;
+  border-radius: var(--radius);
+  transform: scale(1);
+  color: var(--black);
+  background: var(--white);
+  border: 0.01rem solid #11d900;
+  box-shadow: rgba(149, 157, 165, 0.2) 0 0.5rem 1.5rem;
+  z-index: 999;
+  animation-name: popup;
+  animation-duration: 2s;
+}
+
+@keyframes popup {
+  0% {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+}

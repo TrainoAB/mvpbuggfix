@@ -1,0 +1,124 @@
+.traincategory {
+  user-select: none;
+  min-height: 10rem;
+  position: relative;
+  width: 100%;
+  height: 14rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background-color: var(--secondary-light-grey);
+}
+
+.traincategory span {
+  pointer-events: none;
+}
+
+.disabledlink {
+  width: 100%;
+  height: 100%;
+}
+
+.traincategory.disabled {
+  filter: grayscale(1);
+  opacity: 0.3;
+}
+
+.traincategory span {
+  filter: drop-shadow(0 0px 6px rgba(0, 0, 0, 1)) drop-shadow(0 0px 12px rgba(0, 0, 0, 0.8));
+  color: white;
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  text-align: center;
+  font-weight: 600;
+  position: absolute;
+  left: 50%;
+  z-index: 10;
+  bottom: 0.5rem;
+  z-index: 10;
+  transform: translateX(-50%);
+}
+
+.traincategory .image {
+  pointer-events: none;
+  user-select: none;
+  transition: 0.2s ease-in-out;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.traincategory .image:after {
+  position: absolute;
+  display: block;
+  content: '';
+  background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+  width: 100%;
+  height: 50%;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+}
+
+.traincategory .image img {
+  pointer-events: none;
+  user-select: none;
+  width: 100%;
+  height: 100% !important;
+  object-fit: cover;
+}
+
+.traincategory:active {
+  scale: 0.95;
+}
+
+.traincategory:hover .image {
+  animation: flash 0.2s ease-in-out 1 forwards;
+  scale: 1.15;
+}
+.counts {
+  text-align: center;
+  opacity: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(6px);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+  transition: opacity 0.2s ease-in-out;
+  overflow: hidden;
+  color: black;
+  filter: invert(var(--inverted));
+}
+
+.counts div {
+  padding: 0.5rem;
+}
+
+.counts div:nth-child(1),
+.counts div:nth-child(2),
+.counts div:nth-child(3),
+.counts div:nth-child(4) {
+  color: white;
+  padding: 0.2rem;
+  font-size: 0.5rem;
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.traincategory:hover .counts {
+  opacity: 1;
+}
+
+@media screen and (max-width: 480px) {
+  .counts {
+    font-size: 0.6rem;
+    margin-top: 6rem;
+    scale: 0.9;
+    z-index: 100;
+  }
+  .traincategory .counts {
+    opacity: 0.8 !important;
+  }
+}

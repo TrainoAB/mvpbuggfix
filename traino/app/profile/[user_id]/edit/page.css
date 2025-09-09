@@ -1,0 +1,904 @@
+#profile-edit {
+  width: 100vw;
+  justify-content: flex-start;
+  margin: auto;
+
+  height: 100%;
+}
+
+#profile-edit .education-load {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+#profile-edit .education-wrap {
+  margin: 20px 0px;
+}
+
+#profile-edit #delete-btn {
+  color: var(--black);
+  border: 0.125rem solid rgb(204, 0, 0);
+  margin-top: 1rem;
+  background-color: transparent;
+}
+
+#profile-edit #delete-btn:hover {
+  color: var(--black);
+  color: var(--fgcolor);
+  background-color: rgb(204, 0, 0);
+}
+
+#profile-edit .back-btn {
+  background-image: url('../../../assets/icon-chevron.svg');
+  background-repeat: no-repeat;
+  background-size: 2rem;
+  background-position: center;
+  background-color: transparent;
+  rotate: 180deg;
+  width: 3rem;
+  height: 3rem;
+  border: 0;
+  position: absolute;
+  top: 0.5rem;
+  left: 0;
+  margin-left: 0.5rem;
+}
+
+#profile-edit .back-btn:hover {
+  cursor: pointer;
+}
+
+#profile-edit .back-btn:active {
+  scale: 0.9;
+}
+
+/* x-button in modals*/
+#profile-edit .x-btn {
+  background-image: url('../../../assets/icon-x.svg');
+  background-repeat: no-repeat;
+  background-size: 2rem;
+  background-position: center;
+  background-color: transparent;
+  width: 3rem;
+  height: 3rem;
+  border: 0;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  filter: invert(var(--inverted));
+}
+
+/*Big buttons for saving etc*/
+
+#profile-edit .close-modal {
+  background-color: rgba(217, 217, 217, 1);
+}
+
+/*-----errormessage in modals-------*/
+#profile-edit .error-message {
+  font-style: italic;
+}
+
+/*-------Page--------*/
+#profile-edit .header {
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.758rem;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.87);
+  margin-top: 3rem;
+}
+
+#profile-edit .header-line {
+  border-bottom: 0.188rem solid var(--maincolor);
+  width: 100%;
+  margin: 0 0 0 0;
+}
+
+#profile-edit .line {
+  border-bottom: 0.063rem solid rgba(0, 0, 0, 0.3);
+  width: 100%;
+  margin-top: 1rem;
+}
+
+#profile-edit .header2-div {
+  display: flex;
+  justify-content: flex-start;
+}
+
+#profile-edit .header2 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.465rem;
+  text-align: left;
+  color: var(--titlecolor);
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/*bookmark*/
+#profile-edit .page-content {
+  display: flex;
+  height: calc(100vh - 7rem);
+  overflow-y: auto;
+  width: 100%;
+  margin-top: 3.5rem;
+  margin-bottom: 3.5rem;
+  /*without this margin the delete-button isn't visible on mobile using firefox browser */
+  justify-content: center;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-light-grey) transparent;
+}
+
+#profile-edit .container-content {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 2rem);
+  max-width: 40rem;
+}
+
+#profile-edit .type.trainee,
+#profile-edit .type.trainer {
+  margin-top: 0.5rem;
+}
+
+/* Set the icon before profile type*/
+#profile-edit .type.trainee:before {
+  content: '';
+  float: left;
+
+  background-image: url('../../../assets/icon-profile.svg');
+  background-size: 1.5rem;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-repeat: no-repeat;
+  margin-right: 0.313rem;
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+  filter: invert(var(--inverted));
+}
+
+#profile-edit .type.trainer:before {
+  content: '';
+  float: left;
+  background-image: url('../../../assets/icon-profile.svg');
+  background-size: 1.5rem;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-repeat: no-repeat;
+  margin-right: 0.313rem;
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+#profile-edit .categorytop {
+  z-index: 20;
+}
+
+#profile-edit .value-type {
+  font-weight: 700;
+  font-size: var(--font-small);
+  line-height: 0.879rem;
+  color: var(--fgcolor);
+  margin-bottom: 0.5rem;
+  display: block;
+  text-transform: capitalize;
+}
+
+/*Compensates for the space of the button */
+#profile-edit .value-type + .edit-row {
+  margin-top: -0.2rem;
+}
+
+#profile-edit .value-text {
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.172rem;
+  color: var(--fgcolor);
+}
+
+#profile-edit .edit-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.172rem;
+  color: var(--black);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 0.0625rem dotted var(--secondary-light-grey);
+  min-height: 48px;
+}
+
+#profile-edit .edit-row p {
+  flex: 1;
+  margin-right: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  word-break: break-word;
+  max-width: calc(100% - 3rem);
+}
+
+/* Handle span elements in edit rows as well */
+#profile-edit .edit-row span {
+  flex: 1;
+  margin-right: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  word-break: break-word;
+  max-width: calc(100% - 3rem);
+}
+
+#profile-edit .personalnumber .value-text {
+  color: var(--secondary-grey-shade);
+}
+
+#profile-edit .multirow {
+  border-bottom: none;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0;
+  padding-top: 0.5rem;
+}
+
+#profile-edit .address {
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: calc(100% - 3rem);
+  overflow: hidden;
+}
+
+#profile-edit .address div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+#profile-edit .edit-row-textarea {
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.172rem;
+  color: var(--black);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 0.0625rem dotted var(--secondary-light-grey);
+  position: relative;
+}
+
+#profile-edit .edit-row-textarea .textarea-content {
+  max-width: calc(100% - 3rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  margin-right: 1rem;
+}
+
+#profile-edit .about-text {
+  max-width: 80%;
+  overflow-wrap: break-word;
+}
+
+#profile-edit .textarea-btn {
+  align-self: flex-end;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#profile-edit .input {
+  background-color: var(--bgcolor);
+  font-weight: 500;
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+  color: var(--fgcolor);
+}
+
+#profile-edit .edit-btn,
+#profile-edit .remove-btn {
+  content: '';
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: inline-block;
+  background-color: var(--bgcolor);
+  border: none;
+  cursor: pointer;
+  padding-top: 0.5rem;
+}
+
+#profile-edit .edit-btn {
+  width: 2rem;
+  height: 2rem;
+  position: relative;
+  border-radius: var(--radius);
+  background-color: var(--secondary-light-grey-alternative);
+  flex-shrink: 0;
+}
+
+#profile-edit .edit-btn:before {
+  background-image: url('../../../assets/icon-pen.svg');
+  background-size: 1rem;
+  /* the size of the icon */
+  background-position: center;
+  background-repeat: no-repeat;
+  display: block;
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  filter: invert(var(--inverted));
+}
+
+#profile-edit .edit-btn:hover {
+  background-color: var(--white);
+  filter: invert(var(--altinverted));
+}
+
+#profile-edit #workplace {
+  font-weight: bold;
+  color: var(--black);
+  font-size: 0.875rem;
+  padding-left: 2.5rem;
+  background-size: 1.5rem;
+  height: 2rem;
+  background-image: url('../../../assets/icon-office-bag.svg');
+  background-repeat: no-repeat;
+  background-position: left center;
+  display: flex;
+
+  align-items: center;
+}
+
+#profile-edit .page-data {
+  border-bottom: 0.0625rem dotted var(--secondary-light-grey);
+  padding-bottom: 1rem;
+  max-width: calc(100% - 3rem);
+}
+
+#profile-edit .empty-data {
+  min-height: 0.0625rem;
+  /* Ensure the div has some height */
+}
+
+#profile-edit #education {
+  font-weight: bold;
+  color: var(--black);
+  font-size: 0.875rem;
+  padding-left: 2.5rem;
+  background-size: 1.5rem;
+  height: 2rem;
+  background-image: url('../../../assets/icon-education.svg');
+  background-repeat: no-repeat;
+  background-position: left center;
+  display: flex;
+
+  align-items: center;
+}
+
+#profile-edit .education-container {
+  margin: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--secondary-light-grey-alternative);
+}
+
+#profile-edit .education {
+  display: flex;
+  flex-direction: row;
+  margin-top: 0.5rem;
+  list-style: none;
+}
+
+#profile-edit .education-items {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+#profile-edit .education-item {
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  border-radius: var(--radius);
+  background: var(--secondary-light-grey-alternative);
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4rem;
+  padding-right: 1rem;
+}
+
+#profile-edit .education-item::marker {
+  display: none;
+}
+
+#profile-edit .education-item .delete-item {
+  color: var(--white);
+  font-weight: bold;
+  font-size: var(--font-small);
+  background: var(--black);
+  padding: 0.1rem;
+  line-height: 1.2rem;
+  width: 1.5rem;
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0.8rem;
+  border-radius: var(--radius);
+  opacity: 0.2;
+  filter: grayscale(1);
+}
+
+#profile-edit .education-item .delete-item:hover {
+  cursor: pointer;
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+#profile-edit .certificate-wrap {
+  margin-top: 1rem;
+}
+
+#profile-edit #sport {
+  font-weight: bold;
+  color: var(--fgcolor);
+  font-size: 0.875rem;
+  padding-left: 2.5rem;
+  height: 2rem;
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+#profile-edit #sport:before {
+  background-size: 1.5rem;
+  height: 2rem;
+  background-image: url('../../../assets/icon-train.svg');
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-repeat: no-repeat;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2rem;
+  content: '';
+
+  filter: invert(var(--inverted));
+}
+
+#profile-edit .save-btn {
+  margin-top: 1rem;
+}
+
+#profile-edit .buttonloader {
+  margin-top: 1rem;
+  min-height: 3rem;
+}
+
+.loader-container {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*----- Modal-------- */
+#profile-edit .modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--bgcolor);
+  padding: 1.25rem;
+  border-radius: var(--bigradius);
+  box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.5);
+  z-index: 10001;
+  width: calc(100% - 2rem);
+  max-width: 30rem;
+  display: block !important;
+  height: auto !important;
+}
+
+#profile-edit .background-blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+}
+
+#profile-edit .modal-header {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+#profile-edit .title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.465rem;
+  color: var(--titlecolor);
+  margin-top: 0.2rem;
+}
+
+#profile-edit .modal-line {
+  border-bottom: 0.0625rem solid var(--maincolor);
+  width: 100%;
+  margin: 1rem 0 0 0;
+}
+
+#profile-edit .delete {
+  --main-color: rgb(204, 0, 0);
+  border-color: var(--main-color);
+  background-color: var(--main-color);
+}
+
+#profile-edit .onlyborder.delete {
+  --main-color: rgb(204, 0, 0);
+  border-color: var(--main-color);
+  color: var(--main-color);
+  background-color: #fff;
+}
+
+#profile-edit .delete:hover {
+  --main-color: rgb(138, 0, 0);
+}
+
+#profile-edit .onlyborder.delete:hover {
+  color: #fff;
+  background-color: var(--main-color);
+}
+
+#profile-edit .modal-desc {
+  margin-top: 1rem;
+}
+
+#profile-edit #acc-delete-pass-input {
+  margin-bottom: 0;
+}
+
+#profile-edit .modal-buttons {
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.625rem;
+}
+
+#profile-edit .PhoneInput {
+  min-height: 3.125rem;
+}
+
+#profile-edit .PhoneInput input {
+  padding: 0.5rem;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 2rem;
+  width: 100%;
+  border-radius: var(--radius);
+  border: 0.0625rem solid var(--secondary-light-grey);
+  padding: 0.5rem 1rem;
+}
+
+#profile-edit .PhoneInput input:focus {
+  outline: none;
+}
+
+/*------ Modal password------ */
+#profile-edit .input-password {
+  margin-bottom: 1rem;
+  padding: 0.625rem 0.75rem 0.625rem 0.75rem;
+}
+
+/*------- Modal About me-------*/
+#profile-edit .input-textarea {
+  min-height: 12.5rem;
+  max-height: 18.75rem;
+  min-width: 80%;
+  max-width: 100%;
+
+  box-sizing: border-box;
+
+  border: 0.0625rem solid var(--secondary-light-grey);
+  border-radius: var(--radius);
+  background-color: var(--bgcolor);
+
+  font-weight: 400;
+  font-size: 1rem;
+  resize: none;
+  line-height: normal;
+}
+
+/*-------Modal Education ------*/
+#profile-edit .education-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+#profile-edit .education-date-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#profile-edit .education-date-div {
+  display: flex;
+  flex-direction: column;
+}
+
+#profile-edit .education-list,
+#profile-edit .sport-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+#profile-edit .checkbox-container {
+  margin-top: 1rem;
+}
+
+#profile-edit .checkbox-container label {
+  display: flex;
+  align-items: center;
+}
+
+#profile-edit .customcheckbox:checked {
+  accent-color: var(--maincolor);
+}
+
+#profile-edit .customcheckbox::after {
+  accent-color: var(--maincolor);
+  content: none;
+}
+
+#profile-edit .load-up-doc-button {
+  margin-bottom: 0.5rem;
+}
+
+#profile-edit .file-input {
+  display: none;
+}
+
+#profile-edit .license-upload {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#profile-edit .license-upload .button {
+  display: block;
+  width: fit-content;
+  min-width: 100px;
+  margin: 10px 0px;
+}
+
+/*-------Modal sport--------*/
+
+#profile-edit .info-text {
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.172rem;
+  color: var(--secondary-dark);
+  margin-top: 1rem;
+}
+
+#profile-edit .input-option-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+#profile-edit .input-option {
+  background-color: rgba(244, 245, 246, 1);
+  width: 13.375rem;
+  padding: 0.75rem;
+  align-self: center;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.172rem;
+  color: rgba(0, 0, 0, 0.87);
+  border: 0.063rem solid black;
+}
+
+#profile-edit .data-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+#profile-edit .modal-list-item {
+  padding: 0.313rem 0.438rem 0.313rem 0.313rem;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: fit-content;
+  max-width: calc(100% - 1rem);
+  background-color: var(--secondary-light-grey-alternative);
+}
+
+#profile-edit .remove-btn {
+  background-image: url('../../../assets/icon-x.svg');
+  width: 1.25rem;
+  height: 1.25rem;
+  background-size: 70%;
+  /* the size of the icon */
+  background-position: center;
+  background-color: rgba(244, 245, 246, 1);
+  padding: 0.25rem;
+  border-radius: 0.625rem;
+  margin-left: 0.3rem;
+  background-color: rgba(217, 217, 217, 1);
+}
+
+#profile-edit .data-item {
+  padding: 0.313rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+/*search function modal sport */
+#profile-edit .options-list {
+  max-height: 12.5rem;
+  /* Justera höjden efter behov */
+  overflow-y: auto;
+  border: 0.0625rem solid var(--secondary-light-grey);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0;
+  position: absolute;
+  background-color: #fff;
+  z-index: 1000;
+  /* Säkerställ att listan visas över andra element */
+  width: calc(100% - 2.5rem);
+  /* Justera bredden efter behov */
+  margin-top: 3.125rem;
+  /* Avstånd från sökrutan */
+  text-align: left;
+}
+
+#profile-edit .option {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+#profile-edit .option:hover {
+  background-color: #f0f0f0;
+}
+
+#profile-edit .no-results {
+  padding: 0.5rem 1rem;
+  color: #999;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 480px) {
+  #profile-edit .edit-row p,
+  #profile-edit .edit-row span {
+    max-width: calc(100% - 2.5rem);
+  }
+
+  #profile-edit .edit-btn {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  #profile-edit .data-item {
+    max-width: 150px;
+  }
+}
+
+/* Booking warnings styles for delete account modal */
+#profile-edit .booking-warnings {
+  margin-top: 1rem;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+#profile-edit .warning-section {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: var(--radius);
+  border-left: 4px solid;
+}
+
+#profile-edit .warning-section.refundable {
+  background-color: #e8f5e8;
+  border-left-color: #4caf50;
+}
+
+#profile-edit .warning-section.non-refundable {
+  background-color: #fff3cd;
+  border-left-color: #ff9800;
+}
+
+#profile-edit .warning-section.programs {
+  background-color: #e3f2fd;
+  border-left-color: #2196f3;
+}
+
+#profile-edit .warning-section.no-bookings {
+  background-color: #f1f8e9;
+  border-left-color: #8bc34a;
+}
+
+#profile-edit .warning-section h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+#profile-edit .warning-section p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+#profile-edit .warning-section ul {
+  margin: 0.5rem 0;
+  padding-left: 1rem;
+}
+
+#profile-edit .warning-section li {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+#profile-edit .loading-container {
+  text-align: center;
+  padding: 1rem;
+  color: var(--secondary-dark);
+}
+
+#profile-edit .modal-buttons button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  #profile-edit .booking-warnings {
+    max-height: 300px;
+  }
+
+  #profile-edit .warning-section {
+    padding: 0.75rem;
+  }
+
+  #profile-edit .warning-section h4 {
+    font-size: 0.9rem;
+  }
+
+  #profile-edit .warning-section p,
+  #profile-edit .warning-section li {
+    font-size: 0.8rem;
+  }
+}

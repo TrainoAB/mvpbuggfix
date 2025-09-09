@@ -1,0 +1,48 @@
+/* Image upload CSS */
+.imageupload {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  width: 16rem;
+  aspect-ratio: 1/1;
+  border-radius: 100rem;
+  background-color: #f2f2f2;
+  background-image: url('../assets/icon-photo.svg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 6rem;
+  overflow: hidden;
+}
+
+.imageupload img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.filemenu {
+  display: none;
+  position: fixed;
+  bottom: 1rem;
+  z-index: 100;
+  background: white;
+  width: 90vw;
+  max-width: 30rem;
+  left: 50%;
+  border-radius: var(--radius);
+  color: black;
+  transform: translateX(-50%);
+  box-shadow: 0 0.25rem 1rem 0 rgba(0, 0, 0, 0.4);
+}
+
+.filemenu div {
+  font-weight: bold;
+  padding: 1rem 2rem;
+}
+
+.filemenu div:hover {
+  cursor: pointer;
+}
+
+.show {
+  display: block;
+}

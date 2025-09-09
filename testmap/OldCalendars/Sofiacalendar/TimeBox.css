@@ -1,0 +1,28 @@
+.timeBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 1.5rem;
+  margin-top: 0.3rem;
+  margin: 0.25rem;
+  border: 2px solid rgb(131, 87, 99);
+  border-radius: var(--radius);
+  background-color: var(--white);
+}
+.green {
+  border: 2px solid rgb(0, 133, 0);
+  background-color: rgb(105, 201, 105);
+
+  .time {
+    color: rgb(255, 255, 255);
+  }
+}
+
+.time {
+  color: var(--black);
+  margin: 0.1rem;
+  font-family: var(--font);
+  font-size: 0.5rem;
+  font-weight: var(--weight);
+}

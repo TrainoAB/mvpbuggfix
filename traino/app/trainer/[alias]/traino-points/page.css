@@ -1,0 +1,215 @@
+/* ************************************************************************************************** */
+/* *************************************  MOBIL 375-744px  ****************************************** */
+/* ************************************************************************************************** */
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#TrainoPointsHome {
+    min-width: 375px;
+    font-size: 16px;
+    position: relative;
+    background-color: #fff;
+}
+
+#TrainoPointsHome .container-nav-and-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 5%;
+}
+
+#TrainoPointsHome .info-icon {
+    width: 39px;
+    height: 39px;
+    padding: -20px;
+}
+
+#TrainoPointsHome .info-icon:hover {
+    cursor: pointer;
+} /* Stängde den öppnade CSS-regeln här */
+
+#TrainoPointsHome .container-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 100px;
+}
+
+#TrainoPointsHome .container-main .main-header {
+    font-size: 28px;
+    font-weight: 700;
+    color: hsla(0, 0%, 19%, 0.87);
+}
+
+#TrainoPointsHome .container-main .header {
+    font-size: 24px;
+    font-weight: 700;
+    color: hsla(0, 0%, 19%, 1);
+}
+
+#TrainoPointsHome .container-main .subheader {
+    font-size: 20px;
+    font-weight: 700;
+    color: hsla(0, 0%, 19%, 0.5);
+}
+
+#TrainoPointsHome .container-main .points-subheader {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+#TrainoPointsHome .outer-circle {
+    margin-top: 18px;
+    margin-bottom: 5px;
+    width: 200px;
+    height: 200px;
+    background: conic-gradient(#7150e7 var(--degree, 0deg), #ededed 0deg);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.1);
+    }
+}
+
+.outer-circle.sparkle {
+    animation: sparkle 0.5s ease-in-out;
+}
+
+#TrainoPointsHome .inner-circle {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    position: relative;
+}
+
+#TrainoPointsHome .inner-circle img {
+    border-radius: 50%;
+}
+
+#TrainoPointsHome .favicon {
+    width: 28px;
+    height: 28px;
+}
+
+#TrainoPointsHome .container-no-reward-selected {
+    margin-top: 65px;
+    text-align: center;
+}
+
+#TrainoPointsHome .container-not-ready-to-claim-reward {
+    margin-top: 40px;
+    text-align: center;
+}
+
+#TrainoPointsHome .container-ready-to-claim-reward {
+    margin-top: 25px;
+}
+
+#TrainoPointsHome .text {
+    margin-top: 10px;
+    margin-bottom: 50px;
+    font-size: 16px;
+    font-weight: 600;
+}
+#TrainoPointsHome .container-all-reward-choises {
+    margin-top: 60px;   
+    padding: 20px 0px;
+    background-color: hsl(0, 0%, 25%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    overflow-y: auto; /* Lägg till rullning om innehållet överstiger höjden */
+
+}
+
+#TrainoPointsHome .container-all-reward-choises .container-rewards-card {       
+    width: 347px;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    background-image: url('./assets/dotted-path-vertical.png'); /* Ange sökvägen till din bild */
+    background-size: 204.45px 1199.24px; 
+    background-position: center 60px; /* Centrerar bilden horisontellt och placerar den i toppen */
+    background-repeat: no-repeat; /* Förhindrar att bilden upprepas */
+}
+
+#TrainoPointsHome .container-all-reward-choises .container-rewards-card .reward-card-container {
+    margin-bottom: 10px; /* Justera avståndet mellan korten efter behov */
+}
+
+/* Specifika stilar för vänster- och högerposition */
+#TrainoPointsHome .container-all-reward-choises .container-rewards-card .reward-card-container.left {
+    align-self: flex-start;
+}
+
+#TrainoPointsHome .container-all-reward-choises .container-rewards-card .reward-card-container.right {
+    align-self: flex-end;
+}
+
+/* ************************************************************************************************** */
+/* ********************************  DESKTOP > 1023 *********************************** */
+/* ************************************************************************************************** */
+@media (min-width: 1023px) {
+    #TrainoPointsHome .container-all-reward-choises {
+        margin-top: 60px;   
+        padding: 20px 0px;
+        background-color: hsl(0, 0%, 25%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow-x: auto; /* Lägg till rullning om innehållet överstiger bredden */
+    
+    }
+    
+    #TrainoPointsHome .container-all-reward-choises .container-rewards-card {       
+        width: 100%;
+        height: 100%;
+    
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 15px;
+        
+        background-image: url('./assets/dotted-path-horizontal.png'); /* Ange sökvägen till din bild */
+        background-size: 1181px 204.45px; 
+        background-position: center 60px; /* Centrerar bilden horisontellt och placerar den i toppen */
+        background-repeat: no-repeat; /* Förhindrar att bilden upprepas */
+    }
+    
+    #TrainoPointsHome .container-all-reward-choises .container-rewards-card .reward-card-container {
+        margin-bottom: 10px; /* Justera avståndet mellan korten efter behov */
+        height: 284px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* Specifika stilar för vänster- och högerposition */
+    #TrainoPointsHome .container-all-reward-choises .container-rewards-card .reward-card-container.left {
+        justify-content: flex-end; 
+    }
+    
+    #TrainoPointsHome .container-all-reward-choises .container-rewards-card .reward-card-container.right {
+        align-self: flex-end;
+    }
+}
+

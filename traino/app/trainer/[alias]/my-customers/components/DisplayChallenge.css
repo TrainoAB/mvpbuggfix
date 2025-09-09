@@ -1,0 +1,323 @@
+:root {
+    --completed-color: hsl(120, 100%, 41%);
+    --partial-color: hsl(36, 100%, 50%);
+    --incomplete-color: hsl(0, 100%, 50%);
+    --ongoing-color: hsla(253, 76%, 61%, 1);
+    --modal-backdrop-color: rgba(0, 0, 0, 0.5);
+}
+
+#challenge-item {
+    width: 100%;
+    padding: 15px 15px 35px 15px;
+    border-radius: 15px;
+    background-color: white;
+    position: relative; /* För att placera pseudo-elementet relativt till detta element */
+    z-index: 0;
+    overflow: hidden; /* Dölj delar av pseudo-elementet som hamnar utanför detta element */
+    box-shadow: 2px 2px 10px 0px hsla(0, 0%, 0%, 0.15);
+    /* border: 5px solid brown; */
+}
+/* ********************************************************************************************** */
+/* ****************************************CHALLANGE ITEM**************************************** */
+/* ********************************************************************************************** */
+
+#challenge-item .header {
+    display: flex;
+    align-items: center; /* Vertikal centrering */
+    justify-content: space-between; /* Sprider ut innehållet mellan vänster och höger */
+    width: 100%;
+    margin-bottom: 15px;
+    /* border: 1px solid red; */
+}
+
+#challenge-item .header--left {
+    font-size: 14px;
+    color: hsl(0, 0%, 38%);
+    font-weight: 600;
+    width: 100%; /* Tar upp all tillgänglig bredd i mitten */
+    display: flex;
+    flex-direction: column; /* Ändrar riktningen till vertikal */
+    justify-content: center; /* Centrerar innehållet horisontellt */
+    align-items: center; /* Centrerar innehållet vertikalt */
+    margin-left: 65px;
+    /* border: 1px solid blue; */
+}
+
+#challenge-item .header--right {
+    display: flex;
+    justify-content: flex-end; /* Håller elementet längst till höger */
+    align-items: center; /* Vertikal centrering */
+    /* border: 1px solid green; */
+}
+
+#challenge-item .end-date {
+    font-size: 12px;
+    color: hsl(0, 0%, 60%);
+}
+
+#challenge-item .icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    box-shadow: -2px 4px 8px 1px hsla(0, 0%, 0%, 0.2);
+    font-size: 14px;
+}
+
+#challenge-item .icon.icon__delete-challenge {
+    background: none;
+    border: none;
+    color: hsl(0, 0%, 68%);
+    margin-left: 10px;
+}
+
+#challenge-item .icon__delete-challenge:hover {
+    background-color: hsl(0, 100%, 50%);
+    color: white;
+    transition: background-color 0.15s ease-in, color 0.3s ease-in;
+    cursor: pointer;
+}
+
+#challenge-item .icon.icon__send-motivation {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('../assets/icon-fire.png');
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#challenges-wrapper .icon.icon__send-motivation:hover {
+    background-image: url('../assets/icon-fire.png');
+    background-color: hsla(253, 76%, 81%, 1);
+    transition: background-color 0.2s ease-in;
+    cursor: pointer;
+}
+
+#challenges-wrapper .text-container {
+    text-align: center;
+    color: hsl(0, 0%, 20%)
+}
+
+/* **************************************CHALLANGE ONGOING************************************* */
+
+
+#challenge-item.ongoing{
+    /* border: 1px solid var(--ongoing-color); */
+}
+
+#challenge-item.ongoing::before {
+    content: "ongoing";
+    position: absolute;
+    z-index: 1; /* Se till att bandet ligger ovanför andra element */
+    top: 110px;
+    left: -65px;
+    width: 250px; /* Justera bredden efter behov */
+    height: 25px; /* Justera höjden efter behov */
+    overflow: hidden;
+    background-color: var(--ongoing-color);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 25px; /* Justera för att centrera texten vertikalt */
+    transform: rotate(-45deg);
+    transform-origin: 0 0;
+}
+
+/* ************************************** SELECT (ended) CHALLENGE STATUS ************************************* */
+
+#challenge-item.ended {
+}
+
+/* tonar ner bg */
+#challenge-item.ended::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Använd rgba för att skapa en genomskinlig bakgrund */
+    z-index: 2; /* Placera överläggningen ovanför innehållet */
+}
+
+#challenge-item .selectChallengeStatus-container {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3; /* Placera överläggningen över allt annat innehåll */
+    text-align: center;
+    color: white;
+    width: 100%;
+    padding: 5px;
+    /* border: 1px solid white; */
+    background: hsl(0, 0%, 0%, 0.5);
+}
+
+/*TODO delete all(?) code below ******************************************************  */
+#challenge-item .selectChallengeStatus__item{
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    height: 100px;
+    width: 100px;
+    color: white;
+    /* border: 2px solid blue; */
+}
+
+#challenge-item .selectChallengeStatus__item--icon{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 1000;
+    font-size: 25px;
+    transition: transform 0.2s ease-in-out;
+    will-change: transform;
+    /* border: 2px solid red; */
+}
+
+.icon {
+    transition: transform 0.2s ease;
+    transform-origin: center;
+    will-change: transform;
+  }
+  
+  .icon:hover {
+    transform: scale(1.1);
+  }
+  
+
+#challenge-item .selectChallengeStatus__item--text{
+    font-size: 12px;
+    color:white;
+    font-weight: 1000;
+    text-align: center;
+}
+
+#challenge-item .selectChallengeStatus__item--icon.completed{
+    background-color: var(--completed-color);
+    font-size: 24px;
+}
+
+#challenge-item .selectChallengeStatus__item--icon.partial{
+    background-color: var(--partial-color);
+    font-size: 18px;
+}
+
+#challenge-item .selectChallengeStatus__item--icon.incomplete{
+    background-color: var(--incomplete-color);
+    font-size: 18px;
+}
+
+#challenge-item .selectChallengeStatus__item--icon:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+#challenge-item .selectChallengeStatus__item--icon .content {
+    transition: transform 0.2s ease-in-out; /* Lägg till transition direkt på .content */
+}
+
+#challenge-item .selectChallengeStatus__item--icon:hover .content {
+    transform: scale(1.2); /* Förstorar texten till 120% av dess ursprungliga storlek */
+}
+
+/* **************************************CHALLANGE COMPLETED************************************* */
+
+#challenge-item.completed {
+    border: 1px solid hsl(51, 100%, 60%);
+    animation: pulse-shadow 1s infinite ease-in-out;
+}
+
+/* Definiera animationen */
+@keyframes pulse-shadow {
+    0% {
+        box-shadow: 0px 0px 15px 10px hsl(51, 100%, 90%);
+    }
+    50% {
+        box-shadow: 0px 0px 15px 5px hsl(51, 100%, 90%); /* Minskar värdena för pulserande effekt */
+    }
+    100% {
+        box-shadow: 0px 0px 15px 10px hsl(51, 100%, 90%);
+    }
+}
+
+
+#challenge-item.completed::before {
+    content: "completed";
+    position: absolute;
+    top: 110px;
+    left: -65px;
+    width: 250px; /* Justera bredden efter behov */
+    height: 25px; /* Justera höjden efter behov */
+    overflow: hidden;
+    border: 1px solid hsl(51, 100%, 60%); /* Initial guldnyans */
+    animation: pulse-gold 1.5s infinite ease-in-out;
+    /* box-shadow: 0px 0px 15px 1px hsl(51, 100%, 90%); */
+    background-color: green;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 25px; /* Justera för att centrera texten vertikalt */
+    transform: rotate(-45deg);
+    transform-origin: 0 0;
+    z-index: 1; /* Se till att bandet ligger ovanför andra element */
+}
+
+/* **************************************CHALLANGE INCOMPLETE************************************* */
+
+#challenge-item.incomplete{
+    /* border: 1px solid var(--incomplete-color); */
+}
+
+#challenge-item.incomplete::before {
+    content: "incomplete";
+    position: absolute;
+    top: 110px;
+    left: -65px;
+    width: 250px; /* Justera bredden efter behov */
+    height: 25px; /* Justera höjden efter behov */
+    overflow: hidden;
+    background-color: var(--incomplete-color);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 25px; /* Justera för att centrera texten vertikalt */
+    transform: rotate(-45deg);
+    transform-origin: 0 0;
+    z-index: 1; /* Se till att bandet ligger ovanför andra element */
+}
+
+
+/* ***************************************CHALLANGE PARTIAL************************************** */
+
+#challenge-item.partial{
+    /* border: 1px solid var(--partial-color); */
+}
+
+#challenge-item.partial::before {
+    content: "partial";
+    position: absolute;
+    top: 110px;
+    left: -65px;
+    width: 250px; /* Justera bredden efter behov */
+    height: 25px; /* Justera höjden efter behov */
+    overflow: hidden;
+    background-color: var(--partial-color);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 25px; /* Justera för att centrera texten vertikalt */
+    transform: rotate(-45deg);
+    transform-origin: 0 0;
+    z-index: 1; /* Se till att bandet ligger ovanför andra element */
+}

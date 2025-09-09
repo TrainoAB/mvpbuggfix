@@ -1,0 +1,151 @@
+#listcontainer.gridlist .list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+  max-width: calc(100% - 2rem);
+}
+
+#listcontainer.gridlist .row {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0rem 0.5rem 0rem;
+  align-items: center;
+  position: relative;
+}
+
+#listcontainer.gridlist .row-user {
+  border-bottom: none;
+}
+
+#listcontainer.gridlist .row {
+  padding: 0;
+}
+
+#listcontainer .listing {
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+}
+
+#listcontainer .listing div {
+  width: 3rem;
+  height: 2.8rem;
+  content: '';
+  display: block;
+  background-size: 1.5rem;
+  opacity: 0.3;
+  border-bottom: 2px solid transparent;
+}
+
+#listcontainer .listing div.sortactive {
+  border-bottom: 2px solid var(--maincolor);
+}
+
+#listcontainer .listing div:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+#listcontainer.gridlist .thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+#listcontainer.gridlist .openrow,
+#listcontainer.gridlist .moreinfo {
+  display: none;
+}
+
+#listcontainer .moreinfo {
+  background-color: var(--bgcolor);
+  border-left: 0.25rem solid var(--maincolor);
+}
+
+#listcontainer.gridlist .book-button {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+}
+
+#listcontainer.gridlist .userinfo {
+  width: 100%;
+  margin-top: 0.5rem;
+  text-align: left;
+}
+
+#listcontainer.gridlist .row-user .name {
+  font-size: 1rem;
+}
+
+#listcontainer.gridlist .row-user .price {
+  font-size: 0.875rem;
+  color: var(--maincolor);
+}
+
+#listcontainer.gridlist .rating {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: var(--maincolor);
+  border-radius: var(--radius);
+  padding: 0.2rem 0.5rem;
+  font-weight: bold;
+  z-index: 10;
+}
+
+@media screen and (max-width: 1400px) {
+  #listcontainer.gridlist .list {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  #listcontainer.gridlist .list {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #listcontainer.gridlist .list {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  #listcontainer.gridlist .list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .listview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white; /* or use a translucent bg if needed */
+    z-index: 10;
+    overflow-y: scroll;
+    padding-top: 4.5rem;
+  }
+}
+
+#listcontainer.gridlist .button {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  width: 3.5rem;
+}
+
+#listcontainer .infoitem {
+  margin-top: 5px;
+}
+
+#listcontainer .list-rating {
+  padding: 0;
+  width: 2rem;
+}

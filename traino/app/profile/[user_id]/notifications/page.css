@@ -1,0 +1,44 @@
+#notifications {
+  margin-top: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+#notifications ul {
+  list-style: none;
+}
+
+#notifications li {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+#notifications li strong {
+  color: #007bff;
+}
+
+#notifications .scrollcontainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 150vh;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+#notifications .content {
+  width: calc(100% - 2rem);
+  max-width: 40rem;
+}
+
+#notifications .date,
+#notifications .date strong {
+  margin-bottom: 0.2rem;
+  font-size: var(--font-small);
+  color: gray;
+}

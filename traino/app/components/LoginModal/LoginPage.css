@@ -1,0 +1,246 @@
+/* logincomppage.css */
+
+#logincomppage {
+  color: white;
+  max-height: 100vh;
+  overflow-x: hidden;
+}
+
+#logincomppage .logo {
+  background-size: contain;
+  width: calc(100% - 5rem);
+  margin-top: 14vh;
+  margin-bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  position: relative;
+  aspect-ratio: 16 / 5;
+  filter: grayscale(1) contrast(4) brightness(4) invert(0);
+  max-width: 30rem;
+}
+
+#logincomppage h2 {
+  text-align: center;
+}
+
+#logincomppage .loggedinas {
+  background: #1f1e20;
+  color: white;
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+  border-radius: var(--bigradius);
+  padding: 0.5rem;
+  overflow: hidden;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#logincomppage .loggedinas:hover {
+  outline: 0.25rem solid var(--maincolor);
+}
+
+#logincomppage .loggedinas * {
+  pointer-events: none;
+}
+
+#logincomppage .loggedinas:hover h4 {
+  text-decoration: underline;
+}
+
+#logincomppage .loggedinas .image {
+  width: 60px;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  margin: 0.33rem;
+  border-radius: 1000rem;
+  background: #e8e8e8;
+  background-image: url(/_next/static/media/icon-profile.f5ac9de5.svg);
+}
+
+#logincomppage .loggedinas .type {
+  font-size: var(--font-small);
+  color: var(--secondary-grey);
+}
+
+#logincomppage .loggedinas .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#logincomppage .darkoverlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 0;
+  background: black;
+  top: 0;
+  left: 0;
+}
+
+#logincomppage form {
+  max-width: 30rem;
+}
+
+#logincomppage .video {
+  filter: brightness(1.2);
+  width: 100dvw;
+  height: 100dvh;
+  z-index: 1;
+  position: fixed;
+}
+
+#logincomppage .video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#logincomppage .content {
+  position: relative;
+  z-index: 10;
+  width: calc(100% - 2rem);
+  max-width: 20rem;
+}
+
+#logincomppage input {
+  max-width: 30rem;
+}
+
+#logincomppage:before {
+  justify-content: center;
+  display: block;
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+  background-image: url('../../assets/login-bg.jpg');
+  background-position: 63% center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+#logincomppage:after {
+  justify-content: center;
+  display: block;
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: var(--maincolor);
+  mix-blend-mode: color-burn;
+  opacity: 0.18;
+  z-index: 0;
+}
+
+#logincomppage .input-group {
+  margin-top: 1rem;
+  min-width: 15rem;
+  max-width: 30rem;
+  width: 100%;
+  position: relative;
+}
+
+#logincomppage .checkboxes {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#logincomppage .checkboxes input[type='checkbox'] {
+  margin-right: 0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+#logincomppage .login-bottom {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#logincomppage .login-bottom span {
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  display: block;
+  color: lightgray;
+}
+
+#logincomppage .login-bottom a {
+  font-weight: bold;
+}
+
+#logincomppage .forgotlink {
+  text-align: center;
+  display: block;
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+
+#logincomppage .forgotlink:hover,
+#logincomppage .login-bottom a:hover {
+  text-decoration: underline;
+}
+#logincomppage .rememberme {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+#logincomppage label:hover {
+  cursor: pointer;
+}
+#logincomppage.showkeyboard .logo {
+  width: calc(100% - 10rem);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#logincomppage input {
+  border: none !important;
+}
+
+#logincomppage .customcheckbox {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+#logincomppage.showkeyboard .login-bottom {
+  position: relative;
+  left: auto;
+  transform: none;
+  bottom: auto;
+}
+
+#logincomppage.showkeyboard .login-bottom span {
+  display: none;
+}
+
+#logincomppage .btn-back {
+  text-indent: -1000rem;
+  top: 0.5rem !important;
+  left: 0;
+  position: fixed;
+  z-index: 11;
+}
+
+@media screen and (max-height: 640px) {
+  #logincomppage .logo {
+    margin-top: 1vh;
+  }
+  #logincomppage .login-bottom span {
+    display: none;
+  }
+
+  #logincomppage .login-bottom {
+    margin-top: 1rem;
+  }
+}

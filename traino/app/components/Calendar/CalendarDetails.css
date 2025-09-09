@@ -1,0 +1,389 @@
+.modal.calendardetails {
+  /* Customize the calendardetails content */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--bgcolor);
+  color: var(--fgcolor);
+  border-radius: var(--bigradius);
+  width: calc(100% - 2rem);
+  max-width: 40rem;
+  max-height: 80%;
+  height: auto;
+  box-shadow: 0 0.375rem 1rem 0 rgba(0, 0, 0, 0.5);
+  overflow: auto;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  padding-bottom: 1rem;
+}
+
+.calendardetails p {
+  text-align: left;
+}
+
+.modal.calendardetails .calendardetails-content {
+  padding: 1rem 1rem 0 1rem;
+}
+
+.calendardetails .calendardetails-content2 {
+  padding: 1rem;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendardetails h1 {
+  text-transform: capitalize;
+}
+
+.calendardetails .categorytop h1 {
+  font-size: clamp(0.85rem, 2vw, 1.4rem) !important;
+}
+
+.calendardetails .calendardetails-content .intervalsheader {
+  font-size: 1rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 0.125rem solid var(--maincolor);
+}
+
+.calendardetails h2 span {
+  font-size: var(--font-small);
+}
+
+.icon-check {
+  width: 13rem;
+  margin-left: auto;
+  margin-right: auto;
+  aspect-ratio: 1;
+  background-size: 11rem;
+  animation: done 0.3s ease-in-out 1 forwards;
+}
+
+.icon-alert {
+  width: 13rem;
+  margin-left: auto;
+  margin-right: auto;
+  aspect-ratio: 1;
+  background-size: 11rem;
+  animation: done 0.3s ease-in-out 1 forwards;
+}
+
+@keyframes done {
+  0% {
+    filter: drop-shadow(0 0 2rem yellow);
+    scale: 0.2;
+  }
+  80% {
+    scale: 1.1;
+  }
+  100% {
+    filter: drop-shadow(0 0 0rem yellow);
+    scale: 1;
+  }
+}
+
+.calendardetails .categorytop {
+  position: absolute !important;
+  top: 0;
+  z-index: 1 !important;
+}
+
+.calendardetails .calendardetailsscroll {
+  padding-top: 3.5rem;
+  max-height: 80vh;
+}
+
+.calendardetails .calendardetailsscroll .contain {
+  overflow-y: auto;
+  max-height: calc(80vh - 3.5rem);
+  min-height: 11rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-light-grey) transparent;
+  padding-bottom: 3rem;
+}
+
+.calendardetails .categoryimage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.calendardetails .categoryimage img {
+  width: 102%;
+  height: 102%;
+  object-fit: cover;
+}
+
+.calendardetails .info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 10;
+  color: white;
+  width: 100%;
+  text-align: center;
+  filter: drop-shadow(0 0.125rem 0.25rem black);
+}
+
+.calendardetails .userinfo {
+  padding: 1rem;
+  font-size: 0.875rem;
+}
+
+.calendardetails .name {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.calendardetails .address {
+  color: var(--secondary-grey);
+}
+
+.calendardetails p {
+  padding-top: 1rem;
+}
+
+.calendardetails .column2 {
+  display: grid;
+  grid-template-columns: 1fr 2.5rem;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.calendardetails .emailbutton {
+  text-indent: -1000rem;
+  height: 2.3rem;
+  position: relative;
+}
+
+.calendardetails .emailbutton:after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  filter: invert(1);
+  background-image: url('../../assets/icon-emailcheck.svg');
+  background-size: 1.35rem;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.calendardetails .editintervals {
+  list-style: none;
+}
+
+.calendardetails .editintervals li {
+  display: grid;
+  grid-template-columns: 2rem 7rem 1fr 2rem;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  border: 2px dashed var(--secondary-light-grey);
+  margin: 0.5rem 0 0.5rem 0;
+  background: linear-gradient(42deg, rgba(255, 255, 255, 0) 0%, rgba(209, 209, 209, 0.284) 100%);
+}
+
+.calendardetails .editintervals li:hover {
+  border-color: var(--maincolor);
+}
+
+.calendardetails .listedpause {
+  line-height: 0.5rem;
+}
+
+.calendardetails .editintervals .liedit {
+  display: grid;
+  grid-template-columns: 1fr 0.5rem 1fr 4rem;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0rem;
+  border: none;
+  margin: 0.5rem 0 0.5rem 0;
+  background: transparent;
+}
+
+.calendardetails .editintervals li span {
+  margin-left: 0.5rem;
+  font-size: var(--font-small);
+  font-weight: 600;
+  color: gray;
+}
+
+.pausetext {
+  width: 180px;
+  padding: 8px !important;
+}
+
+.calendardetails .listedpause {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.calendardetails .listedpause .btn-delete {
+  justify-self: flex-end;
+}
+
+.calendardetails .intervalsheader {
+  display: grid;
+  align-items: center;
+  gap: 0.3rem;
+  grid-template-columns: 1fr 2rem;
+  position: relative;
+}
+
+.calendardetails .submenu {
+  display: none;
+  width: 9rem;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  flex-direction: column;
+  border-radius: var(--radius);
+  box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  color: var(--fgcolor);
+  background: var(--bgcolor);
+}
+
+.calendardetails .open {
+  display: flex;
+}
+
+.calendardetails .lastsubmenu {
+  top: auto;
+  bottom: 100%;
+  z-index: 101;
+}
+
+.calendardetails .submenu button {
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 600;
+  height: 2.5rem;
+  border-bottom: 1px solid var(--secondary-light-grey);
+  text-indent: 0;
+  padding-left: 3rem;
+  background-position: 1rem center;
+  width: 100%;
+  text-align: left;
+  color: var(--maincolor);
+}
+.calendardetails .submenu button:last-child {
+  border-bottom: none;
+}
+
+.calendardetails .submenu button:hover {
+  cursor: pointer;
+  color: var(--fgcolor);
+}
+
+.calendardetails .btn-edit {
+  border: none;
+  text-indent: -1000rem;
+  overflow: hidden;
+  background-color: transparent;
+  background-image: url('../../assets/edit-pen.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 1rem;
+  height: 1.5rem;
+  width: 2rem;
+}
+
+.calendardetails .editintervals .btn-edit:hover,
+.calendardetails .editintervals .btn-remove:hover,
+.calendardetails .editintervals .btn-delete:hover {
+  background-color: #b0cb3a; /* Inverted mainpurple */
+  border-radius: var(--radius);
+  filter: invert(1);
+  cursor: pointer;
+}
+
+.calendardetails .btn-add {
+  border: none;
+  text-indent: -1000rem;
+  overflow: hidden;
+  background-color: transparent;
+  background-image: url('../../assets/icon-ios-add.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 1rem;
+  height: 1.5rem;
+  width: 2rem;
+}
+
+.calendardetails .btn-submenu {
+  border: none;
+  text-indent: -1000rem;
+  overflow: hidden;
+  background-color: transparent;
+  background-image: url('../../assets/icon-threedots.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 1.4rem;
+  height: 1.5rem;
+  width: 2rem;
+}
+
+.calendardetails .btn-submenu:hover {
+  cursor: pointer;
+}
+
+.calendardetails .btn-delete {
+  border: none;
+  text-indent: -1000rem;
+  overflow: hidden;
+  background-color: transparent;
+  background-image: url('../../assets/icon-trash.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 1.2rem;
+  height: 1.5rem;
+  width: 2rem;
+}
+
+.calendardetails .btn-remove {
+  border: none;
+  text-indent: -1000rem;
+  overflow: hidden;
+  background-color: transparent;
+  background-image: url('../../assets/icon-x.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 1rem;
+  height: 1.5rem;
+  width: 2rem;
+}
+
+.calendardetails .btn-setting {
+  border: none;
+  text-indent: -1000rem;
+  overflow: hidden;
+  background-color: transparent;
+  background-image: url('../../assets/icon-settings.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 1.3rem;
+  height: 1.5rem;
+  width: 2rem;
+}
+
+.modal-content {
+  position: relative;
+  width: 100%;
+}

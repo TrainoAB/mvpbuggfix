@@ -1,0 +1,31 @@
+
+.circle {
+    margin: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%; /* Gör elementet till en cirkel */
+    background-color: hsl(0, 0%, 100%);
+    display: flex;
+    justify-content: center; /* Centrera tecknet horisontellt */
+    align-items: center; /* Centrera tecknet vertikalt */
+    position: relative;
+    box-shadow: -1px 1px 5px 1px hsla(0, 0%, 0%, 0.1);
+    border: solid 1px hsl(0, 0% , 80%);
+    padding-right: 3px;
+  }
+  
+  .circle span {
+    position:absolute;
+    top: 7px;
+    font-size: 22px;
+    color: black; /* Tecknets färg */
+    transform: scaleY(1.5); /* stretcha ut innehållet längs y-axeln*/
+    font-weight: 200;
+    display: block;
+  }
+
+  .circle:hover {
+    cursor: pointer;
+  }
+
+  

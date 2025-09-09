@@ -1,0 +1,195 @@
+#listed-modal-container {
+  width: 100%;
+  height: 100%;
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.darkoverlay {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.darkoverlay:hover {
+  cursor: pointer;
+}
+
+#listed-modal-container #listed-modal {
+  background: var(--bgcolor);
+  width: calc(100% - 2rem);
+  z-index: 100000;
+  max-width: 38rem;
+  height: auto;
+  min-height: 10rem;
+  max-height: 80vh;
+  border-radius: var(--bigradius);
+  overflow: hidden;
+  padding-top: 0;
+  box-shadow: 0 1rem 2rem 0 rgba(0, 0, 0, 0.5);
+}
+#listed-modal .categorytop {
+  position: relative;
+}
+
+#listed-modal .product-item {
+  margin: 1rem;
+  padding: 1rem 1rem 1rem 0.5rem;
+  border-radius: var(--radius);
+  border: 0.0625rem solid var(--secondary-light-grey);
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-gap: 0.5rem;
+}
+
+#listed-modal .product-item .head {
+  display: grid;
+  grid-template-columns: 0.5rem 2.5rem 6.5fr 2fr;
+  grid-gap: 0.5rem;
+}
+
+#listed-modal .product-item .button {
+  font-size: var(--font-small);
+}
+#listed-modal .product-item .extra {
+  display: none;
+  border-top: 0.0625rem solid var(--secondary-light-grey);
+  margin-left: 0.5rem;
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+  grid-template-columns: 5rem 7fr;
+}
+
+#listed-modal .product-item.extraon .extra {
+  display: grid;
+}
+
+#listed-modal .product-item.extraon .icon-chevron {
+  rotate: 90deg;
+  transition: all 0.2s ease-in-out;
+}
+
+#listed-modal .content {
+  overflow-y: auto;
+  max-height: calc(80vh - 3.5rem);
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-light-grey) transparent;
+}
+
+#listed-modal .product-item .icon-dietprogram {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-size: 1.5rem;
+  background-color: var(--bgcolor);
+  border-radius: 100rem;
+  margin-right: 0;
+}
+
+#listed-modal .product-item .icon-train {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-size: 1.5rem;
+  background-color: var(--bgcolor);
+  border-radius: 100rem;
+  margin-right: 0;
+}
+
+#listed-modal .product-item .icon-chevron {
+  width: 1.5rem;
+  height: 2.5rem;
+  background-size: 1.5rem;
+  transition: all 0.2s ease-in-out;
+  margin-right: 0;
+}
+
+#listed-modal .product_type {
+  font-size: var(--font-small);
+}
+
+#listed-modal .price {
+  background-image: url('../../assets/icon-card.svg');
+  background-size: 1.5rem;
+  background-position: left center;
+  background-repeat: no-repeat;
+  padding-left: 1.8rem;
+  font-weight: bold;
+  margin-top: 0.2rem;
+}
+
+#listed-modal .product-item.dietprogram {
+  background: rgba(227, 255, 227, 0.3);
+}
+
+#listed-modal .product-item.trainprogram {
+  background: rgba(238, 243, 255, 0.3);
+}
+
+#listed-modal .product-item.trainpass {
+  background: rgba(222, 215, 249, 0.3);
+}
+
+#listed-modal .product-item:hover {
+  outline: 0.25rem solid var(--maincolor);
+  cursor: pointer;
+}
+
+#listed-modal .button:hover {
+  background: var(--mainpurple);
+}
+
+#listed-modal .product-item span {
+  font-size: var(--font-small);
+  font-weight: bold;
+}
+
+#listed-modal .extra div {
+  line-height: 1.5rem;
+  font-size: var(--font-small);
+  border-bottom: 0.0625rem dotted var(--secondary-light-grey);
+}
+
+/* Product Modal styles */
+#profile .product-modal {
+  position: fixed;
+  z-index: 1000; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: var(--bgcolor);
+}
+
+#profile .closeBoughtModal {
+  position: fixed;
+  z-index: 1; /* Sit on top */
+  right: 1.5625rem;
+  top: 0;
+  color: var(--secondary-grey);
+  float: right;
+  font-size: 2.375rem;
+  font-weight: bold;
+}
+
+#profile .closeBoughtModal:hover,
+#profile .closeBoughtModal:focus {
+  color: var(--fgcolor);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#profile .embeddedPdf {
+  width: 100%;
+  height: 99%;
+}
