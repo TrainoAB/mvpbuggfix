@@ -22,7 +22,7 @@ export default function Navigation(props) {
   const [rateTrainer, setRateTrainer] = useState(false);
   const pathname = usePathname();
 
-  const { translate } = useTranslations('navigation', language);
+  const { translate } = useTranslations('global', language);
 
   // Makes URL for train button if user has visited a sportspage before
   const categoryLink = getCookie('category_link') || '';
