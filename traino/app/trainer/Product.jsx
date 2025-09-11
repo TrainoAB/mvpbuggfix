@@ -19,7 +19,7 @@ export default function IdPage({ params, onClose = null, nav = true }) {
   const router = useRouter();
 
   // Access dynamic segments from params
-  const userAliasDecoded = decodeURIComponent(params.slug); // e.g., "fredrikberglund"
+  const userAliasDecoded = decodeURIComponent(params.alias); // e.g., "fredrikberglund"
   const userAlias = userAliasDecoded.substring(1);
   const sport = params.sport; // e.g., "cs2"
   const productType = params.products; // e.g., "dietprogram"
