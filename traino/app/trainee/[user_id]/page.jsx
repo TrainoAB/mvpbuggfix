@@ -98,8 +98,25 @@ export default function ProfileTrainee({ params }) {
         const userDetailsPromise = getUserDetails(params.user_id, sessionObject?.token);
 
         const profilePromise = fetch(
-          `/api/aws/fetch-imgs?folder=${encodeURIComponent(params.user_id)}&subfolder=profile`,
-        ).then((res) => res.ok && setHasProfile(true));
+          `/api/aws/fetch-imgs?folder=${encodeURIComponent(params.user_id)}&subfolder=profile`,)
+          .then(async (res) => {
+            if (!res.ok) {
+              DEBUG && console.log(`Unexpected error fetching profile image: ${res.status}`);
+              return;
+            }
+            const data = await res.json();
+
+            if (!data.imageUrls || data.imageUrls.length === 0) {
+              DEBUG && console.log(`No profile image found for user ID: ${params.user_id}`);
+              return;
+            }
+
+            setHasProfile(true);
+          })
+          .catch((error) => {
+            DEBUG && console.log('Network error fetching profile image:', error);
+          });
+        
 
         // const coverPromise = fetch(
         //   `/api/aws/fetch-imgs?folder=${encodeURIComponent(params.user_id)}&subfolder=cover`,
