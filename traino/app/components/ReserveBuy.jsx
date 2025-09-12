@@ -1034,11 +1034,19 @@ export default function ReserveBuy({ popupData, onClose, standAlone = false }) {
                 </div>
               )}
             </div>
-            {standAlone ? (
-              <div className="darkoverlay" onClick={handleBack}></div>
-            ) : (
-              <div className="darkoverlay" onClick={() => onClose(false)}></div>
-            )}
+                      {modalType === 'checkout' && (
+            <div className="checkout-root">
+              {!standAlone && (
+                <div
+                  className="darkoverlay"
+                  role="presentation"
+                  aria-hidden="true"
+                  onClick={() => onClose(false)}
+                />
+              )}
+              {renderContent()}
+            </div>
+          )}
           </main>
           {modalType === 'checkout' && renderContent()}
         </>
