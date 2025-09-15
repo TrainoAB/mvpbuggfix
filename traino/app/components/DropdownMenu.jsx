@@ -64,6 +64,10 @@ function DropdownMenu({ sportsCategories, handleAddSport, selectInputRef, sports
             ...baseStyles,
             padding: '0.5rem 1rem',
           }),
+          input: (baseStyles) => ({
+            ...baseStyles,
+            color: 'var(--fgcolor)',
+          })
         }}
         onChange={(selectedOption) => handleAddSport(selectedOption.value)}
         blurInputOnSelect={true}
