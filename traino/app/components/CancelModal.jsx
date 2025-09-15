@@ -1,5 +1,6 @@
 import { useAppState } from '@/app/hooks/useAppState';
 import { formatDateSwedish, formatTimeRange } from '@/app/functions/functions';
+import { playSound } from '@/app/components/PlaySound';
 import './CancelModal.css';
 
 export default function CancelModal({ cancelModal, setCancelModal, setBookedData }) {
