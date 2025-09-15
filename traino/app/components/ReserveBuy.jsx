@@ -85,11 +85,11 @@ export default function ReserveBuy({ popupData, onClose, standAlone = false }) {
   };
 
   function parseSwedishDate(str) {
-    // Exempel: "onsdag 3 september"
+    // Exempel: "onsdag 3 september 2023"
     const parts = str.split(' ');
     const day = parseInt(parts[1], 10);
     const month = months[parts[2].toLowerCase()];
-    const year = new Date().getFullYear(); // du kan byta om du vill ha specifikt år
+    const year = parseInt(parts[3], 10);
     return new Date(year, month, day);
   }
 
@@ -773,16 +773,16 @@ export default function ReserveBuy({ popupData, onClose, standAlone = false }) {
                       {translate('book_clipcardsleftforthispass', language)}.
                     </div>
                   ) : (
-                   
+
                      <div className="small">{translate('book_donthaveclipcardsforsexercise', language)}</div>
-                  
+
                   )}
                 </>
               ) : (
-             
-               <div className="small">{translate('book_loggedintoseeclipcards', language)}.</div> 
-              
-              )} 
+
+               <div className="small">{translate('book_loggedintoseeclipcards', language)}.</div>
+
+              )}
               {productClipcards && productClipcards.length > 0 && (
                 <div className="clipcardlist">
                   <div>
