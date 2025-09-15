@@ -317,6 +317,7 @@ function generatePassesFromSettings(setting) {
               weekday: 'long',
               month: 'long',
               day: 'numeric',
+              year: 'numeric',
             }),
             data: dayPasses, // The passes for this specific day
             // Ensure the extraData is correctly passed here
@@ -371,6 +372,7 @@ function generatePassesFromSettings(setting) {
               weekday: 'long',
               month: 'long',
               day: 'numeric',
+              year: 'numeric',
             }),
             data: dayPasses, // The passes for this specific day
           });
