@@ -17,7 +17,7 @@ export default function CalendarModule({ data, setData, fetchedPasses, setFetche
   const [selectedEvent, setSelectedEvent] = useState([]);
   const [events, setEvents] = useState([]);
 
-  const { translate } = useTranslations('calendar', language);
+  const { translate } = useTranslations('schedule', language);
 
   const formats = {
     dayFormat: 'DD MMMM YYYY', // Customize as needed
@@ -155,6 +155,17 @@ moment.locale(language);
     };
   };
 
+  const messages = {
+    today: translate('schedule_today'),
+    previous: translate('schedule_previous'),
+    next: translate('schedule_next'),
+    month: translate('schedule_month'),
+    week: translate('schedule_week'),
+    day: translate('schedule_day'),
+    agenda: translate('schedule_agenda'),
+  };
+
+
   // MARK: Markup
   return (
     <div id="calendar-container">
@@ -164,6 +175,7 @@ moment.locale(language);
         startAccessor="start"
         endAccessor="end"
         formats={formats}
+        messages={messages}
         components={{ event: Event }}
         eventPropGetter={eventPropGetter}
         onSelectEvent={handleSelectEvent}

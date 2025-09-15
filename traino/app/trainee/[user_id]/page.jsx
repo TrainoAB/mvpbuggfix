@@ -101,7 +101,7 @@ export default function ProfileTrainee({ params }) {
           `/api/aws/fetch-imgs?folder=${encodeURIComponent(params.user_id)}&subfolder=profile`,)
           .then(async (res) => {
             if (!res.ok) {
-              DEBUG && console.log(`Unexpected error fetching profile image: ${res.status}`);
+              console.error(`Unexpected error fetching profile image: ${res.status}`);
               return;
             }
             const data = await res.json();
@@ -114,7 +114,7 @@ export default function ProfileTrainee({ params }) {
             setHasProfile(true);
           })
           .catch((error) => {
-            DEBUG && console.log('Network error fetching profile image:', error);
+            console.error('Network error fetching profile image:', error);
           });
         
 
