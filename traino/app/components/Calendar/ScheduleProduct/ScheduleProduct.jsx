@@ -1249,7 +1249,7 @@ export default function ScheduleProduct({ latest = false, user_id }) {
                     <>
                       {/* Show create new pass button */}
                       <div className="button" onClick={() => setCreateNew(false)}>
-                        Schemalägg nytt pass
+                        {translate('schedule_createnewpass')}
                       </div>
                     </>
                   )}
