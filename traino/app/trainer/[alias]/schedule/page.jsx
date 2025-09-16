@@ -4,7 +4,7 @@ import { useAppState } from '@/app/hooks/useAppState';
 import { Header_DisplayButton } from '@/app/components/Header_DisplayButton';
 import { InformationModal } from '@/app/components/InformationModal';
 import { useRouter } from 'next/navigation';
-
+import UpdateStripeID from '@/app/components/UpdateStripeID';
 import { getUserDetailsAlias, formatDateSwedish } from '@/app/functions/functions';
 import { set } from 'date-fns';
 
@@ -135,29 +135,29 @@ export default function Schedule({ params }) {
     fetchData();
   }, []);
 
-  async function handleCreateStripe() {
-    setCreateStripeLoading(true);
-    try {
-      const data = await getStripeUrl(userData.current.email, userData.current.id);
+  // async function handleCreateStripe() {
+  //   setCreateStripeLoading(true);
+  //   try {
+  //     const data = await getStripeUrl(userData.current.email, userData.current.id);
 
-      if (data) {
-        DEBUG && console.log('Opening URL:', data);
-        window.open(data, '_blank');
-      } else {
-        DEBUG && console.log('No URL found in response:', data);
-      }
-      // Then, check if data.url exists and open it in a new tab
-      if (data) {
-        window.open(data, '_blank'); // Open the URL in a new tab with '_blank'
-      }
+  //     if (data) {
+  //       DEBUG && console.log('Opening URL:', data);
+  //       window.open(data, '_blank');
+  //     } else {
+  //       DEBUG && console.log('No URL found in response:', data);
+  //     }
+  //     // Then, check if data.url exists and open it in a new tab
+  //     if (data) {
+  //       window.open(data, '_blank'); // Open the URL in a new tab with '_blank'
+  //     }
 
-      DEBUG && console.log('API call succeeded:', data);
-    } catch (error) {
-      DEBUG && console.log('API call failed:', error.message);
-    } finally {
-      setCreateStripeLoading(false);
-    }
-  }
+  //     DEBUG && console.log('API call succeeded:', data);
+  //   } catch (error) {
+  //     DEBUG && console.log('API call failed:', error.message);
+  //   } finally {
+  //     setCreateStripeLoading(false);
+  //   }
+  // }
 
   const showLatestCreatedProduct = false;
 
@@ -199,15 +199,19 @@ export default function Schedule({ params }) {
               )}
               {/* Calendar view - If you do not have StripeID */}
               {display === translate('schedule_calendar', language) && stripeId === null && (
-                <div className="stripe-info">
-                  <button
-                    className="button"
-                    name="createstripe"
-                    onClick={handleCreateStripe}
-                    disabled={createStripeLoading}
-                  >
-                    {translate('schedule_createstripeaccount', language)}
-                  </button>
+                // <div className="stripe-info">
+                //   <button
+                //     className="button"
+                //     name="createstripe"
+                //     onClick={handleCreateStripe}
+                //     disabled={createStripeLoading}
+                //   >
+                //     {translate('schedule_createstripeaccount', language)}
+                //   </button>
+                //   <p style={{ marginTop: '1rem' }}>{translate('schedule_createstripeaccounttext', language)}</p>
+                // </div>
+                <div class="stripeinfo">
+                  <UpdateStripeID />
                   <p style={{ marginTop: '1rem' }}>{translate('schedule_createstripeaccounttext', language)}</p>
                 </div>
               )}
