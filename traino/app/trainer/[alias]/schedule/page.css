@@ -45,6 +45,37 @@
   padding-top: 1rem;
 }
 
+#schedulepage .stripeinfo {
+  width: calc(100% - 2rem);
+  max-width: 40rem;
+  height: 100%;
+  margin-bottom: 5rem;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#schedulepage .stripecontent {
+  width: 100%;
+  max-width: 40rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--secondary-light-grey);
+  padding: 2rem;
+  border-radius: var(--radius);
+}
+
+#schedulepage .stripebutton {
+  width: auto;
+  margin: 2rem;
+}
+
 #schedulepage #schedule-product {
   position: relative;
   width: 100%;
