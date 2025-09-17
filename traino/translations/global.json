@@ -140,7 +140,7 @@
     "sl": "Naslov"
   },
   "filter": {
-    "en": "Filter",
+    "en": "Filters",
     "sv": "Filter",
     "fr": "Filtre",
     "cs": "Filtr",
@@ -211,7 +211,7 @@
   },
   "product": {
     "en": "Product",
-    "sv": "Produkt",
+    "sv": "Tjänster",
     "fr": "Produit",
     "de": "Produkt",
     "pl": "Produkt",
@@ -280,7 +280,7 @@
     "sl": "Išči trenerja"
   },
   "length": {
-    "en": "Length",
+    "en": "Duration",
     "sv": "Längd",
     "fr": "Durée",
     "de": "Länge",
@@ -343,8 +343,8 @@
     "sl": "Ima kartico za posnetke"
   },
   "doesnotmatter": {
-    "en": "Does not matter",
-    "sv": "Spelar ingen roll",
+    "en": "No preference",
+    "sv": "Ingen preferens",
     "fr": "Peu importe",
     "de": "Egal",
     "pl": "Nie ma znaczenia",
@@ -633,7 +633,7 @@
     "el": "Εμφάνιση"
   },
   "clear": {
-    "en": "Clear",
+    "en": "Reset",
     "sv": "Rensa",
     "fr": "Effacer",
     "de": "Löschen",
@@ -1846,7 +1846,7 @@
     "el": "Περιγραφή προϊόντος"
   },
   "trainingpass": {
-    "en": "Training Pass",
+    "en": "Training Session",
     "sv": "Träningspass",
     "fr": "Pass d'entraînement",
     "de": "Trainingspass",
@@ -1862,7 +1862,7 @@
   },
   "onlinetraining": {
     "en": "Online Training",
-    "sv": "Online Träning",
+    "sv": "Onlineträning",
     "fr": "Formation en ligne",
     "de": "Online-Training",
     "pl": "Trening online",
@@ -1876,7 +1876,7 @@
     "el": "Εκπαίδευση διαδικτύου"
   },
   "trainprogram": {
-    "en": "Train Program",
+    "en": "Training Program",
     "sv": "Träningsprogram",
     "fr": "Programme d'entraînement",
     "de": "Trainingsprogramm",
@@ -1891,7 +1891,7 @@
     "el": "Πρόγραμμα εκπαίδευσης"
   },
   "dietprogram": {
-    "en": "Diet Program",
+    "en": "Diet Plan",
     "sv": "Kostprogram",
     "fr": "Programme diététique",
     "de": "Diätprogramm",
