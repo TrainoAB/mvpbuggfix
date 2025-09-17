@@ -637,10 +637,12 @@ export default function Map({
       if (filter.prod === 'trainingpass' || filter.prod === 'onlinetraining') {
         // Filter by both `prod` and `dura` when applicable
         const filterValue = Number(filter.dura);
+        const highestFilterValue = 60;
+        const overHighestFilterValue  = 70;
         DEBUG && console.log('Filter Value:', filterValue);
         filtered = filterValue
           ? markersWithinBounds.filter(
-              (marker) => Number(marker.duration > 60 ? 70 : marker.duration) === filterValue && marker.product_type === filter.prod,
+              (marker) => Number(marker.duration > highestFilterValue ? overHighestFilterValue : marker.duration) === filterValue && marker.product_type === filter.prod,
             )
           : markersWithinBounds.filter((marker) => marker.product_type === filter.prod);
       } else {
