@@ -127,7 +127,7 @@ export default function EventEdit({
 
   // MARK: Delete Interval
   const handleDeleteClick = (eventIndex, intervalIndex, interval) => {
-    const promptMessage = `Detta kommer ta bort alla upprepade dagar med intervallet ${interval.start} - ${interval.end}`;
+    const promptMessage = `${translate('schedule_ deleteintervalrepeateddayswarning')} ${interval.start} - ${interval.end}`;
     if (!window.confirm(promptMessage)) return;
 
     const isRepeat = editIntervals[eventIndex].singeldayrepeat;
@@ -187,7 +187,7 @@ export default function EventEdit({
   // MARK: Delete Pass
   const handleDeletePass = (event, editIndex) => {
     // TODO: Implement database delete functions
-    const promptMessage = `Detta kommer ta bort alla upprepade dagar för passet`;
+    const promptMessage = translate('schedule_deleterepeateddayswarning');
     if (!window.confirm(promptMessage)) return;
 
     DEBUG && console.log(event);
@@ -905,11 +905,11 @@ export default function EventEdit({
                             } ${openSubmenuIndex === editIndex ? 'open' : ''}`}
                           >
                             <button className="btn-add" onClick={() => handleAddInterval(event, editIndex)}>
-                              Lägg till
+                              {translate('schedule_add')}
                             </button>
                             {/* <button className="btn-setting">Editera</button> */}
                             <button className="btn-delete" onClick={() => handleDeletePass(event, editIndex)}>
-                              Ta bort
+                              {translate('schedule_delete')}
                             </button>
                           </div>
                           <button className="btn-submenu" onClick={() => handleSubmenuToggle(editIndex)}></button>
