@@ -640,7 +640,7 @@ export default function Map({
         DEBUG && console.log('Filter Value:', filterValue);
         filtered = filterValue
           ? markersWithinBounds.filter(
-              (marker) => Number(marker.duration) === filterValue && marker.product_type === filter.prod,
+              (marker) => Number(marker.duration > 60 ? 70 : marker.duration) === filterValue && marker.product_type === filter.prod,
             )
           : markersWithinBounds.filter((marker) => marker.product_type === filter.prod);
       } else {
