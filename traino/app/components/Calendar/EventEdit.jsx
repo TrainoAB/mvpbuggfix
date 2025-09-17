@@ -708,7 +708,7 @@ export default function EventEdit({
         stripe_order_id: null,
       };
       updatedFetchedPasses.pass_booked.push(newPaus);
-      alert('Pause added');
+      alert(translate('schedule_breakadded'));
     }
     // If id != 0, edit existing pause
     else {
@@ -738,7 +738,7 @@ export default function EventEdit({
     setData(newPasses);
     setPausStart('');
     setPausEnd('');
-    alert('Pause deleted');
+    alert(translate('schedule_breakdeleted'));
   }
 
   // MARK: Render Intervals
@@ -802,7 +802,7 @@ export default function EventEdit({
         <div className="contain">
           <div style={{ padding: '1rem' }}>
             <button className="button" onClick={() => setAddPause((prev) => !prev)}>
-              {addPause ? 'Editera intervaller' : 'Editera paus för denna dag'}
+              {addPause ? translate('schedule_editintervals') : translate('schedule_editbreaks')}
             </button>
           </div>
           {addPause ? (
