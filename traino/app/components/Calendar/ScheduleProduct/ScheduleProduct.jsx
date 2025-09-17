@@ -251,7 +251,7 @@ export default function ScheduleProduct({ latest = false, user_id }) {
 
         // Ensure the start time is not after the end time
         if (newStartTime >= newEndTime) {
-          alert('Starttiden kan inte vara efter sluttiden.');
+          alert(translate('schedule_endtimebeforestarttime'));
           return prevSchedule;
         }
 
@@ -265,7 +265,7 @@ export default function ScheduleProduct({ latest = false, user_id }) {
             (newEndTime > existingStartTime && newEndTime <= existingEndTime) ||
             (newStartTime <= existingStartTime && newEndTime >= existingEndTime)
           ) {
-            alert('Den nya intervalltiden överlappar nuvarande intervaller, byt tider.');
+            alert(translate('schedule_intervaloverlap'));
             return prevSchedule;
           }
         }
@@ -289,7 +289,7 @@ export default function ScheduleProduct({ latest = false, user_id }) {
 
       // Check if start or end is empty
       if (!newIntervalStart || !newIntervalEnd) {
-        alert('Både start- och sluttid måste anges.');
+        alert(translate('schedule_mustsetstartandendtime'));
         return prevSchedule;
       }
 
@@ -375,7 +375,7 @@ export default function ScheduleProduct({ latest = false, user_id }) {
         // Ensure end time is not before start time
         if (newIntervalEnd < newIntervalStart) {
           // Handle error: end time is before start time
-          alert('Sluttiden kan inte vara före starttiden.');
+          alert(translate('schedule_endtimebeforestarttime'));
           return prevSchedule; // Do not update schedule if validation fails
         }
 
@@ -386,7 +386,7 @@ export default function ScheduleProduct({ latest = false, user_id }) {
 
         if (overlaps) {
           // Handle error: new interval overlaps with existing intervals
-          alert('De nya intervalltiderna kan inte överlappa nuvarande intervalltider.');
+          alert(translate('schedule_intervaloverlap'));
           return prevSchedule; // Do not update schedule if validation fails
         }
       }
@@ -405,7 +405,7 @@ export default function ScheduleProduct({ latest = false, user_id }) {
       if (!newIntervalStart || !newIntervalEnd) {
         updatedSchedule.passes[sportIndex].intervals.newIntervalStart = '';
         updatedSchedule.passes[sportIndex].intervals.newIntervalEnd = '';
-        alert('Du måste sätta både start och sluttid.');
+        alert(translate('schedule_mustsetstartandendtime'));
         return prevSchedule; // Do not update schedule if validation fails
       }
 
@@ -417,7 +417,7 @@ export default function ScheduleProduct({ latest = false, user_id }) {
       if (overlaps) {
         updatedSchedule.passes[sportIndex].intervals.newIntervalStart = '';
         updatedSchedule.passes[sportIndex].intervals.newIntervalEnd = '';
-        alert('Den nya intervall tiden överlappar tidigare intervaller, byt tid.');
+        alert(translate('schedule_intervaloverlap'));
         return prevSchedule; // Do not update schedule if validation fails
       }
 
@@ -476,7 +476,7 @@ export default function ScheduleProduct({ latest = false, user_id }) {
 
       // Check if the end date is before the start date
       if (newEnd <= newStart) {
-        alert('Slutdatum kan inte vara före startdatum.');
+        alert(translate('schedule_enddatebeforestartdate'));
         return;
       }
 
@@ -601,13 +601,13 @@ export default function ScheduleProduct({ latest = false, user_id }) {
 
     // Ensure startDate is not before today
     if (newStartDate < today) {
-      alert('Startdatum kan inte vara före dagens datum.');
+      alert(translate('schedule_startdatebeforetoday'));
       return;
     }
 
     // Ensure startDate is not set if it makes it after a non-empty endDate
     if (endDate && newStartDate > endDate) {
-      alert('Startdatum kan inte vara efter slutdatum.');
+      alert(translate('schedule_startdateafterenddate'));
       return;
     }
 
@@ -624,12 +624,12 @@ export default function ScheduleProduct({ latest = false, user_id }) {
 
     // Check if the start date is set
     if (!startDate) {
-      alert('Startdatum måste vara satt innan sluttiden kan ställas in.');
+      alert(translate('schedule_setstartdatefirst'));
       return;
     }
     // Ensure endDate is not set if it makes it before startDate
     if (newEndDate && newEndDate < startDate) {
-      alert('Slutdatum kan inte vara före startdatum.');
+      alert(translate('schedule_enddatebeforestartdate'));
       return;
     }
 
@@ -900,7 +900,7 @@ export default function ScheduleProduct({ latest = false, user_id }) {
                 <div className="addcalendar">
                   {!createNew ? (
                     <>
-                      <h3>Välj skapade pass</h3>
+                      <h3>{translate('schedule_selectcreatedsessions')}</h3>
                       <div className="input-group">
                         {/* Select multiple pass */}
                         <Select
@@ -919,22 +919,22 @@ export default function ScheduleProduct({ latest = false, user_id }) {
                         <>
                           <div className="grid2">
                             <div className="input-group">
-                              <label htmlFor="startdate">Startdatum</label>
+                              <label htmlFor="startdate">{translate('schedule_startdate')}</label>
                               <input id="startdate" type="date" value={startDate} onChange={handleStartDate} />
                             </div>
                             <div className="input-group">
-                              <label htmlFor="endate">Slutdatum</label>
+                              <label htmlFor="endate">{translate('schedule_enddate')}</label>
                               <input id="endate" type="date" value={endDate} onChange={handleEndDate} />
                             </div>
                           </div>
                           {endDate && (
                             <button className="button onlytext" onClick={handleResetEndDate}>
-                              Ta bort sluttid
+                              {translate('schedule_removeenddate')}
                             </button>
                           )}
                           {!endDate && (
                             <p className="explain">
-                              Om du inte väljer ett slutdatum, fortsätter detta automatiskt tills du tar bort det.
+                              {translate('schedule_noenddateselectedtext')}
                             </p>
                           )}
 
@@ -953,14 +953,13 @@ export default function ScheduleProduct({ latest = false, user_id }) {
                                       checked={isRepeat}
                                       onChange={handleCheckboxChange}
                                     />
-                                    <span className="customcheckbox"></span>Repetera dagar
+                                    <span className="customcheckbox"></span>{translate('schedule_repeatdays')}
                                   </label>
                                 </div>
                               </div>
                               {!isRepeat && (
                                 <p className="explain">
-                                  Om du inte väljer repetera dagar, och inget slutdatum, så repeteras den dagen du valt
-                                  som startdatum tills du stänger av det.
+                                  {translate('schedule_repeatdaysnotselectedtext')}
                                 </p>
                               )}
                             </>
@@ -1027,7 +1026,7 @@ export default function ScheduleProduct({ latest = false, user_id }) {
                                               <div>
                                                 <div className="grid3">
                                                   <div className="input-group">
-                                                    <label htmlFor={`start-${dayIndex}`}>Start</label>
+                                                    <label htmlFor={`start-${dayIndex}`}>{translate('schedule_start')}</label>
                                                     <input
                                                       type="time"
                                                       id={`start-${dayIndex}`}
@@ -1043,7 +1042,7 @@ export default function ScheduleProduct({ latest = false, user_id }) {
                                                     />
                                                   </div>
                                                   <div className="input-group">
-                                                    <label htmlFor={`end-${dayIndex}`}>Slut</label>
+                                                    <label htmlFor={`end-${dayIndex}`}>{translate('schedule_end')}</label>
                                                     <input
                                                       type="time"
                                                       id={`end-${dayIndex}`}
@@ -1079,7 +1078,12 @@ export default function ScheduleProduct({ latest = false, user_id }) {
                                                         {interval.start} - {interval.end}{' '}
                                                         <span>
                                                           {formatDuration(interval.start, interval.end) + ' '}
-                                                          <strong>{interval.pass_amount + ' pass'}</strong>
+                                                          <strong>
+                                                            {interval.pass_amount}{" "}
+                                                            {interval.pass_amount === 1 
+                                                              ? translate('schedule_session_singular') 
+                                                              : translate('schedule_session_plural')}
+                                                          </strong>
                                                         </span>
                                                         <button
                                                           onClick={() =>
@@ -1102,7 +1106,7 @@ export default function ScheduleProduct({ latest = false, user_id }) {
                                       <div>
                                         <div className="grid3" key={sportIndex}>
                                           <div className="input-group">
-                                            <label htmlFor={`start-${sportIndex}`}>Start</label>
+                                            <label htmlFor={`start-${sportIndex}`}>{translate('schedule_start')}</label>
                                             <input
                                               type="time"
                                               id={`start-${sportIndex}`}
@@ -1113,7 +1117,7 @@ export default function ScheduleProduct({ latest = false, user_id }) {
                                             />
                                           </div>
                                           <div className="input-group">
-                                            <label htmlFor={`end-${sportIndex}`}>Slut</label>
+                                            <label htmlFor={`end-${sportIndex}`}>{translate('schedule_end')}</label>
                                             <input
                                               type="time"
                                               id={`end-${sportIndex}`}
@@ -1138,7 +1142,12 @@ export default function ScheduleProduct({ latest = false, user_id }) {
                                                 {interval.start} - {interval.end}{' '}
                                                 <span>
                                                   {formatDuration(interval.start, interval.end) + ' '}
-                                                  <strong>{interval.pass_amount + ' pass'}</strong>
+                                                  <strong>
+                                                    {interval.pass_amount}{" "}
+                                                    {interval.pass_amount === 1
+                                                      ? translate('schedule_session_singular')
+                                                      : translate('schedule_session_plural')}
+                                                  </strong>
                                                 </span>
                                                 <button
                                                   onClick={() => handleSingleDeleteInterval(sportIndex, intervalIndex)}
@@ -1241,7 +1250,7 @@ export default function ScheduleProduct({ latest = false, user_id }) {
                           onClick={createPass}
                           disabled={startDate === '' || !allIntervalsSet()}
                         >
-                          Lägg till i kalendern
+                          {translate('schedule_addtocalendar')}
                         </button>
                       )}
                     </>
