@@ -204,7 +204,7 @@ export default function Filter({ mapCtx, isFilterShown, updateFilterValue, setRe
                         checked={mapCtx.filter.dura === '70'}
                         onChange={handleRadioChangeDuration}
                       />
-                      <label htmlFor="radio-602">Över 60 min</label>
+                      <label htmlFor="radio-602">60+ min</label>
                     </div>
                   </div>
                 </div>
