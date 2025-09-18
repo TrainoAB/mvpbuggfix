@@ -1066,19 +1066,19 @@
     "el": "Κρατήσεις"
   },
   "youhavenobookings": {
-    "en": "You have no bookings",
-    "sv": "Du har inga bokningar",
-    "fr": "Vous n'avez aucune réservation",
-    "de": "Sie haben keine Buchungen",
-    "pl": "Nie masz rezerwacji",
-    "ru": "У вас нет бронирований",
-    "da": "Du har ingen bookinger",
-    "no": "Du har ingen bestillinger",
-    "fi": "Sinulla ei ole varauksia",
-    "es": "No tienes reservas",
-    "it": "Non hai prenotazioni",
-    "hr": "Nemate rezervacija",
-    "el": "Δεν έχετε κρατήσεις"
+    "en": "You have no bookings in the next 90 days",
+    "sv": "Du har inga bokningar de kommande 90 dagarna",
+    "fr": "Vous n'avez aucune réservation pour les 90 prochains jours",
+    "de": "Sie haben keine Buchungen in den nächsten 90 Tagen",
+    "pl": "Nie masz rezerwacji w ciągu najbliższych 90 dni",
+    "ru": "У вас нет бронирований на ближайшие 90 дней",
+    "da": "Du har ingen bookinger de næste 90 dage",
+    "no": "Du har ingen bestillinger de neste 90 dagene",
+    "fi": "Sinulla ei ole varauksia seuraavien 90 päivän aikana",
+    "es": "No tienes reservas en los próximos 90 días",
+    "it": "Non hai prenotazioni nei prossimi 90 giorni",
+    "hr": "Nemate rezervacija u sljedećih 90 dana",
+    "el": "Δεν έχετε κρατήσεις τις επόμενες 90 ημέρες"
   },
   "book_your_first_session": {
     "en": "Book your first training session to get started!",
