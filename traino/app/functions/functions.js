@@ -1163,33 +1163,22 @@ export const formatDuration = (start, end) => {
   return `(${diffHours}t, ${diffMinutes}m)`;
 };
 
+
 // MARK: Format Day Name
-export function formatDayName(dayAbbreviation, type) {
+export function formatDayName(dayAbbreviation, type, translate) {
+  const validDays  = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
   const dayAbbrev = dayAbbreviation.toLowerCase();
 
-  const dayNames = {
-    mon: { short: 'Mån', long: 'Måndag', longer: 'Måndagar' },
-    tue: { short: 'Tis', long: 'Tisdag', longer: 'Tisdagar' },
-    wed: { short: 'Ons', long: 'Onsdag', longer: 'Ondagar' },
-    thu: { short: 'Tor', long: 'Torsdag', longer: 'Torsdagar' },
-    fri: { short: 'Fre', long: 'Fredag', longer: 'Fredagar' },
-    sat: { short: 'Lör', long: 'Lördag', longer: 'Lördagar' },
-    sun: { short: 'Sön', long: 'Söndag', longer: 'Söndagar' },
-  };
-
-  if (dayAbbrev in dayNames) {
-    if (type === 'short') {
-      return dayNames[dayAbbrev].short;
-    } else if (type === 'long') {
-      return dayNames[dayAbbrev].long;
-    } else if (type === 'longer') {
-      return dayNames[dayAbbrev].longer;
-    } else {
-      throw new Error("Invalid type parameter. Use 'short','long' or 'longer'.");
-    }
-  } else {
+  if (!validDays.includes(dayAbbrev)) {
     throw new Error("Invalid day abbreviation. Use 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', or 'sun'.");
   }
+
+  if (!['short', 'long', 'longer'].includes(type)) {
+    throw new Error("Invalid type parameter. Use 'short','long' or 'longer'.");
+  }
+
+  const key = `day_${dayAbbrev}_${type}`;
+  return translate(key);
 }
 
 // MARK: cat to name
