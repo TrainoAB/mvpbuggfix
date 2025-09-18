@@ -4176,5 +4176,35 @@
     "sv": "Söndagar",
     "en": "Sundays",
     "fr": "Dimanches"
+  },
+  "schedule_saved": {
+    "sv": "Sparat!",
+    "en": "Saved!",
+    "fi": "Tallennettu!",
+    "no": "Lagret!",
+    "da": "Gemt!",
+    "de": "Gespeichert!",
+    "fr": "Enregistré!",
+    "es": "¡Guardado!",
+    "it": "Salvato!",
+    "pl": "Zapisano!",
+    "ru": "Сохранено!",
+    "hr": "Spremljeno!",
+    "el": "Αποθηκεύτηκε!"
+  },
+  "schedule_addedtocalendar": {
+    "sv": "Du har lagt in passen i kalendern!",
+    "en": "You have added the passes to the calendar!",
+    "fi": "Olet lisännyt passit kalenteriin!",
+    "no": "Du har lagt inn passene i kalenderen!",
+    "da": "Du har tilføjet passene til kalenderen!",
+    "de": "Du hast die Pässe zum Kalender hinzugefügt!",
+    "fr": "Vous avez ajouté les passes au calendrier !",
+    "es": "¡Has agregado los pases al calendario!",
+    "it": "Hai aggiunto i pass al calendario!",
+    "pl": "Dodałeś wejściówki do kalendarza!",
+    "ru": "Вы добавили пропуски в календарь!",
+    "hr": "Dodali ste propusnice u kalendar!",
+    "el": "Έχετε προσθέσει τις πάσες στο ημερολόγιο!"
   }
 }

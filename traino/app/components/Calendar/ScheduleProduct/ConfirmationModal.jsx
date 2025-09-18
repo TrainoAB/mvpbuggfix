@@ -1,6 +1,10 @@
+import React from 'react';
+import { useAppState } from '@/app/hooks/useAppState';
 import './ScheduleProduct.css';
 
 const ConfirmationModal = ({ type, onClose }) => {
+  const { language, useTranslations } = useAppState();
+  const { translate } = useTranslations('global', language);
   return (
     <>
       <div className="modal" style={{ textAlign: 'center', maxWidth: '25rem' }}>
@@ -8,8 +12,8 @@ const ConfirmationModal = ({ type, onClose }) => {
           {type === 'success' ? (
             <>
               <div className="icon-check"></div>
-              <h1>Sparat!</h1>
-              <p>Du har lagt in passen i kalendern!</p>
+              <h1>{translate('schedule_saved')}</h1>
+              <p>{translate('schedule_addedtocalendar')}</p>
             </>
           ) : (
             <>
