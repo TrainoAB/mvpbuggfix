@@ -991,6 +991,8 @@ export default function Map({
           zoom={userZoom || 14}
           style={{ width: '100%', height: '100%' }}
           whenCreated={handleMapCreated}
+          maxBounds={[[ -85, -180 ], [ 85, 180 ]]}
+          maxBoundsViscosity={1.0}
         >
           <TileLayer url={mapCnf.leafletTileUrlTemplate} attribution={mapCnf.leafletAttribution} />
           <MapEvents />
