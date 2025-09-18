@@ -1008,7 +1008,7 @@ export default function ScheduleProduct({ latest = false, user_id }) {
                                                     onChange={() => handleDayCheckboxChange(sportIndex, day)}
                                                   />
                                                   <span className="customdaycheck"></span>
-                                                  {formatDayName(day, 'short')}
+                                                  {formatDayName(day, 'short', translate)}
                                                 </label>
                                               </div>
                                             );
@@ -1022,7 +1022,7 @@ export default function ScheduleProduct({ latest = false, user_id }) {
                                         <>
                                           {schedule.passes[sportIndex].days.map((day, dayIndex) => (
                                             <div key={dayIndex} className="dayinterval">
-                                              <h5>{formatDayName(day.day, 'longer')}</h5>
+                                              <h5>{formatDayName(day.day, 'longer', translate)}</h5>
                                               <div>
                                                 <div className="grid3">
                                                   <div className="input-group">

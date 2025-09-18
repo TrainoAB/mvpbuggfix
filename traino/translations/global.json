@@ -4070,5 +4070,111 @@
     "ru": "Обнаружено перекрытие интервалов, измените время.",
     "hr": "Otkriveno preklapanje intervala, prilagodi vrijeme.",
     "el": "Εντοπίστηκε επικάλυψη διαστημάτων, ρυθμίστε τις ώρες."
+  },
+  "day_mon_short": {
+    "sv": "Mån",
+    "en": "Mon",
+    "fr": "Lun"
+  },
+  "day_mon_long": {
+    "sv": "Måndag",
+    "en": "Monday",
+    "fr": "Lundi"
+  },
+  "day_mon_longer": {
+    "sv": "Måndagar",
+    "en": "Mondays",
+    "fr": "Lundis"
+  },
+  "day_tue_short": {
+    "sv": "Tis",
+    "en": "Tue",
+    "fr": "Mar"
+  },
+  "day_tue_long": {
+    "sv": "Tisdag",
+    "en": "Tuesday",
+    "fr": "Mardi"
+  },
+  "day_tue_longer": {
+    "sv": "Tisdagar",
+    "en": "Tuesdays",
+    "fr": "Mardis"
+  },
+  "day_wed_short": {
+    "sv": "Ons",
+    "en": "Wed",
+    "fr": "Mer"
+  },
+  "day_wed_long": {
+    "sv": "Onsdag",
+    "en": "Wednesday",
+    "fr": "Mercredi"
+  },
+  "day_wed_longer": {
+    "sv": "Onsdagar",
+    "en": "Wednesdays",
+    "fr": "Mercerdis"
+  },
+
+  "day_thu_short": {
+    "sv": "Tor",
+    "en": "Thu",
+    "fr": "Jeu"
+  },
+  "day_thu_long": {
+    "sv": "Torsdag",
+    "en": "Thursday",
+    "fr": "Jeudi"
+  },
+  "day_thu_longer": {
+    "sv": "Torsdagar",
+    "en": "Thursdays",
+    "fr": "Jeudis"
+  },
+  "day_fri_short": {
+    "sv": "Fre",
+    "en": "Fri",
+    "fr": "Ven"
+  },
+  "day_fri_long": {
+    "sv": "Fredag",
+    "en": "Friday",
+    "fr": "Vendredi"
+  },
+  "day_fri_longer": {
+    "sv": "Fredagar",
+    "en": "Fridays",
+    "fr": "Vendredis"
+  },
+  "day_sat_short": {
+    "sv": "Lör",
+    "en": "Sat",
+    "fr": "Sam"
+  },
+  "day_sat_long": {
+    "sv": "Lördag",
+    "en": "Saturday",
+    "fr": "Samedi"
+  },
+  "day_sat_longer": {
+    "sv": "Lördagar",
+    "en": "Saturdays",
+    "fr": "Samedis"
+  },
+  "day_sun_short": {
+    "sv": "Sön",
+    "en": "Sun",
+    "fr": "Dim"
+  },
+  "day_sun_long": {
+    "sv": "Söndag",
+    "en": "Sunday",
+    "fr": "Dimanche"
+  },
+  "day_sun_longer": {
+    "sv": "Söndagar",
+    "en": "Sundays",
+    "fr": "Dimanches"
   }
 }
