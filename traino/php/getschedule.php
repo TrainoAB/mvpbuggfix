@@ -11,14 +11,14 @@ validateAuthHeader($apikey);
 
 // Check if either user_id or alias is set
 if (isset($_GET['id'])) {
-    $user_id = validate_and_sanitize($_GET['id'], "integer"); 
+    $user_id = validate_and_sanitize($_GET['id'], "integer");
 
     if(isset($_GET['bookedonly']) && $_GET['bookedonly'] === "true") {
         $today = date('Y-m-d');
         $ninetyDaysForward = date('Y-m-d', strtotime('+90 days'));
-        
+
         $passBookedQuery = "
-          SELECT 
+          SELECT
     pb.*,
     p.product_type,
     p.id AS product_id,
@@ -42,7 +42,7 @@ if (isset($_GET['id'])) {
     trainer.lastname AS trainer_lastname,
     trainer.alias AS trainer_alias
 
-FROM 
+FROM
     pass_booked pb
 
 LEFT JOIN products p ON pb.product_id = p.id
@@ -50,12 +50,12 @@ LEFT JOIN categories c ON p.category_id = c.id
 LEFT JOIN users u ON pb.user_id = u.id
 LEFT JOIN users trainer ON pb.trainer_id = trainer.id
 
-WHERE 
+WHERE
     pb.trainer_id = :user_id
     AND pb.booked_date BETWEEN :today AND :ninetyDaysForward
     AND pb.ispause = 0
 
-ORDER BY 
+ORDER BY
     pb.booked_date ASC";
         $passBookedStmt = $pdo->prepare($passBookedQuery);
         // Bind the parameters
@@ -87,20 +87,20 @@ ORDER BY
 
          // Get pass_set data
         $passSetQuery = "
-            SELECT 
+            SELECT
     pa.id AS pass_set_id,
     pa.pass_repeat_id,
     pa.startdate,
     pa.enddate,
     pa.intervals,
     pa.singeldayrepeat,
-    CASE 
-        WHEN pa.isrepeat = 0 THEN false 
-        WHEN pa.isrepeat = 1 THEN true 
+    CASE
+        WHEN pa.isrepeat = 0 THEN false
+        WHEN pa.isrepeat = 1 THEN true
     END AS isrepeat,
-    CASE 
-        WHEN pa.autorepeat = 0 THEN false 
-        WHEN pa.autorepeat = 1 THEN true 
+    CASE
+        WHEN pa.autorepeat = 0 THEN false
+        WHEN pa.autorepeat = 1 THEN true
     END AS autorepeat,
     pa.registered AS passcreated,
     p.id,
@@ -122,7 +122,6 @@ WHERE pa.user_id = :user_id
   AND p.duration = :duration
   AND (pa.startdate <= :ninetyDaysForward)
   AND (pa.enddate >= :today OR pa.enddate IS NULL)
-  AND (pb.canceled = 0 OR pb.canceled IS NULL)
 GROUP BY pa.id";
         $passSetStmt = $pdo->prepare($passSetQuery);
         $passSetStmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
@@ -135,7 +134,7 @@ GROUP BY pa.id";
 
         // Get pass_booked data with product information
         $passBookedQuery = "
-            SELECT 
+            SELECT
                 pb.*,
                 p.product_type,
                 p.id AS product_id,
@@ -172,17 +171,17 @@ GROUP BY pa.id";
         $passBookedStmt->bindParam(':key', $encryptionKey, PDO::PARAM_STR);
         $passBookedStmt->execute();
         $resultsBooked = $passBookedStmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         // Debug query to check product_ids in pass_booked vs products table structure
         $debugQuery = "
-            SELECT 
-                pb.product_id as pb_product_id, 
+            SELECT
+                pb.product_id as pb_product_id,
                 p.id as products_id,
                 p.product_id as products_product_id,
                 p.alias as products_alias
-            FROM pass_booked pb 
-            LEFT JOIN products p ON pb.product_id = p.id 
-            WHERE pb.trainer_id = :user_id 
+            FROM pass_booked pb
+            LEFT JOIN products p ON pb.product_id = p.id
+            WHERE pb.trainer_id = :user_id
             LIMIT 3
         ";
         $debugStmt = $pdo->prepare($debugQuery);
@@ -190,17 +189,17 @@ GROUP BY pa.id";
         $debugStmt->execute();
         $debugResults = $debugStmt->fetchAll(PDO::FETCH_ASSOC);
         error_log("JOIN DEBUG - pb.product_id = p.id: " . json_encode($debugResults));
-        
+
         // Try alternative JOIN
         $debugQuery2 = "
-            SELECT 
-                pb.product_id as pb_product_id, 
+            SELECT
+                pb.product_id as pb_product_id,
                 p.id as products_id,
                 p.product_id as products_product_id,
                 p.alias as products_alias
-            FROM pass_booked pb 
-            LEFT JOIN products p ON pb.product_id = p.id 
-            WHERE pb.trainer_id = :user_id 
+            FROM pass_booked pb
+            LEFT JOIN products p ON pb.product_id = p.id
+            WHERE pb.trainer_id = :user_id
             LIMIT 3
         ";
         $debugStmt2 = $pdo->prepare($debugQuery2);
@@ -208,7 +207,7 @@ GROUP BY pa.id";
         $debugStmt2->execute();
         $debugResults2 = $debugStmt2->fetchAll(PDO::FETCH_ASSOC);
         error_log("JOIN DEBUG - pb.product_id = p.id: " . json_encode($debugResults2));
-        
+
         // Debug logging
         error_log("Pass booked query executed. Found " . count($resultsBooked) . " results");
         if (!empty($resultsBooked)) {
