@@ -9,6 +9,17 @@ import CalendarModule from '@/app/components/Calendar/CalendarModule';
 import ConfirmationModal from './ConfirmationModal';
 import { addNewPass } from '@/app/functions/fetchDataFunctions.js';
 
+import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from 'react-datepicker';
+
+import { format } from 'date-fns';
+import { sv, enGB, fr, de, es, it } from 'date-fns/locale';
+
+import { faCalendar } from '@fortawesome/free-solid-svg-icons';
+import IconCustom from '@/app/components/SVG/IconCustom';
+
+
+
 import './ScheduleProduct.css';
 
 export default function ScheduleProduct({ latest = false, user_id }) {
@@ -48,6 +59,18 @@ export default function ScheduleProduct({ latest = false, user_id }) {
   );
 
   const daysArray = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+  const localeMap = {
+    sv,
+    en: enGB,
+    fr,
+    de,
+    es,
+    it
+  };
+
+  const currentLang = translate('schedule_language');
+  const dateFnsLocale = localeMap[currentLang] || enGB;
 
   const [allProducts, setAllProducts] = useState([]);
   const [allPasses, setAllPasses] = useState([]);
@@ -595,9 +618,14 @@ export default function ScheduleProduct({ latest = false, user_id }) {
     });
   };
 
-  const handleStartDate = (event) => {
-    const newStartDate = event.target.value;
-    const today = new Date().toISOString().split('T')[0]; // Get today's date in 'YYYY-MM-DD' format
+  const handleStartDate = (date) => {
+    if(!date) {
+      setStartDate('');
+      return;
+    }
+
+    const newStartDate = format(date, 'yyyy-MM-dd');
+    const today = format(new Date(), 'yyyy-MM-dd');
 
     // Ensure startDate is not before today
     if (newStartDate < today) {
@@ -619,8 +647,13 @@ export default function ScheduleProduct({ latest = false, user_id }) {
     DEBUG && console.log('Set new startdate:', newStartDate);
   };
 
-  const handleEndDate = (event) => {
-    const newEndDate = event.target.value;
+  const handleEndDate = (date) => {
+    if(!date) {
+      setEndDate('');
+      return;
+    }
+
+    const newEndDate = format(date, 'yyyy-MM-dd');
 
     // Check if the start date is set
     if (!startDate) {
@@ -920,11 +953,35 @@ export default function ScheduleProduct({ latest = false, user_id }) {
                           <div className="grid2">
                             <div className="input-group">
                               <label htmlFor="startdate">{translate('schedule_startdate')}</label>
-                              <input id="startdate" type="date" value={startDate} onChange={handleStartDate} />
+                              <div className="react-datepicker-wrapper">
+                                <DatePicker
+                                  id="startdate"
+                                  selected={startDate ? new Date(startDate) : null}
+                                  onChange={handleStartDate}
+                                  dateFormat={translate('schedule_dateformat')}
+                                  placeholderText={translate('schedule_dateplaceholder')}
+                                  onKeyDown={(e) => e.preventDefault()}
+                                  locale={dateFnsLocale}
+                                  className="startdate"
+                                />
+                                  <IconCustom icon={faCalendar} className="calendar-icon"/>
+                              </div>
                             </div>
                             <div className="input-group">
-                              <label htmlFor="endate">{translate('schedule_enddate')}</label>
-                              <input id="endate" type="date" value={endDate} onChange={handleEndDate} />
+                              <label htmlFor="enddate">{translate('schedule_enddate')}</label>
+                              <div className="react-datepicker-wrapper">
+                                <DatePicker
+                                  id="enddate"
+                                  selected={endDate ? new Date(endDate) : null}
+                                  onChange={handleEndDate}
+                                  dateFormat={translate('schedule_dateformat')}
+                                  placeholderText={translate('schedule_dateplaceholder')}
+                                  onKeyDown={(e) => e.preventDefault()}
+                                  locale={dateFnsLocale}
+                                  className="enddate"
+                                />
+                                  <IconCustom icon={faCalendar} className="calendar-icon"/>
+                              </div>
                             </div>
                           </div>
                           {endDate && (

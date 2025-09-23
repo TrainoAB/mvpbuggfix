@@ -104,6 +104,39 @@
   padding: 0.5rem;
 }
 
+.react-datepicker-wrapper {
+  position: relative;
+}
+
+.react-datepicker-wrapper input.startdate,
+.react-datepicker-wrapper input.enddate {
+  width: 10rem;
+  padding: 0.5rem;
+  font-size: 14px;
+  font-family: var(--font);
+  border-radius: var(--radius);
+  border: 1px solid var(--secondary-light-grey);
+  height: 36.4px;
+  cursor: default;
+  caret-color: transparent;
+  font-weight: 600;
+}
+
+.react-datepicker-wrapper .calendar-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--fgcolor);
+}
+
+.react-datepicker-wrapper input.startdate::placeholder,
+.react-datepicker-wrapper input.enddate::placeholder {
+  color: var(--fgcolor);
+  font-weight: 600;
+}
+
 #schedule-product .sport {
   width: 100%;
 }

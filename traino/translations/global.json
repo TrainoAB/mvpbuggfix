@@ -4206,5 +4206,29 @@
     "ru": "Вы добавили пропуски в календарь!",
     "hr": "Dodali ste propusnice u kalendar!",
     "el": "Έχετε προσθέσει τις πάσες στο ημερολόγιο!"
+  },
+  "schedule_dateplaceholder": {
+    "sv": "åååå-mm-dd",
+    "en": "yyyy-mm-dd",
+    "fr": "jj/mm/aaaa",
+    "es": "dd/mm/aaaa",
+    "de": "tt.mm.jjjj",
+    "it": "gg/mm/aaaa"
+  },
+  "schedule_dateformat": {
+    "sv": "yyyy-MM-dd",
+    "en": "yyyy-MM-dd",
+    "fr": "dd/MM/yyyy",
+    "es": "dd/MM/yyyy",
+    "de": "dd.MM.yyyy",
+    "it": "dd/MM/yyyy"
+  },
+  "schedule_language": {
+    "sv": "sv",
+    "en": "en",
+    "fr": "fr",
+    "es": "es",
+    "de": "de",
+    "it": "it"
   }
 }
