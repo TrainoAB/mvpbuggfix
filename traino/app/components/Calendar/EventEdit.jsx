@@ -187,6 +187,24 @@ export default function EventEdit({
   // MARK: Delete Pass
   const handleDeletePass = (event, editIndex) => {
     // TODO: Implement database delete functions
+    fetch('https://traino.nu/php/delete_pass_set.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: event.pass_set_id,
+        user_id: event.user_id,
+      })
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        DEBUG && console.log('Response:', data);
+      })
+      .catch((error) => {
+        DEBUG && console.error('Error:', error);
+      });
+
     const promptMessage = translate('schedule_deleterepeateddayswarning');
     if (!window.confirm(promptMessage)) return;
 
