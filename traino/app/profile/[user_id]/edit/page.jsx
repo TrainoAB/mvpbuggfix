@@ -540,8 +540,9 @@ export default function Edit({ params }) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            url: `${baseUrl}/api/users/edit/education/delete?id=${id}`,
-            method: 'GET',
+            url: `${baseUrl}/api/users/edit/education/delete`,
+            method: 'POST',
+            body: JSON.stringify({id: id, user_id: userId.current}),
           }),
         });
 
