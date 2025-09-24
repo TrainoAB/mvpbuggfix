@@ -4,39 +4,28 @@ require("apikey.php");
 require("db.php");
 require_once("functions.php");
 
-validateCorsMethod(['DELETE']);
+validateCorsMethod(['POST']);
 // Session-based authentication instead of token-based
 // $apikey = API_KEY;
 // validateAuthHeader($apikey);
 
-if(isset($_GET["id"])) {
-    $id = $_GET["id"];
+// Get the raw DELETE data
+$data = json_decode(file_get_contents('php://input'), true);
 
-    // First validate session and get user info
+if(isset($data["id"]) && isset($data["user_id"])) {
+    $id = $data["id"];
+    $user_id = $data["user_id"];
+
     // $session = validateSessionID($pdo, null, false);
-    $user_id = $session['user_id'];
-
-    // Verify that the education belongs to the authenticated user
-    $checkStmt = $pdo->prepare("SELECT user_id FROM user_education WHERE id = :id");
-    $checkStmt->bindParam(':id', $id, PDO::PARAM_INT);
-    $checkStmt->execute();
-    $education = $checkStmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$education) {
-        sendJsonError("Education not found.");
-    }
-
-    if ($education['user_id'] != $user_id) {
-        sendJsonError("You don't have permission to delete this education.");
-    }
 
     // Prepare the SQL statement
-    $sql = "DELETE FROM user_education WHERE id = :id";
+    $sql = "DELETE FROM user_education WHERE id = :id AND user_id = :user_id";
 
     $stmt = $pdo->prepare($sql);
 
     // Bind parameters
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 
     // Execute the SQL statement
     if ($stmt->execute()) {
@@ -45,9 +34,10 @@ if(isset($_GET["id"])) {
             // Insert successful
             $response = [
                 "success" => "Education deleted successfully.",
-                "education_id" => $id
+                "education_id" => $id,
+                "user_id" => $user_id,
             ];
-        
+
             $pdo = null;
             sendJson($response);
         } else {

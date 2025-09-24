@@ -10,16 +10,16 @@ export const GET = apiAuth(async (req, sessionId) => {
   const cookieHeader = req.headers.xcookie || '';
 
   try {
-    const searchParams = new URL(req.url).searchParams;
-    const id = searchParams.get('id');
+    const requestBody = await req.json();
 
-    DEBUG && console.log('API/Education Delete searchParams:', searchParams);
+    DEBUG && console.log('API/Education Delete searchParams:', req.method, searchParams);
     DEBUG && console.log('API/Education Delete ID:', id);
 
     const response = await serverFetch(
-      `https://traino.nu/php/delete_education.php?id=${id}`,
+      `https://traino.nu/php/delete_education.php`,
       {
-        method: 'DELETE',
+        method: 'POST',
+        body: JSON.stringify(requestBody),
       },
       null,
       false,
