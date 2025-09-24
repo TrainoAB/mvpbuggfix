@@ -186,7 +186,7 @@ export default function EventEdit({
 
   // MARK: Delete Pass
   const handleDeletePass = (event, editIndex) => {
-    // TODO: Implement database delete functions
+    // TODO: Fix API Route - Temporary fetch
     DEBUG && console.log('Delete Pass:', event, editIndex);
     fetch('https://traino.nu/php/delete_pass_set.php', {
       method: 'POST',
