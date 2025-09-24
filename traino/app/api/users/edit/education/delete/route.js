@@ -4,7 +4,7 @@ import { serverFetch } from '@/app/api/serverfetch';
 import { DEBUG } from '@/app/api/secretcontext';
 import { apiAuth } from '@/app/api/apiauth';
 
-export const GET = apiAuth(async (req, sessionId) => {
+export const POST = apiAuth(async (req, sessionId) => {
   DEBUG && console.log('API/Education Delete Received method:', req.method);
 
   const cookieHeader = req.headers.xcookie || '';
@@ -12,8 +12,8 @@ export const GET = apiAuth(async (req, sessionId) => {
   try {
     const requestBody = await req.json();
 
-    DEBUG && console.log('API/Education Delete searchParams:', req.method, searchParams);
-    DEBUG && console.log('API/Education Delete ID:', id);
+    DEBUG && console.log('API/Education Delete searchParams:', req.method, requestBody);
+    DEBUG && console.log('API/Education Delete ID:', requestBody.id);
 
     const response = await serverFetch(
       `https://traino.nu/php/delete_education.php`,
