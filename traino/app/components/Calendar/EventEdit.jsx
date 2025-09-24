@@ -187,6 +187,7 @@ export default function EventEdit({
   // MARK: Delete Pass
   const handleDeletePass = (event, editIndex) => {
     // TODO: Implement database delete functions
+    DEBUG && console.log('Delete Pass:', event, editIndex);
     fetch('https://traino.nu/php/delete_pass_set.php', {
       method: 'POST',
       headers: {
@@ -194,7 +195,7 @@ export default function EventEdit({
       },
       body: JSON.stringify({
         id: event.pass_set_id,
-        user_id: event.user_id,
+        user_id: event.pa_userid,
       })
     })
       .then((response) => response.json())

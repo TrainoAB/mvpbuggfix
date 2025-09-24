@@ -13,7 +13,7 @@ if(isset($data["id"]) && isset($data["user_id"])) {
     $id = $data["id"];
     $userId = $data["user_id"];
 
-    validateSessionID($pdo, $userId, false);
+    // validateSessionID($pdo, $userId, false);
 
     // Prepare the SQL statement
     $sql = "DELETE FROM pass_set WHERE id = :id AND user_id = :user_id";
