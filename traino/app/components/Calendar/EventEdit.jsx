@@ -220,8 +220,8 @@ export default function EventEdit({
     let newId = generateUUID();
     const newInterval = {
       id: newId,
-      start: '00:00',
-      end: '00:00',
+      start: '',
+      end: '',
       pass_amount: 0,
     };
 
@@ -295,6 +295,9 @@ export default function EventEdit({
           // Check for duplicate before adding
           if (!editDayIntervals.some((interval) => interval.start === '00:00' && interval.end === '00:00')) {
             editDayIntervals.push(newInterval);
+
+            const newIntervalIndex = editDayIntervals.length - 1;
+            handleEditClick(editIndex, newIntervalIndex, newInterval);
           }
           return newIntervals;
         });
@@ -305,6 +308,9 @@ export default function EventEdit({
 
           if (!editDayIntervals.some((interval) => interval.start === '00:00' && interval.end === '00:00')) {
             editDayIntervals.push(newInterval);
+
+            const newIntervalIndex = editDayIntervals.length - 1;
+            handleEditClick(editIndex, newIntervalIndex, newInterval);
           }
           return newIntervals;
         });
@@ -319,6 +325,10 @@ export default function EventEdit({
   const timeStringToMinutes = (timeString) => {
     const [hours, minutes] = timeString.split(':').map(Number);
     return hours * 60 + minutes;
+  };
+
+  const isInvalidTimeRange = (start, end) => {
+    return start && end && end <= start;
   };
 
   // MARK: Input Change
@@ -430,6 +440,11 @@ export default function EventEdit({
         if (intervalIndex !== -1) {
           const newInterval = { ...currentInterval.intervals[intervalIndex], [name]: value };
 
+          if (isInvalidTimeRange(newInterval.start, newInterval.end)) {
+            alert('End time must be after start time.');
+            return prevIntervals;
+          }
+
           // Check for overlap
           if (!hasOverlap(newInterval.start, newInterval.end, interval, newIntervals, eventIndex, dayNameShort)) {
             newIntervals[eventIndex].intervals[0].intervals[intervalIndex] = newInterval;
@@ -451,6 +466,11 @@ export default function EventEdit({
         // Handle non-repeating case
         const currentInterval = newIntervals[eventIndex].intervals[index];
         const newInterval = { ...currentInterval, [name]: value };
+
+        if (isInvalidTimeRange(newInterval.start, newInterval.end)) {
+          alert('End time must be after start time.');
+          return prevIntervals;
+        }
 
         // Check for overlap
         if (!hasOverlap(newInterval.start, newInterval.end, interval, newIntervals, eventIndex, dayNameShort)) {
@@ -482,6 +502,34 @@ export default function EventEdit({
     const intervalId = interval.id;
     const newIntervalStart = interval.start;
     const newIntervalEnd = interval.end;
+
+  if (!interval.start || !interval.end) {
+    alert('Du måste ange både start- och sluttid innan du kan spara.');
+
+    // Remove the interval if it's empty to avoid saving a blank interval
+    setEditIntervals((prev) => {
+      const updated = [...prev];
+      const eventIntervals = updated[editingEventIndex]?.intervals;
+
+      if (!eventIntervals) return prev;
+
+      // Hantera både repeat och single day case
+      if (updated[editingEventIndex].isrepeat) {
+        const intervalsArray = eventIntervals[0]?.intervals;
+        if (intervalsArray) {
+          updated[editingEventIndex].intervals[0].intervals = intervalsArray.filter(i => i.id !== interval.id);
+        }
+      } else {
+        updated[editingEventIndex].intervals = eventIntervals.filter(i => i.id !== interval.id);
+      }
+
+      return updated;
+    });
+
+    return;
+  }
+  setEditingEventIndex(null);
+  setEditingIntervalIndex(null);
 
     DEBUG && console.log('Interval: ', interval);
 
