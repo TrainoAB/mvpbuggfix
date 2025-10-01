@@ -441,7 +441,7 @@ export default function EventEdit({
           const newInterval = { ...currentInterval.intervals[intervalIndex], [name]: value };
 
           if (isInvalidTimeRange(newInterval.start, newInterval.end)) {
-            alert('End time must be after start time.');
+            alert(translate('schedule_endtimebeforestarttime'));
             return prevIntervals;
           }
 
@@ -468,7 +468,7 @@ export default function EventEdit({
         const newInterval = { ...currentInterval, [name]: value };
 
         if (isInvalidTimeRange(newInterval.start, newInterval.end)) {
-          alert('End time must be after start time.');
+          alert(translate('schedule_endtimebeforestarttime'));
           return prevIntervals;
         }
 
@@ -504,7 +504,7 @@ export default function EventEdit({
     const newIntervalEnd = interval.end;
 
   if (!interval.start || !interval.end) {
-    alert('Du måste ange både start- och sluttid innan du kan spara.');
+    alert(translate('schedule_mustsetstartandendtime'));
 
     // Remove the interval if it's empty to avoid saving a blank interval
     setEditIntervals((prev) => {
