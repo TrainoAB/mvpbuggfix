@@ -65,7 +65,7 @@ export default function Category({ params }) {
   const [category, setCategory] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isMarkersLoading, setMarkersIsLoading] = useState(false); // Loading state for markers
-  const [mapProductsCount, setMapProductsCount] = useState([]);
+  const [mapProductsCount, setMapProductsCount] = useState({});
   const [mapInstance, setMapInstance] = useState(null);
   const [filteredMarkers, setFilteredMarkers] = useState([]); // Stores filtered markers
 
@@ -660,6 +660,7 @@ export default function Category({ params }) {
                   setMapInstance={setMapInstance}
                   userCenter={userCenter}
                   userZoom={userZoom}
+                  onVisibleCountsChange={setMapProductsCount}
                 />
               </div>
             </div>

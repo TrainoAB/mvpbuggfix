@@ -1,4 +1,5 @@
 // app/train/sport/Map.jsx
+'use client';
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { playSound } from '@/app/components/PlaySound';
 import { setCookie, getCookie } from '@/app/functions/functions';
@@ -28,6 +29,69 @@ function useDebounce(func, delay) {
   );
 }
 
+const DURATION_BUCKETS = ['15', '30', '60', '70'];
+const DURATION_PRODUCTS = new Set(['trainingpass', 'onlinetraining']);
+const TOTAL_ONLY_PRODUCTS = ['trainprogram', 'dietprogram', 'clipcard', 'grouptraining'];
+
+const createDurationCounts = () => ({
+  '15': 0,
+  '30': 0,
+  '60': 0,
+  '70': 0,
+});
+
+const normalizeDurationBucket = (duration) => {
+  const value = Number.parseInt(duration, 10);
+
+  if (Number.isNaN(value)) {
+    return null;
+  }
+
+  const bucket = value > 60 ? '70' : String(value);
+  return DURATION_BUCKETS.includes(bucket) ? bucket : null;
+};
+
+const buildProductCounts = (markers) => {
+  const counts = {
+    trainingpass: createDurationCounts(),
+    onlinetraining: createDurationCounts(),
+  };
+
+  TOTAL_ONLY_PRODUCTS.forEach((product) => {
+    counts[product] = { total: 0 };
+  });
+
+  markers.forEach((marker) => {
+    const productType = marker.product_type;
+
+    if (!productType) {
+      return;
+    }
+
+    if (DURATION_PRODUCTS.has(productType)) {
+      if (!counts[productType]) {
+        counts[productType] = createDurationCounts();
+      }
+
+      const bucket = normalizeDurationBucket(marker.duration);
+
+      if (!bucket) {
+        return;
+      }
+
+      counts[productType][bucket] = (counts[productType][bucket] || 0) + 1;
+    } else {
+      if (!counts[productType]) {
+        counts[productType] = { total: 0 };
+      }
+
+      counts[productType].total = (counts[productType].total || 0) + 1;
+    }
+  });
+
+  return counts;
+};
+
 export default function Map({
   mapCtx,
   filter,
@@ -40,6 +104,7 @@ export default function Map({
   setMapInstance,
   userCenter,
   userZoom,
+  onVisibleCountsChange,
 }) {
   const { DEBUG, openModal, useTranslations, language } = useAppState();
   const [allMarkers, setAllMarkers] = useState([]); // Stores all fetched markers
@@ -49,6 +114,7 @@ export default function Map({
   const [showDistances, setShowDistances] = useState(false);
   const [distanceLine, setDistanceLine] = useState(null); // For drawing lines to products
   const mapRef = useRef(null);
+  const lastVisibleCountsRef = useRef(null);
 
   const { translate } = useTranslations('global', language);
 
@@ -59,12 +125,13 @@ export default function Map({
 
   // Function to create the Supercluster instance
   useEffect(() => {
-    setSupercluster(
-      new Supercluster({
-        radius: 70, // Distance between clusters
-        maxZoom: 15, // Max zoom level for clustering
-      }),
-    );
+    const cluster = new Supercluster({
+      radius: 70, // Distance between clusters
+      maxZoom: 15, // Max zoom level for clustering
+    });
+
+    cluster.load([]); // Ensure the instance is ready before it is used
+    setSupercluster(cluster);
   }, []);
 
   useEffect(() => {
@@ -631,39 +698,66 @@ export default function Map({
 
       DEBUG && console.log('Filtered Markers within bounds:', markersWithinBounds);
 
-      // Now apply the other filters
-      let filtered = markersWithinBounds;
+      const markersMatchingCommonFilters = markersWithinBounds.filter((marker) => {
+        if (filter.gen !== '' && marker.gender !== filter.gen) {
+          return false;
+        }
+
+        if (filter.prmin !== undefined && filter.prmax !== undefined) {
+          const price = Number(marker.price);
+
+          if (!Number.isFinite(price)) {
+            return false;
+          }
+
+          if (price < filter.prmin || price > filter.prmax) {
+            return false;
+          }
+        }
+
+        return true;
+      });
+
+      const uniqueMarkersForCounts = markersMatchingCommonFilters.filter(
+        (marker, index, self) => index === self.findIndex((m) => m.id === marker.id),
+      );
+
+      if (typeof onVisibleCountsChange === 'function') {
+        const counts = buildProductCounts(uniqueMarkersForCounts);
+        const serializedCounts = JSON.stringify(counts);
+
+        if (lastVisibleCountsRef.current !== serializedCounts) {
+          lastVisibleCountsRef.current = serializedCounts;
+          onVisibleCountsChange(counts);
+        }
+      }
+
+      // Now apply the product-specific filters
+      let filtered = markersMatchingCommonFilters;
 
       if (filter.prod === 'trainingpass' || filter.prod === 'onlinetraining') {
         // Filter by both `prod` and `dura` when applicable
         const filterValue = Number(filter.dura);
         const highestFilterValue = 60;
-        const overHighestFilterValue  = 70;
+        const overHighestFilterValue = 70;
         DEBUG && console.log('Filter Value:', filterValue);
         filtered = filterValue
-          ? markersWithinBounds.filter(
-              (marker) => Number(marker.duration > highestFilterValue ? overHighestFilterValue : marker.duration) === filterValue && marker.product_type === filter.prod,
+          ? markersMatchingCommonFilters.filter(
+              (marker) =>
+                Number(marker.duration > highestFilterValue ? overHighestFilterValue : marker.duration) === filterValue &&
+                marker.product_type === filter.prod,
             )
-          : markersWithinBounds.filter((marker) => marker.product_type === filter.prod);
+          : markersMatchingCommonFilters.filter((marker) => marker.product_type === filter.prod);
       } else {
         // Filter only by `prod`
         const filterValue = filter.prod;
         DEBUG && console.log('Filter Value:', filterValue);
         filtered = filterValue
-          ? markersWithinBounds.filter((marker) => marker.product_type === filterValue)
-          : markersWithinBounds;
+          ? markersMatchingCommonFilters.filter((marker) => marker.product_type === filterValue)
+          : markersMatchingCommonFilters;
       }
 
       DEBUG && console.log('Filtered Markers:', filtered);
-      if (filter.gen !== '') {
-        filtered = filtered.filter((marker) => marker.gender === filter.gen);
-      }
-
-      if (filter.prmin !== undefined && filter.prmax !== undefined) {
-        filtered = filtered.filter((marker) => marker.price >= filter.prmin && marker.price <= filter.prmax);
-      }
-
-      DEBUG && console.log('Filtered Markers with gender and price:', filtered);
 
       // Remove duplicates based on .id
       const uniqueFilteredMarkers = filtered.filter(
@@ -675,8 +769,9 @@ export default function Map({
       // Force update by creating a new reference
       setFilteredMarkers([...uniqueFilteredMarkers]);
     },
-    [filter.dura, filter.prod, filter.gen, filter.prmin, filter.prmax],
+    [filter.dura, filter.prod, filter.gen, filter.prmin, filter.prmax, onVisibleCountsChange],
   ); // Add dependencies
+
 
   // MARK: Filter Markers
   useEffect(() => {
