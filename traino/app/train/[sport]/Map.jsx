@@ -777,9 +777,12 @@ export default function Map({
   }, [mapCtx.mapBounds]);
 
   const mapCnf = {
-    leafletTileUrlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    leafletAttribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  };
+  leafletTileUrlTemplate:
+    'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=' + process.env.NEXT_PUBLIC_STADIA_KEY,
+  leafletAttribution:
+    '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors',
+};
+
 
   // MARK: getIconClass
   const getIconClass = (product) => {
