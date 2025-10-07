@@ -10,7 +10,6 @@ import { getBaseTileConfig } from '@/app/config/mapCnf';
 
 import L from 'leaflet';
 import Supercluster from 'supercluster';
-import 'leaflet/dist/leaflet.css';
 
 // Add debounce utility function
 function useDebounce(func, delay) {
@@ -41,7 +40,8 @@ export default function Map({
   setMapInstance,
   userCenter,
   userZoom,
-  styleKey: externalStyleKey,
+  tileConfig,
+  styleKey: deprecatedStyleKey,
 }) {
   const { DEBUG, openModal, useTranslations, language } = useAppState();
   const [allMarkers, setAllMarkers] = useState([]); // Stores all fetched markers
@@ -51,17 +51,6 @@ export default function Map({
   const [showDistances, setShowDistances] = useState(false);
   const [distanceLine, setDistanceLine] = useState(null); // For drawing lines to products
   const mapRef = useRef(null);
-  const [styleKey, setStyleKey] = useState(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        return localStorage.getItem('traino:mapStyle') || 'alidade_smooth';
-      } catch (_) {
-        return 'alidade_smooth';
-      }
-    }
-    return 'alidade_smooth';
-  });
-
   const { translate } = useTranslations('global', language);
 
   // Add refs to track last operation timestamps to prevent rapid-fire operations
@@ -789,8 +778,14 @@ export default function Map({
   }, [mapCtx.mapBounds]);
 
   // Resolve tile provider configuration
-  const effectiveStyleKey = externalStyleKey || styleKey;
-  const baseTile = getBaseTileConfig(effectiveStyleKey);
+  const fallbackStyleKey = deprecatedStyleKey || tileConfig?.styleKey || 'alidade_smooth';
+  const baseTile = useMemo(() => {
+    if (tileConfig && tileConfig.url) {
+      return tileConfig;
+    }
+    return getBaseTileConfig(fallbackStyleKey);
+  }, [tileConfig, fallbackStyleKey]);
+  const tileLayerKey = `${baseTile.provider || 'custom'}-${baseTile.styleKey || fallbackStyleKey}-${baseTile.url || ''}`;
 
 
   // MARK: getIconClass
@@ -1007,7 +1002,7 @@ export default function Map({
           maxBoundsViscosity={1.0}
         >
           <TileLayer
-            key={`tile-${baseTile.provider || 'osm'}-${baseTile.styleKey || effectiveStyleKey}`}
+            key={tileLayerKey}
             url={baseTile.url}
             attribution={baseTile.attribution}
             maxZoom={baseTile.maxZoom}

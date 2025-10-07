@@ -4,8 +4,7 @@ import React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { setCookie, getCookie, deleteCookie } from '@/app/functions/functions';
 import ItemRepository from './ItemRepository.js';
-import 'leaflet/dist/leaflet.css'; // Import Leaflet CSS
-import 'leaflet/dist/leaflet.js'; // Import Leaflet JavaScript
+import L from 'leaflet';
 
 const DEBUG = process.env.NEXT_PUBLIC_DEBUG === 'true';
 
