@@ -15,6 +15,8 @@ import Image from 'next/image';
 import Map from './Map';
 import List from './List';
 import LocationInput from './LocationInput';
+import { getStadiaStyleKeysWithLabels } from '@/app/config/tileStyles';
+import { getBaseTileConfig } from '@/app/config/mapCnf';
 import Filter, { getDefaultFilter } from './Filter';
 import Navigation from '../../components/Menus/Navigation';
 import ItemRepository from './ItemRepository';
@@ -68,6 +70,16 @@ export default function Category({ params }) {
   const [mapProductsCount, setMapProductsCount] = useState([]);
   const [mapInstance, setMapInstance] = useState(null);
   const [filteredMarkers, setFilteredMarkers] = useState([]); // Stores filtered markers
+  const [styleKey, setStyleKey] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        return localStorage.getItem('traino:mapStyle') || 'alidade_smooth';
+      } catch (_) {}
+    }
+    return 'alidade_smooth';
+  });
+  const [styleMenuOpen, setStyleMenuOpen] = useState(false);
+  const styleMenuRef = useRef(null);
 
   const router = useRouter();
 
@@ -320,6 +332,29 @@ export default function Category({ params }) {
     DEBUG && console.log('Filter:', mapCtxRef.current.filter);
     setShowFilter(false);
   };
+
+  const styleOptions = getStadiaStyleKeysWithLabels();
+  const tileCfg = getBaseTileConfig(styleKey);
+  const stadiaActive = tileCfg.provider === 'stadia';
+  const handleSelectStyle = (key) => {
+    setStyleKey(key);
+    try {
+      localStorage.setItem('traino:mapStyle', key);
+    } catch (_) {}
+    setStyleMenuOpen(false);
+  };
+
+  // Close style menu on outside click
+  useEffect(() => {
+    const onDocClick = (e) => {
+      if (!styleMenuRef.current) return;
+      if (!styleMenuRef.current.contains(e.target)) {
+        setStyleMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', onDocClick);
+    return () => document.removeEventListener('mousedown', onDocClick);
+  }, []);
 
   // MARK: handleUserPosition
   const handleUserPosition = () => {
@@ -590,7 +625,54 @@ export default function Category({ params }) {
                 >
                   {filterCount > 0 && <span className="amount">{filterCount}</span>}
                 </div>
+                <div
+                  className={`btn-mapfilter btn-mapstyle${stadiaActive ? '' : ' disabled'}`}
+                  title={stadiaActive ? 'Map style' : 'Map style (Stadia disabled: using OSM fallback)'}
+                  onClick={() => {
+                    if (!stadiaActive) return;
+                    setStyleMenuOpen((v) => !v);
+                  }}
+                  ref={styleMenuRef}
+                  role="button"
+                  aria-haspopup="menu"
+                  aria-expanded={styleMenuOpen}
+                  aria-label="Map style"
+                >
+                  {styleMenuOpen && (
+                    <div
+                      className="mapstyle-panel"
+                      role="menu"
+                      onMouseDown={(e) => e.stopPropagation()}
+                      onTouchStart={(e) => e.stopPropagation()}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className="mapstyle-header">Map style</div>
+                      <ul className="mapstyle-list">
+                        {styleOptions.map(({ key, label }) => (
+                          <li key={key} role="menuitem">
+                            <button
+                              type="button"
+                              className={`mapstyle-option${styleKey === key ? ' selected' : ''}`}
+                              onClick={() => handleSelectStyle(key)}
+                            >
+                              {label}
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
               </div>
+
+              {styleMenuOpen && (
+                <div
+                  className="map-interaction-shield"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  onClick={() => setStyleMenuOpen(false)}
+                />
+              )}
 
               <div className={`categoryselectedmenu ${showList ? '' : 'phoneHide'}`}>
                 {(filter.prod === 'trainingpass' || filter.prod === 'onlinetraining') &&
@@ -660,6 +742,7 @@ export default function Category({ params }) {
                   setMapInstance={setMapInstance}
                   userCenter={userCenter}
                   userZoom={userZoom}
+                  styleKey={styleKey}
                 />
               </div>
             </div>

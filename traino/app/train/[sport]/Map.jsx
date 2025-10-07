@@ -6,6 +6,7 @@ import { getProductsBounds } from '@/app/functions/fetchDataFunctions';
 import { useAppState } from '@/app/hooks/useAppState';
 import { MapContainer, TileLayer, Marker, Polyline, useMap, useMapEvent } from 'react-leaflet';
 import AlertModal from '@/app/components/AlertModal';
+import { getBaseTileConfig } from '@/app/config/mapCnf';
 
 import L from 'leaflet';
 import Supercluster from 'supercluster';
@@ -40,6 +41,7 @@ export default function Map({
   setMapInstance,
   userCenter,
   userZoom,
+  styleKey: externalStyleKey,
 }) {
   const { DEBUG, openModal, useTranslations, language } = useAppState();
   const [allMarkers, setAllMarkers] = useState([]); // Stores all fetched markers
@@ -49,6 +51,16 @@ export default function Map({
   const [showDistances, setShowDistances] = useState(false);
   const [distanceLine, setDistanceLine] = useState(null); // For drawing lines to products
   const mapRef = useRef(null);
+  const [styleKey, setStyleKey] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        return localStorage.getItem('traino:mapStyle') || 'alidade_smooth';
+      } catch (_) {
+        return 'alidade_smooth';
+      }
+    }
+    return 'alidade_smooth';
+  });
 
   const { translate } = useTranslations('global', language);
 
@@ -776,12 +788,9 @@ export default function Map({
     DEBUG && console.log(`Saved ${cookieName} cookie with data:`, boundsData);
   }, [mapCtx.mapBounds]);
 
-  const mapCnf = {
-  leafletTileUrlTemplate:
-    'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=' + process.env.NEXT_PUBLIC_STADIA_KEY,
-  leafletAttribution:
-    '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors',
-};
+  // Resolve tile provider configuration
+  const effectiveStyleKey = externalStyleKey || styleKey;
+  const baseTile = getBaseTileConfig(effectiveStyleKey);
 
 
   // MARK: getIconClass
@@ -997,7 +1006,14 @@ export default function Map({
           maxBounds={[[ -85, -180 ], [ 85, 180 ]]}
           maxBoundsViscosity={1.0}
         >
-          <TileLayer url={mapCnf.leafletTileUrlTemplate} attribution={mapCnf.leafletAttribution} />
+          <TileLayer
+            key={`tile-${baseTile.provider || 'osm'}-${baseTile.styleKey || effectiveStyleKey}`}
+            url={baseTile.url}
+            attribution={baseTile.attribution}
+            maxZoom={baseTile.maxZoom}
+            maxNativeZoom={baseTile.maxNativeZoom}
+            detectRetina={baseTile.detectRetina}
+          />
           <MapEvents />
 
           {/* Center Marker for Distance Measurement */}
