@@ -1,4 +1,4 @@
-<?php 
+<?php
 
     // Include PHPMailer classes for sendEmail function
     require 'PHPMailer-master/src/Exception.php';
@@ -123,7 +123,7 @@ function validateCorsMethod($allowedMethods = ['GET']) {
     // Get the request origin from the headers
     $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
 
-    
+
     if ($origin === '') {
         // Om du vill, låt localhost test funka trots inget origin
          $origin = 'http://localhost:3000/'; // eller annan default du vill
@@ -166,7 +166,7 @@ function validateCorsMethod($allowedMethods = ['GET']) {
 }
 
 function validateAuthHeader($apikey) {
-    
+
     // Perform the authorization check
     $headers = apache_request_headers();
 
@@ -184,7 +184,7 @@ function validateAuthHeader($apikey) {
     if (strpos($authHeader, 'TrainoStarPower') === false) {
         http_response_code(401);
         sendJsonError('Server: Auth Header - Invalid authorization header');
-        
+
     }
 
     // Initialize token
@@ -255,15 +255,15 @@ if ($cookieuser_id != $user_id && $user_id != null) {
  /*    // Find the position of "TrainoStarPower"
     $position = strpos($authHeader, 'TrainoStarPower');
 
-    if ($position !== false) {      
+    if ($position !== false) {
         // Extract everything before "TrainoStarPower" as the session ID
         $session_id = substr($authHeader, 0, $position);
-        
+
         error_log("Extracted session_id from auth header: " . $session_id);
-        
+
         if (empty($session_id)) {
             sendJsonError('Server: Invalid Session ID - Missing session ID');
-        } 
+        }
 
     } else {
         sendJsonError('Server: Invalid Session ID - Incorrect Auth Header');
@@ -289,7 +289,7 @@ if ($cookieuser_id != $user_id && $user_id != null) {
             error_log("Looking for session_id: " . $session_id);
             error_log("Looking for user_id: " . $user_id);
             error_log("Available sessions: " . json_encode($allSessions));
-            
+
             // Also check if session exists for any user
             $checkStmt = $pdo->prepare("SELECT user_id FROM user_sessions WHERE session_id = :session_id");
             $checkStmt->bindParam(':session_id', $session_id);
@@ -300,7 +300,7 @@ if ($cookieuser_id != $user_id && $user_id != null) {
             } else {
                 error_log("Session ID does not exist in database at all");
             }
-            
+
             sendJsonError('Server: Invalid Session ID - No session found');
         }
 
@@ -311,7 +311,7 @@ if ($cookieuser_id != $user_id && $user_id != null) {
                 sendJsonError('Server: Invalid Session ID - Not admin role');
             }
         }
-        
+
         // Validate user_id if provided
         if ($user_id !== null && $session['user_id'] != $user_id) {
             sendJsonError('Server: Invalid Session ID - User ID does not match');
@@ -319,7 +319,7 @@ if ($cookieuser_id != $user_id && $user_id != null) {
 
         // Return the session data for use by calling code
         return $session;
-        
+
     } catch (PDOException $e) {
         // Handle DB connection errors
         sendJsonError("Server: Database error: " . $e->getMessage());
@@ -371,7 +371,7 @@ function validateToken($token, $key) {
         // Log detailed information about the error
         error_log("Decrypted token: " . $decryptedToken);
         error_log("Wrong format. Parts: " . json_encode($parts));
-        
+
         return false;
     }
 
@@ -403,23 +403,23 @@ function validateToken($token, $key) {
 
     // Step 1: Remove 15 characters from start
     $trimmedStart = substr($numbersOnlyToken, 15);
-    
+
     // Step 2: Remove 15 characters from end
     $trimmedEnd = substr($trimmedStart, 0, -15);
-    
+
     // Step 3: Extract first 2 digits as randomtwodigit
     $randomtwodigit = substr($trimmedEnd, 0, 2);
-    
+
     // Step 4: Remove the extracted digits to get leftoverpart
     $leftoverpart = substr($trimmedEnd, 2);
-    
+
     // Step 5: Convert to integers
     $randomtwodigit = (int) $randomtwodigit;
     $leftoverpart = (int) $leftoverpart;
-    
+
     // Step 6: Divide leftoverpart by randomtwodigit
     $result = $leftoverpart / $randomtwodigit;
-    
+
     // Step 7: Check if result equals key
     return ($result == $numbersOnlyKey);
 }
@@ -522,7 +522,7 @@ function isValidEmail($email) {
 function hashPassword($password, $salt) {
     // Hash the password with the salt using bcrypt algorithm
     $hashedPassword = password_hash($password . $salt, PASSWORD_DEFAULT);
-    
+
     return $hashedPassword;
 }
 
@@ -530,10 +530,10 @@ function hashPassword($password, $salt) {
 function verifyPassword($password, $hashedPassword, $salt) {
     // Concatenate the password and salt with a delimiter
     $passwordWithSalt = $password . $salt;
-    
+
     // Hash the input password with the provided salt
     $hashedInputPassword = password_hash($passwordWithSalt, PASSWORD_DEFAULT);
-    
+
     // Compare the hashed input password with the provided hashed password
     if (password_verify($passwordWithSalt, $hashedPassword)) {
         return true; // Passwords match
@@ -604,13 +604,13 @@ function removeUnverifiedAccount($email, $pdo, $encryptionKey)
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->bindParam(':key', $encryptionKey, PDO::PARAM_STR);
         $stmt->execute();
-        
+
         $deletedCount = $stmt->rowCount();
-        
+
         if ($deletedCount > 0) {
             error_log("Removed $deletedCount unverified account(s) for email: $email");
         }
-        
+
         return $deletedCount;
     } catch (PDOException $e) {
         // Handle database errors
@@ -699,7 +699,7 @@ function sendEmail($to, $subject, $message, $headers = "", $attachment = null) {
         return false;
     }
 
-  
+
      /* OLD WAY
     // Set additional headers
     $headers = "From: TRAINO <no-reply@traino.nu>" . "\r\n";
@@ -712,7 +712,7 @@ function sendEmail($to, $subject, $message, $headers = "", $attachment = null) {
 
 
     ini_set('max_execution_time', 2);
-    
+
     // Set SMTP settings
     ini_set("SMTP", "par1.inleed.net");
     ini_set("smtp_port", "465");
@@ -727,7 +727,7 @@ function sendEmail($to, $subject, $message, $headers = "", $attachment = null) {
     // Send the email
     return mail($to, $subject, $message, $headers);
   */
-  
+
 }
 
 
@@ -847,12 +847,12 @@ function validate_and_sanitize($input, $type) {
 function generateUniqueID() {
     $random_string = uniqid('', true); // Generate a unique identifier based on the current time with microseconds
     $random_string .= bin2hex(random_bytes(10)); // Add additional randomness
-    
+
     // Ensure the length is exactly 36 characters
     if (strlen($random_string) < 36) {
         $random_string .= bin2hex(random_bytes(36 - strlen($random_string)));
     }
-    
+
     // Trim to ensure exactly 36 characters
     return substr($random_string, 0, 36);
 }
@@ -881,7 +881,7 @@ function fetchPassData($pdo, $user_id, $trainer, $encryptionKey){
     try {
         // Get pass_set data
         $passSetQuery = "
-            SELECT 
+            SELECT
                 pa.id AS pass_set_id,
                 pa.pass_repeat_id,
                 pa.rrule,
@@ -890,13 +890,13 @@ function fetchPassData($pdo, $user_id, $trainer, $encryptionKey){
                 pa.enddate,
                 pa.intervals,
                 pa.singeldayrepeat,
-                CASE 
-                    WHEN pa.isrepeat = 0 THEN false 
-                    WHEN pa.isrepeat = 1 THEN true 
+                CASE
+                    WHEN pa.isrepeat = 0 THEN false
+                    WHEN pa.isrepeat = 1 THEN true
                 END AS isrepeat,
-                CASE 
-                    WHEN pa.autorepeat = 0 THEN false 
-                    WHEN pa.autorepeat = 1 THEN true 
+                CASE
+                    WHEN pa.autorepeat = 0 THEN false
+                    WHEN pa.autorepeat = 1 THEN true
                 END AS autorepeat,
                 pa.registered AS passcreated,
                 p.id AS productrow,
@@ -907,7 +907,7 @@ function fetchPassData($pdo, $user_id, $trainer, $encryptionKey){
                 p.price,
                 p.latitude,
                 p.longitude,
-                AES_DECRYPT(p.address, :key) AS address,
+                p.address,
                 p.type,
                 p.duration,
                 p.conversations,
@@ -917,10 +917,10 @@ function fetchPassData($pdo, $user_id, $trainer, $encryptionKey){
                 c.id AS category_id,
                 c.category_link,
                 c.category_name,
-                c.category_image               
+                c.category_image
             FROM pass_set pa
             LEFT JOIN products p ON pa.product_id = p.id
-            
+
             LEFT JOIN categories c ON p.category_id = c.id
             WHERE pa.user_id = :user_id
             AND (pa.startdate <= :ninetyDaysForward)
@@ -929,9 +929,9 @@ function fetchPassData($pdo, $user_id, $trainer, $encryptionKey){
         $passSetStmt = $pdo->prepare($passSetQuery);
         // Bind parameters using bindParam
         $passSetStmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-        $passSetStmt->bindParam(':today', $today, PDO::PARAM_STR); 
+        $passSetStmt->bindParam(':today', $today, PDO::PARAM_STR);
         $passSetStmt->bindParam(':ninetyDaysForward', $ninetyDaysForward, PDO::PARAM_STR);
-        $passSetStmt->bindParam(':key', $encryptionKey, PDO::PARAM_STR); 
+        // $passSetStmt->bindParam(':key', $encryptionKey, PDO::PARAM_STR);
 
         // Execute the statement
         $passSetStmt->execute();
@@ -960,11 +960,11 @@ function fetchPassData($pdo, $user_id, $trainer, $encryptionKey){
         if ($trainer) {
             // Get pass_booked data with join to users, products, and categories
             $passBookedQuery = "
-                SELECT pb.*, 
-                    u.firstname, 
-                    u.lastname, 
+                SELECT pb.*,
+                    u.firstname,
+                    u.lastname,
                     AES_DECRYPT(u.email, :key) AS email,
-                    u.thumbnail, 
+                    u.thumbnail,
                     u.gender,
                     pt.id AS pt_pass_id,
                     pt.product_id AS pt_product_id,
@@ -974,7 +974,7 @@ function fetchPassData($pdo, $user_id, $trainer, $encryptionKey){
                     pt.category_link AS pt_category_link,
                     pt.duration AS pt_duration,
                     pt.price AS pt_price,
-                    AES_DECRYPT(pt.address, :key) AS pt_address,
+                    pt.address AS pt_address,
                     pt.description AS pt_description,
                     pt.registered AS pt_registered,
                     pt.latitude AS pt_latitude,
@@ -991,7 +991,7 @@ function fetchPassData($pdo, $user_id, $trainer, $encryptionKey){
             $stmt = $pdo->prepare($passBookedQuery);
             // Bind parameters using bindParam
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-            $stmt->bindParam(':today', $today, PDO::PARAM_STR); 
+            $stmt->bindParam(':today', $today, PDO::PARAM_STR);
             $stmt->bindParam(':ninetyDaysForward', $ninetyDaysForward, PDO::PARAM_STR);
             $stmt->bindParam(':key', $encryptionKey, PDO::PARAM_STR);
 
