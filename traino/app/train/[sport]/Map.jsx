@@ -778,14 +778,14 @@ export default function Map({
   }, [mapCtx.mapBounds]);
 
   // Resolve tile provider configuration
-  const fallbackStyleKey = deprecatedStyleKey || tileConfig?.styleKey || 'alidade_smooth';
+  const resolvedStyleKey = deprecatedStyleKey || tileConfig?.styleKey || 'alidade_smooth';
   const baseTile = useMemo(() => {
-    if (tileConfig && tileConfig.url) {
+    if (tileConfig?.url && tileConfig.styleKey === resolvedStyleKey) {
       return tileConfig;
     }
-    return getBaseTileConfig(fallbackStyleKey);
-  }, [tileConfig, fallbackStyleKey]);
-  const tileLayerKey = `${baseTile.provider || 'custom'}-${baseTile.styleKey || fallbackStyleKey}-${baseTile.url || ''}`;
+    return getBaseTileConfig(resolvedStyleKey);
+  }, [tileConfig, resolvedStyleKey]);
+  const tileLayerKey = `${baseTile.provider || 'custom'}-${resolvedStyleKey}-${baseTile.url || ''}`;
 
 
   // MARK: getIconClass

@@ -693,6 +693,7 @@ export default function Category({ params }) {
                   userCenter={userCenter}
                   userZoom={userZoom}
                   tileConfig={tileCfg}
+                  styleKey={styleKey}
                 />
               </div>
             </div>
