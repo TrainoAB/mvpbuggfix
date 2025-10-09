@@ -20,18 +20,10 @@ A small selector appears in the top-right of the Leaflet map. It lists Stadia ra
 - Alidade Smooth Dark
 - OSM Bright
 - Outdoors
-- Stamen Toner
-- Stamen Toner Lite
-- Stamen Terrain
-- Stamen Watercolor (jpg, no retina token, max zoom 16)
 - Alidade Satellite (jpg)
 
-The choice is persisted in `localStorage` under `traino:mapStyle`.
-
-## Fallback and attribution
-
-- If provider is `stadia` but the key is missing/empty, the app falls back to OSM once and logs a console warning.
-- Attributions update automatically per style.
+If provider is `stadia` but the key is missing/empty, the app falls back to OSM once and logs a console warning.
+Attributions update automatically per style.
 
 ## EU endpoint toggle
 
