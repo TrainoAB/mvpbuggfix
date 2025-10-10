@@ -24,30 +24,9 @@ function buildStadiaUrl(path, ext, useRetinaToken) {
 
 // Exported map of styles
 export const stadiaStyles = {
-  alidade_smooth: {
-    label: 'Alidade Smooth',
-    url: buildStadiaUrl('alidade_smooth', 'png', true),
-    attribution: STADIA_ATTR_DEFAULT,
-    maxZoom: 20,
-    detectRetina: true,
-  },
-  alidade_smooth_dark: {
-    label: 'Alidade Smooth Dark',
-    url: buildStadiaUrl('alidade_smooth_dark', 'png', true),
-    attribution: STADIA_ATTR_DEFAULT,
-    maxZoom: 20,
-    detectRetina: true,
-  },
   osm_bright: {
     label: 'OSM Bright',
     url: buildStadiaUrl('osm_bright', 'png', true),
-    attribution: STADIA_ATTR_DEFAULT,
-    maxZoom: 20,
-    detectRetina: true,
-  },
-  outdoors: {
-    label: 'Outdoors',
-    url: buildStadiaUrl('outdoors', 'png', true),
     attribution: STADIA_ATTR_DEFAULT,
     maxZoom: 20,
     detectRetina: true,
