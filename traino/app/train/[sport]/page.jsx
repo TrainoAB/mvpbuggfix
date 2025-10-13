@@ -1,7 +1,7 @@
 'use client';
 // app/train/sport/page.jsx
 import React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { playSound } from '@/app/components/PlaySound';
 import { walkTime, shortenText, getCategories } from '@/app/functions/functions';
@@ -10,11 +10,13 @@ import { InformationModal } from '@/app/components/InformationModal';
 import Link from 'next/link';
 import DetailPopup from './DetailPopup';
 import ListView from './ListView';
-import CategoryMap from './CategoryMap';
 import Image from 'next/image';
 import Map from './Map';
 import List from './List';
 import LocationInput from './LocationInput';
+import MapStyleSwitcher from '@/app/components/MapStyleSwitcher';
+import { getStadiaStyleKeysWithLabels } from '@/app/config/tileStyles';
+import { getBaseTileConfig } from '@/app/config/mapCnf';
 import Filter, { getDefaultFilter } from './Filter';
 import Navigation from '../../components/Menus/Navigation';
 import ItemRepository from './ItemRepository';
@@ -25,7 +27,6 @@ import { getCookie, setCookie } from '@/app/functions/functions';
 import { getProduct, getProductsMapCount } from '@/app/functions/fetchDataFunctions.js';
 
 import 'leaflet/dist/leaflet.css'; // Import Leaflet CSS
-import 'leaflet/dist/leaflet.js'; // Import Leaflet JavaScript
 // import './leaflet.css';
 import './page.css';
 
@@ -68,6 +69,14 @@ export default function Category({ params }) {
   const [mapProductsCount, setMapProductsCount] = useState([]);
   const [mapInstance, setMapInstance] = useState(null);
   const [filteredMarkers, setFilteredMarkers] = useState([]); // Stores filtered markers
+  const [styleKey, setStyleKey] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        return localStorage.getItem('traino:mapStyle') || 'alidade_smooth';
+      } catch (_) {}
+    }
+    return 'alidade_smooth';
+  });
 
   const router = useRouter();
 
@@ -319,6 +328,18 @@ export default function Category({ params }) {
     itemRepoRef.current.setFilter(mapCtxRef.current.filter);
     DEBUG && console.log('Filter:', mapCtxRef.current.filter);
     setShowFilter(false);
+  };
+
+  const styleOptions = useMemo(() => getStadiaStyleKeysWithLabels(), []);
+  const tileCfg = useMemo(() => getBaseTileConfig(styleKey), [styleKey]);
+  const stadiaActive = tileCfg.provider === 'stadia';
+  useEffect(() => {
+    try {
+      localStorage.setItem('traino:mapStyle', styleKey);
+    } catch (_) {}
+  }, [styleKey]);
+  const handleStyleChange = (key) => {
+    setStyleKey(key);
   };
 
   // MARK: handleUserPosition
@@ -590,6 +611,17 @@ export default function Category({ params }) {
                 >
                   {filterCount > 0 && <span className="amount">{filterCount}</span>}
                 </div>
+                <MapStyleSwitcher
+                  value={styleKey}
+                  onChange={handleStyleChange}
+                  options={styleOptions}
+                  disabled={!stadiaActive}
+                  disabledReason={
+                    stadiaActive ? undefined : 'Map style unavailable: using OpenStreetMap fallback'
+                  }
+                  variant="toolbar"
+                  onMouseOver={() => playSound('tickclick', '0.5')}
+                />
               </div>
 
               <div className={`categoryselectedmenu ${showList ? '' : 'phoneHide'}`}>
@@ -647,7 +679,7 @@ export default function Category({ params }) {
                 </div>
               )}
               <div id="mapcontainer" onClick={handleMapClick}>
-                {/* React version of the map (not done) */}
+                {/* React version of the map */}
                 <Map
                   mapCtx={mapCtxRef.current}
                   filter={filter}
@@ -660,6 +692,8 @@ export default function Category({ params }) {
                   setMapInstance={setMapInstance}
                   userCenter={userCenter}
                   userZoom={userZoom}
+                  tileConfig={tileCfg}
+                  styleKey={styleKey}
                 />
               </div>
             </div>
