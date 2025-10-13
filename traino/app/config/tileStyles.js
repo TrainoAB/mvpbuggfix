@@ -1,6 +1,3 @@
-// app/config/tileStyles.js
-// Centralized catalog of Stadia raster styles and OSM fallback
-
 const STADIA_HOST_GLOBAL = 'https://tiles.stadiamaps.com';
 const STADIA_HOST_EU = 'https://tiles-eu.stadiamaps.com';
 
@@ -40,7 +37,7 @@ export const stadiaStyles = {
   },
 };
 
-// OSM fallback style
+// OSM fallback
 export const osmFallback = {
   label: 'OpenStreetMap',
   url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
