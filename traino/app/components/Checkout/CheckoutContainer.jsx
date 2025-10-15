@@ -97,9 +97,26 @@ export default function CheckoutContainer({
     }
   }, []);
 
-  const handlePaymentStart = () => {
+  const handlePaymentStart = async () => {
     setStartPayment(true);
     setOnPayment(true);
+
+    try {
+      const response = await fetch('http://localhost/create_mollie_payment.php', {
+        method: 'POST',
+      });
+
+      if (!response.ok) {
+        throw new Error('Något gick fel vid betalning');
+      }
+
+      const checkoutUrl = await response.text();
+
+      // Skicka vidare till Mollie checkout
+      window.location.href = checkoutUrl;
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   if (type === 'success') {
@@ -433,7 +450,7 @@ export default function CheckoutContainer({
       )}
 
       {/* Stripe Elements Payment Modal */}
-      {onPayment && !success && (
+      {/* {onPayment && !success && (
         <StripeElements
           onCancel={handleCloseStripeElements}
           onPaymentResult={onPaymentResult}
@@ -441,7 +458,7 @@ export default function CheckoutContainer({
           selectedProducts={newSelectedProducts}
           setPaymentIntentId={setPaymentIntentId}
         />
-      )}
+      )} */}
 
       {!startPayment && (
         <>
