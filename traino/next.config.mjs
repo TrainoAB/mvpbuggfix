@@ -40,16 +40,12 @@ const nextConfig = {
       );
     }
 
-    // Add a rule to handle MP3 files
+    // Add a rule to handle MP3 files using Webpack 5's native asset modules
     config.module.rules.push({
       test: /\.mp3$/,
-      use: {
-        loader: 'file-loader',
-        options: {
-          name: '[name].[hash].[ext]',
-          outputPath: 'static/media/',
-          publicPath: '/_next/static/media/',
-        },
+      type: 'asset/resource',
+      generator: {
+        filename: 'static/media/[name].[hash][ext]',
       },
     });
 
