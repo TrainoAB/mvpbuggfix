@@ -1,7 +1,7 @@
 'use client';
 // app/train/sport/page.jsx
 import React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { playSound } from '@/app/components/PlaySound';
 import { walkTime, shortenText, getCategories } from '@/app/functions/functions';
@@ -10,11 +10,13 @@ import { InformationModal } from '@/app/components/InformationModal';
 import Link from 'next/link';
 import DetailPopup from './DetailPopup';
 import ListView from './ListView';
-import CategoryMap from './CategoryMap';
 import Image from 'next/image';
 import Map from './Map';
 import List from './List';
 import LocationInput from './LocationInput';
+import MapStyleSwitcher from '@/app/components/MapStyleSwitcher';
+import { getStadiaStyleKeysWithLabels } from '@/app/config/tileStyles';
+import { getBaseTileConfig } from '@/app/config/mapCnf';
 import Filter, { getDefaultFilter } from './Filter';
 import Navigation from '../../components/Menus/Navigation';
 import ItemRepository from './ItemRepository';
@@ -25,7 +27,6 @@ import { getCookie, setCookie } from '@/app/functions/functions';
 import { getProduct, getProductsMapCount } from '@/app/functions/fetchDataFunctions.js';
 
 import 'leaflet/dist/leaflet.css'; // Import Leaflet CSS
-import 'leaflet/dist/leaflet.js'; // Import Leaflet JavaScript
 // import './leaflet.css';
 import './page.css';
 
@@ -68,6 +69,14 @@ export default function Category({ params }) {
   const [mapProductsCount, setMapProductsCount] = useState({});
   const [mapInstance, setMapInstance] = useState(null);
   const [filteredMarkers, setFilteredMarkers] = useState([]); // Stores filtered markers
+  const [styleKey, setStyleKey] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        return localStorage.getItem('traino:mapStyle') || 'alidade_smooth';
+      } catch (_) {}
+    }
+    return 'alidade_smooth';
+  });
 
   const router = useRouter();
 
@@ -132,62 +141,60 @@ export default function Category({ params }) {
   }, [params?.sport]);
 
   useEffect(() => {
-    if (!sessionObject?.token && sessionObject.token === null) return; // Vänta tills token är satt
+    if (!sessionObject?.token) return;
+    const categoryId = mapCtxRef.current?.filter?.cat;
+    if (!categoryId || categoryId <= 0) return;
 
-    const fetchData2 = async () => {
+    const fetchCounts = async () => {
       try {
-        setIsLoading(true); // Startar loading
-
-        // TODO: DENNA ÄR FEL, visar 0, när den ska vara tex 14?
-        const categoryId = mapCtxRef.current.filter.cat;
-
-        const mapProductCount = await getProductsMapCount(categoryId);
-
-        DEBUG && console.log('Map product count:', mapProductCount);
-        setMapProductsCount(mapProductCount);
-
-        // Auto-select duration with items if current selection has zero items
-        const currentProduct = mapCtxRef.current.filter.prod;
-        const currentDuration = mapCtxRef.current.filter.dura;
-
-        if (
-          (currentProduct === 'trainingpass' || currentProduct === 'onlinetraining') &&
-          mapProductCount &&
-          mapProductCount[currentProduct] &&
-          typeof mapProductCount[currentProduct] === 'object'
-        ) {
-          const productCounts = mapProductCount[currentProduct];
-          const currentCount = productCounts[currentDuration] || 0;
-
-          // If current duration has zero items, find first duration with items
-          if (currentCount === 0) {
-            const durationsWithItems = Object.entries(productCounts)
-              .filter(([key, value]) => value > 0)
-              .sort(([a], [b]) => {
-                // Sort by duration: 15, 30, 60, 70 (Over 60)
-                const order = { 15: 1, 30: 2, 60: 3, 70: 4 };
-                return (order[a] || 999) - (order[b] || 999);
-              });
-
-            if (durationsWithItems.length > 0) {
-              const newDuration = durationsWithItems[0][0];
-              DEBUG &&
-                console.log(
-                  `Auto-selecting duration ${newDuration} (${durationsWithItems[0][1]} items) instead of ${currentDuration} (0 items)`,
-                );
-              updateFilterValue('dura', newDuration);
-            }
-          }
-        }
+        setIsLoading(true);
+        const counts = await getProductsMapCount(categoryId);
+        DEBUG && console.log('Map product count (category-level):', counts);
+        setMapProductsCount(counts);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching map counts:', error);
       } finally {
-        setIsLoading(false); // Avslutar loading
+        setIsLoading(false);
       }
     };
 
-    fetchData2();
-  }, [params?.sport, sessionObject, sessionObject?.token]);
+    fetchCounts();
+  }, [params?.sport, sessionObject?.token]);
+
+  // Auto-select duration whenever counts change (from API or visible map update)
+  useEffect(() => {
+    const currentProduct = mapCtxRef.current.filter.prod;
+    const currentDuration = mapCtxRef.current.filter.dura;
+
+    if (
+      (currentProduct === 'trainingpass' || currentProduct === 'onlinetraining') &&
+      mapProductsCount &&
+      mapProductsCount[currentProduct] &&
+      typeof mapProductsCount[currentProduct] === 'object'
+    ) {
+      const productCounts = mapProductsCount[currentProduct];
+      const currentCount = productCounts[currentDuration] || 0;
+
+      if (currentCount === 0) {
+        const durationsWithItems = Object.entries(productCounts)
+          .filter(([key, value]) => value > 0)
+          .sort(([a], [b]) => {
+            const order = { 15: 1, 30: 2, 60: 3, 70: 4 };
+            return (order[a] || 999) - (order[b] || 999);
+          });
+
+        if (durationsWithItems.length > 0) {
+          const newDuration = durationsWithItems[0][0];
+          DEBUG &&
+            console.log(
+              `Auto-selecting duration ${newDuration} (${durationsWithItems[0][1]} items) instead of ${currentDuration} (0 items)`,
+            );
+          updateFilterValue('dura', newDuration);
+        }
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mapProductsCount, mapCtxRef.current?.filter?.prod, mapCtxRef.current?.filter?.dura]);
 
   useEffect(() => {
     if (!mapCtxRef.current.mapBounds) {
@@ -319,6 +326,18 @@ export default function Category({ params }) {
     itemRepoRef.current.setFilter(mapCtxRef.current.filter);
     DEBUG && console.log('Filter:', mapCtxRef.current.filter);
     setShowFilter(false);
+  };
+
+  const styleOptions = useMemo(() => getStadiaStyleKeysWithLabels(), []);
+  const tileCfg = useMemo(() => getBaseTileConfig(styleKey), [styleKey]);
+  const stadiaActive = tileCfg.provider === 'stadia';
+  useEffect(() => {
+    try {
+      localStorage.setItem('traino:mapStyle', styleKey);
+    } catch (_) {}
+  }, [styleKey]);
+  const handleStyleChange = (key) => {
+    setStyleKey(key);
   };
 
   // MARK: handleUserPosition
@@ -590,6 +609,17 @@ export default function Category({ params }) {
                 >
                   {filterCount > 0 && <span className="amount">{filterCount}</span>}
                 </div>
+                <MapStyleSwitcher
+                  value={styleKey}
+                  onChange={handleStyleChange}
+                  options={styleOptions}
+                  disabled={!stadiaActive}
+                  disabledReason={
+                    stadiaActive ? undefined : 'Map style unavailable: using OpenStreetMap fallback'
+                  }
+                  variant="toolbar"
+                  onMouseOver={() => playSound('tickclick', '0.5')}
+                />
               </div>
 
               <div className={`categoryselectedmenu ${showList ? '' : 'phoneHide'}`}>
@@ -647,7 +677,7 @@ export default function Category({ params }) {
                 </div>
               )}
               <div id="mapcontainer" onClick={handleMapClick}>
-                {/* React version of the map (not done) */}
+                {/* React version of the map */}
                 <Map
                   mapCtx={mapCtxRef.current}
                   filter={filter}
@@ -661,6 +691,8 @@ export default function Category({ params }) {
                   userCenter={userCenter}
                   userZoom={userZoom}
                   onVisibleCountsChange={setMapProductsCount}
+                  tileConfig={tileCfg}
+                  styleKey={styleKey}
                 />
               </div>
             </div>

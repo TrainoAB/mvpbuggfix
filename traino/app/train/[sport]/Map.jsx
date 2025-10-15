@@ -7,10 +7,10 @@ import { getProductsBounds } from '@/app/functions/fetchDataFunctions';
 import { useAppState } from '@/app/hooks/useAppState';
 import { MapContainer, TileLayer, Marker, Polyline, useMap, useMapEvent } from 'react-leaflet';
 import AlertModal from '@/app/components/AlertModal';
+import { getBaseTileConfig } from '@/app/config/mapCnf';
 
 import L from 'leaflet';
 import Supercluster from 'supercluster';
-import 'leaflet/dist/leaflet.css';
 
 // Add debounce utility function
 function useDebounce(func, delay) {
@@ -105,6 +105,8 @@ export default function Map({
   userCenter,
   userZoom,
   onVisibleCountsChange,
+  tileConfig,
+  styleKey: deprecatedStyleKey,
 }) {
   const { DEBUG, openModal, useTranslations, language } = useAppState();
   const [allMarkers, setAllMarkers] = useState([]); // Stores all fetched markers
@@ -115,7 +117,7 @@ export default function Map({
   const [distanceLine, setDistanceLine] = useState(null); // For drawing lines to products
   const mapRef = useRef(null);
   const lastVisibleCountsRef = useRef(null);
-
+ 
   const { translate } = useTranslations('global', language);
 
   // Add refs to track last operation timestamps to prevent rapid-fire operations
@@ -871,10 +873,16 @@ export default function Map({
     DEBUG && console.log(`Saved ${cookieName} cookie with data:`, boundsData);
   }, [mapCtx.mapBounds]);
 
-  const mapCnf = {
-    leafletTileUrlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    leafletAttribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  };
+  // Resolve tile provider configuration
+  const resolvedStyleKey = deprecatedStyleKey || tileConfig?.styleKey || 'alidade_smooth';
+  const baseTile = useMemo(() => {
+    if (tileConfig?.url && tileConfig.styleKey === resolvedStyleKey) {
+      return tileConfig;
+    }
+    return getBaseTileConfig(resolvedStyleKey);
+  }, [tileConfig, resolvedStyleKey]);
+  const tileLayerKey = `${baseTile.provider || 'custom'}-${resolvedStyleKey}-${baseTile.url || ''}`;
+
 
   // MARK: getIconClass
   const getIconClass = (product) => {
@@ -1089,7 +1097,14 @@ export default function Map({
           maxBounds={[[ -85, -180 ], [ 85, 180 ]]}
           maxBoundsViscosity={1.0}
         >
-          <TileLayer url={mapCnf.leafletTileUrlTemplate} attribution={mapCnf.leafletAttribution} />
+          <TileLayer
+            key={tileLayerKey}
+            url={baseTile.url}
+            attribution={baseTile.attribution}
+            maxZoom={baseTile.maxZoom}
+            maxNativeZoom={baseTile.maxNativeZoom}
+            detectRetina={baseTile.detectRetina}
+          />
           <MapEvents />
 
           {/* Center Marker for Distance Measurement */}

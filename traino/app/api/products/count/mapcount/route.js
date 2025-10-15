@@ -14,7 +14,7 @@ export const GET = apiAuth(async (req, sessionId) => {
 
   DEBUG && console.log('API/Products/Mapcount GET searchParams:', searchParams);
   DEBUG && console.log('API/Products/Mapcount GET URL:', apiUrl);
-  const cookieHeader = req.headers.xcookie || '';
+  const cookieHeader = req.headers.get('xcookie') || '';
   try {
     const data = await serverFetch(
       apiUrl.toString(),
