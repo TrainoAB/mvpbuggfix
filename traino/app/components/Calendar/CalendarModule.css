@@ -216,6 +216,10 @@
   height: 2rem;
 }
 
+#calendar-container .canceled-event {
+ filter: grayscale(1) opacity(0.6);
+}
+
 #calendar-container .rbc-event-label {
   position: absolute;
   font-weight: bold;
@@ -225,7 +229,7 @@
 #calendar-container .rbc-time-content .rbc-event-label {
   position: relative;
 }
-/* 
+/*
 #calendar-container .rbc-btn-group button:nth-child(1) {
   background-image: url('../../assets/icon-calendar-today.svg');
   background-size: 1.75rem;

@@ -194,6 +194,7 @@ const convertBookedPass = (pass) => {
     end: moment(`${pass.booked_date} ${pass.endtime}`, 'YYYY-MM-DD HH:mm').toDate(),
     isbooked: true,
     ispause: pass ? pass.ispause : 0,
+    canceled: pass ? pass.canceled : 0,
     pass_id: pass ? pass.pass_id : undefined,
     product_type: prod ? prod.product_type : undefined,
     trainer_id: pass ? pass.trainer_id : undefined,

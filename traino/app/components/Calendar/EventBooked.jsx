@@ -3,7 +3,7 @@ import { formatTimeRange } from '@/app/functions/functions';
 
 export default function EventBooked({ selectedEvent, onClose }) {
   const { DEBUG, useTranslations, language } = useAppState();
-  const { translate } = useTranslations('calendar', language);
+  const { translate } = useTranslations('schedule', language);
 
   DEBUG && console.log('Booked Event:', selectedEvent);
 
@@ -32,7 +32,7 @@ export default function EventBooked({ selectedEvent, onClose }) {
         <div></div>
       </div>
       <div className="calendardetailsscroll">
-        <div className="contain">
+        <div className= {`contain ${selectedEvent.canceled ? 'canceled-event' : ''}`}>
           <div className="categoryimage">
             <div className="info">
               <h2>{selectedEvent.category_name}</h2>
@@ -62,6 +62,7 @@ export default function EventBooked({ selectedEvent, onClose }) {
               </a>
             </div>
             <p className="description">{selectedEvent.description}</p>
+            {selectedEvent.canceled === 1 && <p className="canceled-pass">{translate('schedule_canceledpass', language)}</p>}
           </div>
         </div>
       </div>
