@@ -73,10 +73,8 @@ if (isset($_GET["id"])) {
                     break;
                 case 'user_about':
                     $user_about = validate_and_sanitize($value, "text");
-                    if ($user_about !== null) {
-                        $sqlParts[] = "user_about = :user_about";
-                        $params[':user_about'] = $user_about;
-                    }
+                    $sqlParts[] = "user_about = :user_about";
+                    $params[':user_about'] = $user_about;
                     break;
                 case 'alias':
                     $alias = validate_and_sanitize($value, "alias");

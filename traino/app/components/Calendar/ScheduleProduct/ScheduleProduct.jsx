@@ -388,12 +388,14 @@ export default function ScheduleProduct({ latest = false, user_id }) {
     setSchedule((prevSchedule) => {
       const updatedSchedule = { ...prevSchedule };
       const newIntervalType = `newInterval${type.charAt(0).toUpperCase() + type.slice(1)}`;
+      const currentIntervals = updatedSchedule.passes[sportIndex].intervals;
 
-      // Update the new interval value
-      updatedSchedule.passes[sportIndex].intervals[newIntervalType] = value;
+      // Temporary store the new value
+      const tempIntervals = { ...currentIntervals, [newIntervalType]: value };
 
       // Check if the new interval is valid
-      const { newIntervalStart, newIntervalEnd } = updatedSchedule.passes[sportIndex].intervals;
+      const { newIntervalStart, newIntervalEnd } = tempIntervals;
+
       if (newIntervalStart && newIntervalEnd) {
         // Ensure end time is not before start time
         if (newIntervalEnd < newIntervalStart) {
@@ -414,6 +416,7 @@ export default function ScheduleProduct({ latest = false, user_id }) {
         }
       }
 
+      updatedSchedule.passes[sportIndex].intervals[newIntervalType] = value;
       return updatedSchedule;
     });
   };
@@ -426,8 +429,6 @@ export default function ScheduleProduct({ latest = false, user_id }) {
 
       // Check if start and end times are not empty
       if (!newIntervalStart || !newIntervalEnd) {
-        updatedSchedule.passes[sportIndex].intervals.newIntervalStart = '';
-        updatedSchedule.passes[sportIndex].intervals.newIntervalEnd = '';
         alert(translate('schedule_mustsetstartandendtime'));
         return prevSchedule; // Do not update schedule if validation fails
       }
