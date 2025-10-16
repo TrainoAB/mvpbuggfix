@@ -204,7 +204,6 @@ export default function LoginModal({ isOpen, onClose, onLoginSuccess, loginModal
   const handleLoginClick = async (event) => {
     event.preventDefault();
     const passwordtrim = password.trim();
-    DEBUG && console.log('Email: ', email, 'Password: ', passwordtrim);
     setLoading(true);
 
     try {
@@ -245,7 +244,6 @@ export default function LoginModal({ isOpen, onClose, onLoginSuccess, loginModal
 
       if (data.error) {
         console.error(`Login failed. ${data.error}`);
-        DEBUG && console.log(`Credentials: ${email} ${passwordtrim}`);
 
         // Handle specific case of unverified user
         if (data.error === 'User not verified') {

@@ -66,7 +66,7 @@ export default function Category({ params }) {
   const [category, setCategory] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isMarkersLoading, setMarkersIsLoading] = useState(false); // Loading state for markers
-  const [mapProductsCount, setMapProductsCount] = useState([]);
+  const [mapProductsCount, setMapProductsCount] = useState({});
   const [mapInstance, setMapInstance] = useState(null);
   const [filteredMarkers, setFilteredMarkers] = useState([]); // Stores filtered markers
   const [styleKey, setStyleKey] = useState(() => {
@@ -141,62 +141,60 @@ export default function Category({ params }) {
   }, [params?.sport]);
 
   useEffect(() => {
-    if (!sessionObject?.token && sessionObject.token === null) return; // Vänta tills token är satt
+    if (!sessionObject?.token) return;
+    const categoryId = mapCtxRef.current?.filter?.cat;
+    if (!categoryId || categoryId <= 0) return;
 
-    const fetchData2 = async () => {
+    const fetchCounts = async () => {
       try {
-        setIsLoading(true); // Startar loading
-
-        // TODO: DENNA ÄR FEL, visar 0, när den ska vara tex 14?
-        const categoryId = mapCtxRef.current.filter.cat;
-
-        const mapProductCount = await getProductsMapCount(categoryId);
-
-        DEBUG && console.log('Map product count:', mapProductCount);
-        setMapProductsCount(mapProductCount);
-
-        // Auto-select duration with items if current selection has zero items
-        const currentProduct = mapCtxRef.current.filter.prod;
-        const currentDuration = mapCtxRef.current.filter.dura;
-
-        if (
-          (currentProduct === 'trainingpass' || currentProduct === 'onlinetraining') &&
-          mapProductCount &&
-          mapProductCount[currentProduct] &&
-          typeof mapProductCount[currentProduct] === 'object'
-        ) {
-          const productCounts = mapProductCount[currentProduct];
-          const currentCount = productCounts[currentDuration] || 0;
-
-          // If current duration has zero items, find first duration with items
-          if (currentCount === 0) {
-            const durationsWithItems = Object.entries(productCounts)
-              .filter(([key, value]) => value > 0)
-              .sort(([a], [b]) => {
-                // Sort by duration: 15, 30, 60, 70 (Over 60)
-                const order = { 15: 1, 30: 2, 60: 3, 70: 4 };
-                return (order[a] || 999) - (order[b] || 999);
-              });
-
-            if (durationsWithItems.length > 0) {
-              const newDuration = durationsWithItems[0][0];
-              DEBUG &&
-                console.log(
-                  `Auto-selecting duration ${newDuration} (${durationsWithItems[0][1]} items) instead of ${currentDuration} (0 items)`,
-                );
-              updateFilterValue('dura', newDuration);
-            }
-          }
-        }
+        setIsLoading(true);
+        const counts = await getProductsMapCount(categoryId);
+        DEBUG && console.log('Map product count (category-level):', counts);
+        setMapProductsCount(counts);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching map counts:', error);
       } finally {
-        setIsLoading(false); // Avslutar loading
+        setIsLoading(false);
       }
     };
 
-    fetchData2();
-  }, [params?.sport, sessionObject, sessionObject?.token]);
+    fetchCounts();
+  }, [params?.sport, sessionObject?.token]);
+
+  // Auto-select duration whenever counts change (from API or visible map update)
+  useEffect(() => {
+    const currentProduct = mapCtxRef.current.filter.prod;
+    const currentDuration = mapCtxRef.current.filter.dura;
+
+    if (
+      (currentProduct === 'trainingpass' || currentProduct === 'onlinetraining') &&
+      mapProductsCount &&
+      mapProductsCount[currentProduct] &&
+      typeof mapProductsCount[currentProduct] === 'object'
+    ) {
+      const productCounts = mapProductsCount[currentProduct];
+      const currentCount = productCounts[currentDuration] || 0;
+
+      if (currentCount === 0) {
+        const durationsWithItems = Object.entries(productCounts)
+          .filter(([key, value]) => value > 0)
+          .sort(([a], [b]) => {
+            const order = { 15: 1, 30: 2, 60: 3, 70: 4 };
+            return (order[a] || 999) - (order[b] || 999);
+          });
+
+        if (durationsWithItems.length > 0) {
+          const newDuration = durationsWithItems[0][0];
+          DEBUG &&
+            console.log(
+              `Auto-selecting duration ${newDuration} (${durationsWithItems[0][1]} items) instead of ${currentDuration} (0 items)`,
+            );
+          updateFilterValue('dura', newDuration);
+        }
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mapProductsCount, mapCtxRef.current?.filter?.prod, mapCtxRef.current?.filter?.dura]);
 
   useEffect(() => {
     if (!mapCtxRef.current.mapBounds) {
@@ -692,6 +690,7 @@ export default function Category({ params }) {
                   setMapInstance={setMapInstance}
                   userCenter={userCenter}
                   userZoom={userZoom}
+                  onVisibleCountsChange={setMapProductsCount}
                   tileConfig={tileCfg}
                   styleKey={styleKey}
                 />

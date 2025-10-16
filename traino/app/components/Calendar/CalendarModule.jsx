@@ -39,7 +39,7 @@ const getUserLanguage = () => {
   return language.startsWith('sv') ? 'sv' : 'en';
 };
 
- Get language from users browser 
+ Get language from users browser
 // Set the locale based on the user's language
 const userLanguage = getUserLanguage();
 moment.locale(language);
@@ -49,7 +49,7 @@ moment.locale(language);
 
   const localizer = momentLocalizer(moment);
 
-  /* If u want to get the language from users browsers 
+  /* If u want to get the language from users browsers
   useEffect(() => {
     // Change the locale dynamically if needed
     moment.locale(userLanguage);
@@ -96,7 +96,7 @@ moment.locale(language);
     return (
       <div>
         {event.isbooked ? (
-          <div className="booked-event">
+          <div className={event.canceled ? "canceled-event booked-event" : "booked-event"}>
             {event.ispause !== 1 ? <i className="icon-booked"></i> : <span>Pause</span>}
           </div>
         ) : (
