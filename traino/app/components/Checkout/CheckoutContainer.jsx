@@ -104,6 +104,13 @@ export default function CheckoutContainer({
     try {
       const response = await fetch('http://localhost/create_mollie_payment.php', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // 🔹 Säger att vi skickar JSON-data
+        },
+        body: JSON.stringify({
+          selectedProducts, // 🔹 Skickar med produkterna som kunden valt (ex: [{name: 'Kaffe', price: 15}])
+          totalCost, // 🔹 Skickar med totalbeloppet som kunden ska betala (ex: 19.95)
+        }),
       });
 
       if (!response.ok) {
