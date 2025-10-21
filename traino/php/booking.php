@@ -201,8 +201,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $existingTx = $existsTx->fetch(PDO::FETCH_ASSOC);
 
     if (!$existingTx) {
-        $sql_transactions = "INSERT INTO transactions (trainee_id, product_id, trainer_id, booked_date, endtime, productinfo, price, payment_intent_id)
-            VALUES (:trainee_id, :product_id, :trainer_id, :booked_date, :endtime, :productinfo, :price, :payment_intent_id)";
+        // Calculate 85/15 split for payout tracking
+        $grossAmount = $price; // Full amount paid by customer (in öre)
+        $trainerAmount = round($price * 0.85); // 85% to trainer
+        $platformFee = round($price * 0.15); // 15% to platform
+        
+        $sql_transactions = "INSERT INTO transactions (
+            trainee_id, product_id, trainer_id, booked_date, endtime, productinfo, price, payment_intent_id,
+            gross_amount, trainer_amount, platform_fee, payout_status
+        ) VALUES (
+            :trainee_id, :product_id, :trainer_id, :booked_date, :endtime, :productinfo, :price, :payment_intent_id,
+            :gross_amount, :trainer_amount, :platform_fee, 'pending'
+        )";
 
         // Prepare the statement
         $stmt2 = $pdo->prepare($sql_transactions);
@@ -216,6 +226,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt2->bindParam(':endtime', $datetime_formatted, PDO::PARAM_STR);
         $stmt2->bindParam(':price', $price, PDO::PARAM_INT);
         $stmt2->bindParam(':payment_intent_id', $payment_intent_id, PDO::PARAM_STR);
+        // Bind payout tracking parameters
+        $stmt2->bindParam(':gross_amount', $grossAmount, PDO::PARAM_INT);
+        $stmt2->bindParam(':trainer_amount', $trainerAmount, PDO::PARAM_INT);
+        $stmt2->bindParam(':platform_fee', $platformFee, PDO::PARAM_INT);
 
         // Execute the statement
         $stmt2->execute();

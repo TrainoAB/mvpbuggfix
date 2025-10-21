@@ -36,8 +36,13 @@ export async function POST(request) {
     DEBUG;
     const priceDetails = await stripe.prices.retrieve(priceId);
     const amount = priceDetails.unit_amount; // Assuming the price is in the smallest currency unit (e.g., cents for USD)
-    const applicationFeeAmount = Math.round(amount * 0.15); // Calculate 15% application fee
-    DEBUG && console.log('applicationFeeAmount', applicationFeeAmount);
+
+    // Calculate 85/15 split for payout tracking
+    const grossAmount = amount; // Full amount paid by customer
+    const trainerAmount = Math.round(grossAmount * 0.85); // 85% to trainer
+    const platformFee = Math.round(grossAmount * 0.15); // 15% to platform
+
+    DEBUG && console.log('Payment split:', { grossAmount, trainerAmount, platformFee });
     console.log('product type', product_type);
 
     // TEMP: Force automatic capture to ensure funds move
@@ -45,16 +50,13 @@ export async function POST(request) {
     const captureMethod = 'automatic';
     DEBUG && console.log(`Product type: ${product_type}, Capture method forced to: ${captureMethod}`);
 
-    // Create a Payment Intent with conditional capture method
+    // Create a Payment Intent - 100% of funds stay in Traino account
+    // Trainer payout will be processed separately via Stripe Transfers API
     const paymentIntent = await stripe.paymentIntents.create(
       {
         amount: amount,
         currency: currency,
         capture_method: captureMethod, // Temporarily automatic
-        application_fee_amount: applicationFeeAmount, // Set the application fee amount
-        transfer_data: {
-          destination: trainerStripeId, // Use the fetched trainer's Stripe ID
-        },
         metadata: {
           priceId: priceId, // Include it here for reference
           product_id: product_id,
@@ -62,6 +64,10 @@ export async function POST(request) {
           category_link: category_link,
           product_type: product_type,
           user_id: user_id,
+          // Store split amounts for payout tracking
+          trainer_amount: trainerAmount.toString(),
+          platform_fee: platformFee.toString(),
+          trainer_stripe_id: trainerStripeId, // Store for later payout
         },
       },
       idempotencyKey ? { idempotencyKey } : undefined,
