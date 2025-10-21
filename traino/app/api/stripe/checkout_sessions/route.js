@@ -62,12 +62,13 @@ export async function POST(request) {
       locale: 'sv',
       customer_email: customerEmail,
       payment_intent_data: {
-        capture_method: 'manual', // Set capture method to manual to delay the transfer
+        // TEMP: Force automatic capture to ensure funds move
+        // TODO: Revisit manual capture flow with cron after session completion
+        capture_method: 'automatic',
         application_fee_amount: applicationFeeAmount, // Set the application fee amount
         metadata: { product_id, product: JSON.stringify(requestBody) },
         transfer_data: {
-          destination: 'acct_1Q0Pr6PYX6nA2EAv', // Replace with the connected account ID
-          // desitnation: trainerStripeId,
+          destination: trainerStripeId,
         },
       },
     });

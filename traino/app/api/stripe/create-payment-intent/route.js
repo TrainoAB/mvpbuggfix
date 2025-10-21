@@ -7,7 +7,7 @@ export async function POST(request) {
   try {
     const requestBody = await request.json();
     DEBUG && console.log('Request body', requestBody);
-    const { priceId, metadata, currency } = requestBody;
+    const { priceId, metadata, currency, idempotencyKey } = requestBody;
 
     DEBUG && console.log('Request body', requestBody);
 
@@ -40,30 +40,32 @@ export async function POST(request) {
     DEBUG && console.log('applicationFeeAmount', applicationFeeAmount);
     console.log('product type', product_type);
 
-    // Determine capture method based on product type
-    const shouldAutoCapture = product_type === 'dietprogram' || product_type === 'trainprogram';
-    const captureMethod = shouldAutoCapture ? 'automatic' : 'manual';
-
-    DEBUG && console.log(`Product type: ${product_type}, Capture method: ${captureMethod}`);
+    // TEMP: Force automatic capture to ensure funds move
+    // TODO: Revisit manual capture flow with cron after session completion
+    const captureMethod = 'automatic';
+    DEBUG && console.log(`Product type: ${product_type}, Capture method forced to: ${captureMethod}`);
 
     // Create a Payment Intent with conditional capture method
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount,
-      currency: currency,
-      capture_method: captureMethod, // Automatic for diet/train programs, manual for others
-      application_fee_amount: applicationFeeAmount, // Set the application fee amount
-      transfer_data: {
-        destination: trainerStripeId, // Use the fetched trainer's Stripe ID
+    const paymentIntent = await stripe.paymentIntents.create(
+      {
+        amount: amount,
+        currency: currency,
+        capture_method: captureMethod, // Temporarily automatic
+        application_fee_amount: applicationFeeAmount, // Set the application fee amount
+        transfer_data: {
+          destination: trainerStripeId, // Use the fetched trainer's Stripe ID
+        },
+        metadata: {
+          priceId: priceId, // Include it here for reference
+          product_id: product_id,
+          trainer_id: trainer_id,
+          category_link: category_link,
+          product_type: product_type,
+          user_id: user_id,
+        },
       },
-      metadata: {
-        priceId: priceId, // Include it here for reference
-        product_id: product_id,
-        trainer_id: trainer_id,
-        category_link: category_link,
-        product_type: product_type,
-        user_id: user_id,
-      },
-    });
+      idempotencyKey ? { idempotencyKey } : undefined,
+    );
 
     return new Response(
       JSON.stringify({

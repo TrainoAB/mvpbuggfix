@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Elements, PaymentElement, PaymentRequestButtonElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
 import { loadStripe } from '@stripe/stripe-js';
+import { getStripe } from '@/app/api/stripe/connect';
 import { DEBUG, baseUrl } from '../../functions/functions';
 import Loader from '../Loader';
 
@@ -15,6 +16,13 @@ const stripePromise = loadStripe(publishableKey);
 export default function StripeElements({ onCancel, onPaymentResult, selectedProducts, amount, setPaymentIntentId }) {
   const [clientSecret, setClientSecret] = useState('');
   const [modalLoading, setModalLoading] = useState(true);
+  const [idempotencyKey] = useState(() => {
+    try {
+      return crypto.randomUUID();
+    } catch {
+      return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    }
+  });
 
   // Create a payment intent on the server
   useEffect(() => {
@@ -27,6 +35,7 @@ export default function StripeElements({ onCancel, onPaymentResult, selectedProd
         currency: selectedProducts.currency,
         priceId: selectedProducts.priceId,
         customerEmail: selectedProducts.user_email,
+        idempotencyKey,
         metadata: {
           priceId: selectedProducts.priceId,
           product_id: selectedProducts.product_id,
