@@ -8,7 +8,6 @@
 -- This migration adds columns to track the 85/15 split and payout status
 -- Compatible with MySQL 5.7+ and MariaDB 10.2+
 
-USE s98399_traino_live;
 
 -- =====================================================
 -- STEP 1: Add payout tracking columns to transactions table

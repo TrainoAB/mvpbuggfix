@@ -49,7 +49,7 @@ export async function POST(request) {
     // Calculate 85/15 split for payout tracking
     const grossAmount = amount; // Full amount paid by customer
     const trainerAmount = Math.round(grossAmount * 0.85); // 85% to trainer
-    const platformFee = Math.round(grossAmount * 0.15); // 15% to platform
+    const platformFee = grossAmount - trainerAmount; // Ensure split sums to grossAmount
 
     DEBUG && console.log('Payment split:', { grossAmount, trainerAmount, platformFee });
 

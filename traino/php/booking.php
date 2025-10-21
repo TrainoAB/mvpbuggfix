@@ -204,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Calculate 85/15 split for payout tracking
         $grossAmount = $price; // Full amount paid by customer (in öre)
         $trainerAmount = round($price * 0.85); // 85% to trainer
-        $platformFee = round($price * 0.15); // 15% to platform
+        $platformFee = $price - $trainerAmount; // Remainder to platform, ensures sum equals price
         
         $sql_transactions = "INSERT INTO transactions (
             trainee_id, product_id, trainer_id, booked_date, endtime, productinfo, price, payment_intent_id,
