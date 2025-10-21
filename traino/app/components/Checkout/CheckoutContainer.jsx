@@ -8,7 +8,7 @@ import { useAppState } from '@/app/hooks/useAppState';
 import { addBoughtProduct, addBooking } from '../../functions/fetchDataFunctions';
 
 import { set } from 'date-fns';
-import { stripePromise } from '../../api/stripe/connect';
+// Note: Client components should use getStripe() where needed; not used here.
 
 import StripeElements from './StripeElements';
 import CheckoutReceipt from './CheckoutReceipt';

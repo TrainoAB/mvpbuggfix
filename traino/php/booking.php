@@ -3,6 +3,11 @@ require_once("encryptkey.php");
 require_once("apikey.php");
 require_once("db.php");
 require_once("functions.php");
+require 'vendor/autoload.php';
+// Try to load Stripe secret key from local include (deployment-specific) or env var
+if (file_exists(__DIR__ . '/stripekey.php')) {
+    require_once("stripekey.php");
+}
 
 validateCorsMethod(['POST']);
 $apikey = API_KEY;
@@ -39,6 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // $stripe_order_id = validate_and_sanitize($data['stripe_order_id'], "text");
 
         $payment_intent_id = validate_and_sanitize($data['booking']['payment_intent_id'], "text");
+        if (empty($payment_intent_id)) {
+            http_response_code(400);
+            sendJsonError("Missing payment_intent_id");
+        }
   
 
         // $rrule = json_encode($data['booking']['rrule'], true);
@@ -60,6 +69,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $booked_date = $newdatestart->format('Y-m-d');
         $starttime = $newdatestart->format('H:i:s');
         $endtime = $newdateend->format('H:i:s');
+
+        // Verify payment with Stripe before making any DB mutations
+        try {
+            $stripeSecret = null;
+            if (defined('STRIPE_KEY')) {
+                $stripeSecret = STRIPE_KEY;
+            } elseif (getenv('STRIPE_SECRET_KEY')) {
+                $stripeSecret = getenv('STRIPE_SECRET_KEY');
+            }
+            if (!$stripeSecret) {
+                http_response_code(500);
+                sendJsonError('Stripe secret key not configured on server');
+            }
+
+            \Stripe\Stripe::setApiKey($stripeSecret);
+            $pi = \Stripe\PaymentIntent::retrieve($payment_intent_id);
+
+            if (!$pi || !isset($pi->status)) {
+                http_response_code(400);
+                sendJsonError('Unable to verify payment status');
+            }
+
+            if ($pi->status !== 'succeeded') {
+                // Only allow booking creation if funds have settled
+                http_response_code(402); // Payment Required
+                sendJsonError('Payment not completed. Current status: ' . $pi->status);
+            }
+        } catch (\Stripe\Exception\ApiErrorException $e) {
+            http_response_code(400);
+            sendJsonError('Stripe API error: ' . $e->getMessage());
+        } catch (Exception $e) {
+            http_response_code(500);
+            sendJsonError('Unexpected error during payment verification: ' . $e->getMessage());
+        }
+
+        // Idempotency/deduplication: if this payment_intent_id already booked, return success
+        try {
+            $dupCheck = $pdo->prepare("SELECT id FROM pass_booked WHERE payment_intent_id = :pid LIMIT 1");
+            $dupCheck->bindParam(':pid', $payment_intent_id, PDO::PARAM_STR);
+            $dupCheck->execute();
+            $existing = $dupCheck->fetch(PDO::FETCH_ASSOC);
+            if ($existing) {
+                // Already processed booking for this payment intent
+                sendJson(['success' => true, 'message' => 'Booking already exists for this payment', 'booking_id' => $existing['id']]);
+            }
+        } catch (PDOException $e) {
+            http_response_code(500);
+            sendJsonError('Database error during idempotency check: ' . $e->getMessage());
+        }
 
         // Check for overlapping bookings - improved validation
         // This query finds any existing bookings that would overlap with the new booking
@@ -124,8 +182,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // $stmt->bindParam(':stripe_order_id', $stripe_order_id, PDO::PARAM_STR);
         $stmt->bindParam(':payment_intent_id', $payment_intent_id, PDO::PARAM_STR);
 
-        // Execute the statement
-        $stmt->execute();
+    // Execute the statement
+    $stmt->execute();
 
         $datetime_combined = $booked_date . ' ' . $endtime;
 
@@ -136,9 +194,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $datetime_formatted = $datetime->format('Y-m-d H:i:s'); // Ensures correct format
 
-       // Prepare SQL statement
-        $sql_transactions = "INSERT INTO transactions (trainee_id, product_id, trainer_id, booked_date, endtime, productinfo, price, payment_intent_id)
-                VALUES (:trainee_id, :product_id, :trainer_id, :booked_date, :endtime, :productinfo, :price, :payment_intent_id)";
+       // Prepare SQL statement for transactions, with idempotency guard
+    $existsTx = $pdo->prepare("SELECT id FROM transactions WHERE payment_intent_id = :pid LIMIT 1");
+    $existsTx->bindParam(':pid', $payment_intent_id, PDO::PARAM_STR);
+    $existsTx->execute();
+    $existingTx = $existsTx->fetch(PDO::FETCH_ASSOC);
+
+    if (!$existingTx) {
+        // Calculate 85/15 split for payout tracking
+        $grossAmount = $price; // Full amount paid by customer (in öre)
+        $trainerAmount = round($price * 0.85); // 85% to trainer
+        $platformFee = $price - $trainerAmount; // Remainder to platform, ensures sum equals price
+        
+        $sql_transactions = "INSERT INTO transactions (
+            trainee_id, product_id, trainer_id, booked_date, endtime, productinfo, price, payment_intent_id,
+            gross_amount, trainer_amount, platform_fee, payout_status
+        ) VALUES (
+            :trainee_id, :product_id, :trainer_id, :booked_date, :endtime, :productinfo, :price, :payment_intent_id,
+            :gross_amount, :trainer_amount, :platform_fee, 'pending'
+        )";
 
         // Prepare the statement
         $stmt2 = $pdo->prepare($sql_transactions);
@@ -152,9 +226,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt2->bindParam(':endtime', $datetime_formatted, PDO::PARAM_STR);
         $stmt2->bindParam(':price', $price, PDO::PARAM_INT);
         $stmt2->bindParam(':payment_intent_id', $payment_intent_id, PDO::PARAM_STR);
+        // Bind payout tracking parameters
+        $stmt2->bindParam(':gross_amount', $grossAmount, PDO::PARAM_INT);
+        $stmt2->bindParam(':trainer_amount', $trainerAmount, PDO::PARAM_INT);
+        $stmt2->bindParam(':platform_fee', $platformFee, PDO::PARAM_INT);
 
         // Execute the statement
         $stmt2->execute();
+    }
 
         // Update the categories table to increment the bought column
         $sql3 = "UPDATE categories SET bought = bought + 1 WHERE category_link = :category_link";
@@ -200,7 +279,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         MVH<br>
         <strong>TRAINO</strong>";
 
-        sendEmail($traineremail, $subject, $message, $headers = []);
+    sendEmail($traineremail, $subject, $message, $headers = []);
 
         // Send success response
         $response = ['success' => true, 'message' => "Booking saved successfully."];

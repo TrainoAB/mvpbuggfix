@@ -45,8 +45,13 @@ export async function POST(request) {
     DEBUG && console.log('Price details:', priceDetails);
 
     const amount = priceDetails.unit_amount;
-    const applicationFeeAmount = Math.round(amount * 0.15);
-    DEBUG && console.log('Amount:', amount, 'Application Fee:', applicationFeeAmount);
+
+    // Calculate 85/15 split for payout tracking
+    const grossAmount = amount; // Full amount paid by customer
+    const trainerAmount = Math.round(grossAmount * 0.85); // 85% to trainer
+    const platformFee = grossAmount - trainerAmount; // Ensure split sums to grossAmount
+
+    DEBUG && console.log('Payment split:', { grossAmount, trainerAmount, platformFee });
 
     const session = await stripe.checkout.sessions.create({
       line_items: [
@@ -62,12 +67,17 @@ export async function POST(request) {
       locale: 'sv',
       customer_email: customerEmail,
       payment_intent_data: {
-        capture_method: 'manual', // Set capture method to manual to delay the transfer
-        application_fee_amount: applicationFeeAmount, // Set the application fee amount
-        metadata: { product_id, product: JSON.stringify(requestBody) },
-        transfer_data: {
-          destination: 'acct_1Q0Pr6PYX6nA2EAv', // Replace with the connected account ID
-          // desitnation: trainerStripeId,
+        // TEMP: Force automatic capture to ensure funds move
+        // TODO: Revisit manual capture flow with cron after session completion
+        capture_method: 'automatic',
+        metadata: {
+          product_id,
+          product: JSON.stringify(requestBody),
+          trainer_id: trainer_id,
+          // Store split amounts for payout tracking
+          trainer_amount: trainerAmount.toString(),
+          platform_fee: platformFee.toString(),
+          trainer_stripe_id: trainerStripeId, // Store for later payout
         },
       },
     });

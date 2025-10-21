@@ -3,7 +3,6 @@ require('dotenv').config();
 const requiredEnvVars = [
   'NEXT_PUBLIC_STRIPE_SECRET_KEY',
   'NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY',
-  'NEXT_PUBLIC_STRIPE_WEBHOOK_SECRET',
   'NEXT_PUBLIC_API_KEY',
   'NEXT_PUBLIC_AWS_ACCESS_KEY_ID',
   'NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY',
@@ -13,6 +12,8 @@ const requiredEnvVars = [
   'NEXT_PUBLIC_DEVELOPMENT_MODE',
   'NEXT_PUBLIC_BASE_URL',
   'STRIPE_SECRET_KEY',
+  // Webhook secret must be server-only; do not expose client-side
+  'STRIPE_WEBHOOK_SECRET',
   'SERVER_SECRET',
   'API_KEY',
   'PASSWORD',
