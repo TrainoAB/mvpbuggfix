@@ -58,13 +58,12 @@ export async function POST(request) {
         currency: currency,
         capture_method: captureMethod, // Temporarily automatic
         metadata: {
-          priceId: priceId, // Include it here for reference
+          priceId: priceId,
           product_id: product_id,
           trainer_id: trainer_id,
           category_link: category_link,
           product_type: product_type,
           user_id: user_id,
-          // Store split amounts for payout tracking
           trainer_amount: trainerAmount.toString(),
           platform_fee: platformFee.toString(),
           trainer_stripe_id: trainerStripeId, // Store for later payout
