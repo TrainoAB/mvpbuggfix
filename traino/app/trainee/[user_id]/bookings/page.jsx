@@ -268,7 +268,7 @@ export default function Bookings({ params }) {
               },
               body: JSON.stringify({
                 paymentIntentId: booking.payment_intent_id,
-                booked_date: booking.booked_date,
+                booked_date: booking.date,
                 starttime: booking.starttime,
                 reason: reason || 'requested_by_customer',
               }),
