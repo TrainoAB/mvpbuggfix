@@ -136,7 +136,8 @@ try {
         payment_intent_id VARCHAR(255) NULL,
         user_deleted TINYINT(1) NOT NULL DEFAULT 0,
         INDEX idx_userid (user_id),
-        INDEX idx_product_id (product_id)
+        INDEX idx_product_id (product_id),
+        UNIQUE INDEX idx_pass_booked_payment_intent_id (payment_intent_id)
     ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
      $pdo->exec("CREATE TABLE IF NOT EXISTS pass_set (
@@ -232,9 +233,21 @@ try {
         receipt_url VARCHAR(255) NULL,
         productinfo LONGTEXT NULL,
         price INT(30) NULL,
+        gross_amount INT NULL COMMENT 'Full amount paid by customer in öre (100 öre = 1 SEK)',
+        trainer_amount INT NULL COMMENT '85% of gross amount owed to trainer in öre',
+        platform_fee INT NULL COMMENT '15% platform fee in öre',
+        payout_status ENUM('pending', 'processing', 'completed', 'failed') DEFAULT 'pending' COMMENT 'Status of trainer payout',
+        stripe_transfer_id VARCHAR(255) NULL COMMENT 'Stripe Transfer ID when funds are paid out to trainer',
+        payout_date DATETIME NULL COMMENT 'Date and time when trainer payout was completed',
+        idempotency_key VARCHAR(255) NULL,
         email VARCHAR(255) NULL,
         booked_date VARCHAR(255) NULL,
-        created_date DATETIME DEFAULT CURRENT_TIMESTAMP
+        created_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE INDEX idx_transactions_payment_intent_id (payment_intent_id),
+        UNIQUE INDEX idx_transactions_idempotency_key (idempotency_key),
+        INDEX idx_payout_status_trainer (payout_status, trainer_id, status),
+        INDEX idx_stripe_transfer (stripe_transfer_id),
+        INDEX idx_payout_date (payout_date)
     ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
     $pdo->exec("CREATE TABLE IF NOT EXISTS users (
