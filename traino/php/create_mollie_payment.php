@@ -42,7 +42,7 @@ $payment = $mollie->payments->create([
     ],
     "description" => $description,
     "redirectUrl" => "https://localhost:3000/",
-    "webhookUrl" => "https://webshop.example.org/payments/webhook/",
+    "webhookUrl" => "https://favorably-unsenescent-mekhi.ngrok-free.dev",
     "metadata" => [
         "order_id" => uniqid("order_"), // Valfri metadata
        "products" => $products, // Valfri metadata
