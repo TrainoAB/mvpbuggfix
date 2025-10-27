@@ -59,7 +59,7 @@ $sql = "
 	INNER JOIN users u ON t.trainer_id = u.id
 	WHERE t.payout_status = 'pending'
 	  AND t.status = 'completed'
-	  AND t.created_date <= :cutoff
+	  AND t.booked_date <= :cutoff
 	  AND u.stripe_id IS NOT NULL
 	  AND u.stripe_id != ''
 	GROUP BY t.trainer_id, u.firstname, u.lastname, u.email, u.stripe_id
