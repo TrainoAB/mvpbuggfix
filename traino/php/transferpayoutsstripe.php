@@ -1,6 +1,6 @@
 <?php
 /**
- * Auto Stripe Transfer
+ * Transfer pending payouts to trainers via Stripe Transfers.
  *
  * Intended to be run from the command line by cron on the 28th of each month.
  * - Finds pending payouts (transactions with payout_status='pending' and status='completed')
@@ -13,9 +13,6 @@
  * Notes:
  * - Uses the Stripe PHP library (composer autoload in php/vendor/autoload.php).
  * - Reads Stripe API key from environment variable STRIPE_SECRET_KEY.
- * - If MARKPAYOUTS_URL and API_KEY env vars are set, the script will attempt to POST to
- *   markpayoutscompleted.php (best-effort). Regardless, the DB is updated directly to
- *   ensure the transactions are marked.
  */
 
 // Run only from CLI
