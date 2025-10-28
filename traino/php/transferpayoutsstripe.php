@@ -3,8 +3,8 @@
  * Transfer pending payouts to trainers via Stripe Transfers.
  *
  * Intended to be run from the command line by cron on the 28th of each month.
- * - Finds pending payouts (transactions with payout_status='pending' and status='completed')
- *   where the transaction created_date is on or before the 27th of the current month.
+ * - Finds pending payouts (transactions with payout_status='pending')
+ *   where the transaction booked_date is on or before the 27th of the current month.
  * - Groups transactions by trainer, sums trainer_amount and sends a Stripe Transfer to the
  *   trainer's connected Stripe account (users.stripe_id).
  * - Marks the affected transactions as completed (payout_status='completed') and sets
@@ -41,9 +41,8 @@ if (!$force && $todayDay !== 28) {
 	fwrite(STDOUT, "Skipping run because today is not the 28th. Use --force to override.\n");
 	exit(0);
 }
-
-// Cutoff: include transactions created on or before the 27th of the current month (end of day)
-$cutoff = date('Y-m-27 23:59:59');
+// Cutoff: include transactions created before the 27th of the current month (end of day)
+$cutoff = date('Y-m-27 00:00:00');
 
 // Prepare query: group pending payouts by trainer
 $sql = "
@@ -58,7 +57,6 @@ $sql = "
 	FROM transactions t
 	INNER JOIN users u ON t.trainer_id = u.id
 	WHERE t.payout_status = 'pending'
-	  AND t.status = 'completed'
 	  AND t.booked_date <= :cutoff
 	  AND u.stripe_id IS NOT NULL
 	  AND u.stripe_id != ''
@@ -105,13 +103,13 @@ foreach ($payoutGroups as $group) {
 	}
 
 	// Idempotency key: month and trainer to reduce duplicate transfers on retries
-	$idempotencyKey = sprintf('payout_%s_trainer_%s', date('Y_m'), $trainerId);
+	$idempotencyKey = sprintf('payout_%s_trainer_%s_%s', date('Y_m'), $trainerId, $totalOwed);
 
 	try {
 		// Create transfer to connected account
 		$transfer = $stripeClient->transfers->create([
 			'amount' => $totalOwed,
-			'currency' => 'sek',
+			'currency' => 'SEK',
 			'destination' => $trainerStripeId,
 			'description' => "Traino payout for trainer {$trainerId} - " . date('Y-m-d'),
 		], [ 'idempotency_key' => $idempotencyKey ]);
