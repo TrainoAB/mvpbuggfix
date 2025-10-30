@@ -4,10 +4,13 @@ import { playSound } from '@/app/components/PlaySound';
 import { useAppState } from '@/app/hooks/useAppState';
 import UploadModule from './UploadModule/UploadModule';
 import Loader from '@/app/components/Loader';
+import { updateYtId } from '../lib/actions/profile';
+import { usePathname } from 'next/navigation';
 
 import './EditCoverImage.css';
 
 export default function EditCoverImage({ data, onClose, uploaded, onDelete, deleteLoading }) {
+  const pathname = usePathname();
   const [loading, setLoading] = useState(false);
   const [youtubeid, setYoutubeid] = useState(data.youtube_id || ''); // Store the extracted YouTube ID
   const [youtubehelp, setYoutubehelp] = useState(false);
@@ -42,26 +45,11 @@ export default function EditCoverImage({ data, onClose, uploaded, onDelete, dele
 
   const handleSave = async () => {
     setLoading(true);
+
     try {
-      const response = await fetch(`${baseUrl}/api/proxy`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${sessionObject.token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          url: `${baseUrl}/api/users/edit/youtube`,
-          method: 'POST',
-          body: JSON.stringify({ id: userData.current.id, youtube_id: youtubeid }),
-        }),
-      });
+      const data = await updateYtId(youtubeid, pathname, userData, baseUrl, sessionObject);
 
-      if (!response.ok) {
-        setLoading(false);
-        throw new Error('Failed to update youtube link');
-      }
-
-      const data = await response.json();
+      setLoading(false);
       playSound('success', '0.5');
       onClose(false);
     } catch (error) {
