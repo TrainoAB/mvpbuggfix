@@ -5,12 +5,10 @@ import { useAppState } from '@/app/hooks/useAppState';
 import UploadModule from './UploadModule/UploadModule';
 import Loader from '@/app/components/Loader';
 import { updateYtId } from '../lib/actions/profile';
-import { usePathname } from 'next/navigation';
 
 import './EditCoverImage.css';
 
 export default function EditCoverImage({ data, onClose, uploaded, onDelete, deleteLoading }) {
-  const pathname = usePathname();
   const [loading, setLoading] = useState(false);
   const [youtubeid, setYoutubeid] = useState(data.youtube_id || ''); // Store the extracted YouTube ID
   const [youtubehelp, setYoutubehelp] = useState(false);
@@ -47,7 +45,7 @@ export default function EditCoverImage({ data, onClose, uploaded, onDelete, dele
     setLoading(true);
 
     try {
-      const data = await updateYtId(youtubeid, pathname, userData, baseUrl, sessionObject);
+      const data = await updateYtId(youtubeid, userData, baseUrl, sessionObject);
 
       setLoading(false);
       playSound('success', '0.5');

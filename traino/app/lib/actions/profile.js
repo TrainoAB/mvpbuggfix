@@ -1,7 +1,7 @@
 'use server';
-import { revalidatePath } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 
-export const updateYtId = async (youtubeid, path, userData, baseUrl, sessionObject) => {
+export const updateYtId = async (youtube_id, userData, baseUrl, sessionObject) => {
   const response = await fetch(`${baseUrl}/api/proxy`, {
     method: 'POST',
     headers: {
@@ -11,7 +11,7 @@ export const updateYtId = async (youtubeid, path, userData, baseUrl, sessionObje
     body: JSON.stringify({
       url: `${baseUrl}/api/users/edit/youtube`,
       method: 'POST',
-      body: JSON.stringify({ id: userData.current.id, youtube_id: youtubeid }),
+      body: JSON.stringify({ id: userData.current.id, youtube_id }),
     }),
   });
 
@@ -21,8 +21,10 @@ export const updateYtId = async (youtubeid, path, userData, baseUrl, sessionObje
 
   const data = await response.json();
 
-  revalidatePath(path);
+  revalidateTag('user-details');
+
   return data;
 };
 
 // pi7GrzVQi8c
+// 1S6GXfZMGFw
