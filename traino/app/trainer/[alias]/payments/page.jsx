@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { use } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { Header } from '../../../components/Header';
 import { Header_DisplayButton } from '../../../components/Header_DisplayButton';
@@ -117,6 +117,9 @@ export default function Payments({ params }) {
           if (data && typeof data === 'string' && data !== 'null') {
             DEBUG && console.log('Valid Stripe ID fetched:', data);
             setStripeId(data);
+
+            DEBUG && console.log('Calling updateStripeAccount...');
+            await updateStripeAccount(userData.current.id);
           } else {
             DEBUG && console.log('No valid Stripe ID found:', data);
             setStripeId(null);
@@ -140,6 +143,24 @@ export default function Payments({ params }) {
 
     fetchStripeId();
   }, [isLoggedin?.current, userData?.current?.id, sessionObject?.token]);
+
+  const updateStripeAccount = async (userId) => {
+    DEBUG && console.log('Updating stripe_account for user ID HHHHHHHHH:', userId);
+    try {
+      const response = await fetch(`https://traino.nu/php/changeuserstripestatus.php`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ trainer_id: userId }),
+      });
+
+      const data = await response.json();
+      DEBUG && console.log('Stripe account update response:', data);
+    } catch (error) {
+      DEBUG && console.log('Error updating stripe account:', error);
+    }
+  };
 
   // Handle Stripe redirect completion
   useEffect(() => {
