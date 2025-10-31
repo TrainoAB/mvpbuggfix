@@ -35,8 +35,17 @@ import { getProductsCount, getProducts } from '@/app/functions/fetchDataFunction
 import './ProfileTrainer.css';
 
 export default function ProfileTrainer({ alias, nav = true }) {
-  const { DEBUG, useTranslations, language, isLoggedin, userData, sessionObject, baseUrl, traincategories } =
-    useAppState();
+  const {
+    DEBUG,
+    userDataVersion,
+    useTranslations,
+    language,
+    isLoggedin,
+    userData,
+    sessionObject,
+    baseUrl,
+    traincategories,
+  } = useAppState();
   const [loading, setLoading] = useState(true);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
@@ -641,8 +650,12 @@ export default function ProfileTrainer({ alias, nav = true }) {
                     {userDetails &&
                     userDetails.youtube_id !== null &&
                     userDetails.youtube_id !== undefined &&
-                    userDetails.youtube_id !== '' ? (
-                      <YoutubeCoverVideo videoId={userDetails.youtube_id} uniqueKey={99} />
+                    userDetails.youtube_id !== '' &&
+                    userData.current.youtube_id !== '' ? (
+                      <YoutubeCoverVideo
+                        videoId={userData.current.youtube_id ?? userDetails.youtube_id}
+                        uniqueKey={userDataVersion}
+                      />
                     ) : (
                       hasCover && (
                         <>

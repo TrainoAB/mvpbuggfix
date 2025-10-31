@@ -75,6 +75,12 @@ export const UserContextProvider = ({ children, sessionObjectCtx }) => {
   const userID = useRef(null);
   const isLoggedin = useRef(false);
   const userData = useRef(null);
+  const [userDataVersion, setUserDataVersion] = useState(0);
+
+  const updateUserData = (newData) => {
+    userData.current = newData;
+    setUserDataVersion((v) => v + 1); // trigger re-render of any consumers
+  };
 
   const timeoutIdRef = useRef(null);
 
@@ -184,6 +190,8 @@ export const UserContextProvider = ({ children, sessionObjectCtx }) => {
         setKeepLoggedIn,
         contextDataLoaded,
         setContextDataLoaded,
+        userDataVersion,
+        updateUserData,
       }}
     >
       {children}

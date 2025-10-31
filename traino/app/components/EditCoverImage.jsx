@@ -13,7 +13,7 @@ export default function EditCoverImage({ data, onClose, uploaded, onDelete, dele
   const [youtubeid, setYoutubeid] = useState(data.youtube_id || ''); // Store the extracted YouTube ID
   const [youtubehelp, setYoutubehelp] = useState(false);
   const [changeImage, setChangeImage] = useState(false);
-  const { DEBUG, userData, baseUrl, sessionObject, useTranslations, language } = useAppState();
+  const { DEBUG, userData, updateUserData, baseUrl, sessionObject, useTranslations, language } = useAppState();
 
   const { translate } = useTranslations('edit', language);
 
@@ -46,6 +46,12 @@ export default function EditCoverImage({ data, onClose, uploaded, onDelete, dele
 
     try {
       const data = await updateYtId(youtubeid, userData, baseUrl, sessionObject);
+
+      // assuming the API returns the updated user object:
+      if (data) {
+        updateUserData({ ...userData.current, youtube_id: youtubeid });
+        setYoutubeid(youtubeid);
+      }
 
       setLoading(false);
       playSound('success', '0.5');
@@ -84,6 +90,7 @@ export default function EditCoverImage({ data, onClose, uploaded, onDelete, dele
             <div className="input-group">
               <label htmlFor="">{translate('edit_youtubelink', language)}</label>
               <input
+                key={youtubeid || `${Math.random()}`}
                 type="text"
                 placeholder={translate('edit_youtubelink', language)}
                 value={`https://youtu.be/${youtubeid}`}
