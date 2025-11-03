@@ -8,7 +8,7 @@ import { updateYtId } from '../lib/actions/profile';
 
 import './EditCoverImage.css';
 
-export default function EditCoverImage({ data, onClose, uploaded, onDelete, deleteLoading }) {
+export default function EditCoverImage({ data, onClose, updateCover, uploaded, onDelete, deleteLoading }) {
   const [loading, setLoading] = useState(false);
   const [youtubeid, setYoutubeid] = useState(data.youtube_id || ''); // Store the extracted YouTube ID
   const [youtubehelp, setYoutubehelp] = useState(false);
@@ -51,6 +51,7 @@ export default function EditCoverImage({ data, onClose, uploaded, onDelete, dele
       if (data) {
         updateUserData({ ...userData.current, youtube_id: youtubeid });
         setYoutubeid(youtubeid);
+        updateCover(youtubeid);
       }
 
       setLoading(false);

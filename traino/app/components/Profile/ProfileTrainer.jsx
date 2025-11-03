@@ -49,6 +49,7 @@ export default function ProfileTrainer({ alias, nav = true }) {
   const [loading, setLoading] = useState(true);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
+  const [ytId, setYtId] = useState(null);
   const [display, setDisplay] = useState('steg1');
   const [modal, setModal] = useState('closed');
   const [selectedSport, setSelectedSport] = useState(null);
@@ -201,6 +202,7 @@ export default function ProfileTrainer({ alias, nav = true }) {
 
         // Set user details state
         setUserDetails(userDetails);
+        setYtId(userDetails.youtube_id);
         const alias = userDetails.alias;
 
         let data = null;
@@ -533,6 +535,7 @@ export default function ProfileTrainer({ alias, nav = true }) {
               <EditCoverImage
                 data={userDetails}
                 onClose={closeEditCoverImageModal}
+                updateCover={setYtId}
                 hasCover={hasCover}
                 onDelete={async () => {
                   setDeleteLoading(true);
@@ -647,15 +650,8 @@ export default function ProfileTrainer({ alias, nav = true }) {
                           )}
                         </>
                       )}
-                    {userDetails &&
-                    userDetails.youtube_id !== null &&
-                    userDetails.youtube_id !== undefined &&
-                    userDetails.youtube_id !== '' &&
-                    userData.current.youtube_id !== '' ? (
-                      <YoutubeCoverVideo
-                        videoId={userData.current.youtube_id ?? userDetails.youtube_id}
-                        uniqueKey={userDataVersion}
-                      />
+                    {ytId && ytId !== null && ytId !== undefined && ytId !== '' ? (
+                      <YoutubeCoverVideo videoId={ytId} uniqueKey={userDataVersion} />
                     ) : (
                       hasCover && (
                         <>
