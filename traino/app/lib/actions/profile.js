@@ -25,6 +25,3 @@ export const updateYtId = async (youtube_id, userData, baseUrl, sessionObject) =
 
   return data;
 };
-
-// pi7GrzVQi8c
-// 1S6GXfZMGFw
