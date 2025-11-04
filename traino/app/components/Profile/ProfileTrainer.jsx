@@ -35,11 +35,21 @@ import { getProductsCount, getProducts } from '@/app/functions/fetchDataFunction
 import './ProfileTrainer.css';
 
 export default function ProfileTrainer({ alias, nav = true }) {
-  const { DEBUG, useTranslations, language, isLoggedin, userData, sessionObject, baseUrl, traincategories } =
-    useAppState();
+  const {
+    DEBUG,
+    userDataVersion,
+    useTranslations,
+    language,
+    isLoggedin,
+    userData,
+    sessionObject,
+    baseUrl,
+    traincategories,
+  } = useAppState();
   const [loading, setLoading] = useState(true);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
+  const [ytId, setYtId] = useState(null);
   const [display, setDisplay] = useState('steg1');
   const [modal, setModal] = useState('closed');
   const [selectedSport, setSelectedSport] = useState(null);
@@ -192,6 +202,7 @@ export default function ProfileTrainer({ alias, nav = true }) {
 
         // Set user details state
         setUserDetails(userDetails);
+        setYtId(userDetails.youtube_id);
         const alias = userDetails.alias;
 
         let data = null;
@@ -523,7 +534,9 @@ export default function ProfileTrainer({ alias, nav = true }) {
             {editCoverImageModal && userDetails && (
               <EditCoverImage
                 data={userDetails}
+                setData={setUserDetails}
                 onClose={closeEditCoverImageModal}
+                updateCover={setYtId}
                 hasCover={hasCover}
                 onDelete={async () => {
                   setDeleteLoading(true);
@@ -638,11 +651,8 @@ export default function ProfileTrainer({ alias, nav = true }) {
                           )}
                         </>
                       )}
-                    {userDetails &&
-                    userDetails.youtube_id !== null &&
-                    userDetails.youtube_id !== undefined &&
-                    userDetails.youtube_id !== '' ? (
-                      <YoutubeCoverVideo videoId={userDetails.youtube_id} uniqueKey={99} />
+                    {ytId && ytId !== null && ytId !== undefined && ytId !== '' ? (
+                      <YoutubeCoverVideo videoId={ytId} uniqueKey={userDataVersion} />
                     ) : (
                       hasCover && (
                         <>

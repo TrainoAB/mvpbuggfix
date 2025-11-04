@@ -4,15 +4,16 @@ import { playSound } from '@/app/components/PlaySound';
 import { useAppState } from '@/app/hooks/useAppState';
 import UploadModule from './UploadModule/UploadModule';
 import Loader from '@/app/components/Loader';
+import { updateYtId } from '../lib/actions/profile';
 
 import './EditCoverImage.css';
 
-export default function EditCoverImage({ data, onClose, uploaded, onDelete, deleteLoading }) {
+export default function EditCoverImage({ data, setData, onClose, updateCover, uploaded, onDelete, deleteLoading }) {
+  const { DEBUG, userData, updateUserData, baseUrl, sessionObject, useTranslations, language } = useAppState();
   const [loading, setLoading] = useState(false);
   const [youtubeid, setYoutubeid] = useState(data.youtube_id || ''); // Store the extracted YouTube ID
   const [youtubehelp, setYoutubehelp] = useState(false);
   const [changeImage, setChangeImage] = useState(false);
-  const { DEBUG, userData, baseUrl, sessionObject, useTranslations, language } = useAppState();
 
   const { translate } = useTranslations('edit', language);
 
@@ -42,26 +43,19 @@ export default function EditCoverImage({ data, onClose, uploaded, onDelete, dele
 
   const handleSave = async () => {
     setLoading(true);
-    try {
-      const response = await fetch(`${baseUrl}/api/proxy`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${sessionObject.token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          url: `${baseUrl}/api/users/edit/youtube`,
-          method: 'POST',
-          body: JSON.stringify({ id: userData.current.id, youtube_id: youtubeid }),
-        }),
-      });
 
-      if (!response.ok) {
-        setLoading(false);
-        throw new Error('Failed to update youtube link');
+    try {
+      const respoonse = await updateYtId(youtubeid, userData, baseUrl, sessionObject);
+
+      // assuming the API returns the updated user object:
+      if (respoonse) {
+        updateUserData({ ...userData.current, youtube_id: youtubeid });
+        setYoutubeid(youtubeid || '');
+        updateCover(youtubeid);
+        setData({ ...data, youtube_id: youtubeid });
       }
 
-      const data = await response.json();
+      setLoading(false);
       playSound('success', '0.5');
       onClose(false);
     } catch (error) {
@@ -98,6 +92,7 @@ export default function EditCoverImage({ data, onClose, uploaded, onDelete, dele
             <div className="input-group">
               <label htmlFor="">{translate('edit_youtubelink', language)}</label>
               <input
+                key={youtubeid}
                 type="text"
                 placeholder={translate('edit_youtubelink', language)}
                 value={`https://youtu.be/${youtubeid}`}

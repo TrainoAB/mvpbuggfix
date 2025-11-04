@@ -501,6 +501,7 @@ export async function adminUserDetails(userId, token = null) {
 
     // Parse the JSON response and return the data
     const data = await response.json();
+
     return data;
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -609,6 +610,7 @@ export async function getUserDetailsAlias(alias, token) {
         url: apiUrl,
         method: 'GET',
       }),
+      next: { tags: ['user-details'] },
     });
 
     // Check if the response is successful
@@ -1163,10 +1165,9 @@ export const formatDuration = (start, end) => {
   return `(${diffHours}t, ${diffMinutes}m)`;
 };
 
-
 // MARK: Format Day Name
 export function formatDayName(dayAbbreviation, type, translate) {
-  const validDays  = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+  const validDays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
   const dayAbbrev = dayAbbreviation.toLowerCase();
 
   if (!validDays.includes(dayAbbrev)) {
