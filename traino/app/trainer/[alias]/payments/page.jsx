@@ -119,7 +119,7 @@ export default function Payments({ params }) {
             setStripeId(data);
 
             DEBUG && console.log('Calling updateStripeAccount...');
-            await updateStripeAccount(userData.current.id);
+            await updateStripeAccount(userData.current.id, 1);
           } else {
             DEBUG && console.log('No valid Stripe ID found:', data);
             setStripeId(null);
@@ -144,15 +144,18 @@ export default function Payments({ params }) {
     fetchStripeId();
   }, [isLoggedin?.current, userData?.current?.id, sessionObject?.token]);
 
-  const updateStripeAccount = async (userId) => {
-    DEBUG && console.log('Updating stripe_account for user ID HHHHHHHHH:', userId);
+  const updateStripeAccount = async (userId, status) => {
+    DEBUG && console.log(`Updating stripe_account for user ID: ${userId} to ${status}`);
     try {
       const response = await fetch(`https://traino.nu/php/changeuserstripestatus.php`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ trainer_id: userId }),
+        body: JSON.stringify({
+          trainer_id: userId,
+          stripe_account: status,
+        }),
       });
 
       const data = await response.json();
@@ -501,7 +504,7 @@ export default function Payments({ params }) {
                   <UpdateStripeID
                     mode={stripeId === null ? 'nostripe' : 'gotstripe'}
                     stripeId={stripeId}
-                    onStripeUpdate={(newStripeId) => {
+                    onStripeUpdate={async (newStripeId) => {
                       DEBUG && console.log('Payments page: Stripe ID updated to:', newStripeId);
                       setStripeId(newStripeId);
 
@@ -513,6 +516,15 @@ export default function Payments({ params }) {
                         setDashboardLink(null);
                         setOnboardingRequired(false);
                         DEBUG && console.log('Reset Stripe-related states after sign out');
+
+                        try {
+                          if (userData?.current?.id) {
+                            await updateStripeAccount(userData.current.id, 0); // sätt stripe_account till 0 i databasen
+                            DEBUG && console.log('stripe_account set to 0 after sign out');
+                          }
+                        } catch (err) {
+                          DEBUG && console.log('Error updating stripe_account on sign out:', err);
+                        }
                       }
                     }}
                   />
