@@ -272,6 +272,60 @@ elseif (isset($_GET['crud'])) {
         }
     }
 
+    elseif ($_GET['crud'] === "mark_refunded") {
+        // Update a transaction and related booking to refunded/canceled state (used by webhooks)
+        $data = json_decode(file_get_contents('php://input'), true);
+        if ($data === null) {
+            http_response_code(400);
+            sendJsonError("Invalid JSON received");
+        }
+
+        $payment_intent_id = isset($data['payment_intent_id']) ? validate_and_sanitize($data['payment_intent_id'], 'text') : null;
+        if (!$payment_intent_id) {
+            http_response_code(400);
+            sendJsonError('Missing payment_intent_id');
+        }
+
+        $refund_id = isset($data['refund_id']) ? validate_and_sanitize($data['refund_id'], 'text') : null;
+        $refund_amount = isset($data['refund_amount']) ? (int)validate_and_sanitize($data['refund_amount'], 'integer') : null; // öre
+        $refund_receipt_url = isset($data['refund_receipt_url']) ? validate_and_sanitize($data['refund_receipt_url'], 'text') : null;
+        $refunded_at = isset($data['refunded_at']) ? validate_and_sanitize($data['refunded_at'], 'text') : gmdate('c');
+        $reason = isset($data['reason']) ? validate_and_sanitize($data['reason'], 'text') : 'refunded_via_webhook';
+
+        try {
+            $pdo->beginTransaction();
+
+            // Update transactions table
+            $info = json_encode([
+                'refund_id' => $refund_id,
+                'refund_amount' => $refund_amount,
+                'refund_receipt_url' => $refund_receipt_url,
+                'refunded_at' => $refunded_at,
+            ]);
+
+            $status = 'refunded';
+            $payoutStatus = 'failed';
+            $txUp = $pdo->prepare("UPDATE transactions SET status = :status, payout_status = :payout, info = :info WHERE payment_intent_id = :pi");
+            $txUp->bindParam(':status', $status, PDO::PARAM_STR);
+            $txUp->bindParam(':payout', $payoutStatus, PDO::PARAM_STR);
+            $txUp->bindParam(':info', $info, PDO::PARAM_STR);
+            $txUp->bindParam(':pi', $payment_intent_id, PDO::PARAM_STR);
+            $txUp->execute();
+
+            // Update pass_booked by payment_intent_id
+            $pbUp = $pdo->prepare("UPDATE pass_booked SET canceled = 1, reason = COALESCE(reason, :reason) WHERE payment_intent_id = :pi");
+            $pbUp->bindParam(':reason', $reason, PDO::PARAM_STR);
+            $pbUp->bindParam(':pi', $payment_intent_id, PDO::PARAM_STR);
+            $pbUp->execute();
+
+            $pdo->commit();
+            sendJson(['success' => true, 'payment_intent_id' => $payment_intent_id, 'status' => 'refunded']);
+        } catch (Exception $e) {
+            $pdo->rollBack();
+            http_response_code(500);
+            sendJsonError('Refund update failed: ' . $e->getMessage());
+        }
+    }
     
 } else {
     sendJsonError("Missing GET properties.");

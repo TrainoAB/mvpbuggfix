@@ -118,20 +118,77 @@ export async function handleChargeSucceeded(charge) {
   console.log(`Customer Email: ${billing_details.email}`);
   console.log(`Created: ${epochToDate(created)}`);
 
-  await sendToDatabase(
-    JSON.stringify({
-      trainer_id: globalState.trainerId,
-      trainee_id: globalState.traineeId,
-      session_id: globalState.sessionId,
-      charge_id: globalState.chargeId,
-      payment_intent_id: globalState.paymentIntentId,
-      status: globalState.status,
-      price: globalState.amountTotal / CONVERT_TO_SEK,
-      receipt_url: globalState.receiptUrl,
-      email: globalState.customerEmail,
-      productinfo: globalState.productInfo,
-    }),
-  );
+  await sendToDatabase({
+    trainer_id: globalState.trainerId,
+    trainee_id: globalState.traineeId,
+    session_id: globalState.sessionId,
+    charge_id: globalState.chargeId,
+    payment_intent_id: globalState.paymentIntentId,
+    status: globalState.status,
+    price: globalState.amountTotal / CONVERT_TO_SEK,
+    receipt_url: globalState.receiptUrl,
+    email: globalState.customerEmail,
+    productinfo: globalState.productInfo,
+  });
 }
 
 export { DEBUG };
+
+// --- Refund handlers ---
+async function sendRefundUpdateToDatabase(data) {
+  try {
+    const response = await fetch('https://traino.nu/php/transactions.php?crud=mark_refunded', {
+      method: 'POST',
+      headers: {
+        Authorization: process.env.NEXT_PUBLIC_API_KEY,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) throw new Error(`HTTP status: ${response.status}`);
+    const result = await response.json();
+    DEBUG && console.log('Refund DB update response:', result);
+    return result;
+  } catch (error) {
+    console.error('Error updating refund state in database:', error);
+    throw error;
+  }
+}
+
+export async function handleChargeRefunded(charge) {
+  try {
+    // charge.refunded sends the Charge object
+    const payment_intent_id = charge.payment_intent;
+    const refunds = (charge.refunds && charge.refunds.data) || [];
+    const latestRefund = refunds[0] || null;
+
+    await sendRefundUpdateToDatabase({
+      payment_intent_id,
+      refund_id: latestRefund ? latestRefund.id : undefined,
+      refund_amount: latestRefund ? latestRefund.amount : undefined,
+      refund_receipt_url: charge.receipt_url || null,
+      refunded_at: latestRefund ? new Date(latestRefund.created * 1000).toISOString() : new Date().toISOString(),
+      reason: 'refunded_via_webhook',
+    });
+  } catch (err) {
+    console.error('handleChargeRefunded error:', err);
+  }
+}
+
+export async function handleChargeRefundUpdated(refund) {
+  try {
+    // charge.refund.updated sends the Refund object
+    const payment_intent_id = refund.payment_intent;
+    await sendRefundUpdateToDatabase({
+      payment_intent_id,
+      refund_id: refund.id,
+      refund_amount: refund.amount,
+      refund_receipt_url: null,
+      refunded_at: new Date(refund.created * 1000).toISOString(),
+      reason: 'refund_updated_via_webhook',
+    });
+  } catch (err) {
+    console.error('handleChargeRefundUpdated error:', err);
+  }
+}
