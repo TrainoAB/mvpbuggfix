@@ -534,6 +534,7 @@ export default function ProfileTrainer({ alias, nav = true }) {
             {editCoverImageModal && userDetails && (
               <EditCoverImage
                 data={userDetails}
+                setData={setUserDetails}
                 onClose={closeEditCoverImageModal}
                 updateCover={setYtId}
                 hasCover={hasCover}

@@ -8,12 +8,12 @@ import { updateYtId } from '../lib/actions/profile';
 
 import './EditCoverImage.css';
 
-export default function EditCoverImage({ data, onClose, updateCover, uploaded, onDelete, deleteLoading }) {
+export default function EditCoverImage({ data, setData, onClose, updateCover, uploaded, onDelete, deleteLoading }) {
+  const { DEBUG, userData, updateUserData, baseUrl, sessionObject, useTranslations, language } = useAppState();
   const [loading, setLoading] = useState(false);
   const [youtubeid, setYoutubeid] = useState(data.youtube_id || ''); // Store the extracted YouTube ID
   const [youtubehelp, setYoutubehelp] = useState(false);
   const [changeImage, setChangeImage] = useState(false);
-  const { DEBUG, userData, updateUserData, baseUrl, sessionObject, useTranslations, language } = useAppState();
 
   const { translate } = useTranslations('edit', language);
 
@@ -45,13 +45,14 @@ export default function EditCoverImage({ data, onClose, updateCover, uploaded, o
     setLoading(true);
 
     try {
-      const data = await updateYtId(youtubeid, userData, baseUrl, sessionObject);
+      const respoonse = await updateYtId(youtubeid, userData, baseUrl, sessionObject);
 
       // assuming the API returns the updated user object:
-      if (data) {
+      if (respoonse) {
         updateUserData({ ...userData.current, youtube_id: youtubeid });
-        setYoutubeid(youtubeid);
+        setYoutubeid(youtubeid || '');
         updateCover(youtubeid);
+        setData({ ...data, youtube_id: youtubeid });
       }
 
       setLoading(false);
@@ -91,7 +92,7 @@ export default function EditCoverImage({ data, onClose, updateCover, uploaded, o
             <div className="input-group">
               <label htmlFor="">{translate('edit_youtubelink', language)}</label>
               <input
-                key={youtubeid || `${Math.random()}`}
+                key={youtubeid}
                 type="text"
                 placeholder={translate('edit_youtubelink', language)}
                 value={`https://youtu.be/${youtubeid}`}
