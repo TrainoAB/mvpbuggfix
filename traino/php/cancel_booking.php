@@ -138,12 +138,14 @@ LIMIT 1";
         http_response_code(409);
         sendJsonError('Cancellation window has passed (must be at least 24h before start).');
       }
-    } else {
-      // Trainer/Admin may cancel any time before start
+    } elseif ($actor === 'trainer') {
+      // Trainer may cancel any time before start
       if ($now >= $startDateTime) {
         http_response_code(409);
         sendJsonError('Cancellation not allowed after the session has started.');
       }
+    } else {
+      // Admin may cancel regardless of start time
     }
 
     // Default reason based on actor when not provided
