@@ -34,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
   $id = (int)$data['booking_id'];
   $reason = isset($data['reason']) ? trim($data['reason']) : '';
-  if ($reason === '') { $reason = 'canceled_by_user_24h'; }
 
   // Optional: booking data from frontend (for emails only)
   $frontendBooking = $data['booking'] ?? null;
@@ -78,8 +77,20 @@ LIMIT 1";
     // Authz: only trainee (owner) or admin may cancel
     $session = validateSessionID($pdo, null); // returns array incl. role & user_id from cookie session
     $cookie_user_id = isset($session['user_id']) ? (int)$session['user_id'] : null;
-    $isAdmin = isset($session['role']) && $session['role'] === 'admin';
-    if (!($isAdmin || ($cookie_user_id !== null && $cookie_user_id === $userId))) {
+    $roleFromSession = $session['role'] ?? null;
+    $isAdmin = ($roleFromSession === 'admin');
+
+    // Determine actor: trainee, trainer, or admin
+    $actor = null;
+    if ($isAdmin) {
+      $actor = 'admin';
+    } elseif ($cookie_user_id !== null && $cookie_user_id === $userId) {
+      $actor = 'trainee';
+    } elseif ($cookie_user_id !== null && $cookie_user_id === $trainerId) {
+      $actor = 'trainer';
+    }
+
+    if ($actor === null) {
       http_response_code(403);
       sendJsonError("Unauthorized: You do not have permission to cancel this booking.");
     }
@@ -111,7 +122,7 @@ LIMIT 1";
       ]);
     }
 
-    // 24h rule using Europe/Stockholm timezone
+    // Time rule using Europe/Stockholm timezone
     $tz = new DateTimeZone('Europe/Stockholm');
     $now = new DateTimeImmutable('now', $tz);
     $startDateStr = trim(($booking['booked_date'] ?? '') . ' ' . ($booking['starttime'] ?? ''));
@@ -120,10 +131,24 @@ LIMIT 1";
       sendJsonError('Invalid booking date/time');
     }
     $startDateTime = new DateTimeImmutable($startDateStr, $tz);
-    $limit = $startDateTime->sub(new DateInterval('P1D')); // 24 hours prior
-    if ($now >= $limit || $startDateTime <= $now) {
-      http_response_code(409);
-      sendJsonError('Cancellation window has passed (must be at least 24h before start).');
+    if ($actor === 'trainee') {
+      // Trainee must cancel at least 24h before start
+      $limit = $startDateTime->sub(new DateInterval('P1D'));
+      if ($now >= $limit) {
+        http_response_code(409);
+        sendJsonError('Cancellation window has passed (must be at least 24h before start).');
+      }
+    } else {
+      // Trainer/Admin may cancel any time before start
+      if ($now >= $startDateTime) {
+        http_response_code(409);
+        sendJsonError('Cancellation not allowed after the session has started.');
+      }
+    }
+
+    // Default reason based on actor when not provided
+    if ($reason === '') {
+      $reason = ($actor === 'trainee') ? 'canceled_by_user_24h' : 'canceled_by_trainer';
     }
 
     // Must have a payment to refund
