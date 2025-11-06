@@ -17,31 +17,25 @@ if (json_last_error() !== JSON_ERROR_NONE) {
 }
 
 $trainer_id = $data['trainer_id'] ?? null;
-$stripe_account = $data['stripe_account'] ?? null; 
 
-
-if (!$trainer_id || !isset($stripe_account)) {
+if (!$trainer_id) {
     sendJsonError('Missing required fields');
 }
 
-if (!in_array($stripe_account, [0, 1], true)) {
-    sendJsonError('Invalid stripe_account value');
-}
 // validateSessionID($pdo, $trainer_id, false);
 
 try {
     // Prepare the SQL statement to update the stripe_account field
-    $stmt = $pdo->prepare('UPDATE users SET stripe_account = :stripe_account WHERE id = :id');
-    $stmt->bindParam(':id', $trainer_id, PDO::PARAM_INT);
-    $stmt->bindParam(':stripe_account', $stripe_account, PDO::PARAM_INT);
+    $stmt = $pdo->prepare('UPDATE users SET stripe_account = 1 WHERE id = :id');
+    $stmt->bindParam(':id', $trainer_id); // Bind the trainer_id parameter
     $stmt->execute();
 
     if ($stmt->rowCount() === 0) {
-        sendJsonError('Trainer not found or no changes made');
+        sendJsonError('Trainer not found or stripe_account already set to 1');
     }
 
     $pdo = null;
-    sendJson(['success' => "stripe_account updated to $stripe_account for trainer_id $trainer_id"]);
+    sendJson(['success' => 'stripe_account updated successfully']);
 } catch (PDOException $e) {
     sendJsonError('Database error: ' . $e->getMessage());
 }

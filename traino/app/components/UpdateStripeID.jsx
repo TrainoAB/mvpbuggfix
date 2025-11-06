@@ -106,7 +106,6 @@ const UpdateStripeID = ({ mode = 'nostripe', stripeId: parentStripeId = null, on
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          stripe_id: null,
           email: userData.current.email,
         }),
       });
@@ -119,7 +118,8 @@ const UpdateStripeID = ({ mode = 'nostripe', stripeId: parentStripeId = null, on
       }
 
       // Update local state immediately to prevent race conditions
-      setStripeId(null);
+      setStripeId(stripeId);
+      console.log('Stripe ID after sign out:', stripeId);
       setCurrentMode('nostripe');
       setWasSignedOut(true);
 
