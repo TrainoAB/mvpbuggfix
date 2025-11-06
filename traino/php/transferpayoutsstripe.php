@@ -1,18 +1,48 @@
 <?php
 /**
- * Transfer pending payouts to trainers via Stripe Transfers.
+ * Transfer pending trainer payouts to connected Stripe accounts.
  *
- * Intended to be run from the command line by cron on the 28th of each month.
- * - Finds pending payouts (transactions with payout_status='pending')
- *   where the transaction booked_date is on or before the 27th of the current month.
- * - Groups transactions by trainer, sums trainer_amount and sends a Stripe Transfer to the
- *   trainer's connected Stripe account (users.stripe_id).
- * - Marks the affected transactions as completed (payout_status='completed') and sets
- *   stripe_transfer_id and payout_date in the DB.
+ * This CLI script is intended to be run by cron (default expectation: the 28th
+ * of each month) and performs the following actions:
  *
- * Notes:
- * - Uses the Stripe PHP library (composer autoload in php/vendor/autoload.php).
- * - Reads Stripe API key from environment variable STRIPE_SECRET_KEY.
+ * - Selects transactions with `payout_status = 'pending'` whose `booked_date`
+ *   is on or before the 27th of the current month and where the trainer has a
+ *   connected Stripe account (`users.stripe_id`).
+ * - For each pending transaction it:
+ *     - Resolves the original PaymentIntent -> charge id (used as
+ *       `source_transaction` for the Transfer).
+ *     - Creates a Stripe Transfer to the trainer's connected account using an
+ *       idempotency key tied to the transaction id to avoid duplicate transfers.
+ *     - Attempts to update the connected-account destination charge's
+ *       description with product/category/duration and booked date when
+ *       available.
+ *     - Marks the transaction row as `payout_status = 'completed'`, sets
+ *       `stripe_transfer_id` and `payout_date` in the DB.
+ * - Transactions with invalid data (zero amount, missing payment_intent or
+ *   stripe id) are skipped and logged. Errors from Stripe and the DB are
+ *   recorded per-transaction in the script output.
+ *
+ * Behaviour & inputs:
+ * - Loads Composer autoload and local dependencies via `php/vendor/autoload.php`.
+ * - Requires `php/db.php` for the PDO connection and `php/functions.php` for
+ *   shared helpers.
+ * - Reads the Stripe secret key from the environment variable
+ *   `STRIPE_SECRET_KEY` (required).
+ * - By default the script only runs on the 28th of the month; use the
+ *   `--force` CLI flag to override this guard for manual or test runs.
+ *
+ * Implementation notes:
+ * - Amounts are taken from `trainer_amount` (assumed in main currency units)
+ *   and converted to the smallest currency unit by multiplying by 100.
+ * - Idempotency keys include the transaction id and random bytes to reduce
+ *   collision risk while still avoiding accidental double transfers for a
+ *   single transaction run.
+ * - The script logs a JSON summary to STDOUT and also emits entries to the
+ *   error log for later inspection.
+ *
+ * Exit codes:
+ * - 0: success (may still contain per-transaction skip/error entries in output)
+ * - 1: fatal errors (missing environment, DB failure, or non-CLI invocation)
  */
 
 // Run only from CLI
