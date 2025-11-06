@@ -1,18 +1,48 @@
 <?php
 /**
- * Transfer pending payouts to trainers via Stripe Transfers.
+ * Transfer pending trainer payouts to connected Stripe accounts.
  *
- * Intended to be run from the command line by cron on the 28th of each month.
- * - Finds pending payouts (transactions with payout_status='pending')
- *   where the transaction booked_date is on or before the 27th of the current month.
- * - Groups transactions by trainer, sums trainer_amount and sends a Stripe Transfer to the
- *   trainer's connected Stripe account (users.stripe_id).
- * - Marks the affected transactions as completed (payout_status='completed') and sets
- *   stripe_transfer_id and payout_date in the DB.
+ * This CLI script is intended to be run by cron (default expectation: the 28th
+ * of each month) and performs the following actions:
  *
- * Notes:
- * - Uses the Stripe PHP library (composer autoload in php/vendor/autoload.php).
- * - Reads Stripe API key from environment variable STRIPE_SECRET_KEY.
+ * - Selects transactions with `payout_status = 'pending'` whose `booked_date`
+ *   is on or before the 27th of the current month and where the trainer has a
+ *   connected Stripe account (`users.stripe_id`).
+ * - For each pending transaction it:
+ *     - Resolves the original PaymentIntent -> charge id (used as
+ *       `source_transaction` for the Transfer).
+ *     - Creates a Stripe Transfer to the trainer's connected account using an
+ *       idempotency key tied to the transaction id to avoid duplicate transfers.
+ *     - Attempts to update the connected-account destination charge's
+ *       description with product/category/duration and booked date when
+ *       available.
+ *     - Marks the transaction row as `payout_status = 'completed'`, sets
+ *       `stripe_transfer_id` and `payout_date` in the DB.
+ * - Transactions with invalid data (zero amount, missing payment_intent or
+ *   stripe id) are skipped and logged. Errors from Stripe and the DB are
+ *   recorded per-transaction in the script output.
+ *
+ * Behaviour & inputs:
+ * - Loads Composer autoload and local dependencies via `php/vendor/autoload.php`.
+ * - Requires `php/db.php` for the PDO connection and `php/functions.php` for
+ *   shared helpers.
+ * - Reads the Stripe secret key from the environment variable
+ *   `STRIPE_SECRET_KEY` (required).
+ * - By default the script only runs on the 28th of the month; use the
+ *   `--force` CLI flag to override this guard for manual or test runs.
+ *
+ * Implementation notes:
+ * - Amounts are taken from `trainer_amount` (assumed in main currency units)
+ *   and converted to the smallest currency unit by multiplying by 100.
+ * - Idempotency keys include the transaction id and random bytes to reduce
+ *   collision risk while still avoiding accidental double transfers for a
+ *   single transaction run.
+ * - The script logs a JSON summary to STDOUT and also emits entries to the
+ *   error log for later inspection.
+ *
+ * Exit codes:
+ * - 0: success (may still contain per-transaction skip/error entries in output)
+ * - 1: fatal errors (missing environment, DB failure, or non-CLI invocation)
  */
 
 // Run only from CLI
@@ -41,42 +71,45 @@ if (!$force && $todayDay !== 28) {
 	fwrite(STDOUT, "Skipping run because today is not the 28th. Use --force to override.\n");
 	exit(0);
 }
+
 // Cutoff: include transactions created before the 27th of the current month (end of day)
 $cutoff = date('Y-m-27 00:00:00');
 
-// Prepare query: group pending payouts by trainer
+// Prepare query: select each pending transaction as separate payout unit
 $sql = "
 	SELECT
+		t.id AS transaction_id,
 		t.trainer_id,
+		t.trainer_amount,
+		t.product_id,
+		t.payment_intent_id,
+		t.booked_date,
 		u.firstname AS first_name,
 		u.lastname AS last_name,
 		u.email,
-		u.stripe_id AS trainer_stripe_id,
-		GROUP_CONCAT(t.id) AS transaction_ids,
-		SUM(t.trainer_amount) AS total_owed
+		u.stripe_id AS trainer_stripe_id
 	FROM transactions t
 	INNER JOIN users u ON t.trainer_id = u.id
 	WHERE t.payout_status = 'pending'
 	  AND t.booked_date <= :cutoff
 	  AND u.stripe_id IS NOT NULL
 	  AND u.stripe_id != ''
-	GROUP BY t.trainer_id, u.firstname, u.lastname, u.email, u.stripe_id
-	ORDER BY total_owed DESC
+	ORDER BY t.trainer_id, t.id
 ";
 
 try {
 	$stmt = $pdo->prepare($sql);
 	$stmt->bindParam(':cutoff', $cutoff);
 	$stmt->execute();
-	$payoutGroups = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	$transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
 	error_log('AutoStripeTransfer DB error: ' . $e->getMessage());
 	fwrite(STDERR, "DB error: " . $e->getMessage() . "\n");
 	exit(1);
 }
 
-if (empty($payoutGroups)) {
-	fwrite(STDOUT, "No pending payouts found for cutoff $cutoff\n");
+if (empty($transactions)) {
+	fwrite(STDOUT, "No pending transactions found for cutoff $cutoff\n");
 	exit(0);
 }
 
@@ -84,144 +117,165 @@ $stripeClient = new \Stripe\StripeClient($stripeSecret);
 
 $results = [];
 
-foreach ($payoutGroups as $group) {
-	$trainerId = $group['trainer_id'];
-	$trainerStripeId = $group['trainer_stripe_id'];
-	$transactionIds = array_filter(array_map('trim', explode(',', $group['transaction_ids'])));
-	$totalOwed = (int) $group['total_owed'];
+foreach ($transactions as $tx) {
+	$transactionId = $tx['transaction_id'];
+	$trainerId = $tx['trainer_id'];
+	$trainerStripeId = $tx['trainer_stripe_id'];
+	$trainerAmount = $tx['trainer_amount'];
+	$currency = $tx['currency'] ?? 'SEK';
+	$paymentIntentId = $tx['payment_intent_id'] ?? null;
 
-	if ($totalOwed <= 0 || empty($trainerStripeId) || empty($transactionIds)) {
+	// Convert to smallest unit (assume numeric value stored in main currency units)
+	$amountSmallest = (int) round($trainerAmount * 100);
+
+	if ($amountSmallest <= 0 || empty($trainerStripeId) || empty($paymentIntentId)) {
 		$results[] = [
+			'transaction_id' => $transactionId,
 			'trainer_id' => $trainerId,
 			'status' => 'skipped',
-			'reason' => 'invalid data',
-			'total_owed' => $totalOwed,
+			'reason' => 'invalid data or missing payment_intent',
+			'amount' => $amountSmallest,
 			'trainer_stripe_id' => $trainerStripeId,
-			'transaction_count' => count($transactionIds),
+			'payment_intent_id' => $paymentIntentId,
 		];
 		continue;
 	}
 
-	// Generate a UUID for idempotency key
-	// Generate 16 bytes (128 bits) of random data.
-	$data = random_bytes(16);
-    assert(strlen($data) == 16);
-    // Set version to 0100
-    $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
-    // Set bits 6-7 to 10
-    $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
-    // Output the 36 character UUID.
-    $idempotencyKey = vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+	// Idempotency key per transaction
+	$idempotencyKey = 'tx-' . $transactionId . '-' . bin2hex(random_bytes(8));
+
+	fwrite(STDOUT, "Creating transfer for transaction $transactionId (trainer $trainerId) idempotency: $idempotencyKey\n");
 
 	try {
-		// Create transfer to connected account
-		$transfer = $stripeClient->transfers->create([
-			'amount' => $totalOwed,
-			'currency' => 'SEK',
-			'destination' => $trainerStripeId,
-			'description' => "Traino payout for trainer {$trainerId} - " . date('Y-m-d'),
-		], [ 'idempotency_key' => $idempotencyKey ]);
+		// Resolve PaymentIntent -> Charge ID (Stripe transfers expect a charge id as source_transaction)
+		$sourceChargeId = null;
+		try {
+			// Retrieve the PaymentIntent from Stripe
+			$pi = $stripeClient->paymentIntents->retrieve($paymentIntentId, []);
+            var_dump($pi);
+			if (!empty($pi->latest_charge)) {
+				$sourceChargeId = $pi->latest_charge;
+			} else {
+				throw new \Exception("No charges found on PaymentIntent {$paymentIntentId}");
+			}
+		} catch (\Stripe\Exception\ApiErrorException $pie) {
+			// If Stripe API returns an error while retrieving the PaymentIntent, record and skip this transaction
+			error_log('Stripe PaymentIntent retrieve error for transaction ' . $transactionId . ': ' . $pie->getMessage());
+			$results[] = [
+				'transaction_id' => $transactionId,
+				'trainer_id' => $trainerId,
+				'status' => 'stripe_payment_intent_error',
+				'message' => $pie->getMessage(),
+				'payment_intent_id' => $paymentIntentId,
+			];
+			continue;
+		} catch (\Exception $pe) {
+			error_log('Error resolving charge for PaymentIntent ' . $paymentIntentId . ': ' . $pe->getMessage());
+			$results[] = [
+				'transaction_id' => $transactionId,
+				'trainer_id' => $trainerId,
+				'status' => 'no_charge_on_payment_intent',
+				'message' => $pe->getMessage(),
+				'payment_intent_id' => $paymentIntentId,
+			];
+			continue;
+		}
 
+		$transferParams = [
+			'amount' => $amountSmallest,
+			'currency' => strtoupper($currency),
+			'destination' => $trainerStripeId,
+			'description' => "Traino payout tx {$transactionId} for trainer {$trainerId} - " . date('Y-m-d'),
+			'source_transaction' => $sourceChargeId,
+		];
+
+		$transfer = $stripeClient->transfers->create($transferParams, ['idempotency_key' => $idempotencyKey]);
 		$stripeTransferId = $transfer->id ?? null;
 
-		// Mark transactions in DB as completed (mirror markpayoutscompleted.php behavior)
-		$placeholders = implode(',', array_fill(0, count($transactionIds), '?'));
+		// Retrieve transfer to get destination_payment and update its description on connected account
+		try {
+			$transferFull = $stripeClient->transfers->retrieve($stripeTransferId, []);
+			$destinationPaymentId = $transferFull->destination_payment ?? null;
+			if (!empty($destinationPaymentId)) {
+				// Lookup product category_link and duration using transaction.product_id
+				$prodInfo = [];
+				try {
+					$prodStmt = $pdo->prepare("SELECT category_link, duration FROM products WHERE id = ? OR product_id = ? LIMIT 1");
+					$prodStmt->execute([$tx['product_id'] ?? null, $tx['product_id'] ?? null]);
+					$prodInfo = $prodStmt->fetch(PDO::FETCH_ASSOC) ?: [];
+				} catch (PDOException $ppe) {
+					error_log('Product lookup failed for transaction ' . $transactionId . ': ' . $ppe->getMessage());
+				}
+
+				$categoryLink = $prodInfo['category_link'] ?? '';
+				$duration = $prodInfo['duration'] ?? '';
+				$bookedDate = $tx['booked_date'] ?? '';
+				$description = sprintf('Utbetalning för: %s %s min datum: %s', $categoryLink, $duration, $bookedDate);
+
+				try {
+					$updatedCharge = $stripeClient->charges->update($destinationPaymentId, ['description' => $description], ['stripe_account' => $trainerStripeId]);
+					$results[] = ['transaction_id' => $transactionId, 'destination_payment' => $destinationPaymentId, 'description_set' => $updatedCharge->description ?? null];
+				} catch (Exception $ce) {
+					error_log('Failed to update destination payment ' . $destinationPaymentId . ': ' . $ce->getMessage());
+					$results[] = ['transaction_id' => $transactionId, 'destination_payment' => $destinationPaymentId, 'error' => $ce->getMessage()];
+				}
+			} else {
+				// No destination_payment present
+				$results[] = ['transaction_id' => $transactionId, 'note' => 'no_destination_payment_on_transfer', 'transfer_id' => $stripeTransferId];
+			}
+		} catch (Exception $te) {
+			error_log('Failed to retrieve transfer ' . ($stripeTransferId ?? '') . ': ' . $te->getMessage());
+			$results[] = ['transaction_id' => $transactionId, 'transfer_retrieve_error' => $te->getMessage()];
+		}
+
+		// Update this single transaction as completed
 		$updateSql = "UPDATE transactions
 					  SET payout_status = 'completed',
 						  stripe_transfer_id = ?,
 						  payout_date = NOW()
-					  WHERE id IN ($placeholders)
+					  WHERE id = ?
 						AND payout_status = 'pending'";
-
 		$updateStmt = $pdo->prepare($updateSql);
-		$params = array_merge([$stripeTransferId], $transactionIds);
-		$updateStmt->execute($params);
+		$updateStmt->execute([$stripeTransferId, $transactionId]);
 		$updatedCount = $updateStmt->rowCount();
 
-		// Prepare result entry and then mirror markpayoutscompleted.php behaviour locally:
+		// Fetch updated row for verification
+		$verifyStmt = $pdo->prepare("SELECT id, trainer_id, trainer_amount, payout_status, stripe_transfer_id, payout_date FROM transactions WHERE id = ?");
+		$verifyStmt->execute([$transactionId]);
+		$updatedRow = $verifyStmt->fetch(PDO::FETCH_ASSOC);
+
 		$results[] = [
+			'transaction_id' => $transactionId,
 			'trainer_id' => $trainerId,
 			'status' => 'success',
 			'stripe_transfer_id' => $stripeTransferId,
-			'total_owed' => $totalOwed,
-			'transaction_count' => count($transactionIds),
+			'amount' => $amountSmallest,
 			'updated_count' => $updatedCount,
+			'transaction' => $updatedRow,
 		];
 
-		// Wrap DB updates/verifications in a transaction to mirror markpayoutscompleted.php
-		try {
-			if (!$pdo->inTransaction()) {
-				$pdo->beginTransaction();
-				$beganTx = true;
-			} else {
-				$beganTx = false;
-			}
-
-			// Re-run the update within the transaction to be safe (idempotent because we only update pending)
-			$updateStmt = $pdo->prepare($updateSql);
-			$updateStmt->execute($params);
-			$updatedCount = $updateStmt->rowCount();
-
-			if ($beganTx) {
-				$pdo->commit();
-			}
-
-			// Get updated transaction details for reporting
-			$verifyPlaceholders = implode(',', array_fill(0, count($transactionIds), '?'));
-			$verifySql = "SELECT id, trainer_id, trainer_amount, payout_status, stripe_transfer_id, payout_date
-						  FROM transactions
-						  WHERE id IN ($verifyPlaceholders)";
-			$verifyStmt = $pdo->prepare($verifySql);
-			$verifyStmt->execute($transactionIds);
-			$updatedTransactions = $verifyStmt->fetchAll(PDO::FETCH_ASSOC);
-
-			// Calculate totals
-			$totalPaidOut = 0;
-			foreach ($updatedTransactions as $tx) {
-				$totalPaidOut += $tx['trainer_amount'];
-			}
-
-			// Attach verification info to last results entry
-			$lastIndex = count($results) - 1;
-			$results[$lastIndex]['updated_count'] = $updatedCount;
-			$results[$lastIndex]['transactions'] = $updatedTransactions;
-			$results[$lastIndex]['total_paid_out'] = $totalPaidOut;
-			$results[$lastIndex]['total_paid_out_sek'] = number_format($totalPaidOut / 100, 2);
-
-		} catch (PDOException $pe2) {
-			// Rollback if in transaction
-			if ($pdo->inTransaction()) {
-				$pdo->rollBack();
-			}
-			error_log('DB error during verification for trainer ' . $trainerId . ': ' . $pe2->getMessage());
-			$results[] = [
-				'trainer_id' => $trainerId,
-				'status' => 'verification_db_error',
-				'message' => $pe2->getMessage(),
-			];
-		}
-
 	} catch (\Stripe\Exception\ApiErrorException $se) {
-		error_log('Stripe error for trainer ' . $trainerId . ': ' . $se->getMessage());
+		error_log('Stripe error for transaction ' . $transactionId . ': ' . $se->getMessage());
 		$results[] = [
+			'transaction_id' => $transactionId,
 			'trainer_id' => $trainerId,
 			'status' => 'stripe_error',
 			'message' => $se->getMessage(),
-			'total_owed' => $totalOwed,
-			'transaction_count' => count($transactionIds),
+			'amount' => $amountSmallest,
+			'payment_intent_id' => $paymentIntentId,
 		];
 	} catch (PDOException $pe) {
-		error_log('DB error when marking payouts for trainer ' . $trainerId . ': ' . $pe->getMessage());
+		error_log('DB error when marking payout for transaction ' . $transactionId . ': ' . $pe->getMessage());
 		$results[] = [
+			'transaction_id' => $transactionId,
 			'trainer_id' => $trainerId,
 			'status' => 'db_error',
 			'message' => $pe->getMessage(),
-			'total_owed' => $totalOwed,
-			'transaction_count' => count($transactionIds),
 		];
 	} catch (Exception $e) {
-		error_log('General error for trainer ' . $trainerId . ': ' . $e->getMessage());
+		error_log('General error for transaction ' . $transactionId . ': ' . $e->getMessage());
 		$results[] = [
+			'transaction_id' => $transactionId,
 			'trainer_id' => $trainerId,
 			'status' => 'error',
 			'message' => $e->getMessage(),
@@ -233,7 +287,7 @@ foreach ($payoutGroups as $group) {
 $friendly = [
 	'run_date' => date('Y-m-d H:i:s'),
 	'cutoff' => $cutoff,
-	'groups_count' => count($payoutGroups),
+	'groups_count' => count($transactions),
 	'results' => $results,
 ];
 
