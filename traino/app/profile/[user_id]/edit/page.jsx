@@ -542,7 +542,7 @@ export default function Edit({ params }) {
           body: JSON.stringify({
             url: `${baseUrl}/api/users/edit/education/delete`,
             method: 'POST',
-            body: JSON.stringify({id: id, user_id: userId.current}),
+            body: JSON.stringify({ id: id, user_id: userId.current }),
           }),
         });
 
@@ -843,12 +843,11 @@ export default function Edit({ params }) {
                         error={modalError}
                       ></ModalPassword>
                     )}
-
-                    <h2 className="header2">{translate('profile_info', language)}</h2>
-
-                    {/*MARK:VERKSAMHETSPLATS*/}
                     {userData.usertype === 'trainer' && (
                       <>
+                        <h2 className="header2">{translate('profile_info', language)}</h2>
+
+                        {/* MARK:VERKSAMHETSPLATS */}
                         <div className="edit-row multirow">
                           <p className="value-type" id="workplace">
                             {translate('workplace', language)}
@@ -862,10 +861,12 @@ export default function Edit({ params }) {
                             }}
                           ></button>
                         </div>
+
                         <div className="edit-row address">
                           <div>{userData.user_address}</div>
                           <div>{userData.user_areacode}</div>
                         </div>
+
                         {isEditing.workplace && (
                           <ModalPlace
                             onClose={closeModal}
@@ -877,12 +878,8 @@ export default function Edit({ params }) {
                             buttonText={translate('change_workplace', language)}
                           ></ModalPlace>
                         )}
-                      </>
-                    )}
 
-                    {/*MARK:UTBILDNING*/}
-                    {userData.usertype === 'trainer' && (
-                      <>
+                        {/*MARK:UTBILDNING*/}
                         <div className="edit-row multirow">
                           <p className="value-type" id="education">
                             {translate('education', language)}
@@ -945,28 +942,23 @@ export default function Edit({ params }) {
                             verified={userVerified}
                           ></ModalEducation>
                         )}
+                        {/* /*MARK:SPORT*/}
+                        <div className="edit-row  multirow">
+                          <p className="value-type" id="sport">
+                            {translate('sports', language)}
+                          </p>
+                          <button
+                            className="edit-btn"
+                            onMouseOver={() => playSound('tickclick', '0.5')}
+                            onClick={() => {
+                              playSound('popclick', '0.5');
+                              handleEdit('training');
+                            }}
+                          ></button>
+                        </div>
+                        <div>{renderTrainingData()}</div>
                       </>
                     )}
-
-                    {/*MARK:SPORT*/}
-
-                    <>
-                      <div className="edit-row  multirow">
-                        <p className="value-type" id="sport">
-                          {translate('sports', language)}
-                        </p>
-                        <button
-                          className="edit-btn"
-                          onMouseOver={() => playSound('tickclick', '0.5')}
-                          onClick={() => {
-                            playSound('popclick', '0.5');
-                            handleEdit('training');
-                          }}
-                        ></button>
-                      </div>
-
-                      <div>{renderTrainingData()}</div>
-                    </>
 
                     <h2 className="header2">{translate('account_settings', language)}</h2>
 
