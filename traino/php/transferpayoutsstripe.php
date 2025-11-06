@@ -88,7 +88,7 @@ foreach ($payoutGroups as $group) {
 	$trainerId = $group['trainer_id'];
 	$trainerStripeId = $group['trainer_stripe_id'];
 	$transactionIds = array_filter(array_map('trim', explode(',', $group['transaction_ids'])));
-	$totalOwed = (int) $group['total_owed'];
+	$totalOwed = (int) $group['total_owed'] * 100; // Convert to smallest currency unit (e.g. cents)
 
 	if ($totalOwed <= 0 || empty($trainerStripeId) || empty($transactionIds)) {
 		$results[] = [
@@ -119,6 +119,7 @@ foreach ($payoutGroups as $group) {
 			'amount' => $totalOwed,
 			'currency' => 'SEK',
 			'destination' => $trainerStripeId,
+			'transfer_group' => `TRAINO_PAYOUT_FOR_TRAINER_${trainerId}`,
 			'description' => "Traino payout for trainer {$trainerId} - " . date('Y-m-d'),
 		], [ 'idempotency_key' => $idempotencyKey ]);
 
@@ -186,7 +187,6 @@ foreach ($payoutGroups as $group) {
 			$results[$lastIndex]['updated_count'] = $updatedCount;
 			$results[$lastIndex]['transactions'] = $updatedTransactions;
 			$results[$lastIndex]['total_paid_out'] = $totalPaidOut;
-			$results[$lastIndex]['total_paid_out_sek'] = number_format($totalPaidOut / 100, 2);
 
 		} catch (PDOException $pe2) {
 			// Rollback if in transaction
