@@ -275,7 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "
         Hej,<br><br>
         Detta bekräftar att en användare har bokat ett <strong>$translatedProductType</strong> nyligen via TRAINO, för <strong>$price kr</strong>.<br>
-        Efter avgifter från Stripe och TRAINO (15%), får du behålla <strong>$amountAfterFees kr</strong>. Betalningen till ditt Striåe konto sker inom 2 timmar efter att ditt träningspass är över.<br><br>
+        Efter avgifter från Stripe och TRAINO (15%), får du behålla <strong>$amountAfterFees kr</strong>. Betalningen till ditt Stripe konto sker inom 2 timmar efter att ditt träningspass är över.<br><br>
         MVH<br>
         <strong>TRAINO</strong>";
 
