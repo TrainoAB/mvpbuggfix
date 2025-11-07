@@ -119,7 +119,7 @@ const UpdateStripeID = ({ mode = 'nostripe', stripeId: parentStripeId = null, on
       }
 
       // Update local state immediately to prevent race conditions
-      setStripeId(stripeId);
+      setStripeId(null);
       console.log('Stripe ID after sign out:', stripeId);
       setCurrentMode('nostripe');
       setWasSignedOut(true);
@@ -166,6 +166,7 @@ const UpdateStripeID = ({ mode = 'nostripe', stripeId: parentStripeId = null, on
 
       if (data.hasStripeAccount) {
         // användaren är “reconnectad”
+        onStripeUpdate(data.stripe_id);
         setStripeId(data.stripe_id);
         setCurrentMode('gotstripe');
         console.log('✅ Stripe reconnected för användaren');

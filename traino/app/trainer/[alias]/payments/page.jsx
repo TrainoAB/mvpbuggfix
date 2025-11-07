@@ -504,7 +504,7 @@ export default function Payments({ params }) {
                     mode={stripeId === null ? 'nostripe' : 'gotstripe'}
                     stripeId={stripeId}
                     onStripeUpdate={(newStripeId) => {
-                      DEBUG && console.log('Payments page: Stripe ID updated to:', newStripeId);
+                      // DEBUG && console.log('Payments page: Stripe ID updated to:', newStripeId);
                       setStripeId(newStripeId);
 
                       // If user signed out (newStripeId is null), reset related states
