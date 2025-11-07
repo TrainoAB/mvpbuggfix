@@ -29,6 +29,7 @@ const UpdateStripeID = ({ mode = 'nostripe', stripeId: parentStripeId = null, on
   const [currentMode, setCurrentMode] = useState(mode);
   const [errorMessage, setErrorMessage] = useState('');
   const [wasSignedOut, setWasSignedOut] = useState(false); // Track if user signed out
+  const [isLoading, setIsLoading] = useState(false);
 
   const { translate } = useTranslations('myeconomy', language);
   const pathname = usePathname();
@@ -140,6 +141,45 @@ const UpdateStripeID = ({ mode = 'nostripe', stripeId: parentStripeId = null, on
     }
   }
 
+  async function handleStripeLogin() {
+    try {
+      setErrorMessage('');
+      setIsLoading(true);
+
+      const sessionObject = await getToken();
+      if (!sessionObject?.token) {
+        setErrorMessage('Ingen giltig session. Logga in först.');
+        return;
+      }
+
+      const response = await fetch(`${baseUrl}/api/stripe/checkstripeid`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${sessionObject.token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: userData.current.email }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
+
+      if (data.hasStripeAccount) {
+        // användaren är “reconnectad”
+        setStripeId(data.stripe_id);
+        setCurrentMode('gotstripe');
+        console.log('✅ Stripe reconnected för användaren');
+      } else {
+        setErrorMessage('Ingen Stripe-koppling hittad, använd onboarding.');
+      }
+    } catch (error) {
+      console.error('❌ handleStripeLogin error:', error);
+      setErrorMessage(`Failed to reconnect Stripe: ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <div className="stripecontent">
       {errorMessage && (
@@ -167,6 +207,15 @@ const UpdateStripeID = ({ mode = 'nostripe', stripeId: parentStripeId = null, on
           >
             {translate('myeconomy_createstripeaccount_button', language)}
           </button>
+          <button
+            className="button stripebutton"
+            onClick={handleStripeLogin}
+            onMouseOver={() => playSound('tickclick', '0.5')}
+          >
+            Log in (existing account)
+          </button>
+          {isLoading && <p className="text-gray-500 mt-2">Connecting to Stripe...</p>}
+
           <p style={{ fontSize: '0.9rem', color: '#666', marginTop: '1rem' }}>
             {translate('myeconomy_stripe_process_info', language)}
           </p>
