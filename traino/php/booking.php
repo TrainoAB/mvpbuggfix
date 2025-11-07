@@ -3,6 +3,7 @@ require_once("encryptkey.php");
 require_once("apikey.php");
 require_once("db.php");
 require_once("functions.php");
+require_once("lib/money.php");
 require 'vendor/autoload.php';
 // Try to load Stripe secret key from local include (deployment-specific) or env var
 if (file_exists(__DIR__ . '/stripekey.php')) {
@@ -253,6 +254,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          // Convert binary result to readable string
          $traineremail = $resultemail ? $resultemail['email'] : null;
 
+        // Retrieve transaction amounts from database for accurate email display
+        // Use payment_intent_id to fetch the exact amounts stored during booking creation
+        $txQuery = "SELECT gross_amount, trainer_amount, platform_fee 
+                    FROM transactions 
+                    WHERE payment_intent_id = :pi 
+                    LIMIT 1";
+        
+        $stmtTx = $pdo->prepare($txQuery);
+        $stmtTx->bindParam(':pi', $payment_intent_id, PDO::PARAM_STR);
+        $stmtTx->execute();
+        $tx = $stmtTx->fetch(PDO::FETCH_ASSOC);
+
+        // Validate transaction data exists before sending email
+        if (!$tx || $tx['gross_amount'] === null || $tx['trainer_amount'] === null) {
+            error_log("Warning: Missing transaction data for payment_intent_id: $payment_intent_id. Email amounts may be inaccurate.");
+            // Fallback: only show confirmation without specific amounts
+            $grossAmountFormatted = format_sek_from_ore($price);
+            $trainerAmountFormatted = "N/A (kontakta support)";
+        } else {
+            // Use exact amounts from database (in öre), format to SEK
+            $grossAmountFormatted = format_sek_from_ore($tx['gross_amount']);
+            $trainerAmountFormatted = format_sek_from_ore($tx['trainer_amount']);
+        }
+
         $pdo = null; // Close the database connection
                 // Definiera översättning av product_type
         $productNames = [
@@ -263,8 +288,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Hämta korrekt namn eller visa original om det inte finns i listan
         $translatedProductType = isset($productNames[$product_type]) ? $productNames[$product_type] : $product_type;
 
-        // Beräkna vad användaren får efter 15% avgift (Traino + Stripe)
-        $amountAfterFees = round($price * 0.85, 2); // behåller 2 decimaler
         $subject = "";
         if($translatedProductType === 'träningspass') {
              $subject = "TRAINO - Någon har bokat ett pass";
@@ -274,8 +297,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        
         $message = "
         Hej,<br><br>
-        Detta bekräftar att en användare har bokat ett <strong>$translatedProductType</strong> nyligen via TRAINO, för <strong>$price kr</strong>.<br>
-        Efter avgifter från Stripe och TRAINO (15%), får du behålla <strong>$amountAfterFees kr</strong>. Betalningen till ditt Stripe konto sker inom 2 timmar efter att ditt träningspass är över.<br><br>
+        Detta bekräftar att en användare har bokat ett <strong>$translatedProductType</strong> nyligen via TRAINO, för <strong>$grossAmountFormatted</strong>.<br>
+        Efter avgifter från Stripe och TRAINO (15%), får du behålla <strong>$trainerAmountFormatted</strong>. Betalningen till ditt Stripe konto sker den 28:e varje månad.<br><br>
         MVH<br>
         <strong>TRAINO</strong>";
 
