@@ -3,6 +3,7 @@ require_once("apikey.php");
 require_once("db.php");
 require_once("functions.php");
 require_once("encryptkey.php");
+require_once("lib/money.php");
 require 'vendor/autoload.php';
 
 // Try to load Stripe secret key from local include (deployment-specific) or env var
@@ -256,6 +257,9 @@ LIMIT 1";
     $address = $frontendBooking['address'] ?? $booking['address'] ?? null;
     $user_name = $frontendBooking['user']['user_name'] ?? $booking['user_name'] ?? null;
 
+    // Format refund amount for display (in öre from Stripe)
+    $refundAmountFormatted = isset($refund->amount) ? format_sek_from_ore($refund->amount) : 'N/A';
+
     // Send emails (best-effort; ignore failures)
     $subject = "TRAINO - Avbokat pass";
     $message = "
@@ -263,6 +267,7 @@ LIMIT 1";
   <body>
   <p>Hej,</p>
   <p>Detta mail indikerar att ett pass har blivit <strong>avbokat</strong> via TRAINO.</p>
+  <p>En återbetalning på <strong>{$refundAmountFormatted}</strong> har behandlats till ditt ursprungliga betalningsmedel. Det kan ta 5-10 bankdagar innan pengarna syns på ditt konto.</p>
 
   <h3>📄 Bokningsinformation</h3>
   <table cellpadding='6' cellspacing='0' border='0' style='border-collapse: collapse;'>
