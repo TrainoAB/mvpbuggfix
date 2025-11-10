@@ -195,6 +195,7 @@ LIMIT 1";
       if (!$pi || !isset($pi->status) || $pi->status !== 'succeeded') {
         http_response_code(409);
         sendJsonError('Payment not eligible for refund');
+        exit;
       }
     } catch (\Stripe\Exception\ApiErrorException $e) {
       http_response_code(400);
