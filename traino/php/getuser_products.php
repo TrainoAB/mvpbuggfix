@@ -3,6 +3,7 @@
 require("apikey.php");
 require("db.php");
 require_once("functions.php");
+require_once("lib/money.php");
 
 validateCorsMethod(['GET']);
 $apikey = API_KEY;
@@ -42,6 +43,11 @@ if (isset($_GET['check']) && $_GET['check'] === 'true' && isset($_GET['id']) && 
             'data' => $results,
         ];
 
+        // Format monetary values
+        foreach ($response['data'] as &$item) {
+            $item['price'] = format_sek_from_kr($item['price']);
+        }
+
       } catch (Exception $e) {
               sendJsonError("Error: " . $e->getMessage());
     }
@@ -51,7 +57,7 @@ if (isset($_GET['check']) && $_GET['check'] === 'true' && isset($_GET['id']) && 
 
     sendJson($response);
 
-    
+
 } elseif (isset($_GET['alias'])) {
         // Get alias from GET request
     $alias = isset($_GET['alias']) ? validate_and_sanitize($_GET['alias'], "alias") : null;

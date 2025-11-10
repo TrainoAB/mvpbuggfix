@@ -1554,7 +1554,7 @@ function Modal({ options = [], products, handleClose, handleSelect, translate, l
               <li key={index}>
                 <div onClick={() => handleSelect(item)} data-id={item.id}>
                   <strong>{translate(`cat_${item.category_link}`, language)}</strong>
-                  <br /> ({item.duration} {translatedMinutes}) / {item.price} kr
+                  <br /> ({item.duration} {translatedMinutes}) / {item.price}
                 </div>
               </li>
             ))}
