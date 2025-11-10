@@ -161,6 +161,7 @@ LIMIT 1";
     if (!$payment_intent_id) {
       http_response_code(409);
       sendJsonError('No payment found for this booking');
+      exit;
     }
 
     // Check transactions & payout eligibility
