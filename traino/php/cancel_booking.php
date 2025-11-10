@@ -341,6 +341,7 @@ LIMIT 1";
   } catch (PDOException $e) {
     http_response_code(500);
     sendJsonError("Error: " . $e->getMessage());
+    exit;
   }
 
 }
