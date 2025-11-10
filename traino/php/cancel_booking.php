@@ -144,6 +144,7 @@ LIMIT 1";
       if ($now >= $startDateTime) {
         http_response_code(409);
         sendJsonError('Cancellation not allowed after the session has started.');
+        exit;
       }
     } else {
       // Admin may cancel regardless of start time
