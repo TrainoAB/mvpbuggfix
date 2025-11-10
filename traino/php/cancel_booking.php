@@ -170,6 +170,7 @@ LIMIT 1";
     if (!$tx) {
       http_response_code(409);
       sendJsonError('Transaction not found for this payment');
+      exit;
     }
 
     if (isset($tx['payout_status']) && $tx['payout_status'] !== 'pending') {
