@@ -34,12 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $product_id = validate_and_sanitize($data['item']['id'], "integer");
         $cat = validate_and_sanitize($data['item']['category_link'], "text");
         $product_id_link = validate_and_sanitize($data['item']['product_id_link'], "integer");
-        
+
         $user_id = validate_and_sanitize($data['buyer_id'], "integer");
         $trainer_id = validate_and_sanitize($data['item']['user_id'], "integer");
 
         $email = validate_and_sanitize($data['buyer_email'], "email");
-        
+
         // Ensure email is properly encoded as UTF-8
         $email = mb_convert_encoding($email, 'UTF-8', 'auto');
 
@@ -96,10 +96,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $platformFee = $total - $trainerAmount; // Remainder to platform
 
         // Insert the transaction into the transactions table with payout split
-        $transactions = "INSERT INTO `transactions` 
+        $transactions = "INSERT INTO `transactions`
                          (`trainee_id`, `trainer_id`, `product_id`, `price`, `email`, `clipcard_amount`,
-                          `gross_amount`, `trainer_amount`, `platform_fee`, `payout_status`) 
-                         VALUES 
+                          `gross_amount`, `trainer_amount`, `platform_fee`, `payout_status`)
+                         VALUES
                          (:trainee_id, :trainer_id, :product_id, :price, AES_ENCRYPT(:email, :key), :clipcard_amount,
                           :gross_amount, :trainer_amount, :platform_fee, 'pending');";
 
@@ -141,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           "success" => "Product bought, inserted into database successfully",
           "bought" => $results3[0],
         ]);
-        
+
         exit;
 
       } catch (PDOException $e) {
@@ -157,12 +157,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $product = $data['product'];
         $total = validate_and_sanitize($data['price'], "integer");
         $product_id = validate_and_sanitize($data['item']['id'], "integer");
-        
+
         $user_id = validate_and_sanitize($data['buyer_id'], "integer");
         $trainer_id = validate_and_sanitize($data['item']['user_id'], "integer");
 
         $email = validate_and_sanitize($data['buyer_email'], "email");
-        
+
         // Ensure email is properly encoded as UTF-8
         $email = mb_convert_encoding($email, 'UTF-8', 'auto');
 
@@ -204,11 +204,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $platformFee = $total - $trainerAmount; // Remainder to platform
 
         // Insert the transaction into the transactions table with payout split
-        $transactions = "INSERT INTO `transactions` 
-                         (`trainee_id`, `trainer_id`, `product_id`, `price`, `email`, 
-                          `gross_amount`, `trainer_amount`, `platform_fee`, `payout_status`) 
-                         VALUES 
-                         (:trainee_id, :trainer_id, :product_id, :price, :email, 
+        $transactions = "INSERT INTO `transactions`
+                         (`trainee_id`, `trainer_id`, `product_id`, `price`, `email`,
+                          `gross_amount`, `trainer_amount`, `platform_fee`, `payout_status`)
+                         VALUES
+                         (:trainee_id, :trainer_id, :product_id, :price, :email,
                           :gross_amount, :trainer_amount, :platform_fee, 'pending');";
 
         $stmt2 = $pdo->prepare($transactions);
@@ -237,7 +237,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt4->bindParam(':trainer_id', $trainer_id, PDO::PARAM_INT);
         $stmt4->execute();
         $resultemail = $stmt4->fetch(PDO::FETCH_ASSOC);
-        
+
         // Convert binary result to readable string
         $traineremail = $resultemail ? $resultemail['email'] : null;
 
@@ -245,9 +245,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Format amounts from database (already calculated and stored in öre)
         // Use the exact values that were just inserted into the database
-        $grossAmountFormatted = format_sek_from_ore($grossAmount);
-        $trainerAmountFormatted = format_sek_from_ore($trainerAmount);
-        
+        $grossAmountFormatted = format_sek_from_kr($grossAmount);
+        $trainerAmountFormatted = format_sek_from_kr($trainerAmount);
+
         $subject = "TRAINO - Bekräftnings e-mail";
         $message = "Hej,<br><br>Detta bekräftar ditt köp av ett ". $producttype . " nyligen via TRAINO, du betalade " . $grossAmountFormatted . ".<br><br>MVH<br>TRAINO";
 
@@ -277,5 +277,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         sendJsonError("Invalid product type");
         exit;
       }
-    } 
+    }
 ?>

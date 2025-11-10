@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $price = validate_and_sanitize($data['booking']['price'], "integer");
         $product_id = validate_and_sanitize($data['booking']['product_id'], "integer");
         $trainer_id = validate_and_sanitize($data['booking']['trainer_id'], "integer");
-        
+
         $pass_set_id = validate_and_sanitize($data['booking']['pass_set_id'], "integer");
         $pass_set_repeat_id = validate_and_sanitize($data['booking']['pass_repeat_id'], "text");
         $start = $data['booking']['start'];
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             http_response_code(400);
             sendJsonError("Missing payment_intent_id");
         }
-  
+
 
         // $rrule = json_encode($data['booking']['rrule'], true);
 
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Handle date and time - dates now come in YYYY-MM-DD HH:MM:SS format
         $newdatestart = DateTime::createFromFormat('Y-m-d H:i:s', $start);
         $newdateend = DateTime::createFromFormat('Y-m-d H:i:s', $end);
-        
+
         // Check if parsing was successful
         if (!$newdatestart || !$newdateend) {
             error_log("Failed to parse dates. Start: $start, End: $end");
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             sendJsonError("Invalid date format received");
             exit;
         }
-        
+
         $booked_date = $newdatestart->format('Y-m-d');
         $starttime = $newdatestart->format('H:i:s');
         $endtime = $newdateend->format('H:i:s');
@@ -122,16 +122,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Check for overlapping bookings - improved validation
         // This query finds any existing bookings that would overlap with the new booking
-        $sql = "SELECT * FROM pass_booked 
-                WHERE trainer_id = :trainer_id 
-                AND booked_date = :booked_date 
+        $sql = "SELECT * FROM pass_booked
+                WHERE trainer_id = :trainer_id
+                AND booked_date = :booked_date
                 AND canceled = 0
                 AND ispause = 0
                 AND (
                     -- New booking starts before existing ends AND new booking ends after existing starts
                     (:starttime < endtime AND :endtime > starttime)
                 )";
-        
+
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':trainer_id', $trainer_id, PDO::PARAM_INT);
         $stmt->bindParam(':booked_date', $booked_date, PDO::PARAM_STR);
@@ -150,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             foreach ($overlappingBookings as $booking) {
                 $conflictDetails[] = "Existing booking: {$booking['starttime']} - {$booking['endtime']}";
             }
-            
+
             http_response_code(409); // Conflict
             // Create multilingual error message
             $errorMessages = [
@@ -160,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             sendJsonError(json_encode($errorMessages));
             exit;
         }
-        
+
         // Prepare SQL statement
         $sql_bookedinsert = "INSERT INTO pass_booked (user_id, product_type, product_id, trainer_id, pass_set_id, pass_set_repeat_id, booked_date, starttime, endtime, payment_intent_id)
                 VALUES (:user_id, :product_type, :product_id, :trainer_id, :pass_set_id, :pass_set_repeat_id, :booked_date, :starttime, :endtime, :payment_intent_id)";
@@ -179,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':booked_date', $booked_date, PDO::PARAM_STR);
         $stmt->bindParam(':starttime', $starttime, PDO::PARAM_STR);
         $stmt->bindParam(':endtime', $endtime, PDO::PARAM_STR);
-  
+
         // $stmt->bindParam(':stripe_order_id', $stripe_order_id, PDO::PARAM_STR);
         $stmt->bindParam(':payment_intent_id', $payment_intent_id, PDO::PARAM_STR);
 
@@ -206,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $grossAmount = $price; // Full amount paid by customer (in öre)
         $trainerAmount = round($price * 0.85); // 85% to trainer
         $platformFee = $price - $trainerAmount; // Remainder to platform, ensures sum equals price
-        
+
         $sql_transactions = "INSERT INTO transactions (
             trainee_id, product_id, trainer_id, booked_date, endtime, productinfo, price, payment_intent_id,
             gross_amount, trainer_amount, platform_fee, payout_status
@@ -250,17 +250,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          $stmt4->bindParam(':trainer_id', $trainer_id, PDO::PARAM_INT);
          $stmt4->execute();
          $resultemail = $stmt4->fetch(PDO::FETCH_ASSOC);
-         
+
          // Convert binary result to readable string
          $traineremail = $resultemail ? $resultemail['email'] : null;
 
         // Retrieve transaction amounts from database for accurate email display
         // Use payment_intent_id to fetch the exact amounts stored during booking creation
-        $txQuery = "SELECT gross_amount, trainer_amount, platform_fee 
-                    FROM transactions 
-                    WHERE payment_intent_id = :pi 
+        $txQuery = "SELECT gross_amount, trainer_amount, platform_fee
+                    FROM transactions
+                    WHERE payment_intent_id = :pi
                     LIMIT 1";
-        
+
         $stmtTx = $pdo->prepare($txQuery);
         $stmtTx->bindParam(':pi', $payment_intent_id, PDO::PARAM_STR);
         $stmtTx->execute();
@@ -270,12 +270,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$tx || $tx['gross_amount'] === null || $tx['trainer_amount'] === null) {
             error_log("Warning: Missing transaction data for payment_intent_id: $payment_intent_id. Email amounts may be inaccurate.");
             // Fallback: only show confirmation without specific amounts
-            $grossAmountFormatted = format_sek_from_ore($price);
+            $grossAmountFormatted = format_sek_from_kr($price);
             $trainerAmountFormatted = "N/A (kontakta support)";
         } else {
             // Use exact amounts from database (in öre), format to SEK
-            $grossAmountFormatted = format_sek_from_ore($tx['gross_amount']);
-            $trainerAmountFormatted = format_sek_from_ore($tx['trainer_amount']);
+            $grossAmountFormatted = format_sek_from_kr($tx['gross_amount']);
+            $trainerAmountFormatted = format_sek_from_kr($tx['trainer_amount']);
         }
 
         $pdo = null; // Close the database connection
@@ -294,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }  elseif($translatedProductType === 'online träningspass') {
              $subject = "TRAINO - Någon har bokat ett online pass";
         }
-       
+
         $message = "
         Hej,<br><br>
         Detta bekräftar att en användare har bokat ett <strong>$translatedProductType</strong> nyligen via TRAINO, för <strong>$grossAmountFormatted</strong>.<br>
