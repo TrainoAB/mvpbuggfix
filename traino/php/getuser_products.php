@@ -102,6 +102,11 @@ if (isset($_GET['check']) && $_GET['check'] === 'true' && isset($_GET['id']) && 
             'count' => count($results),
             'data' => $results,
         ];
+
+        // Format monetary values
+        foreach ($response[$table]['data'] as &$item) {
+            $item['price'] = format_sek_from_kr($item['price']);
+        }
     }
       } catch (Exception $e) {
               sendJsonError("Error: " . $e->getMessage());
