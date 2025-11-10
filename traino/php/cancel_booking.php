@@ -176,6 +176,7 @@ LIMIT 1";
     if (isset($tx['payout_status']) && $tx['payout_status'] !== 'pending') {
       http_response_code(409);
       sendJsonError('Refund not allowed: payout in progress or completed');
+      exit;
     }
 
     // Verify PaymentIntent state via Stripe
