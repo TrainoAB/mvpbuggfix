@@ -67,6 +67,7 @@ LIMIT 1";
     if (!$booking) {
       http_response_code(404);
       sendJsonError("Booking not found");
+      exit;
     }
 
     $email = $booking['user_email'];
