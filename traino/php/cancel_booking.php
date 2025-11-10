@@ -250,6 +250,7 @@ LIMIT 1";
       $pdo->rollBack();
       http_response_code(500);
       sendJsonError('Database error during cancellation: ' . $e->getMessage());
+      exit;
     }
 
     // Extract email data - prefer frontend data if available, fallback to database
