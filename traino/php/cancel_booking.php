@@ -191,6 +191,7 @@ LIMIT 1";
       if (!$stripeSecret) {
         http_response_code(500);
         sendJsonError('Stripe secret key not configured on server');
+        exit;
       }
 
       \Stripe\Stripe::setApiKey($stripeSecret);
