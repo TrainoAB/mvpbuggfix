@@ -202,6 +202,7 @@ LIMIT 1";
     } catch (\Stripe\Exception\ApiErrorException $e) {
       http_response_code(400);
       sendJsonError('Stripe API error: ' . $e->getMessage());
+      exit;
     }
 
     // Create full refund with idempotency key
