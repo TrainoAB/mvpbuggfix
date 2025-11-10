@@ -217,6 +217,7 @@ LIMIT 1";
       // Re-fetch existing refunds for PI could be done, but for minimal changes, surface error
       http_response_code(400);
       sendJsonError('Stripe refund error: ' . $e->getMessage());
+      exit;
     }
 
     // Persist DB updates transactionally
