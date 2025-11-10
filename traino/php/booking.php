@@ -270,12 +270,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$tx || $tx['gross_amount'] === null || $tx['trainer_amount'] === null) {
             error_log("Warning: Missing transaction data for payment_intent_id: $payment_intent_id. Email amounts may be inaccurate.");
             // Fallback: only show confirmation without specific amounts
-            $grossAmountFormatted = format_sek_from_ore($price);
+            $grossAmountFormatted = format_sek_from_kr($price);
             $trainerAmountFormatted = "N/A (kontakta support)";
         } else {
             // Use exact amounts from database (in öre), format to SEK
-            $grossAmountFormatted = format_sek_from_ore($tx['gross_amount']);
-            $trainerAmountFormatted = format_sek_from_ore($tx['trainer_amount']);
+            $grossAmountFormatted = format_sek_from_kr($tx['gross_amount']);
+            $trainerAmountFormatted = format_sek_from_kr($tx['trainer_amount']);
         }
 
         $pdo = null; // Close the database connection
