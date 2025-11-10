@@ -297,7 +297,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        
         $message = "
         Hej,<br><br>
-        Detta bekräftar att en användare har bokat ett <strong>$translatedProductType</strong> nyligen via TRAINO, för <strong>$grossAmountFormatted</strong>.<br>
+        Detta bekräftar att en användare har bokat ett <strong>" . htmlspecialchars($translatedProductType, ENT_QUOTES, 'UTF-8') . "</strong> nyligen via TRAINO, för <strong>$grossAmountFormatted</strong>.<br>
         Efter avgifter från Stripe och TRAINO (15%), får du behålla <strong>$trainerAmountFormatted</strong>. Betalningen till ditt Stripe konto sker den 28:e varje månad.<br><br>
         MVH<br>
         <strong>TRAINO</strong>";
