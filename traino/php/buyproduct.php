@@ -3,6 +3,7 @@ require_once("encryptkey.php");
 require_once("apikey.php");
 require_once("db.php");
 require_once("functions.php");
+require_once("lib/money.php");
 
 validateCorsMethod(['POST']);
 $apikey = API_KEY;
@@ -89,9 +90,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $stmt->execute();
         }
 
-        // Insert the transaction into the transactions table
-        $transactions = "INSERT INTO `transactions` (`trainee_id`, `trainer_id`, `product_id`, `price`, `email`, `clipcard_amount`) 
-                 VALUES (:trainee_id, :trainer_id, :product_id, :price, AES_ENCRYPT(:email, :key), :clipcard_amount);";
+        // Calculate 85/15 split for payout tracking (total is in öre)
+        $grossAmount = $total; // Full amount paid by customer (in öre)
+        $trainerAmount = round($total * 0.85); // 85% to trainer
+        $platformFee = $total - $trainerAmount; // Remainder to platform
+
+        // Insert the transaction into the transactions table with payout split
+        $transactions = "INSERT INTO `transactions` 
+                         (`trainee_id`, `trainer_id`, `product_id`, `price`, `email`, `clipcard_amount`,
+                          `gross_amount`, `trainer_amount`, `platform_fee`, `payout_status`) 
+                         VALUES 
+                         (:trainee_id, :trainer_id, :product_id, :price, AES_ENCRYPT(:email, :key), :clipcard_amount,
+                          :gross_amount, :trainer_amount, :platform_fee, 'pending');";
 
 
         $stmt = $pdo->prepare($transactions);
@@ -102,6 +112,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->bindParam(':clipcard_amount', $clipcard_amount, PDO::PARAM_INT);
         $stmt->bindParam(':key', $encryptionKey, PDO::PARAM_STR);
+        $stmt->bindParam(':gross_amount', $grossAmount, PDO::PARAM_INT);
+        $stmt->bindParam(':trainer_amount', $trainerAmount, PDO::PARAM_INT);
+        $stmt->bindParam(':platform_fee', $platformFee, PDO::PARAM_INT);
 
         $stmt->execute();
 
@@ -185,9 +198,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           exit;
         }
 
-        // Insert the transaction into the transactions table - temporarily without encryption
-        $transactions = "INSERT INTO `transactions` (`trainee_id`, `trainer_id`, `product_id`, `price`, `email`) 
-                 VALUES (:trainee_id, :trainer_id, :product_id, :price, :email);";
+        // Calculate 85/15 split for payout tracking (total is in öre)
+        $grossAmount = $total; // Full amount paid by customer (in öre)
+        $trainerAmount = round($total * 0.85); // 85% to trainer
+        $platformFee = $total - $trainerAmount; // Remainder to platform
+
+        // Insert the transaction into the transactions table with payout split
+        $transactions = "INSERT INTO `transactions` 
+                         (`trainee_id`, `trainer_id`, `product_id`, `price`, `email`, 
+                          `gross_amount`, `trainer_amount`, `platform_fee`, `payout_status`) 
+                         VALUES 
+                         (:trainee_id, :trainer_id, :product_id, :price, :email, 
+                          :gross_amount, :trainer_amount, :platform_fee, 'pending');";
 
         $stmt2 = $pdo->prepare($transactions);
         $stmt2->bindParam(':trainee_id', $user_id, PDO::PARAM_INT);
@@ -195,6 +217,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt2->bindParam(':product_id', $product_id, PDO::PARAM_STR);
         $stmt2->bindParam(':price', $total, PDO::PARAM_INT);
         $stmt2->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt2->bindParam(':gross_amount', $grossAmount, PDO::PARAM_INT);
+        $stmt2->bindParam(':trainer_amount', $trainerAmount, PDO::PARAM_INT);
+        $stmt2->bindParam(':platform_fee', $platformFee, PDO::PARAM_INT);
 
         // Execute the transaction insert only once
         if(!$stmt2->execute()) {
@@ -218,15 +243,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $producttype = ($data['product'] === 'trainprogram') ? "träningsprogram" : "kostprogram";
 
-        // Beräkna vad användaren får efter 15% avgift (Traino + Stripe)
-        $amountAfterFees = round($price * 0.85, 2); // behåller 2 decimaler
+        // Format amounts from database (already calculated and stored in öre)
+        // Use the exact values that were just inserted into the database
+        $grossAmountFormatted = format_sek_from_ore($grossAmount);
+        $trainerAmountFormatted = format_sek_from_ore($trainerAmount);
         
         $subject = "TRAINO - Bekräftnings e-mail";
-        $message = "Hej,<br><br>Detta bekräftar ditt köp av ett ". $producttype . " nyligen via TRAINO, du betalade " . $total . "kr.<br><br>MVH<br>TRAINO";
+        $message = "Hej,<br><br>Detta bekräftar ditt köp av ett ". $producttype . " nyligen via TRAINO, du betalade " . $grossAmountFormatted . ".<br><br>MVH<br>TRAINO";
 
         $subject2 = "TRAINO - Någon har köpt din produkt";
-        $message2 = "Hej,<br><br>Detta bekräftar att en användare har köpt ett ". $producttype . " nyligen via TRAINO, för " . $total . "kr.<br>
-        Efter avgifter från Stripe och TRAINO (15%), får du behålla <strong>$amountAfterFees kr</strong>.<br><br><br><br>MVH<br>TRAINO";
+        $message2 = "Hej,<br><br>Detta bekräftar att en användare har köpt ett ". $producttype . " nyligen via TRAINO, för " . $grossAmountFormatted . ".<br>
+        Efter avgifter från Stripe och TRAINO (15%), får du behålla <strong>$trainerAmountFormatted</strong>.<br><br><br><br>MVH<br>TRAINO";
 
         // Send emails (if function exists)
         if (function_exists('sendEmail')) {

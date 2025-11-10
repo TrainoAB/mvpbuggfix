@@ -14,6 +14,8 @@ import {
   handleProductCreated,
   handleProductDeleted,
   handleProductUpdated,
+  handleChargeRefunded,
+  handleChargeRefundUpdated,
 } from './stripeHandlers';
 
 // Initalize Stripe
@@ -34,6 +36,8 @@ const eventHandlers = {
   'payment_intent.created': handlePaymentIntentCreated,
   'charge.succeeded': handleChargeSucceeded,
   'charge.updated': handleChargeUpdated,
+  'charge.refunded': handleChargeRefunded,
+  'charge.refund.updated': handleChargeRefundUpdated,
 };
 
 // Event Processor class to ensure minimal bottlenecks when Stripe fires Webhook to us

@@ -247,49 +247,7 @@ export default function Bookings({ params }) {
         throw new Error(`Failed to cancel booking in database: ${cancelResponseData.message || 'Unknown error'}`);
       }
 
-      DEBUG && console.log('Booking cancelled in database successfully');
-
-      // Process refund if payment exists
-      if (booking.payment_intent_id) {
-        try {
-          DEBUG && console.log('Processing refund for payment:', booking.payment_intent_id);
-
-          const refundResponse = await fetch(`${baseUrl}/api/proxy`, {
-            method: 'POST',
-            headers: {
-              Authorization: `Bearer ${sessionObject?.token}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              url: `${baseUrl}/api/stripe/refund-payment`,
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                paymentIntentId: booking.payment_intent_id,
-                booked_date: booking.date,
-                starttime: booking.starttime,
-                reason: reason || 'requested_by_customer',
-              }),
-            }),
-          });
-
-          const refundData = await refundResponse.json();
-          DEBUG && console.log('Refund response:', refundData);
-
-          if (!refundResponse.ok) {
-            throw new Error(`Failed to process refund: ${refundData.error || 'Unknown error'}`);
-          }
-
-          DEBUG && console.log('Refund processed successfully:', refundData);
-        } catch (refundError) {
-          console.error('Error processing refund:', refundError);
-          // Don't throw here - booking is already cancelled, refund failure shouldn't block the process
-        }
-      } else {
-        DEBUG && console.log('No payment intent found, skipping refund');
-      }
+      DEBUG && console.log('Booking cancelled in database successfully (refund initiated by server)');
 
       setModal(false); // Close the modal if it's open
     } catch (error) {
