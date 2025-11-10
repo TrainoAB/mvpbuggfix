@@ -284,6 +284,7 @@ elseif (isset($_GET['crud'])) {
         if (!$payment_intent_id) {
             http_response_code(400);
             sendJsonError('Missing payment_intent_id');
+            exit;
         }
 
         $refund_id = isset($data['refund_id']) ? validate_and_sanitize($data['refund_id'], 'text') : null;
