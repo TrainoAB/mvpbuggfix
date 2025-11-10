@@ -121,6 +121,7 @@ LIMIT 1";
         'payment_intent_id' => $payment_intent_id,
         'refund_id' => $existingRefundId,
       ]);
+      exit;
     }
 
     // Time rule using Europe/Stockholm timezone
