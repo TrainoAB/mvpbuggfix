@@ -663,4 +663,4 @@ curl -X POST https://traino.nu/php/booking.php \
 
 ---
 
-**Last Updated**: 2025-11-03
+**Last Updated**: 2025-11-11

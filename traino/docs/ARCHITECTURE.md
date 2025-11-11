@@ -319,4 +319,4 @@ See [ENVIRONMENT.md](ENVIRONMENT.md) for detailed configuration.
 
 ---
 
-**Last Updated**: 2025-11-03
+**Last Updated**: 2025-11-11

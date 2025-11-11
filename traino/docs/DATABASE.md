@@ -462,4 +462,4 @@ The schema is created via `/php/db.php` using `CREATE TABLE IF NOT EXISTS` state
 
 ---
 
-**Last Updated**: 2025-11-03
+**Last Updated**: 2025-11-11

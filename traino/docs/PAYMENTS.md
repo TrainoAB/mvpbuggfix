@@ -386,7 +386,54 @@ foreach ($payoutGroups as $group) {
 
 ## Refunds
 
-**Manual Refunds** (via Stripe Dashboard or API):
+### Webhook-Triggered Refunds
+
+**Stripe fires two refund-related webhook events**:
+
+1. **`charge.refunded`**: Triggered when a refund is created or completed
+2. **`charge.refund.updated`**: Triggered when a refund status changes
+
+**Handler Logic** (`/app/api/stripe/stripeHandlers.js`):
+
+```javascript
+export async function handleChargeRefunded(charge) {
+  try {
+    const payment_intent_id = charge.payment_intent;
+    const refunds = (charge.refunds && charge.refunds.data) || [];
+    const latestRefund = refunds[0] || null;
+
+    await sendRefundUpdateToDatabase({
+      payment_intent_id,
+      refund_id: latestRefund ? latestRefund.id : undefined,
+      refund_amount: latestRefund ? latestRefund.amount : undefined,
+      refund_receipt_url: charge.receipt_url || null,
+      refunded_at: latestRefund ? new Date(latestRefund.created * 1000).toISOString() : new Date().toISOString(),
+      reason: 'refunded_via_webhook',
+    });
+  } catch (err) {
+    console.error('handleChargeRefunded error:', err);
+  }
+}
+```
+
+**Database Update** (`/php/transactions.php?crud=mark_refunded`):
+
+```php
+UPDATE transactions
+SET status = 'refunded',
+    payout_status = 'failed',
+    info = JSON_OBJECT('refund_id', :refund_id, 'refund_amount', :refund_amount, 'reason', :reason)
+WHERE payment_intent_id = :payment_intent_id;
+
+UPDATE pass_booked
+SET canceled = 1,
+    reason = 'Refunded via Stripe webhook'
+WHERE payment_intent_id = :payment_intent_id;
+```
+
+### Manual Refunds (via Stripe Dashboard or API)
+
+**Full Refund**:
 
 ```php
 // Full refund
@@ -401,7 +448,7 @@ $refund = \Stripe\Refund::create([
 ]);
 ```
 
-**Database Update**:
+**Manual Database Update** (for API-initiated refunds without webhook):
 
 ```php
 // Update transaction status
@@ -415,10 +462,22 @@ SET canceled = 1, reason = 'Refunded by admin'
 WHERE payment_intent_id = 'pi_xxx';
 ```
 
+### Refund Policy
+
+**Recommended Policy**:
+
+- **24+ hours before session**: Full refund (minus Stripe fee ~2%)
+- **<24 hours before session**: 50% refund
+- **No-show**: No refund
+
+<!-- TODO: Implement automated refund policy logic in /php/cancel_booking.php -->
+
 **Revenue Impact**:
 
 - Full refund: Deducted from Traino's Stripe balance
 - If trainer already paid out: Manual reclaim process (outside Stripe)
+
+---
 
 ---
 
@@ -562,4 +621,4 @@ curl -X POST https://localhost:3000/api/stripe \
 
 ---
 
-**Last Updated**: 2025-11-03
+**Last Updated**: 2025-11-11

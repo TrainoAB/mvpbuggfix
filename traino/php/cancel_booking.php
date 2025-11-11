@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     sendJsonError("Missing required field: booking_id");
     exit;
   }
-    
+
   $id = (int)$data['booking_id'];
   $reason = isset($data['reason']) ? trim($data['reason']) : '';
 
@@ -46,17 +46,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   try {
 
     // Fetch booking incl. emails and PI id
-    $sqlSelect = "SELECT 
-  pb.*, 
+    $sqlSelect = "SELECT
+  pb.*,
   pb.user_id AS user_id,
   pb.trainer_id AS trainer_id,
   AES_DECRYPT(t.email, :key) AS trainer_email,
   AES_DECRYPT(u.email, :key) AS user_email
-FROM 
+FROM
   pass_booked pb
 LEFT JOIN users t ON pb.trainer_id = t.id
 LEFT JOIN users u ON pb.user_id = u.id
-WHERE 
+WHERE
   pb.id = :id
 LIMIT 1";
     $stmtSelect = $pdo->prepare($sqlSelect);
