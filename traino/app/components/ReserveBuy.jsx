@@ -217,6 +217,7 @@ export default function ReserveBuy({ popupData, onClose, standAlone = false }) {
         start: formatLocalDateTime(startDate),
         end: formatLocalDateTime(endDate),
         price: popupData.price,
+        formatted_price: popupData.formatted_price,
         product_id: popupData.id,
         product_type: popupData.product_type,
         trainer_id: popupData.user_id,
@@ -258,6 +259,7 @@ export default function ReserveBuy({ popupData, onClose, standAlone = false }) {
         product_type: popupData.product_type,
         amount: 1,
         price: popupData.price,
+        formatted_price: popupData.formatted_price,
         date: dateString,
         time: popupData.duration,
         duration: popupData.duration,
@@ -626,6 +628,7 @@ export default function ReserveBuy({ popupData, onClose, standAlone = false }) {
         product_type: popupData.product_type,
         amount: 1,
         price: popupData.price,
+        formatted_price: popupData.formatted_price,
         date: buyDateString,
         duration: popupData.duration,
         // location: popupData.address,
@@ -676,7 +679,7 @@ export default function ReserveBuy({ popupData, onClose, standAlone = false }) {
                     : popupData.product_type}
                 </div>
                 <div className="place">{popupData.address}</div>
-                <div className="price">{popupData.price}</div>
+                <div className="price">{popupData.formatted_price}</div>
                 <p>{shortenText(popupData.description, 200)}</p>
               </div>
               <p className="description">
@@ -713,7 +716,7 @@ export default function ReserveBuy({ popupData, onClose, standAlone = false }) {
                 </div>
 
                 <div className="place">{popupData.address}</div>
-                <div className="price">{popupData.price}</div>
+                <div className="price">{popupData.formatted_price}</div>
               </div>
               <p className="description">{popupData.description || ''}</p>
               <br />
@@ -759,7 +762,7 @@ export default function ReserveBuy({ popupData, onClose, standAlone = false }) {
                 </div>
 
                 <div className="place">{popupData.address}</div>
-                <div className="price">{popupData.price}</div>
+                <div className="price">{popupData.formatted_price}</div>
                 <p>{shortenText(popupData.description, 200)}</p>
               </div>
               <p className="description">
