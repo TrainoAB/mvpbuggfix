@@ -236,6 +236,7 @@ export default function Bookings({ params }) {
             booking_id: booking.id,
             reason: reason,
             booking: booking,
+            canceled_by: 'trainee',
           }),
         }),
       });

@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // Optional: booking data from frontend (for emails only)
   $frontendBooking = $data['booking'] ?? null;
+  $canceled_by = isset($data['canceled_by']) ? trim($data['canceled_by']) : null;
 
   // Debug logging
   error_log("Cancel booking request - ID: " . $id . ", Reason: " . $reason);
@@ -228,9 +229,10 @@ LIMIT 1";
       $pdo->beginTransaction();
 
       // Update booking
-      $up1 = $pdo->prepare("UPDATE pass_booked SET canceled = 1, reason = :reason WHERE id = :id");
+      $up1 = $pdo->prepare("UPDATE pass_booked SET canceled = 1, reason = :reason, canceled_by = :canceled_by WHERE id = :id");
       $up1->bindParam(':id', $id, PDO::PARAM_INT);
       $up1->bindParam(':reason', $reason, PDO::PARAM_STR);
+            $up1->bindParam(':canceled_by', $canceled_by, PDO::PARAM_STR);
       $up1->execute();
 
       // Prepare info JSON (keep short to fit VARCHAR)
