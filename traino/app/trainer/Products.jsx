@@ -254,7 +254,7 @@ export default function ProductsPage({ params, onClose = null, nav = true, alias
                           <ul className="product-details">
                             <li className="product-detail">
                               <strong className="icon-card">
-                                {item.price}
+                                {item.formatted_price}
                                 {item.product === 'trainingpass' || item.product === 'onlinetraining' ? '/tim' : ''}
                               </strong>
                             </li>
@@ -316,7 +316,7 @@ export default function ProductsPage({ params, onClose = null, nav = true, alias
                           <ul className="product-details">
                             <li className="product-detail">
                               <strong className="icon-card">
-                                {item.price}
+                                {item.formatted_price}
                                 {item.product === 'trainingpass' || item.product === 'onlinetraining' ? '/tim' : ''}
                               </strong>
                             </li>
