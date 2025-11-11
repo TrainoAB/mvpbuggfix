@@ -34,7 +34,7 @@ if (isset($_GET['trainerid']) || isset($_GET['traineeid'])) {
         $totalPages = ceil($totalRecords / $limit);
 
       /*   // Main query with pagination
-        $sql = "SELECT 
+        $sql = "SELECT
                 t.id AS transaction_id,
                 t.trainee_id,
                 t.trainer_id,
@@ -65,13 +65,13 @@ if (isset($_GET['trainerid']) || isset($_GET['traineeid'])) {
                     'gender', trainee.gender,
                     'thumbnail', trainee.thumbnail
                 ) AS trainee
-            FROM 
+            FROM
                 transactions t
-            LEFT JOIN 
+            LEFT JOIN
                 products p ON t.product_id = p.id  -- 🛠️ Fixed: Proper ON condition
-            LEFT JOIN 
+            LEFT JOIN
                 users trainer ON t.trainer_id = trainer.id
-            LEFT JOIN 
+            LEFT JOIN
                 users trainee ON t.trainee_id = trainee.id";
 
     if (isset($_GET['trainerid'])) {
@@ -93,7 +93,7 @@ if (isset($_GET['trainerid']) || isset($_GET['traineeid'])) {
 
 
 
-        $sql = "SELECT 
+        $sql = "SELECT
     t.id AS transaction_id,
     t.trainee_id AS t_trainee_id,
     t.trainer_id AS t_trainer_id,
@@ -153,7 +153,7 @@ foreach ($results as &$result) {
         'product_price' => $result['product_price'],
         'product_duration' => $result['product_duration']
     ];
-    
+
     $result['trainer'] = [
         'trainer_id' => $result['trainer_id'],
         'firstname' => $result['trainer_firstname'],
@@ -161,7 +161,7 @@ foreach ($results as &$result) {
         'gender' => $result['trainer_gender'],
         'thumbnail' => $result['trainer_thumbnail']
     ];
-    
+
     $result['trainee'] = [
         'trainee_id' => $result['trainee_id'],
         'firstname' => $result['trainee_firstname'],
@@ -169,16 +169,16 @@ foreach ($results as &$result) {
         'gender' => $result['trainee_gender'],
         'thumbnail' => $result['trainee_thumbnail']
     ];
-    
+
     // Rensa bort de separata fälten
-    unset($result['p_product_id'], $result['product_sport'], $result['product_type'], 
+    unset($result['p_product_id'], $result['product_sport'], $result['product_type'],
           $result['product_description'], $result['product_price'], $result['product_duration'],
           $result['trainer_id'], $result['trainer_firstname'], $result['trainer_lastname'],
           $result['trainer_gender'], $result['trainer_thumbnail'],
           $result['trainee_id'], $result['trainee_firstname'], $result['trainee_lastname'],
           $result['trainee_gender'], $result['trainee_thumbnail']);
 }
-/* 
+/*
         // Decode JSON strings into PHP arrays
         foreach ($results as &$result) {
             $result['product'] = json_decode($result['product'], true);
@@ -238,8 +238,8 @@ elseif (isset($_GET['crud'])) {
 
         try {
             // Prepare the SQL statement
-            $sql = "INSERT INTO transactions 
-                    (trainee_id, trainer_id, session_id, charge_id, payment_intent_id, status, productinfo, email) 
+            $sql = "INSERT INTO transactions
+                    (trainee_id, trainer_id, session_id, charge_id, payment_intent_id, status, productinfo, email)
                     VALUES (?, ?, ?, ?, ?, ?, ?, AES_ENCRYPT(?, :key))";
 
             // Prepare the statement
@@ -327,7 +327,7 @@ elseif (isset($_GET['crud'])) {
             sendJsonError('Refund update failed: ' . $e->getMessage());
         }
     }
-    
+
 } else {
     sendJsonError("Missing GET properties.");
 }
