@@ -229,7 +229,7 @@ LIMIT 1";
       $pdo->beginTransaction();
 
       // Update booking
-      $up1 = $pdo->prepare("UPDATE pass_booked SET canceled = 1, reason = :reason, canceled_by = :canceled_by WHERE id = :id");
+      $up1 = $pdo->prepare("UPDATE pass_booked SET canceled = 1, reason = :reason, canceled_by = :canceled_by, canceled_at = NOW() WHERE id = :id");
       $up1->bindParam(':id', $id, PDO::PARAM_INT);
       $up1->bindParam(':reason', $reason, PDO::PARAM_STR);
             $up1->bindParam(':canceled_by', $canceled_by, PDO::PARAM_STR);

@@ -135,6 +135,8 @@ try {
         stripe_order_id VARCHAR(255) NULL,
         payment_intent_id VARCHAR(255) NULL,
         user_deleted TINYINT(1) NOT NULL DEFAULT 0,
+        canceled_by VARCHAR(50) DEFAULT NULL,
+        canceled_at DATETIME DEFAULT NULL,
         INDEX idx_userid (user_id),
         INDEX idx_product_id (product_id),
         UNIQUE INDEX idx_pass_booked_payment_intent_id (payment_intent_id)
