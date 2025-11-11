@@ -108,13 +108,23 @@ foreach ($sessions as $session) {
 
 **Schedule**: Monthly on 28th at 3:00 AM
 
+**Key Features**:
+
+- **Per-Transaction Payouts**: Each pending transaction is processed individually with its own Transfer
+- **Idempotency**: Each transfer uses a unique idempotency key to prevent duplicates
+- **Charge Linking**: Transfers reference original charge via `source_transaction` for proper accounting
+- **Metadata Updates**: Updates destination charge description with booking details
+
 **Tasks**:
 
 - Query pending payouts (transactions before 27th with `payout_status = 'pending'`)
-- Group by `trainer_id`, sum `trainer_amount` (85% of gross)
-- Generate UUID idempotency keys
-- Create Stripe Transfer for each trainer
-- Update transactions: `payout_status = 'completed'`, `stripe_transfer_id`, `payout_date`
+- For each pending transaction:
+  - Resolve PaymentIntent → Charge ID via Stripe API
+  - Create Stripe Transfer to trainer's connected account
+  - Link transfer to original charge using `source_transaction`
+  - Update charge description with product/category/duration/date
+  - Generate UUID idempotency key per transaction
+  - Update transaction: `payout_status = 'completed'`, `stripe_transfer_id`, `payout_date`
 
 **Crontab Entry**:
 
@@ -127,24 +137,60 @@ foreach ($sessions as $session) {
 ```php
 // Query pending payouts (cutoff: 27th of current month)
 $cutoff = date('Y-m-27 00:00:00');
-$sql = "SELECT trainer_id, SUM(trainer_amount) AS total_owed, GROUP_CONCAT(id) AS transaction_ids
-        FROM transactions
-        WHERE payout_status = 'pending' AND booked_date <= :cutoff
-        GROUP BY trainer_id";
+$sql = "SELECT t.id AS transaction_id,
+               t.trainer_id,
+               t.trainer_amount,
+               t.product_id,
+               t.payment_intent_id,
+               t.booked_date,
+               u.stripe_id AS trainer_stripe_id
+        FROM transactions t
+        INNER JOIN users u ON t.trainer_id = u.id
+        WHERE t.payout_status = 'pending'
+          AND t.booked_date <= :cutoff
+          AND u.stripe_id IS NOT NULL
+          AND u.stripe_id != ''
+        ORDER BY t.trainer_id, t.id";
 
-foreach ($payoutGroups as $group) {
-    $idempotencyKey = vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex(random_bytes(16)), 4));
+foreach ($pendingTransactions as $tx) {
+    // Step 1: Resolve PaymentIntent -> Charge ID
+    $pi = \Stripe\PaymentIntent::retrieve($tx['payment_intent_id']);
+    $chargeId = $pi->latest_charge ?? $pi->charges->data[0]->id ?? null;
     
+    if (!$chargeId) {
+        error_log("Skipping transaction {$tx['transaction_id']}: no charge found");
+        continue;
+    }
+    
+    // Step 2: Generate idempotency key
+    $idempotencyKey = vsprintf('%s%s-%s-%s-%s-%s%s%s', 
+        str_split(bin2hex(random_bytes(16)), 4));
+    
+    // Step 3: Create Transfer with source_transaction
     $transfer = \Stripe\Transfer::create([
-        'amount' => $group['total_owed'],
+        'amount' => $tx['trainer_amount'], // In öre
         'currency' => 'sek',
-        'destination' => $group['trainer_stripe_id']
+        'destination' => $tx['trainer_stripe_id'],
+        'source_transaction' => $chargeId, // Links to original charge
+        'description' => "Payout for transaction {$tx['transaction_id']}"
     ], ['idempotency_key' => $idempotencyKey]);
     
-    // Update transactions
-    $sql = "UPDATE transactions
-            SET payout_status = 'completed', stripe_transfer_id = :tid, payout_date = NOW()
-            WHERE id IN (:ids)";
+    // Step 4: Update destination charge description
+    try {
+        \Stripe\Charge::update($transfer->destination_payment, [
+            'description' => buildChargeDescription($tx) // Includes product/category/duration/date
+        ], ['stripe_account' => $tx['trainer_stripe_id']]);
+    } catch (\Exception $e) {
+        error_log("Failed to update charge description: " . $e->getMessage());
+    }
+    
+    // Step 5: Update transaction in database
+    $updateSql = "UPDATE transactions
+                  SET payout_status = 'completed',
+                      stripe_transfer_id = :transfer_id,
+                      payout_date = NOW(),
+                      idempotency_key = :idempotency_key
+                  WHERE id = :transaction_id";
 }
 ```
 
@@ -153,6 +199,22 @@ foreach ($payoutGroups as $group) {
 ```bash
 # Force run outside of 28th (for testing or missed runs)
 php /path/to/traino/php/transferpayoutsstripe.php --force
+```
+
+**Error Handling**:
+
+- **Missing `stripe_id`**: Skip trainer, log warning
+- **No charge found**: Skip transaction, log error
+- **Transfer fails**: Rollback, keep `payout_status = 'pending'`
+- **Network error**: Retry with same idempotency key (Stripe deduplicates)
+
+**Logging Example**:
+
+```text
+[2025-10-28 03:00:15] Processing 42 pending transactions...
+[2025-10-28 03:00:16] Transaction 123: Transfer created (tr_abc123) - 425.00 SEK to trainer 456
+[2025-10-28 03:00:16] Transaction 124: Transfer created (tr_def456) - 850.00 SEK to trainer 456
+[2025-10-28 03:00:45] Completed 42 transfers successfully
 ```
 
 ---
@@ -167,7 +229,7 @@ php /path/to/traino/php/transferpayoutsstripe.php --force
 
 ### Log Format
 
-```
+```text
 [2025-10-31 02:00:15] Running dailyduty.php cronjob...
 [2025-10-31 02:00:16] Deleted 42 expired schedules
 [2025-10-31 02:00:16] Removed 15 duplicate sessions
@@ -360,4 +422,4 @@ php transferpayoutsstripe.php --force
 
 ---
 
-**Last Updated**: 2025-11-03
+**Last Updated**: 2025-11-11

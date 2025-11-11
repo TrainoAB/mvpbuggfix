@@ -135,9 +135,11 @@ const command = new GetObjectCommand({
   Key: objectKey
 });
 
-const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+const url = await getSignedUrl(s3Client, command, { expiresIn: 60 }); // 60 seconds
 return { url };
 ```
+
+**Expiration**: 60 seconds (configurable via `expiresIn` parameter)
 
 ---
 
@@ -227,11 +229,11 @@ foreach ($files as $file) {
 
 ---
 
-## Security Best Practices
+### Security Best Practices
 
 1. **Private Bucket**: No public read access
 2. **IAM Policies**: Restrict S3 actions to specific users/roles
-3. **Presigned URLs**: Time-limited access (1 hour default)
+3. **Presigned URLs**: Time-limited access (60 seconds default, configurable)
 4. **File Type Validation**: Server-side MIME type checks
 5. **Size Limits**: 1MB for docs, 5MB for images
 6. **Virus Scanning**: TODO (integrate ClamAV or AWS Macie)
@@ -265,4 +267,4 @@ foreach ($files as $file) {
 
 ---
 
-**Last Updated**: 2025-11-03
+**Last Updated**: 2025-11-11

@@ -28,6 +28,8 @@ Traino uses Stripe webhooks to receive real-time notifications about payment eve
 | `payment_intent.succeeded` | `handlePaymentIntentSucceeded` | Update global state with PI ID |
 | `charge.succeeded` | `handleChargeSucceeded` | Create transaction record in DB |
 | `charge.updated` | `handleChargeUpdated` | Update transaction metadata |
+| `charge.refunded` | `handleChargeRefunded` | Mark transaction as refunded in DB |
+| `charge.refund.updated` | `handleChargeRefundUpdated` | Update refund details in DB |
 | `checkout.session.completed` | `handleCheckoutSessionCompleted` | Legacy (unused, logs metadata) |
 | `product.created` | `handleProductCreated` | Log product creation |
 | `product.updated` | `handleProductUpdated` | Log product updates |
@@ -37,6 +39,75 @@ Traino uses Stripe webhooks to receive real-time notifications about payment eve
 | `price.deleted` | `handlePriceDeleted` | Log price deletion |
 
 **Note**: Product and price events are for future Stripe Product integration (not currently used in booking flow).
+
+---
+
+## Refund Event Handlers
+
+### 5. charge.refunded
+
+**Purpose**: Handle full or partial refunds initiated via Stripe Dashboard or API.
+
+**Handler**: `handleChargeRefunded` in `/app/api/stripe/stripeHandlers.js`
+
+**Logic**:
+
+```javascript
+export async function handleChargeRefunded(charge) {
+  try {
+    const payment_intent_id = charge.payment_intent;
+    const refunds = (charge.refunds && charge.refunds.data) || [];
+    const latestRefund = refunds[0] || null;
+
+    await sendRefundUpdateToDatabase({
+      payment_intent_id,
+      refund_id: latestRefund ? latestRefund.id : undefined,
+      refund_amount: latestRefund ? latestRefund.amount : undefined,
+      refund_receipt_url: charge.receipt_url || null,
+      refunded_at: latestRefund ? new Date(latestRefund.created * 1000).toISOString() : new Date().toISOString(),
+      reason: 'refunded_via_webhook',
+    });
+  } catch (err) {
+    console.error('handleChargeRefunded error:', err);
+  }
+}
+```
+
+**Database Call**: `POST /php/transactions.php?crud=mark_refunded`
+
+**Updates**:
+
+- Sets transaction `status = 'refunded'`
+- Sets `payout_status = 'failed'` (prevents payout of refunded funds)
+- Stores refund metadata in `info` field
+
+### 6. charge.refund.updated
+
+**Purpose**: Handle updates to existing refunds (e.g., status changes).
+
+**Handler**: `handleChargeRefundUpdated` in `/app/api/stripe/stripeHandlers.js`
+
+**Logic**:
+
+```javascript
+export async function handleChargeRefundUpdated(refund) {
+  try {
+    const payment_intent_id = refund.payment_intent;
+    await sendRefundUpdateToDatabase({
+      payment_intent_id,
+      refund_id: refund.id,
+      refund_amount: refund.amount,
+      refund_receipt_url: null,
+      refunded_at: new Date(refund.created * 1000).toISOString(),
+      reason: 'refund_updated_via_webhook',
+    });
+  } catch (err) {
+    console.error('handleChargeRefundUpdated error:', err);
+  }
+}
+```
+
+**Use Case**: Tracks refund status changes (pending → succeeded → failed).
 
 ---
 
@@ -598,4 +669,4 @@ SHOW INDEX FROM transactions WHERE Key_name LIKE '%payment_intent_id%';
 
 ---
 
-**Last Updated**: 2025-11-03
+**Last Updated**: 2025-11-11
