@@ -7,6 +7,7 @@ require_once("apikey.php");
 require_once("encryptkey.php");
 require_once("db.php");
 require_once("functions.php");
+require_once("lib/money.php");
 
 validateCorsMethod(['POST', 'GET']);
 $apikey = API_KEY;
@@ -63,9 +64,9 @@ foreach ($boundsArray as $index => $boundData) {
     }
 
     // Build query parts
-    $queryParts[] = "(p.latitude <= :latmax$index AND p.latitude >= :latmin$index 
+    $queryParts[] = "(p.latitude <= :latmax$index AND p.latitude >= :latmin$index
                     AND p.longitude <= :lngmax$index AND p.longitude >= :lngmin$index)";
-    
+
     $params["latmax$index"] = $latMax;
     $params["latmin$index"] = $latMin;
     $params["lngmax$index"] = $lngMax;
@@ -116,11 +117,11 @@ $currentDate = date('Y-m-d');
 
 try {
     // Build SQL query
-    $sql = "SELECT DISTINCT p.id, 
-        p.*, 
-        u.firstname, 
-        u.lastname, 
-        u.gender, 
+    $sql = "SELECT DISTINCT p.id,
+        p.*,
+        u.firstname,
+        u.lastname,
+        u.gender,
         u.thumbnail,
         TIMESTAMPDIFF(YEAR, DATE(AES_DECRYPT(u.personalnumber, :key)), CURDATE()) AS age,
         (SELECT ROUND(AVG(r.rating), 1)
@@ -130,13 +131,13 @@ try {
 FROM products p
 LEFT JOIN users u ON p.user_id = u.id
 LEFT JOIN rating r ON u.id = r.user_id
-LEFT JOIN pass_set ps ON ps.product_id = p.id 
+LEFT JOIN pass_set ps ON ps.product_id = p.id
     AND (p.product_type IN ('trainingpass', 'onlinetraining'))
     AND (ps.enddate IS NULL OR ps.enddate >= :currentDate)
 WHERE (
         (" . implode(' OR ', $queryParts) . ")
         AND (
-            p.product_type NOT IN ('trainingpass', 'onlinetraining') 
+            p.product_type NOT IN ('trainingpass', 'onlinetraining')
             OR (ps.id IS NOT NULL AND ps.user_deleted = 0)
         )
     )
@@ -172,7 +173,7 @@ LIMIT :limit OFFSET :offset";
     $countSql = "
 SELECT COUNT(*) FROM products p
 LEFT JOIN users u ON p.user_id = u.id
-LEFT JOIN pass_set ps ON ps.product_id = p.id 
+LEFT JOIN pass_set ps ON ps.product_id = p.id
     AND (p.product_type IN ('trainingpass', 'onlinetraining'))
     AND (ps.enddate IS NULL OR ps.enddate >= :currentDate)
     AND ps.user_deleted = 0
@@ -198,7 +199,14 @@ $countStmt->execute();
 $totalRows = $countStmt->fetchColumn();
 $totalPages = ceil($totalRows / $limit);
 
-
+    // Add new field for formatted price
+    foreach ($products as &$product) {
+        if (isset($product['price'])) {
+            $product['formatted_price'] = format_sek_from_kr($product['price']);
+        } else {
+            $product['formatted_price'] = null;
+        }
+    }
 
     $pdo = null;
 
