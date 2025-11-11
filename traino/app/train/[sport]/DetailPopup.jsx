@@ -170,7 +170,7 @@ const DetailPopup = React.memo(function DetailPopup({
 
   const isTrainingProduct = mapCtx.filter.prod === 'trainingpass' || mapCtx.filter.prod === 'onlinetraining';
   const trainingType = mapCtx.filter.prod;
-  const priceDisplay = `${item.price}kr`;
+  const priceDisplay = `${item.formatted_price}`;
   const detailsDisplay =
     isTrainingProduct && details && details.duration
       ? `${details.duration}min ${translate('pass', language).toLowerCase()}`

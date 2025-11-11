@@ -85,6 +85,7 @@
 .listitem .listprice {
   text-align: right;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .listitem .listinfo {
