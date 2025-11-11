@@ -152,7 +152,7 @@ export default function List({ filteredMarkers, handleListClick, showList, handl
               <span className="listalias">@{item.alias.toLowerCase()}</span>
               <div>{item.firstname + ' ' + item.lastname}</div>
             </div>
-            <span className="listprice">{item.price} kr</span>
+            <span className="listprice">{item.formatted_price}</span>
           </div>
         ))}
       </div>

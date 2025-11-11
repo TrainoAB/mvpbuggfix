@@ -825,8 +825,8 @@ export default function Map({
             ? `https://traino.s3.eu-north-1.amazonaws.com/${marker.user_id}/profile/profile-image.webp`
             : '/assets/icon-profile.svg'
         }" alt="" class="marker-thumbnail" /></div><span>${
-          marker.price
-        }kr<span class="distancetext">${distanceText}</span></span>`,
+          marker.formatted_price
+        }<span class="distancetext">${distanceText}</span></span>`,
         iconAnchor: [5, 5],
       });
     },
