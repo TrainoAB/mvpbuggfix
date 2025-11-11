@@ -169,7 +169,7 @@ export default function ProductModal({ data, onClose, allData, setAllData, refre
                           {item.clipcard_20_price ? `, 20x` : null}
                         </div>
                       ) : (
-                        <div className="price">{item.price}kr</div>
+                        <div className="price">{item.formatted_price}</div>
                       )}
                     </div>
                     <div
