@@ -3,6 +3,7 @@ require("encryptkey.php");
 require("apikey.php");
 require("db.php");
 require_once("functions.php");
+require_once("lib/money.php");
 
 validateCorsMethod(['GET']);
 $apikey = API_KEY;
@@ -30,32 +31,32 @@ if (isset($_GET['minlat'], $_GET['minlng'], $_GET['maxlat'], $_GET['maxlng'], $_
         $gen = isset($_GET['gen']) ? validate_and_sanitize($_GET['gen'], "gender") : null;
 
         // Prepare SQL query to retrieve products within the specified bounding box
-        $sql_query = "SELECT p.id AS product_id, 
-            p.latitude, 
-            p.longitude, 
-            p.price, 
-            u.id AS user_id, 
-            u.thumbnail, 
+        $sql_query = "SELECT p.id AS product_id,
+            p.latitude,
+            p.longitude,
+            p.price,
+            u.id AS user_id,
+            u.thumbnail,
             u.coverimage,
-            u.firstname, 
+            u.firstname,
             u.lastname,
             u.alias,
-            (YEAR(CURDATE()) - YEAR(STR_TO_DATE(AES_DECRYPT(u.personalnumber, :key), '%y%m%d')) - 
+            (YEAR(CURDATE()) - YEAR(STR_TO_DATE(AES_DECRYPT(u.personalnumber, :key), '%y%m%d')) -
                 (DATE_FORMAT(CURDATE(), '00-%m-%d') < DATE_FORMAT(STR_TO_DATE(AES_DECRYPT(u.personalnumber, :key), '%y%m%d'), '00-%m-%d'))) AS age,
             (
                     SELECT ROUND(AVG(r.rating), 1)
                     FROM rating r
                     WHERE r.rating_user_id = u.id
                 ) AS rating
-        FROM products p 
-        LEFT JOIN users u ON p.user_id = u.id 
+        FROM products p
+        LEFT JOIN users u ON p.user_id = u.id
         LEFT JOIN rating r ON u.id = r.user_id";
 
         if ($product_table === "trainingpass" || $product_table === "onlinetraining") {
             $sql_query .= " LEFT JOIN pass_set ps ON p.id = ps.product_id";
         }
 
-        $sql_query .= " WHERE p.latitude BETWEEN :minLat AND :maxLat 
+        $sql_query .= " WHERE p.latitude BETWEEN :minLat AND :maxLat
         AND p.longitude BETWEEN :minLng AND :maxLng
         AND p.category_id = :categoryID
         AND p.product_type = :productType
@@ -126,6 +127,15 @@ if (isset($_GET['minlat'], $_GET['minlng'], $_GET['maxlat'], $_GET['maxlng'], $_
             'product_table' => $product_table,
             'results' => $results,
         ];
+
+        // Add new field for formatted price
+        foreach ($response['results'] as &$product) {
+            if (isset($product['price'])) {
+                $product['formatted_price'] = format_sek_from_kr($product['price']);
+            } else {
+                $product['formatted_price'] = null;
+            }
+        }
 
         $pdo = null;
         // Return data as JSON
