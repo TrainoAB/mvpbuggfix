@@ -43,9 +43,9 @@ if (isset($_GET['check']) && $_GET['check'] === 'true' && isset($_GET['id']) && 
             'data' => $results,
         ];
 
-        // Format monetary values
+        // Add formatted price to each item
         foreach ($response['data'] as &$item) {
-            $item['price'] = format_sek_from_kr($item['price']);
+            $item['formatted_price'] = format_sek_from_kr($item['price']);
         }
 
       } catch (Exception $e) {
@@ -103,9 +103,9 @@ if (isset($_GET['check']) && $_GET['check'] === 'true' && isset($_GET['id']) && 
             'data' => $results,
         ];
 
-        // Format monetary values
+        // Add formatted price to each item
         foreach ($response[$table]['data'] as &$item) {
-            $item['price'] = format_sek_from_kr($item['price']);
+            $item['formatted_price'] = format_sek_from_kr($item['price']);
         }
     }
       } catch (Exception $e) {
