@@ -3,6 +3,12 @@ require_once("encryptkey.php");
 require_once("apikey.php");
 require_once("db.php");
 require_once("functions.php");
+require_once("lib/money.php");
+require 'vendor/autoload.php';
+// Try to load Stripe secret key from local include (deployment-specific) or env var
+if (file_exists(__DIR__ . '/stripekey.php')) {
+    require_once("stripekey.php");
+}
 
 validateCorsMethod(['POST']);
 $apikey = API_KEY;
@@ -31,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $price = validate_and_sanitize($data['booking']['price'], "integer");
         $product_id = validate_and_sanitize($data['booking']['product_id'], "integer");
         $trainer_id = validate_and_sanitize($data['booking']['trainer_id'], "integer");
-        
+
         $pass_set_id = validate_and_sanitize($data['booking']['pass_set_id'], "integer");
         $pass_set_repeat_id = validate_and_sanitize($data['booking']['pass_repeat_id'], "text");
         $start = $data['booking']['start'];
@@ -39,7 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // $stripe_order_id = validate_and_sanitize($data['stripe_order_id'], "text");
 
         $payment_intent_id = validate_and_sanitize($data['booking']['payment_intent_id'], "text");
-  
+        if (empty($payment_intent_id)) {
+            http_response_code(400);
+            sendJsonError("Missing payment_intent_id");
+        }
+
 
         // $rrule = json_encode($data['booking']['rrule'], true);
 
@@ -48,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Handle date and time - dates now come in YYYY-MM-DD HH:MM:SS format
         $newdatestart = DateTime::createFromFormat('Y-m-d H:i:s', $start);
         $newdateend = DateTime::createFromFormat('Y-m-d H:i:s', $end);
-        
+
         // Check if parsing was successful
         if (!$newdatestart || !$newdateend) {
             error_log("Failed to parse dates. Start: $start, End: $end");
@@ -56,23 +66,72 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             sendJsonError("Invalid date format received");
             exit;
         }
-        
+
         $booked_date = $newdatestart->format('Y-m-d');
         $starttime = $newdatestart->format('H:i:s');
         $endtime = $newdateend->format('H:i:s');
 
+        // Verify payment with Stripe before making any DB mutations
+        try {
+            $stripeSecret = null;
+            if (defined('STRIPE_KEY')) {
+                $stripeSecret = STRIPE_KEY;
+            } elseif (getenv('STRIPE_SECRET_KEY')) {
+                $stripeSecret = getenv('STRIPE_SECRET_KEY');
+            }
+            if (!$stripeSecret) {
+                http_response_code(500);
+                sendJsonError('Stripe secret key not configured on server');
+            }
+
+            \Stripe\Stripe::setApiKey($stripeSecret);
+            $pi = \Stripe\PaymentIntent::retrieve($payment_intent_id);
+
+            if (!$pi || !isset($pi->status)) {
+                http_response_code(400);
+                sendJsonError('Unable to verify payment status');
+            }
+
+            if ($pi->status !== 'succeeded') {
+                // Only allow booking creation if funds have settled
+                http_response_code(402); // Payment Required
+                sendJsonError('Payment not completed. Current status: ' . $pi->status);
+            }
+        } catch (\Stripe\Exception\ApiErrorException $e) {
+            http_response_code(400);
+            sendJsonError('Stripe API error: ' . $e->getMessage());
+        } catch (Exception $e) {
+            http_response_code(500);
+            sendJsonError('Unexpected error during payment verification: ' . $e->getMessage());
+        }
+
+        // Idempotency/deduplication: if this payment_intent_id already booked, return success
+        try {
+            $dupCheck = $pdo->prepare("SELECT id FROM pass_booked WHERE payment_intent_id = :pid LIMIT 1");
+            $dupCheck->bindParam(':pid', $payment_intent_id, PDO::PARAM_STR);
+            $dupCheck->execute();
+            $existing = $dupCheck->fetch(PDO::FETCH_ASSOC);
+            if ($existing) {
+                // Already processed booking for this payment intent
+                sendJson(['success' => true, 'message' => 'Booking already exists for this payment', 'booking_id' => $existing['id']]);
+            }
+        } catch (PDOException $e) {
+            http_response_code(500);
+            sendJsonError('Database error during idempotency check: ' . $e->getMessage());
+        }
+
         // Check for overlapping bookings - improved validation
         // This query finds any existing bookings that would overlap with the new booking
-        $sql = "SELECT * FROM pass_booked 
-                WHERE trainer_id = :trainer_id 
-                AND booked_date = :booked_date 
+        $sql = "SELECT * FROM pass_booked
+                WHERE trainer_id = :trainer_id
+                AND booked_date = :booked_date
                 AND canceled = 0
                 AND ispause = 0
                 AND (
                     -- New booking starts before existing ends AND new booking ends after existing starts
                     (:starttime < endtime AND :endtime > starttime)
                 )";
-        
+
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':trainer_id', $trainer_id, PDO::PARAM_INT);
         $stmt->bindParam(':booked_date', $booked_date, PDO::PARAM_STR);
@@ -91,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             foreach ($overlappingBookings as $booking) {
                 $conflictDetails[] = "Existing booking: {$booking['starttime']} - {$booking['endtime']}";
             }
-            
+
             http_response_code(409); // Conflict
             // Create multilingual error message
             $errorMessages = [
@@ -101,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             sendJsonError(json_encode($errorMessages));
             exit;
         }
-        
+
         // Prepare SQL statement
         $sql_bookedinsert = "INSERT INTO pass_booked (user_id, product_type, product_id, trainer_id, pass_set_id, pass_set_repeat_id, booked_date, starttime, endtime, payment_intent_id)
                 VALUES (:user_id, :product_type, :product_id, :trainer_id, :pass_set_id, :pass_set_repeat_id, :booked_date, :starttime, :endtime, :payment_intent_id)";
@@ -120,12 +179,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':booked_date', $booked_date, PDO::PARAM_STR);
         $stmt->bindParam(':starttime', $starttime, PDO::PARAM_STR);
         $stmt->bindParam(':endtime', $endtime, PDO::PARAM_STR);
-  
+
         // $stmt->bindParam(':stripe_order_id', $stripe_order_id, PDO::PARAM_STR);
         $stmt->bindParam(':payment_intent_id', $payment_intent_id, PDO::PARAM_STR);
 
-        // Execute the statement
-        $stmt->execute();
+    // Execute the statement
+    $stmt->execute();
 
         $datetime_combined = $booked_date . ' ' . $endtime;
 
@@ -136,9 +195,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $datetime_formatted = $datetime->format('Y-m-d H:i:s'); // Ensures correct format
 
-       // Prepare SQL statement
-        $sql_transactions = "INSERT INTO transactions (trainee_id, product_id, trainer_id, booked_date, endtime, productinfo, price, payment_intent_id)
-                VALUES (:trainee_id, :product_id, :trainer_id, :booked_date, :endtime, :productinfo, :price, :payment_intent_id)";
+       // Prepare SQL statement for transactions, with idempotency guard
+    $existsTx = $pdo->prepare("SELECT id FROM transactions WHERE payment_intent_id = :pid LIMIT 1");
+    $existsTx->bindParam(':pid', $payment_intent_id, PDO::PARAM_STR);
+    $existsTx->execute();
+    $existingTx = $existsTx->fetch(PDO::FETCH_ASSOC);
+
+    if (!$existingTx) {
+        // Calculate 85/15 split for payout tracking
+        $grossAmount = $price; // Full amount paid by customer (in öre)
+        $trainerAmount = round($price * 0.85); // 85% to trainer
+        $platformFee = $price - $trainerAmount; // Remainder to platform, ensures sum equals price
+
+        $sql_transactions = "INSERT INTO transactions (
+            trainee_id, product_id, trainer_id, booked_date, endtime, productinfo, price, payment_intent_id,
+            gross_amount, trainer_amount, platform_fee, payout_status
+        ) VALUES (
+            :trainee_id, :product_id, :trainer_id, :booked_date, :endtime, :productinfo, :price, :payment_intent_id,
+            :gross_amount, :trainer_amount, :platform_fee, 'pending'
+        )";
 
         // Prepare the statement
         $stmt2 = $pdo->prepare($sql_transactions);
@@ -152,9 +227,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt2->bindParam(':endtime', $datetime_formatted, PDO::PARAM_STR);
         $stmt2->bindParam(':price', $price, PDO::PARAM_INT);
         $stmt2->bindParam(':payment_intent_id', $payment_intent_id, PDO::PARAM_STR);
+        // Bind payout tracking parameters
+        $stmt2->bindParam(':gross_amount', $grossAmount, PDO::PARAM_INT);
+        $stmt2->bindParam(':trainer_amount', $trainerAmount, PDO::PARAM_INT);
+        $stmt2->bindParam(':platform_fee', $platformFee, PDO::PARAM_INT);
 
         // Execute the statement
         $stmt2->execute();
+    }
 
         // Update the categories table to increment the bought column
         $sql3 = "UPDATE categories SET bought = bought + 1 WHERE category_link = :category_link";
@@ -170,9 +250,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          $stmt4->bindParam(':trainer_id', $trainer_id, PDO::PARAM_INT);
          $stmt4->execute();
          $resultemail = $stmt4->fetch(PDO::FETCH_ASSOC);
-         
+
          // Convert binary result to readable string
          $traineremail = $resultemail ? $resultemail['email'] : null;
+
+        // Retrieve transaction amounts from database for accurate email display
+        // Use payment_intent_id to fetch the exact amounts stored during booking creation
+        $txQuery = "SELECT gross_amount, trainer_amount, platform_fee
+                    FROM transactions
+                    WHERE payment_intent_id = :pi
+                    LIMIT 1";
+
+        $stmtTx = $pdo->prepare($txQuery);
+        $stmtTx->bindParam(':pi', $payment_intent_id, PDO::PARAM_STR);
+        $stmtTx->execute();
+        $tx = $stmtTx->fetch(PDO::FETCH_ASSOC);
+
+        // Validate transaction data exists before sending email
+        if (!$tx || $tx['gross_amount'] === null || $tx['trainer_amount'] === null) {
+            error_log("Warning: Missing transaction data for payment_intent_id: $payment_intent_id. Email amounts may be inaccurate.");
+            // Fallback: only show confirmation without specific amounts
+            $grossAmountFormatted = format_sek_from_kr($price);
+            $trainerAmountFormatted = "N/A (kontakta support)";
+        } else {
+            // Use exact amounts from database (in öre), format to SEK
+            $grossAmountFormatted = format_sek_from_kr($tx['gross_amount']);
+            $trainerAmountFormatted = format_sek_from_kr($tx['trainer_amount']);
+        }
 
         $pdo = null; // Close the database connection
                 // Definiera översättning av product_type
@@ -184,23 +288,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Hämta korrekt namn eller visa original om det inte finns i listan
         $translatedProductType = isset($productNames[$product_type]) ? $productNames[$product_type] : $product_type;
 
-        // Beräkna vad användaren får efter 15% avgift (Traino + Stripe)
-        $amountAfterFees = round($price * 0.85, 2); // behåller 2 decimaler
         $subject = "";
         if($translatedProductType === 'träningspass') {
              $subject = "TRAINO - Någon har bokat ett pass";
         }  elseif($translatedProductType === 'online träningspass') {
              $subject = "TRAINO - Någon har bokat ett online pass";
         }
-       
+
         $message = "
         Hej,<br><br>
-        Detta bekräftar att en användare har bokat ett <strong>$translatedProductType</strong> nyligen via TRAINO, för <strong>$price kr</strong>.<br>
-        Efter avgifter från Stripe och TRAINO (15%), får du behålla <strong>$amountAfterFees kr</strong>. Betalningen till ditt Striåe konto sker inom 2 timmar efter att ditt träningspass är över.<br><br>
+        Detta bekräftar att en användare har bokat ett <strong>" . htmlspecialchars($translatedProductType, ENT_QUOTES, 'UTF-8') . "</strong> nyligen via TRAINO, för <strong>$grossAmountFormatted</strong>.<br>
+        Efter avgifter från Stripe och TRAINO (15%), får du behålla <strong>$trainerAmountFormatted</strong>. Betalningen till ditt Stripe konto sker den 28:e varje månad.<br><br>
         MVH<br>
         <strong>TRAINO</strong>";
 
-        sendEmail($traineremail, $subject, $message, $headers = []);
+    sendEmail($traineremail, $subject, $message, $headers = []);
 
         // Send success response
         $response = ['success' => true, 'message' => "Booking saved successfully."];

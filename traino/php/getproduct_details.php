@@ -3,6 +3,7 @@ require("encryptkey.php");
 require("apikey.php");
 require("db.php");
 require_once("functions.php");
+require_once("lib/money.php");
 
 validateCorsMethod(['GET']);
 $apikey = API_KEY;
@@ -19,10 +20,10 @@ if (isset($_GET['id'])) {
         $get_table = substr($get_table, strlen('product_'));
     }
     */
-    
+
     try {
         // Example SQL query to retrieve user details from specified product table and left join with users table
-        $sql = "SELECT 
+        $sql = "SELECT
                     p.*,
                     u.id AS user_id,
                     u.firstname,
@@ -48,35 +49,35 @@ if (isset($_GET['id'])) {
                     GROUP_CONCAT(DISTINCT CONCAT_WS(':', c.id, c.category_name, c.category_link) SEPARATOR '|') AS training,
                     ROUND(AVG(r.rating), 1) AS rating,
                     GROUP_CONCAT(DISTINCT ue.education SEPARATOR '|') AS education
-                FROM 
+                FROM
                     products p
-                LEFT JOIN 
+                LEFT JOIN
                     users u ON p.user_id = u.id
-                LEFT JOIN 
+                LEFT JOIN
                     user_train_categories utc ON u.id = utc.user_id
-                LEFT JOIN 
+                LEFT JOIN
                     categories c ON utc.category_id = c.id
-                LEFT JOIN 
+                LEFT JOIN
                     rating r ON u.id = r.rating_user_id
-                LEFT JOIN 
+                LEFT JOIN
                     user_education ue ON u.id = ue.user_id
-                WHERE 
+                WHERE
                     p.id = :product_id
                 AND p.deleted = 0
                 AND u.id IS NOT NULL
-                GROUP BY 
+                GROUP BY
                     p.id, u.id";
 
         // Prepare the SQL statement
         $stmt = $pdo->prepare($sql);
-        
+
         // Bind parameters
         $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
         $stmt->bindParam(':key', $encryptionKey, PDO::PARAM_STR);
-        
+
         // Execute the query
         $stmt->execute();
-        
+
         // Fetch the result
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -97,7 +98,7 @@ if (isset($_GET['id'])) {
                         'category_link' => $link
                     ];
                 }
-        
+
             }
             // Parse the education field into an array of education entries
             $education = [];
@@ -112,16 +113,19 @@ if (isset($_GET['id'])) {
             }
 
             $personalNumber = $result['personalnumber'];
-            
+
             $age = convertAge($personalNumber);
 
             // Replace the personal number with the age in the result
             $result['age'] = $age;
             unset($result['personalnumber']);
-        
+
             $result['education'] = $education;
 
             $result['training'] = $training;
+
+            // Format the price
+            $result['formatted_price'] = format_sek_from_kr($result['price']);
 
             // Return product data as JSON
 
@@ -131,7 +135,7 @@ if (isset($_GET['id'])) {
             // If user does not exist, return an error message
             sendJsonError('Product not found.');
         }
-    
+
 
     } catch (PDOException $e) {
         // Handle database errors

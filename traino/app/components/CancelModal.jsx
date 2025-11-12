@@ -26,6 +26,7 @@ export default function CancelModal({ cancelModal, setCancelModal, setBookedData
         booking_id: cancelModal.booking.id,
         reason: cancelModal.reason,
         booking: cancelModal.booking,
+        canceled_by: 'trainer',
       };
 
       setBookedData((prevData) => {

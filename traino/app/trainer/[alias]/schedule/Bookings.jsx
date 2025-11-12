@@ -66,8 +66,7 @@ export default function Bookings({ bookedData, setBookedData }) {
   const canShowCancelMenu = (bookingDate, startTime) => {
     const bookingDateTime = new Date(`${bookingDate}T${startTime}`);
     const now = new Date();
-    const hoursDiff = (bookingDateTime - now) / (1000 * 60 * 60);
-    return hoursDiff > 24;
+    return now < bookingDateTime; // Allow cancel up to start time for trainer
   };
 
   // MARK: Markup

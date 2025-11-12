@@ -14,6 +14,8 @@ import {
   handleProductCreated,
   handleProductDeleted,
   handleProductUpdated,
+  handleChargeRefunded,
+  handleChargeRefundUpdated,
 } from './stripeHandlers';
 
 // Initalize Stripe
@@ -34,6 +36,8 @@ const eventHandlers = {
   'payment_intent.created': handlePaymentIntentCreated,
   'charge.succeeded': handleChargeSucceeded,
   'charge.updated': handleChargeUpdated,
+  'charge.refunded': handleChargeRefunded,
+  'charge.refund.updated': handleChargeRefundUpdated,
 };
 
 // Event Processor class to ensure minimal bottlenecks when Stripe fires Webhook to us
@@ -160,8 +164,9 @@ export async function POST(req) {
     DEBUG && console.log(`✅ Webhook received: ${event.type}`);
 
     if (eventHandlers[event.type]) {
-      const response = await eventQueue.addEvent(event, NextResponse);
-      return response || NextResponse.json({ received: true }, { status: 200 });
+      // Enqueue processing and immediately acknowledge to Stripe to avoid timeouts
+      eventQueue.addEvent(event);
+      return NextResponse.json({ received: true }, { status: 200 });
     } else {
       return NextResponse.json({ error: `Unsupported event type: ${event.type}` }, { status: 400 });
     }

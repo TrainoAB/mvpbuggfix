@@ -11,7 +11,6 @@ import { DEBUG } from '../../api/secretcontext';
 import Link from 'next/link';
 import Loader from '@/app/components/Loader';
 
-import { stripePromise } from '../../api/stripe/connect';
 
 const CheckoutButton = ({ onStartPayment, selectedProducts, totalCost }) => {
   const { sessionObject, baseUrl, useTranslations, language, userDetails } = useAppState();

@@ -113,6 +113,7 @@ export default function IdPage({ params, onClose = null, nav = true }) {
             product_id: selectedProduct.product_id,
             duration: selectedProduct.duration,
             price: selectedProduct.price,
+            formatted_price: selectedProduct.formatted_price,
             description: selectedProduct.description || '',
             address: selectedProduct.address,
             clipcard_5_price: selectedProduct.clipcard_5_price,

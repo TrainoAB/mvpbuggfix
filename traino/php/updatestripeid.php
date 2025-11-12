@@ -18,11 +18,13 @@ if (json_last_error() !== JSON_ERROR_NONE) {
 }
 
 // Check if required fields exist in the payload
-if (!array_key_exists('stripe_id', $data)) {
-    http_response_code(400);
-    echo json_encode(['error' => 'Missing required stripe_id field']);
-    exit();
-}
+// if (!array_key_exists('stripe_id', $data)) {
+//     http_response_code(400);
+//     echo json_encode(['error' => 'Missing required stripe_id field']);
+//     exit();
+// }
+$stripe_id = isset($data['stripe_id']) ? $data['stripe_id'] : null;
+
 
 if (!array_key_exists('email', $data)) {
     http_response_code(400);
@@ -30,7 +32,7 @@ if (!array_key_exists('email', $data)) {
     exit();
 }
 
-$stripe_id = $data['stripe_id']; // Can be null for sign out
+// $stripe_id = $data['stripe_id']; // Can be null for sign out
 $email = $data['email'];
 
 if (!$email) {
@@ -63,11 +65,12 @@ try {
     }
     
     // Update the stripe_id (can be null for sign out)
-    $stmt = $pdo->prepare('UPDATE users SET stripe_id = :stripe_id WHERE email = AES_ENCRYPT(:email, :key)');
-    $stmt->bindParam(':stripe_id', $stripe_id);
-    $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':key', $encryptionKey);
-    $stmt->execute();
+    if($stripe_id !== null) {
+        $stmt = $pdo->prepare('UPDATE users SET stripe_id = :stripe_id WHERE email = AES_ENCRYPT(:email, :key)');
+        $stmt->bindParam(':stripe_id', $stripe_id);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':key', $encryptionKey);
+        $stmt->execute();
 
     if ($stmt->rowCount() === 0) {
         http_response_code(500);
@@ -79,8 +82,14 @@ try {
     echo json_encode([
         'success' => 'Stripe ID updated successfully', 
         'stripe_id' => $stripe_id,
-        'action' => $stripe_id === null ? 'signed_out' : 'updated'
+        'action' => 'updated'
     ]);
+} else {
+    echo json_encode([
+            'success' => 'Stripe ID not updated, as it is null or not provided',
+            'action' => 'no_update'
+        ]);
+}
 } catch (PDOException $e) {
     http_response_code(500);
     echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
