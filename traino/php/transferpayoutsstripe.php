@@ -63,17 +63,17 @@ if (!$stripeSecret) {
 	exit(1);
 }
 
-// Guard: Only run on the 28th by default (cron should call it on 28th). Allow override via CLI --force
+// Guard: Only run on the 21st by default (cron should call it on 21st). Allow override via CLI --force
 $force = in_array('--force', $argv, true);
 $todayDay = (int) date('j');
-if (!$force && $todayDay !== 28) {
+if (!$force && $todayDay !== 21) {
 	// Allow a short window for manual runs in dev: also allow day 1 when testing with --test
-	fwrite(STDOUT, "Skipping run because today is not the 28th. Use --force to override.\n");
+	fwrite(STDOUT, "Skipping run because today is not the 21st. Use --force to override.\n");
 	exit(0);
 }
 
-// Cutoff: include transactions created before the 27th of the current month (end of day)
-$cutoff = date('Y-m-27 00:00:00');
+// Cutoff: include transactions created before the 20th at 22:00 of the current month (end of day)
+$cutoff = date('Y-m-20 22:00:00');
 
 // Prepare query: select each pending transaction as separate payout unit
 $sql = "
