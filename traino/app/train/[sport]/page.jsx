@@ -161,41 +161,6 @@ export default function Category({ params }) {
     fetchCounts();
   }, [params?.sport, sessionObject?.token]);
 
-  // Auto-select duration whenever counts change (from API or visible map update)
-  useEffect(() => {
-    const currentProduct = mapCtxRef.current.filter.prod;
-    const currentDuration = mapCtxRef.current.filter.dura;
-
-    if (
-      (currentProduct === 'trainingpass' || currentProduct === 'onlinetraining') &&
-      mapProductsCount &&
-      mapProductsCount[currentProduct] &&
-      typeof mapProductsCount[currentProduct] === 'object'
-    ) {
-      const productCounts = mapProductsCount[currentProduct];
-      const currentCount = productCounts[currentDuration] || 0;
-
-      if (currentCount === 0) {
-        const durationsWithItems = Object.entries(productCounts)
-          .filter(([key, value]) => value > 0)
-          .sort(([a], [b]) => {
-            const order = { 15: 1, 30: 2, 60: 3, 70: 4 };
-            return (order[a] || 999) - (order[b] || 999);
-          });
-
-        if (durationsWithItems.length > 0) {
-          const newDuration = durationsWithItems[0][0];
-          DEBUG &&
-            console.log(
-              `Auto-selecting duration ${newDuration} (${durationsWithItems[0][1]} items) instead of ${currentDuration} (0 items)`,
-            );
-          updateFilterValue('dura', newDuration);
-        }
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mapProductsCount, mapCtxRef.current?.filter?.prod, mapCtxRef.current?.filter?.dura]);
-
   useEffect(() => {
     if (!mapCtxRef.current.mapBounds) {
       const cookieName = 'mapBounds';
@@ -614,9 +579,7 @@ export default function Category({ params }) {
                   onChange={handleStyleChange}
                   options={styleOptions}
                   disabled={!stadiaActive}
-                  disabledReason={
-                    stadiaActive ? undefined : 'Map style unavailable: using OpenStreetMap fallback'
-                  }
+                  disabledReason={stadiaActive ? undefined : 'Map style unavailable: using OpenStreetMap fallback'}
                   variant="toolbar"
                   onMouseOver={() => playSound('tickclick', '0.5')}
                 />
