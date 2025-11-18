@@ -28,10 +28,10 @@ export const stadiaStyles = {
     maxZoom: 20,
     detectRetina: true,
   },
-  alidade_satellite: {
-    label: 'Alidade Satellite',
-    url: buildStadiaUrl('alidade_satellite', 'jpg', true),
-    attribution: STADIA_ATTR_SATELLITE,
+  alidade_smooth_dark: {
+    label: 'Alidade Smooth Dark',
+    url: buildStadiaUrl('alidade_smooth_dark', 'png', true),
+    attribution: STADIA_ATTR_DEFAULT,
     maxZoom: 20,
     detectRetina: true,
   },
