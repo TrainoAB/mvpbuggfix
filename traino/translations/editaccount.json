@@ -752,5 +752,13 @@
     "da": "Vent mens vi behandler refunderinger for dine berettigede bookinger. Dette kan tage et øjeblik.",
     "no": "Vennligst vent mens vi behandler refunderinger for dine kvalifiserte bestillinger. Dette kan ta litt tid.",
     "fi": "Odota hetki, kun käsittelemme palautuksia oikeutetuille varauksillesi. Tämä voi kestää hetken."
+  },
+  "invalid_email_domain": {
+    "en": "The email domain is invalid. Please use a different email address.",
+    "sv": "E-post domänen är ogiltig. Vänligen använd en annan e-postadress.",
+    "da": "E-maildomænet er ugyldigt. Brug venligst en anden e-mailadresse.",
+    "no": "E-postdomenet er ugyldig. Vennligst bruk en annen e-postadresse.",
+    "fi": "Sähköpostin verkkotunnus on virheellinen. Käytä toista sähköpostiosoitetta."
   }
 }
+  
