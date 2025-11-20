@@ -36,6 +36,7 @@
 
 .add-proposal {
   width: 100%;
+  margin-top: 10px;
 }
 
 .add-proposal h2 {
@@ -47,14 +48,21 @@
 }
 
 .add-proposal-btn {
-  background-color: white;
+  background-color: var(--secondary-light-grey-alternative);
+  color: var(--fgcolor);
   border: none;
   font-family: inherit;
   font-size: 12px;
   font-style: italic;
-  text-align: left;
-  width: 100%; /* Detta säkerställer att knappen tar upp hela bredden av sin container */
+  width: 120px;
+  height: 20px;
   display: block;
+  cursor: pointer;
+  text-align: center;
+}
+.add-proposal-btn:hover {
+    background-color: var(--white);
+  filter: invert(var(--altinverted));
 }
 
 .proposal-input {
