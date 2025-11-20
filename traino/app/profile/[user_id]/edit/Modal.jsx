@@ -62,7 +62,7 @@ function Modal({ onClose, onSave, buttonText, field, title, text, data }) {
           try {
             const domainResult = await checkEmailDomain(sanitizedValue);
             if (!domainResult.valid) {
-              setErrorMessage(domainResult.message || translate('invalid_email_domain', language));
+              setErrorMessage(translate('invalid_email_domain', language));
               return null;
             }
           } catch (err) {

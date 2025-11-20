@@ -31,8 +31,7 @@ $domain = substr(strrchr($email, "@"), 1);
 
 if (!checkdnsrr($domain, "MX")) {
     echo json_encode([
-        "valid" => false,
-        "message" => "The email domain is invalid. Please use a different email address."
+        "valid" => false
     ]);
     exit;
 }

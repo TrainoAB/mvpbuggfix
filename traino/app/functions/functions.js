@@ -791,17 +791,17 @@ export async function checkEmailDomain(email, token = null) {
   });
 
   if (!response.ok) {
-    return { valid: false, message: 'Could not validate email domain' };
+    return { valid: false };
   }
 
   const data = await response.json();
 
   // extra säkerhet
   if (typeof data.valid === 'undefined') {
-    return { valid: false, message: 'Unexpected response from domain check' };
+    return { valid: false};
   }
 
-  return data; // { valid: true/false, message?: string }
+  return { valid: !!data.valid };
 }
 
 
