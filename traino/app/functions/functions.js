@@ -770,6 +770,43 @@ export function isValidEmail(email) {
   return isValid;
 }
 
+export async function checkEmailDomain(email, token = null) {
+  // Hämta token: antingen skickad in, eller från sessionObject
+  const authToken = token || (sessionObject && sessionObject.token);
+
+  if (!authToken) {
+    console.error('No authentication token available for checkEmailDomain');
+    throw new Error('No authentication token available');
+  }
+
+  const response = await fetch(`${baseUrl}/api/proxy`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      url: `${baseUrl}/api/checkdomain`,   // 👈 din secure route
+      method: 'POST',
+      body: JSON.stringify({ email: email.trim() }),
+    }),
+  });
+
+  if (!response.ok) {
+    return { valid: false };
+  }
+
+  const data = await response.json();
+
+  // extra säkerhet
+  if (typeof data.valid === 'undefined') {
+    return { valid: false};
+  }
+
+  return { valid: !!data.valid };
+}
+
+
 // MARK: If Email Exist
 export async function ifEmailExist(email, token = null) {
   // Check if email is null, undefined, or empty string

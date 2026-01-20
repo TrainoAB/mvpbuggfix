@@ -7,6 +7,7 @@ import {
   baseUrl,
   sessionObject,
   ifEmailExist,
+  checkEmailDomain,
 } from '@/app/functions/functions';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
@@ -56,6 +57,17 @@ function Modal({ onClose, onSave, buttonText, field, title, text, data }) {
         case 'email':
           if (!isValidEmail(sanitizedValue)) {
             setErrorMessage(translate('invalid_email', language));
+            return null;
+          }
+          try {
+            const domainResult = await checkEmailDomain(sanitizedValue);
+            if (!domainResult.valid) {
+              setErrorMessage(translate('invalid_email_domain', language));
+              return null;
+            }
+          } catch (err) {
+            console.error('Error checking email domain:', err);
+            setErrorMessage('Unable to verify email domain');
             return null;
           }
           if (await ifEmailExist(sanitizedValue)) {
